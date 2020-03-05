@@ -14,6 +14,7 @@
 		305EF786240D53DF00CF53A0 /* TalkAloud.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 305EF784240D53DF00CF53A0 /* TalkAloud.xcdatamodeld */; };
 		305EF788240D53E000CF53A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 305EF787240D53E000CF53A0 /* Assets.xcassets */; };
 		305EF78B240D53E000CF53A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 305EF789240D53E000CF53A0 /* LaunchScreen.storyboard */; };
+		30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA0838241095CB008743E8 /* AudioEngine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		305EF787240D53E000CF53A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		305EF78A240D53E000CF53A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		305EF78C240D53E000CF53A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30FA0838241095CB008743E8 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
+		30FA083B241099FC008743E8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +47,7 @@
 			children = (
 				305EF77A240D53DF00CF53A0 /* TalkAloud */,
 				305EF779240D53DF00CF53A0 /* Products */,
+				30FA083A241099FC008743E8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,6 +65,7 @@
 				305EF77B240D53DF00CF53A0 /* AppDelegate.swift */,
 				305EF77D240D53DF00CF53A0 /* SceneDelegate.swift */,
 				305EF77F240D53DF00CF53A0 /* AudioViewController.swift */,
+				30FA0838241095CB008743E8 /* AudioEngine.swift */,
 				305EF781240D53DF00CF53A0 /* Main.storyboard */,
 				305EF787240D53E000CF53A0 /* Assets.xcassets */,
 				305EF789240D53E000CF53A0 /* LaunchScreen.storyboard */,
@@ -68,6 +73,14 @@
 				305EF784240D53DF00CF53A0 /* TalkAloud.xcdatamodeld */,
 			);
 			path = TalkAloud;
+			sourceTree = "<group>";
+		};
+		30FA083A241099FC008743E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				30FA083B241099FC008743E8 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +156,7 @@
 			files = (
 				305EF780240D53DF00CF53A0 /* AudioViewController.swift in Sources */,
 				305EF77C240D53DF00CF53A0 /* AppDelegate.swift in Sources */,
+				30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */,
 				305EF77E240D53DF00CF53A0 /* SceneDelegate.swift in Sources */,
 				305EF786240D53DF00CF53A0 /* TalkAloud.xcdatamodeld in Sources */,
 			);
@@ -291,6 +305,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H9AZCNDQS4;
 				INFOPLIST_FILE = TalkAloud/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -309,6 +324,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H9AZCNDQS4;
 				INFOPLIST_FILE = TalkAloud/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
