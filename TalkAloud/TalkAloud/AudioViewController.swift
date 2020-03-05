@@ -10,7 +10,8 @@ import UIKit
 import AVFoundation
 
 class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
-
+    
+    // Audio Engine class with these properties
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var recordingSession: AVAudioSession!
@@ -22,9 +23,9 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupRecorder()
     }
     
+    // Move to Audio Engine class
     func setupRecorder() {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
@@ -49,7 +50,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             audioRecorder.prepareToRecord()
         }
     }
-    
+    // Put in Audio Engine Class
     func preparePlayer() {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: getFileURL())
@@ -62,7 +63,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             }
         }
     }
-
+    // Put in Audio Engine Class
     func getFileURL() -> URL {
         let fileManager = FileManager.default
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
@@ -72,20 +73,26 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     }
     
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {
+        // Use enum to determine state of audio of being playable
         if sender.titleLabel?.text == "Play" {
             recordAudioButton.isEnabled = false
             sender.setTitle("Stop", for: .normal)
+            // Call Audio Engine .player that will call these methods
             preparePlayer()
             audioPlayer.play()
         } else {
+            // Call Audio Engine .stop that will call these methods
             audioPlayer.stop()
             sender.setTitle("Play", for: .normal)
         }
     }
     
     @IBAction func recordAudioButtonAction(_ sender: UIButton) {
+        // Audio Engine Class should manage audio recording session
         let recordingSession = AVAudioSession.sharedInstance()
+        // Use enum to determine state of audio of being recordable
         if sender.titleLabel?.text == "Record" {
+            setupRecorder()
             do {
                 try recordingSession.setCategory(.playAndRecord, mode: .default)
                 try recordingSession.setActive(true)
