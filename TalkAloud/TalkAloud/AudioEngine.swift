@@ -11,11 +11,13 @@ import AVFoundation
 
 // Struct will make it so I don't have to intialize variables
 // until I need to
-class AudioEngine {
+class AudioEngine: NSObject {
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var recordingSession: AVAudioSession!
     var fileName = "selftalkfile.m4a"
+    var audioState: AudioButtonState = .none
+    let audioRecordingSession = AVAudioSession.sharedInstance()
     
     func setupRecorder() {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -23,7 +25,8 @@ class AudioEngine {
         
         let audioFilename = documentsDirectory.appendingPathComponent(self.fileName)
         
-        let settings = [AVFormatIDKey: Int(kAudioFormatAppleLossless), AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue, AVEncoderBitRateKey : 320000, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
+        let settings = [AVFormatIDKey: Int(kAudioFormatAppleLossless), AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
+                        AVEncoderBitRateKey : 320000, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
         
         var error: NSError?
         
@@ -36,7 +39,7 @@ class AudioEngine {
         if let err = error {
             print("AVAudioRecorder error: \(err.localizedDescription)")
         } else {
-            audioRecorder.delegate = (self as! AVAudioRecorderDelegate)
+            audioRecorder.delegate = self
             audioRecorder.prepareToRecord()
         }
     }
@@ -44,7 +47,7 @@ class AudioEngine {
     func preparePlayer() {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: getFileURL())
-            audioPlayer.delegate = (self as! AVAudioPlayerDelegate)
+            audioPlayer.delegate = self
             audioPlayer.volume = 1.0
         } catch {
             if let err = error as Error? {
@@ -61,4 +64,12 @@ class AudioEngine {
         let soundURL = documenetDirectory.appendingPathComponent(self.fileName)
         return soundURL
     }
+}
+
+extension AudioEngine: AVAudioPlayerDelegate {
+    
+}
+
+extension AudioEngine: AVAudioRecorderDelegate {
+    
 }
