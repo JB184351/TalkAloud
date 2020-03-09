@@ -9,15 +9,43 @@
 import Foundation
 import AVFoundation
 
-// Struct will make it so I don't have to intialize variables
-// until I need to
 class AudioEngine: NSObject {
-    var audioRecorder: AVAudioRecorder!
-    var audioPlayer: AVAudioPlayer!
-    var recordingSession: AVAudioSession!
-    var fileName = "selftalkfile.m4a"
-    var audioState: AudioButtonState = .none
-    let audioRecordingSession = AVAudioSession.sharedInstance()
+    private var audioRecorder: AVAudioRecorder!
+    private var audioPlayer: AVAudioPlayer!
+    private var recordingSession: AVAudioSession!
+    private var fileName = "selftalkfile.m4a"
+    public private(set) var audioState: AudioEngineState = .stopped
+    private let audioRecordingSession = AVAudioSession.sharedInstance()
+    
+    public func getAudioRecorder() -> AVAudioRecorder {
+        
+        if audioState == .record {
+            audioState = .stopped
+            return audioRecorder
+        } else {
+            audioState = .record
+            return audioRecorder
+        }
+    }
+    
+    public func getAudioPlayer() -> AVAudioPlayer {
+
+        if audioState == .play {
+            audioState = .stopped
+            return audioPlayer
+        } else {
+            audioState = .play
+            return audioPlayer
+        }
+    }
+    
+    public func getRecordingSession() -> AVAudioSession {
+        return recordingSession
+    }
+    
+    public func getAudioRecordingSession() -> AVAudioSession {
+        return audioRecordingSession
+    }
     
     func setupRecorder() {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -44,11 +72,13 @@ class AudioEngine: NSObject {
         }
     }
     
-    func preparePlayer() {
+    func play() {
         do {
+            audioState = .play
             audioPlayer = try AVAudioPlayer(contentsOf: getFileURL())
             audioPlayer.delegate = self
             audioPlayer.volume = 1.0
+            audioPlayer.play()
         } catch {
             if let err = error as Error? {
                 print("AVAudioPlayer error: \(err.localizedDescription)")

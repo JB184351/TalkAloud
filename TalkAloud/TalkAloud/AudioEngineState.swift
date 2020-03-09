@@ -8,9 +8,8 @@
 
 import Foundation
 
-enum AudioButtonState {
+enum AudioEngineState {
     case play
-    case stop
+    case stopped
     case record
-    case none
 }

@@ -11,7 +11,7 @@ import AVFoundation
 
 class AudioViewController: UIViewController {
     
-    // Audio Engine class with these properties
+    // Intialized AudioEngine object so properties and methods can be used for later
     var audioEngine = AudioEngine()
     
     @IBOutlet var playAudioButton: UIButton!
@@ -19,50 +19,35 @@ class AudioViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {
-        // Use enum to determine state of audio of being playable
-        if audioEngine.audioState == .none {
-            audioEngine.audioState = .play
-        }
-        
-        if audioEngine.audioState == .play {
+        if audioEngine.audioState == .stopped {
             recordAudioButton.isEnabled = false
             sender.setTitle("Stop", for: .normal)
-            audioEngine.preparePlayer()
-            audioEngine.audioPlayer.play()
-            audioEngine.audioState = .stop
-        } else if audioEngine.audioState == .stop {
-            // Call Audio Engine .stop that will call these methods
-            audioEngine.audioPlayer.stop()
+            audioEngine.play()
+        } else if audioEngine.audioState == .play {
+            audioEngine.getAudioPlayer().stop()
             recordAudioButton.isEnabled = true
             sender.setTitle("Play", for: .normal)
-            audioEngine.audioState = .none
         }
     }
     
     @IBAction func recordAudioButtonAction(_ sender: UIButton) {
-        if audioEngine.audioState == .none {
-            audioEngine.audioState = .record
-        }
-    
-        if audioEngine.audioState == .record {
+        if audioEngine.audioState == .stopped {
             audioEngine.setupRecorder()
             sender.setTitle("Stop", for: .normal)
             do {
-                try audioEngine.audioRecordingSession.setCategory(.playAndRecord, mode: .default)
-                try audioEngine.audioRecordingSession.setActive(true)
-                audioEngine.audioRecorder.record()
+                try audioEngine.getAudioRecordingSession().setCategory(.playAndRecord, mode: .default)
+                try audioEngine.getAudioRecordingSession().setActive(true)
+                audioEngine.getAudioRecorder().record()
             } catch {
                 print("Failed to record")
             }
-            audioEngine.audioState = .stop
-        } else if audioEngine.audioState == .stop {
+        } else if audioEngine.audioState == .record {
             sender.setTitle("Record", for: .normal)
-            audioEngine.audioRecorder.stop()
-            audioEngine.audioState = .none
+            audioEngine.getAudioRecorder().stop()
         }
     }
 }
-
