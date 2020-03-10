@@ -17,32 +17,6 @@ class AudioEngine: NSObject {
     public private(set) var audioState: AudioEngineState = .stopped
     private let audioRecordingSession = AVAudioSession.sharedInstance()
     
-    public func getAudioRecorder() -> AVAudioRecorder {
-        
-        if audioState == .record {
-            audioState = .stopped
-            return audioRecorder
-        } else {
-            audioState = .record
-            return audioRecorder
-        }
-    }
-    
-    public func getAudioPlayer() -> AVAudioPlayer {
-
-        if audioState == .play {
-            audioState = .stopped
-            return audioPlayer
-        } else {
-            audioState = .play
-            return audioPlayer
-        }
-    }
-    
-    public func getRecordingSession() -> AVAudioSession {
-        return recordingSession
-    }
-    
     public func getAudioRecordingSession() -> AVAudioSession {
         return audioRecordingSession
     }
@@ -60,6 +34,7 @@ class AudioEngine: NSObject {
         
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+            audioState = .record
         } catch {
             audioRecorder = nil
         }
@@ -70,6 +45,7 @@ class AudioEngine: NSObject {
             audioRecorder.delegate = self
             audioRecorder.prepareToRecord()
         }
+        audioState = .stopped
     }
     
     func play() {
@@ -85,6 +61,16 @@ class AudioEngine: NSObject {
                 audioPlayer = nil
             }
         }
+    }
+    
+    func record() {
+        audioState = .record
+        audioRecorder.record()
+    }
+    
+    func stop() {
+        audioState = .stopped
+        audioRecorder.stop()
     }
     
     func getFileURL() -> URL {

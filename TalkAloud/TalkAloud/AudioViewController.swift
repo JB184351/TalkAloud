@@ -28,7 +28,7 @@ class AudioViewController: UIViewController {
             sender.setTitle("Stop", for: .normal)
             audioEngine.play()
         } else if audioEngine.audioState == .play {
-            audioEngine.getAudioPlayer().stop()
+            audioEngine.stop()
             recordAudioButton.isEnabled = true
             sender.setTitle("Play", for: .normal)
         }
@@ -41,13 +41,13 @@ class AudioViewController: UIViewController {
             do {
                 try audioEngine.getAudioRecordingSession().setCategory(.playAndRecord, mode: .default)
                 try audioEngine.getAudioRecordingSession().setActive(true)
-                audioEngine.getAudioRecorder().record()
+                audioEngine.record()
             } catch {
                 print("Failed to record")
             }
         } else if audioEngine.audioState == .record {
             sender.setTitle("Record", for: .normal)
-            audioEngine.getAudioRecorder().stop()
+            audioEngine.stop()
         }
     }
 }
