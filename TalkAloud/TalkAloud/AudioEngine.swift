@@ -9,13 +9,13 @@
 import Foundation
 import AVFoundation
 
-// Struct will make it so I don't have to intialize variables
-// until I need to
-class AudioEngine {
-    var audioRecorder: AVAudioRecorder!
-    var audioPlayer: AVAudioPlayer!
-    var recordingSession: AVAudioSession!
-    var fileName = "selftalkfile.m4a"
+class AudioEngine: NSObject {
+    private var audioRecorder: AVAudioRecorder!
+    private var audioPlayer: AVAudioPlayer!
+    private var recordingSession: AVAudioSession!
+    private var fileName = "selftalkfile.m4a"
+    public private(set) var audioState: AudioEngineState = .stopped
+    private let audioRecordingSession = AVAudioSession.sharedInstance()
     
     func setupRecorder() {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -23,12 +23,14 @@ class AudioEngine {
         
         let audioFilename = documentsDirectory.appendingPathComponent(self.fileName)
         
-        let settings = [AVFormatIDKey: Int(kAudioFormatAppleLossless), AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue, AVEncoderBitRateKey : 320000, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
+        let settings = [AVFormatIDKey: Int(kAudioFormatAppleLossless), AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
+                        AVEncoderBitRateKey : 320000, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
         
         var error: NSError?
         
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+            audioState = .recording
         } catch {
             audioRecorder = nil
         }
@@ -36,22 +38,41 @@ class AudioEngine {
         if let err = error {
             print("AVAudioRecorder error: \(err.localizedDescription)")
         } else {
-            audioRecorder.delegate = (self as! AVAudioRecorderDelegate)
+            audioRecorder.delegate = self
             audioRecorder.prepareToRecord()
         }
+        audioState = .stopped
     }
     
-    func preparePlayer() {
+    func play() {
         do {
+            audioState = .playing
             audioPlayer = try AVAudioPlayer(contentsOf: getFileURL())
-            audioPlayer.delegate = (self as! AVAudioPlayerDelegate)
+            audioPlayer.delegate = self
             audioPlayer.volume = 1.0
+            audioPlayer.play()
         } catch {
             if let err = error as Error? {
                 print("AVAudioPlayer error: \(err.localizedDescription)")
                 audioPlayer = nil
             }
         }
+    }
+    
+    func record() {
+        do {
+            try audioRecordingSession.setCategory(.playAndRecord, mode: .default)
+            try audioRecordingSession.setActive(true)
+        } catch {
+            print("Failed to record")
+        }
+        audioState = .recording
+        audioRecorder.record()
+    }
+    
+    func stop() {
+        audioState = .stopped
+        audioRecorder.stop()
     }
     
     func getFileURL() -> URL {
@@ -61,4 +82,12 @@ class AudioEngine {
         let soundURL = documenetDirectory.appendingPathComponent(self.fileName)
         return soundURL
     }
+}
+
+extension AudioEngine: AVAudioPlayerDelegate {
+    
+}
+
+extension AudioEngine: AVAudioRecorderDelegate {
+    
 }
