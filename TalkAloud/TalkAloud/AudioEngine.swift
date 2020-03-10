@@ -34,7 +34,7 @@ class AudioEngine: NSObject {
         
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
-            audioState = .record
+            audioState = .recording
         } catch {
             audioRecorder = nil
         }
@@ -50,7 +50,7 @@ class AudioEngine: NSObject {
     
     func play() {
         do {
-            audioState = .play
+            audioState = .playing
             audioPlayer = try AVAudioPlayer(contentsOf: getFileURL())
             audioPlayer.delegate = self
             audioPlayer.volume = 1.0
@@ -64,7 +64,13 @@ class AudioEngine: NSObject {
     }
     
     func record() {
-        audioState = .record
+        do {
+            try audioRecordingSession.setCategory(.playAndRecord, mode: .default)
+            try audioRecordingSession.setActive(true)
+        } catch {
+            print("Failed to record")
+        }
+        audioState = .recording
         audioRecorder.record()
     }
     
