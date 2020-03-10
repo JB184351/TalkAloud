@@ -17,10 +17,6 @@ class AudioEngine: NSObject {
     public private(set) var audioState: AudioEngineState = .stopped
     private let audioRecordingSession = AVAudioSession.sharedInstance()
     
-    public func getAudioRecordingSession() -> AVAudioSession {
-        return audioRecordingSession
-    }
-    
     func setupRecorder() {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
