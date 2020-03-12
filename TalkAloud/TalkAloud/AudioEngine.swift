@@ -59,6 +59,15 @@ class AudioEngine: NSObject {
         }
     }
     
+    func pause() {
+        audioPlayer.pause()
+        audioState = .paused
+    }
+    
+    func resume() {
+        
+    }
+    
     func record() {
         do {
             try audioRecordingSession.setCategory(.playAndRecord, mode: .default)
@@ -85,7 +94,12 @@ class AudioEngine: NSObject {
 }
 
 extension AudioEngine: AVAudioPlayerDelegate {
-    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        player.stop()
+        self.audioPlayer?.stop()
+        self.audioState = .stopped
+        self.audioPlayer = nil
+    }
 }
 
 extension AudioEngine: AVAudioRecorderDelegate {
