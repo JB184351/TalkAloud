@@ -59,6 +59,16 @@ class AudioEngine: NSObject {
         }
     }
     
+    func isStillPlayable() -> Bool {
+        if audioPlayer.duration > 0 {
+            pause()
+            return true
+        } else {
+            stop()
+            return false
+        }
+    }
+    
     func pause() {
         audioPlayer.pause()
         audioState = .paused

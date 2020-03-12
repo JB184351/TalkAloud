@@ -27,9 +27,13 @@ class AudioViewController: UIViewController {
             sender.setImage(UIImage(systemName: "stop.fill"), for: .normal)
             audioEngine.play()
         } else if audioEngine.audioState == .playing {
-            audioEngine.stop()
-            recordAudioButton.isEnabled = true
-            sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            if audioEngine.isStillPlayable() {
+                sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+                recordAudioButton.isEnabled = false
+            } else {
+                recordAudioButton.isEnabled = true
+                sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            }
         }
     }
     
