@@ -12,6 +12,4 @@ enum AudioEngineState {
     case playing
     case stopped
     case recording
-    case paused
-    case resume
 }

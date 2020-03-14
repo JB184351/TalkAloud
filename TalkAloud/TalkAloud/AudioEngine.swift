@@ -17,6 +17,28 @@ class AudioEngine: NSObject {
     public private(set) var audioState: AudioEngineState = .stopped
     private let audioRecordingSession = AVAudioSession.sharedInstance()
     
+    override init() {
+        super.init()
+        setupAudioPlayer()
+        setupRecorder()
+    }
+    
+    // Intializing audioPlayer here to make clear when I'm initializing and playing
+    func setupAudioPlayer() {
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: getFileURL())
+            audioPlayer.delegate = self
+            audioPlayer.volume = 1.0
+        } catch {
+            if let err = error as Error? {
+                print("AVAudioPlayer error: \(err.localizedDescription)")
+                audioPlayer = nil
+            }
+        }
+    }
+    
+    // Intializing audioRecorder here to make clear
+    // when I'm initializing the audioRecorder and actually recording
     func setupRecorder() {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
@@ -26,56 +48,27 @@ class AudioEngine: NSObject {
         let settings = [AVFormatIDKey: Int(kAudioFormatAppleLossless), AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
                         AVEncoderBitRateKey : 320000, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
         
-        var error: NSError?
-        
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
-            audioState = .recording
-        } catch {
-            audioRecorder = nil
-        }
-        
-        if let err = error {
-            print("AVAudioRecorder error: \(err.localizedDescription)")
-        } else {
-            audioRecorder.delegate = self
-            audioRecorder.prepareToRecord()
-        }
-        audioState = .stopped
-    }
-    
-    func play() {
-        do {
-            audioState = .playing
-            audioPlayer = try AVAudioPlayer(contentsOf: getFileURL())
-            audioPlayer.delegate = self
-            audioPlayer.volume = 1.0
-            audioPlayer.play()
         } catch {
             if let err = error as Error? {
-                print("AVAudioPlayer error: \(err.localizedDescription)")
-                audioPlayer = nil
+                print("AVAudioRecorder error: \(err.localizedDescription)")
+                audioRecorder = nil
+            } else {
+                audioRecorder.delegate = self
+                audioRecorder.prepareToRecord()
             }
         }
     }
     
-    func isStillPlayable() -> Bool {
-        if audioPlayer.duration > 0 {
-            pause()
-            return true
-        } else {
-            stop()
-            return false
-        }
+    func play() {
+        audioState = .playing
+        audioPlayer.play()
     }
     
     func pause() {
         audioPlayer.pause()
-        audioState = .paused
-    }
-    
-    func resume() {
-        
+        audioState = .stopped
     }
     
     func record() {
@@ -105,10 +98,7 @@ class AudioEngine: NSObject {
 
 extension AudioEngine: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        player.stop()
-        self.audioPlayer?.stop()
-        self.audioState = .stopped
-        self.audioPlayer = nil
+        print("Audio Finished playing")
     }
 }
 

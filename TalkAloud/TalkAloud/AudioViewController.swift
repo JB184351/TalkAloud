@@ -24,18 +24,14 @@ class AudioViewController: UIViewController {
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {
         if audioEngine.audioState == .stopped {
             recordAudioButton.isEnabled = false
-            sender.setImage(UIImage(systemName: "stop.fill"), for: .normal)
+            sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             audioEngine.play()
         } else if audioEngine.audioState == .playing {
-            if audioEngine.isStillPlayable() {
-                sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-                recordAudioButton.isEnabled = false
-            } else {
-                recordAudioButton.isEnabled = true
-                sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
-            }
+            audioEngine.pause()
+            sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            recordAudioButton.isEnabled = false
         }
-    }
+        }
     
     @IBAction func recordAudioButtonAction(_ sender: UIButton) {
         if audioEngine.audioState == .stopped {
