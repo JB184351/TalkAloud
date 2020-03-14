@@ -9,7 +9,12 @@
 import Foundation
 import AVFoundation
 
+protocol AudioEngineStateChangeDelegate: class {
+    func didUpdateAudioState(willSetAudioEngineStateTo audioState: AudioEngineState)
+}
+
 class AudioEngine: NSObject {
+    weak var delegate: AudioEngineStateChangeDelegate?
     private var audioRecorder: AVAudioRecorder!
     private var audioPlayer: AVAudioPlayer!
     private var recordingSession: AVAudioSession!
@@ -98,7 +103,8 @@ class AudioEngine: NSObject {
 
 extension AudioEngine: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        print("Audio Finished playing")
+        audioState = .stopped
+        delegate?.didUpdateAudioState(willSetAudioEngineStateTo: audioState)
     }
 }
 
