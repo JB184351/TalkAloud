@@ -19,18 +19,7 @@ class AudioViewController: UIViewController, AudioEngineStateChangeDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         audioEngine.delegate = self
-        //settingAudioState()
     }
-    
-//    func settingAudioState() {
-//        var audioState = audioEngine.audioState {
-//            willSet {
-//                delegate?.didUpdateAudioState(willSetAudioEngineStateTo: audioState)
-//            } didSet {
-//                delegate?.didUpdateAudioState(willSetAudioEngineStateTo: audioState)
-//            }
-//        }
-//    }
     
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {
         if audioEngine.audioState == .stopped {
