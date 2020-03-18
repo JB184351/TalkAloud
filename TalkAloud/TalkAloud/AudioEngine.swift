@@ -24,7 +24,6 @@ class AudioEngine: NSObject {
     
     override init() {
         super.init()
-        setupAudioPlayer()
         setupRecorder()
     }
     
@@ -67,8 +66,11 @@ class AudioEngine: NSObject {
     }
     
     func play() {
-        audioState = .playing
+        if audioPlayer == nil {
+            setupAudioPlayer()
+        }
         audioPlayer.play()
+        audioState = .playing
     }
     
     func pause() {
