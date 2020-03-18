@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 protocol AudioEngineStateChangeDelegate: class {
-    func didUpdateAudioState(willSetAudioEngineStateTo audioState: AudioEngineState)
+    func didUpdatePlayButtonState(setPlayButtonStateTo audioState: AudioEngineState)
 }
 
 class AudioEngine: NSObject {
@@ -104,7 +104,7 @@ class AudioEngine: NSObject {
 extension AudioEngine: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         audioState = .stopped
-        delegate?.didUpdateAudioState(willSetAudioEngineStateTo: audioState)
+        delegate?.didUpdatePlayButtonState(setPlayButtonStateTo: audioState)
     }
 }
 

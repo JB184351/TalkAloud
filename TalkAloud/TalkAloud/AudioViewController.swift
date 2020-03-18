@@ -12,7 +12,6 @@ import AVFoundation
 class AudioViewController: UIViewController, AudioEngineStateChangeDelegate {
     // Intialized AudioEngine object so properties and methods can be used for later
     var audioEngine = AudioEngine()
-    var delegate: AudioEngineStateChangeDelegate?
     @IBOutlet var playAudioButton: UIButton!
     @IBOutlet var recordAudioButton: UIButton!
     
@@ -44,7 +43,7 @@ class AudioViewController: UIViewController, AudioEngineStateChangeDelegate {
         }
     }
     
-    func didUpdateAudioState(willSetAudioEngineStateTo audioState: AudioEngineState) {
+    func didUpdatePlayButtonState(setPlayButtonStateTo audioState: AudioEngineState) {
         if audioState == .stopped {
             playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
