@@ -43,7 +43,7 @@ class AudioViewController: UIViewController, AudioEngineStateChangeDelegate {
         }
     }
     
-    func didUpdatePlayButtonState(setPlayButtonStateTo audioState: AudioEngineState) {
+    func didUpdateAudioState(with audioState: AudioEngineState) {
         if audioState == .stopped {
             playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
