@@ -9,7 +9,12 @@
 import Foundation
 import AVFoundation
 
+protocol AudioEngineStateChangeDelegate: class {
+    func didUpdateAudioState(with audioState: AudioEngineState)
+}
+
 class AudioEngine: NSObject {
+    weak var delegate: AudioEngineStateChangeDelegate?
     private var audioRecorder: AVAudioRecorder!
     private var audioPlayer: AVAudioPlayer!
     private var recordingSession: AVAudioSession!
@@ -19,7 +24,6 @@ class AudioEngine: NSObject {
     
     override init() {
         super.init()
-        setupAudioPlayer()
         setupRecorder()
     }
     
@@ -62,8 +66,11 @@ class AudioEngine: NSObject {
     }
     
     func play() {
-        audioState = .playing
+        if audioPlayer == nil {
+            setupAudioPlayer()
+        }
         audioPlayer.play()
+        audioState = .playing
     }
     
     func pause() {
@@ -98,7 +105,8 @@ class AudioEngine: NSObject {
 
 extension AudioEngine: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        print("Audio Finished playing")
+        audioState = .stopped
+        delegate?.didUpdateAudioState(with: audioState)
     }
 }
 

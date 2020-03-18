@@ -9,16 +9,15 @@
 import UIKit
 import AVFoundation
 
-class AudioViewController: UIViewController {
-    
+class AudioViewController: UIViewController, AudioEngineStateChangeDelegate {
     // Intialized AudioEngine object so properties and methods can be used for later
     var audioEngine = AudioEngine()
-    
     @IBOutlet var playAudioButton: UIButton!
     @IBOutlet var recordAudioButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        audioEngine.delegate = self
     }
     
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {
@@ -31,7 +30,7 @@ class AudioViewController: UIViewController {
             sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
             recordAudioButton.isEnabled = false
         }
-        }
+    }
     
     @IBAction func recordAudioButtonAction(_ sender: UIButton) {
         if audioEngine.audioState == .stopped {
@@ -41,6 +40,12 @@ class AudioViewController: UIViewController {
         } else if audioEngine.audioState == .recording {
             sender.setImage(UIImage(systemName: "recordingtape"), for: .normal)
             audioEngine.stop()
+        }
+    }
+    
+    func didUpdateAudioState(with audioState: AudioEngineState) {
+        if audioState == .stopped {
+            playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
     }
 }
