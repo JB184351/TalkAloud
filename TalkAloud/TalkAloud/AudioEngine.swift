@@ -19,8 +19,12 @@ class AudioEngine: NSObject {
     private var audioPlayer: AVAudioPlayer!
     private var recordingSession: AVAudioSession!
     private var fileName = "selftalkfile.m4a"
-    public private(set) var audioState: AudioEngineState = .stopped
     private let audioRecordingSession = AVAudioSession.sharedInstance()
+    public private(set) var audioState: AudioEngineState = .stopped {
+        didSet {
+            delegate?.didUpdateAudioState(with: audioState)
+        }
+    }
     
     override init() {
         super.init()
@@ -106,7 +110,6 @@ class AudioEngine: NSObject {
 extension AudioEngine: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         audioState = .stopped
-        delegate?.didUpdateAudioState(with: audioState)
     }
 }
 
