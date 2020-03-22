@@ -89,6 +89,7 @@ class AudioEngine: NSObject {
         } catch {
             print("Failed to record")
         }
+        audioPlayer = nil
         audioState = .recording
         audioRecorder.record()
     }

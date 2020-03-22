@@ -36,9 +36,11 @@ class AudioViewController: UIViewController, AudioEngineStateChangeDelegate {
         if audioEngine.audioState == .stopped {
             audioEngine.setupRecorder()
             sender.setImage(UIImage(systemName: "stop.fill"), for: .normal)
+            playAudioButton.isEnabled = false
             audioEngine.record()
         } else if audioEngine.audioState == .recording {
             sender.setImage(UIImage(systemName: "recordingtape"), for: .normal)
+            playAudioButton.isEnabled = true
             audioEngine.stop()
         }
     }
@@ -46,6 +48,7 @@ class AudioViewController: UIViewController, AudioEngineStateChangeDelegate {
     func didUpdateAudioState(with audioState: AudioEngineState) {
         if audioState == .stopped {
             playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            recordAudioButton.isEnabled = true
         }
     }
 }
