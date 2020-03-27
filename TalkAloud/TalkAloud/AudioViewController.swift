@@ -35,11 +35,11 @@ class AudioViewController: UIViewController, AudioEngineStateChangeDelegate {
     @IBAction func recordAudioButtonAction(_ sender: UIButton) {
         if audioEngine.audioState == .stopped {
             audioEngine.setupRecorder()
-            sender.setImage(UIImage(systemName: "stop.fill"), for: .normal)
+            sender.setImage(UIImage(named: "stopbutton"), for: .normal)
             playAudioButton.isEnabled = false
             audioEngine.record()
         } else if audioEngine.audioState == .recording {
-            sender.setImage(UIImage(systemName: "recordingtape"), for: .normal)
+            sender.setImage(UIImage(named: "recordbutton"), for: .normal)
             playAudioButton.isEnabled = true
             audioEngine.stop()
         }
