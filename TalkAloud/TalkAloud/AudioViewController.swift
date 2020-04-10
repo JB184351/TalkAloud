@@ -12,6 +12,8 @@ import AVFoundation
 class AudioViewController: UIViewController, AudioEngineStateChangeDelegate {
     // Intialized AudioEngine object so properties and methods can be used for later
     var audioEngine = AudioEngine()
+    var audioRecording = AudioRecording(fileName: "", duration: 0.00)
+    var audioRecordings = [AudioRecording]()
     @IBOutlet var playAudioButton: UIButton!
     @IBOutlet var recordAudioButton: UIButton!
     
