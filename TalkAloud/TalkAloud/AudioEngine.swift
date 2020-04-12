@@ -19,7 +19,7 @@ class AudioEngine: NSObject {
     private var audioRecorder: AVAudioRecorder!
     private var audioPlayer: AVAudioPlayer!
     private var recordingSession: AVAudioSession!
-    private var fileName = "selftalkfile.m4a"
+    private var fileName = "selftalkfile"
     private let audioRecordingSession = AVAudioSession.sharedInstance()
     public private(set) var audioState: AudioEngineState = .stopped {
         didSet {
@@ -52,7 +52,7 @@ class AudioEngine: NSObject {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
         
-        let audioFilename = documentsDirectory.appendingPathComponent(makeUniqueFileName())
+        let audioFilename = documentsDirectory.appendingPathComponent(self.fileName)
         
         let settings = [AVFormatIDKey: Int(kAudioFormatAppleLossless), AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
                         AVEncoderBitRateKey : 320000, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
@@ -103,23 +103,9 @@ class AudioEngine: NSObject {
     func getFileURL() -> URL {
         let fileManager = FileManager.default
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
-        let documenetDirectory = urls[0] as URL
-        let soundURL = documenetDirectory.appendingPathComponent(makeUniqueFileName())
+        let documentDirectory = urls[0] as URL
+        let soundURL = documentDirectory.appendingPathComponent(self.fileName)
         return soundURL
-    }
-    
-    // Creates a unique filename every time for whenever audio is recorded
-    func makeUniqueFileName() -> String {
-        var uniqueFileName = ""
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
-        
-        let date = Date()
-        let dateString = dateFormatter.string(from: date)
-        uniqueFileName = dateString + "-" + fileName
-        
-        return uniqueFileName
     }
 }
 

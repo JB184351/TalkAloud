@@ -15,7 +15,6 @@
 		305EF786240D53DF00CF53A0 /* TalkAloud.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 305EF784240D53DF00CF53A0 /* TalkAloud.xcdatamodeld */; };
 		305EF788240D53E000CF53A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 305EF787240D53E000CF53A0 /* Assets.xcassets */; };
 		305EF78B240D53E000CF53A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 305EF789240D53E000CF53A0 /* LaunchScreen.storyboard */; };
-		30CE9E24243E9D1300F2CF82 /* AudioRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CE9E23243E9D1300F2CF82 /* AudioRecording.swift */; };
 		30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA0838241095CB008743E8 /* AudioEngine.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +29,6 @@
 		305EF787240D53E000CF53A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		305EF78A240D53E000CF53A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		305EF78C240D53E000CF53A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		30CE9E23243E9D1300F2CF82 /* AudioRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecording.swift; sourceTree = "<group>"; };
 		30FA0838241095CB008743E8 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 		30FA083B241099FC008743E8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -70,7 +68,6 @@
 				305EF77D240D53DF00CF53A0 /* SceneDelegate.swift */,
 				305EF77F240D53DF00CF53A0 /* AudioViewController.swift */,
 				3018126424114A76001999EA /* AudioEngineState.swift */,
-				30CE9E23243E9D1300F2CF82 /* AudioRecording.swift */,
 				30FA0838241095CB008743E8 /* AudioEngine.swift */,
 				305EF781240D53DF00CF53A0 /* Main.storyboard */,
 				305EF787240D53E000CF53A0 /* Assets.xcassets */,
@@ -161,7 +158,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3018126524114A76001999EA /* AudioEngineState.swift in Sources */,
-				30CE9E24243E9D1300F2CF82 /* AudioRecording.swift in Sources */,
 				305EF780240D53DF00CF53A0 /* AudioViewController.swift in Sources */,
 				305EF77C240D53DF00CF53A0 /* AppDelegate.swift in Sources */,
 				30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */,
