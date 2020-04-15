@@ -2,34 +2,37 @@
 //  AudioManager.swift
 //  TalkAloud
 //
-//  Created by Justin Bengtson on 4/11/20.
+//  Created by Justin Bengtson on 4/13/20.
 //  Copyright © 2020 Justin Bengtson. All rights reserved.
 //
 
 import Foundation
 
 class AudioManager {
-
     
-    // Gets a new URL to record to
+    var audioRecording: URL!
+    var audioRecordings: [URL] = []
+    
     func getNewRecordingURL() -> URL {
-        return
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
+
+        let date = Date()
+        let dateString = dateFormatter.string(from: date)
+        let uniqueFileName = "talkaloud" + "_" + dateString + ".m4a"
+        
+        let fileManager = FileManager.default
+        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = urls[0] as URL
+        let soundURL = documentDirectory.appendingPathComponent(uniqueFileName)
+        
+        return soundURL
     }
     
-    // Get the selected file we want to play
-    func getFileTooPlayURL() -> URL {
-        return URL
+    // For the moment this will just play the last recording that was recorded
+    func getPlaybackURL() -> URL? {
+        guard let recentRecording = audioRecordings.last else { return nil }
+        return recentRecording
     }
     
-    // Creates a unique filename every time for whenever audio is recorded
-       func makeUniqueFileName() -> String {
-           let dateFormatter = DateFormatter()
-           dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
-           
-           let date = Date()
-           let dateString = dateFormatter.string(from: date)
-           let uniqueFileName = fileName + "_" + dateString + ".m4a"
-           
-           return uniqueFileName
-       }
 }
