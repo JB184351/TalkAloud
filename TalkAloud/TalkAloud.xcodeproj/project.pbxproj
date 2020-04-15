@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		300EBDBE2444AD610069EF00 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300EBDBD2444AD610069EF00 /* AudioManager.swift */; };
 		3018126524114A76001999EA /* AudioEngineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3018126424114A76001999EA /* AudioEngineState.swift */; };
 		305EF77C240D53DF00CF53A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305EF77B240D53DF00CF53A0 /* AppDelegate.swift */; };
 		305EF77E240D53DF00CF53A0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305EF77D240D53DF00CF53A0 /* SceneDelegate.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		300EBDBD2444AD610069EF00 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		3018126424114A76001999EA /* AudioEngineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineState.swift; sourceTree = "<group>"; };
 		305EF778240D53DF00CF53A0 /* TalkAloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TalkAloud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		305EF77B240D53DF00CF53A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				305EF77D240D53DF00CF53A0 /* SceneDelegate.swift */,
 				305EF77F240D53DF00CF53A0 /* AudioViewController.swift */,
 				3018126424114A76001999EA /* AudioEngineState.swift */,
+				300EBDBD2444AD610069EF00 /* AudioManager.swift */,
 				30FA0838241095CB008743E8 /* AudioEngine.swift */,
 				305EF781240D53DF00CF53A0 /* Main.storyboard */,
 				305EF787240D53E000CF53A0 /* Assets.xcassets */,
@@ -158,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3018126524114A76001999EA /* AudioEngineState.swift in Sources */,
+				300EBDBE2444AD610069EF00 /* AudioManager.swift in Sources */,
 				305EF780240D53DF00CF53A0 /* AudioViewController.swift in Sources */,
 				305EF77C240D53DF00CF53A0 /* AppDelegate.swift in Sources */,
 				30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */,

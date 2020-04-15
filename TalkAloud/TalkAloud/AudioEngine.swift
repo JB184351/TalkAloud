@@ -19,7 +19,6 @@ class AudioEngine: NSObject {
     private var audioRecorder: AVAudioRecorder!
     private var audioPlayer: AVAudioPlayer!
     private var recordingSession: AVAudioSession!
-    private var fileName = "selftalkfile"
     private let audioRecordingSession = AVAudioSession.sharedInstance()
     public private(set) var audioState: AudioEngineState = .stopped {
         didSet {
@@ -27,15 +26,10 @@ class AudioEngine: NSObject {
         }
     }
     
-    override init() {
-        super.init()
-        setupRecorder()
-    }
-    
     // Intializing audioPlayer here to make clear when I'm initializing and playing
-    func setupAudioPlayer() {
+    func setupAudioPlayer(fileURL: URL) {
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf: getFileURL())
+            audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
             audioPlayer.delegate = self
             audioPlayer.volume = 1.0
         } catch {
@@ -48,17 +42,12 @@ class AudioEngine: NSObject {
     
     // Intializing audioRecorder here to make clear
     // when I'm initializing the audioRecorder and actually recording
-    func setupRecorder() {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentsDirectory = paths[0]
-        
-        let audioFilename = documentsDirectory.appendingPathComponent(self.fileName)
-        
+    func setupRecorder(fileURL: URL) {
         let settings = [AVFormatIDKey: Int(kAudioFormatAppleLossless), AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
                         AVEncoderBitRateKey : 320000, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
         
         do {
-            audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+            audioRecorder = try AVAudioRecorder(url: fileURL, settings: settings)
         } catch {
             if let err = error as Error? {
                 print("AVAudioRecorder error: \(err.localizedDescription)")
@@ -70,9 +59,9 @@ class AudioEngine: NSObject {
         }
     }
     
-    func play() {
+    func play(withFileURL: URL) {
         if audioPlayer == nil {
-            setupAudioPlayer()
+            setupAudioPlayer(fileURL: withFileURL)
         }
         audioPlayer.play()
         audioState = .playing
@@ -83,7 +72,7 @@ class AudioEngine: NSObject {
         audioState = .stopped
     }
     
-    func record() {
+    func record(toFileURL: URL) {
         do {
             try audioRecordingSession.setCategory(.playAndRecord, mode: .default)
             try audioRecordingSession.setActive(true)
@@ -98,14 +87,6 @@ class AudioEngine: NSObject {
     func stop() {
         audioState = .stopped
         audioRecorder.stop()
-    }
-    
-    func getFileURL() -> URL {
-        let fileManager = FileManager.default
-        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentDirectory = urls[0] as URL
-        let soundURL = documentDirectory.appendingPathComponent(self.fileName)
-        return soundURL
     }
 }
 
