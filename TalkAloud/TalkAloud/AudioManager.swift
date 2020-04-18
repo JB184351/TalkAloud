@@ -10,8 +10,8 @@ import Foundation
 
 class AudioManager {
     
-    var audioRecording: URL!
-    var audioRecordings: [URL] = []
+    private var audioRecording: URL!
+    private var audioRecordings: [URL] = []
     
     func getNewRecordingURL() -> URL {
         let dateFormatter = DateFormatter()
@@ -25,14 +25,29 @@ class AudioManager {
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = urls[0] as URL
         let soundURL = documentDirectory.appendingPathComponent(uniqueFileName)
+        audioRecordings.append(soundURL)
         
         return soundURL
+    }
+    
+    func getSelectedRecording(selectedRecording: Int) -> URL {
+        return audioRecordings[selectedRecording]
     }
     
     // For the moment this will just play the last recording that was recorded
     func getPlaybackURL() -> URL? {
         guard let recentRecording = audioRecordings.last else { return nil }
         return recentRecording
+    }
+    
+    // Function will all the audioRecordings when app starts up.
+    func loadAudioRecordings() {
+        
+    }
+    
+    // Get count of all audioRecordings
+    func getAudioRecordingCount() -> Int {
+        return audioRecordings.count
     }
     
 }
