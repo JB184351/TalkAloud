@@ -72,7 +72,7 @@ class AudioEngine: NSObject {
         audioState = .stopped
     }
     
-    func record(toFileURL: URL) {
+    func record() {
         do {
             try audioRecordingSession.setCategory(.playAndRecord, mode: .default)
             try audioRecordingSession.setActive(true)

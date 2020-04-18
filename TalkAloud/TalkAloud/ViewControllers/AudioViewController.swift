@@ -10,16 +10,18 @@ import UIKit
 import AVFoundation
 
 class AudioViewController: UIViewController, AudioEngineStateChangeDelegate {
+    
     // Intialized AudioEngine object so properties and methods can be used for later
-    var audioEngine = AudioEngine()
-    var audioManager = AudioManager()
-    var currentURL: URL!
+    let audioEngine = AudioEngine()
+    let audioManager = AudioManager.sharedInstance
+    
     @IBOutlet var playAudioButton: UIButton!
     @IBOutlet var recordAudioButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         audioEngine.delegate = self
+        recordAudioButton.isEnabled = true
     }
     
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {
@@ -37,16 +39,14 @@ class AudioViewController: UIViewController, AudioEngineStateChangeDelegate {
     
     @IBAction func recordAudioButtonAction(_ sender: UIButton) {
         if audioEngine.audioState == .stopped {
-            currentURL = audioManager.getNewRecordingURL()
-            audioEngine.setupRecorder(fileURL: currentURL)
+            audioEngine.setupRecorder(fileURL: audioManager.getNewRecordingURL())
             sender.setImage(UIImage(named: "stopbutton"), for: .normal)
             playAudioButton.isEnabled = false
-            audioEngine.record(toFileURL: currentURL)
+            audioEngine.record()
         } else if audioEngine.audioState == .recording {
             sender.setImage(UIImage(named: "recordbutton"), for: .normal)
             playAudioButton.isEnabled = true
             audioEngine.stop()
-            audioManager.audioRecordings.append(currentURL)
         }
     }
     

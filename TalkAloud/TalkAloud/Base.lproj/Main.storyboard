@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mpi-wa-Yvj">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Audio View Controller-->
+        <!--PlayBack-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="AudioViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
@@ -71,7 +71,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cz8-eV-Moy">
-                                <rect key="frame" x="157" y="755.66666666666663" width="100" height="106.33333333333337"/>
+                                <rect key="frame" x="157" y="713" width="100" height="100"/>
                                 <state key="normal" image="recordbutton"/>
                                 <connections>
                                     <action selector="recordAudioButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pvD-d0-Rep"/>
@@ -90,6 +90,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="PlayBack" image="play.circle" catalog="system" id="TLa-hh-c8y"/>
                     <connections>
                         <outlet property="playAudioButton" destination="sTD-fj-i87" id="5Pl-hy-kna"/>
                         <outlet property="recordAudioButton" destination="cz8-eV-Moy" id="uy8-Uf-dTT"/>
@@ -97,12 +98,61 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+            <point key="canvasLocation" x="819" y="-157"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="Ngm-AU-JQ1">
+            <objects>
+                <tabBarController id="Mpi-wa-Yvj" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Vvh-jd-kef">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="uQ4-T3-O6c" kind="relationship" relationship="viewControllers" id="pkV-ng-KIR"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="t4T-UJ-IDU"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ggB-a1-reo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-100" y="-532"/>
+        </scene>
+        <!--AudioFiles-->
+        <scene sceneID="77I-8Q-peu">
+            <objects>
+                <tableViewController id="uQ4-T3-O6c" customClass="AudioRecordingsTableViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="QdT-eF-apS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="audio" id="5ic-OS-Rvq">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5ic-OS-Rvq" id="wsY-V8-zyC">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="uQ4-T3-O6c" id="VvZ-5r-b16"/>
+                            <outlet property="delegate" destination="uQ4-T3-O6c" id="i6d-7z-xf4"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="AudioFiles" image="folder" catalog="system" id="8If-8B-4LG"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W7E-4l-sou" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="819" y="-830"/>
         </scene>
     </scenes>
     <resources>
+        <image name="folder" catalog="system" width="128" height="95"/>
         <image name="gobackward.15" catalog="system" width="121" height="128"/>
         <image name="goforward.15" catalog="system" width="121" height="128"/>
+        <image name="play.circle" catalog="system" width="128" height="121"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="recordbutton" width="100" height="100"/>
     </resources>
