@@ -20,6 +20,7 @@ class AudioViewController: UIViewController, AudioEngineStateChangeDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         audioEngine.delegate = self
+        recordAudioButton.isEnabled = true
     }
     
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {
@@ -46,7 +47,6 @@ class AudioViewController: UIViewController, AudioEngineStateChangeDelegate {
             sender.setImage(UIImage(named: "recordbutton"), for: .normal)
             playAudioButton.isEnabled = true
             audioEngine.stop()
-            audioManager.audioRecordings.append(currentURL)
         }
     }
     
