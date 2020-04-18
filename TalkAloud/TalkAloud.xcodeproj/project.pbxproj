@@ -48,6 +48,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		301B143E244A80D3007C3050 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3018126424114A76001999EA /* AudioEngineState.swift */,
+				30FA0838241095CB008743E8 /* AudioEngine.swift */,
+				300EBDBD2444AD610069EF00 /* AudioManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		305EF76F240D53DF00CF53A0 = {
 			isa = PBXGroup;
 			children = (
@@ -71,9 +81,7 @@
 				305EF77B240D53DF00CF53A0 /* AppDelegate.swift */,
 				305EF77D240D53DF00CF53A0 /* SceneDelegate.swift */,
 				307F71E824492CF0004AE308 /* ViewControllers */,
-				3018126424114A76001999EA /* AudioEngineState.swift */,
-				30FA0838241095CB008743E8 /* AudioEngine.swift */,
-				300EBDBD2444AD610069EF00 /* AudioManager.swift */,
+				301B143E244A80D3007C3050 /* Model */,
 				305EF781240D53DF00CF53A0 /* Main.storyboard */,
 				305EF787240D53E000CF53A0 /* Assets.xcassets */,
 				305EF789240D53E000CF53A0 /* LaunchScreen.storyboard */,

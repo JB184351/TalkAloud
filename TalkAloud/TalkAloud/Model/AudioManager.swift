@@ -10,8 +10,12 @@ import Foundation
 
 class AudioManager {
     
+    static let sharedInstance = AudioManager()
+    
     private var audioRecording: URL!
     private var audioRecordings: [URL] = []
+    
+    private init() {}
     
     func getNewRecordingURL() -> URL {
         let dateFormatter = DateFormatter()
@@ -30,11 +34,16 @@ class AudioManager {
         return soundURL
     }
     
+    // Return single URL
     func getSelectedRecording(selectedRecording: Int) -> URL {
         return audioRecordings[selectedRecording]
     }
     
-    // For the moment this will just play the last recording that was recorded
+    // TO DO: Set URL Property Method
+    
+    
+    // Change to make it work latest recording if playing from Playback View &
+    // when a recording is selected from the tableView
     func getPlaybackURL() -> URL? {
         guard let recentRecording = audioRecordings.last else { return nil }
         return recentRecording

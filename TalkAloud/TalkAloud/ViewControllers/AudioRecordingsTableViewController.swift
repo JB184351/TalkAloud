@@ -10,10 +10,14 @@ import UIKit
 
 class AudioRecordingsTableViewController: UITableViewController {
     
-    var audioManager = AudioManager()
+    let audioManager = AudioManager.sharedInstance
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         tableView.reloadData()
     }
     
