@@ -35,6 +35,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         } else {
             playAudioButton.isEnabled = true
         }
+//        didUpdateAudioState(with: AudioEngine.sharedInstance.audioState)
     }
     
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {
@@ -64,9 +65,16 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     }
     
     func didUpdateAudioState(with audioState: AudioEngineState) {
-        if audioState == .stopped {
+        switch audioState {
+        case .stopped:
             playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             recordAudioButton.isEnabled = true
+        case .playing:
+            playAudioButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            recordAudioButton.isEnabled = false
+        case .recording:
+            break
         }
+        
     }
 }

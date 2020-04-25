@@ -20,6 +20,7 @@ class AudioEngine: NSObject {
     private var audioPlayer: AVAudioPlayer!
     private var recordingSession: AVAudioSession!
     private let audioRecordingSession = AVAudioSession.sharedInstance()
+    static let sharedInstance = AudioEngine()
     public private(set) var audioState: AudioEngineState = .stopped {
         didSet {
             delegate?.didUpdateAudioState(with: audioState)
@@ -78,7 +79,6 @@ class AudioEngine: NSObject {
         } catch {
             print("Failed to record")
         }
-        // TO Remove setting audio player to nil
         audioState = .recording
         audioRecorder.record()
     }

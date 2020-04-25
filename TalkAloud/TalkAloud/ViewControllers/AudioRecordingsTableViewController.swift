@@ -28,15 +28,16 @@ class AudioRecordingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
         
+        let cellText = AudioManager.sharedInstance.getShortenedURL(audioRecording: currentAudio)
         let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath)
-        audioCell.textLabel?.text = currentAudio.absoluteString
+        audioCell.textLabel?.text = cellText
         return audioCell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // setting to right recording
         AudioManager.sharedInstance.setSelectedRecording(index: indexPath.row)
-        
+        AudioEngine.sharedInstance.play(withFileURL: AudioManager.sharedInstance.getPlayBackURL())
         self.tabBarController?.selectedIndex = 1
     }
 

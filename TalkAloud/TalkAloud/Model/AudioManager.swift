@@ -28,27 +28,18 @@ class AudioManager {
         let fileManager = FileManager.default
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = urls[0] as URL
-        let directoryURL = documentDirectory.appendingPathComponent("TalkAloud")
+        let directoryURL = documentDirectory.appendingPathComponent("TalkAloud", isDirectory: true)
         
-        if !fileManager.fileExists(atPath: directoryURL.absoluteString) {
+        if !fileManager.fileExists(atPath: directoryURL.path) {
             do {
-                try fileManager.createDirectory(atPath: directoryURL.absoluteString, withIntermediateDirectories: true, attributes: nil)
-                let soundURL = directoryURL.appendingPathComponent(uniqueFileName)
-                audioRecordings.append(soundURL)
-                return soundURL
+                try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
             } catch {
                 print(error.localizedDescription)
             }
-        } else {
-            let soundURL = directoryURL.appendingPathComponent(uniqueFileName)
-            audioRecordings.append(soundURL)
-            return soundURL
         }
         
-        
-        let soundURL = directoryURL.appendingPathComponent(uniqueFileName, isDirectory: false)
+        let soundURL = directoryURL.appendingPathComponent(uniqueFileName)
         audioRecordings.append(soundURL)
-        
         return soundURL
     }
     
@@ -67,18 +58,10 @@ class AudioManager {
         return audioRecordings
     }
     
-//    func getShortenedURLs(audioRecordings: [URL]) -> [URL] {
-//        var stringURLs = [String]()
-//        let startIndex = "talkaloud_"
-//        let endIndex = "a"
-//
-//        for recording in 0..<audioRecordings.count {
-//            let stringedURL = audioRecordings[recording].absoluteString
-//            stringURLs.append(stringedURL)
-//        }
-//
-//
-//    }
+    func getShortenedURL(audioRecording: URL) -> String {
+        let shortenedURL = audioRecording.lastPathComponent
+        return shortenedURL
+    }
     
     // TO DO: Set URL Property Method
     func setSelectedRecording(index: Int) {
