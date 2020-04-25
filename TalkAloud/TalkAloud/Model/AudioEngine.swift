@@ -60,9 +60,8 @@ class AudioEngine: NSObject {
     }
     
     func play(withFileURL: URL) {
-        if audioPlayer == nil {
-            setupAudioPlayer(fileURL: withFileURL)
-        }
+        // Change logic to play with a URL everytime not only when NIL
+        setupAudioPlayer(fileURL: withFileURL)
         audioPlayer.play()
         audioState = .playing
     }
@@ -79,7 +78,7 @@ class AudioEngine: NSObject {
         } catch {
             print("Failed to record")
         }
-        audioPlayer = nil
+        // TO Remove setting audio player to nil
         audioState = .recording
         audioRecorder.record()
     }

@@ -10,7 +10,6 @@ import UIKit
 
 class AudioRecordingsTableViewController: UITableViewController {
     
-    let audioManager = AudioManager.sharedInstance
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,23 +17,27 @@ class AudioRecordingsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        AudioManager.sharedInstance.loadAllFiles()
         tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return audioManager.getAudioRecordingCount()
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Whatever")
+        return AudioManager.sharedInstance.getAudioRecordingCount()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentAudio = audioManager.getSelectedRecording(selectedRecording: indexPath.row)
+        let currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
         
         let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath)
         audioCell.textLabel?.text = currentAudio.absoluteString
         return audioCell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // setting to right recording
+        AudioManager.sharedInstance.setSelectedRecording(index: indexPath.row)
+        
+        self.tabBarController?.selectedIndex = 1
     }
 
    
