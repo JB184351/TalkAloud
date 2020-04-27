@@ -35,7 +35,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         } else {
             playAudioButton.isEnabled = true
         }
-//        didUpdateAudioState(with: AudioEngine.sharedInstance.audioState)
+        didUpdateAudioState(with: AudioEngine.sharedInstance.audioState)
     }
     
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {

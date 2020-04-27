@@ -63,7 +63,6 @@ class AudioManager {
         return shortenedURL
     }
     
-    // TO DO: Set URL Property Method
     func setSelectedRecording(index: Int) {
         self.audioRecording = audioRecordings[index]
     }
@@ -88,8 +87,6 @@ class AudioManager {
             return false
         }
     }
-    
-    // TO DO: Make Method to Load URLs from the Directory Here
     
     // Get count of all audioRecordings
     func getAudioRecordingCount() -> Int {
