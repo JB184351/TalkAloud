@@ -10,7 +10,6 @@ import UIKit
 
 class AudioRecordingsTableViewController: UITableViewController {
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -38,9 +37,10 @@ class AudioRecordingsTableViewController: UITableViewController {
         // setting to right recording
         AudioManager.sharedInstance.setSelectedRecording(index: indexPath.row)
         AudioEngine.sharedInstance.play(withFileURL: AudioManager.sharedInstance.getPlayBackURL())
+        
+        
         self.tabBarController?.selectedIndex = 1
+        
     }
-
-   
-
 }
+

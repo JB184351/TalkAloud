@@ -61,7 +61,6 @@ class AudioEngine: NSObject {
     }
     
     func play(withFileURL: URL) {
-        // Change logic to play with a URL everytime not only when NIL
         setupAudioPlayer(fileURL: withFileURL)
         audioPlayer.play()
         audioState = .playing
