@@ -20,11 +20,14 @@ class AudioEngine: NSObject {
     private var audioPlayer: AVAudioPlayer!
     private var recordingSession: AVAudioSession!
     private let audioRecordingSession = AVAudioSession.sharedInstance()
+    static let sharedInstance = AudioEngine()
     public private(set) var audioState: AudioEngineState = .stopped {
         didSet {
             delegate?.didUpdateAudioState(with: audioState)
         }
     }
+    
+    private override init() {}
     
     // Intializing audioPlayer here to make clear when I'm initializing and playing
     func setupAudioPlayer(fileURL: URL) {
@@ -60,9 +63,7 @@ class AudioEngine: NSObject {
     }
     
     func play(withFileURL: URL) {
-        if audioPlayer == nil {
-            setupAudioPlayer(fileURL: withFileURL)
-        }
+        setupAudioPlayer(fileURL: withFileURL)
         audioPlayer.play()
         audioState = .playing
     }
@@ -79,7 +80,6 @@ class AudioEngine: NSObject {
         } catch {
             print("Failed to record")
         }
-        audioPlayer = nil
         audioState = .recording
         audioRecorder.record()
     }

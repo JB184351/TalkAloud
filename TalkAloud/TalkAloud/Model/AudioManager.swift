@@ -28,30 +28,64 @@ class AudioManager {
         let fileManager = FileManager.default
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = urls[0] as URL
-        let soundURL = documentDirectory.appendingPathComponent(uniqueFileName)
-        audioRecordings.append(soundURL)
+        let directoryURL = documentDirectory.appendingPathComponent("TalkAloud", isDirectory: true)
         
+        if !fileManager.fileExists(atPath: directoryURL.path) {
+            do {
+                try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+        let soundURL = directoryURL.appendingPathComponent(uniqueFileName)
+        audioRecordings.append(soundURL)
         return soundURL
     }
     
-    // Return single URL
-    func getSelectedRecording(selectedRecording: Int) -> URL {
-        return audioRecordings[selectedRecording]
-    }
-    
-    // TO DO: Set URL Property Method
-    
-    
-    // Change to make it work latest recording if playing from Playback View &
-    // when a recording is selected from the tableView
-    func getPlaybackURL() -> URL? {
-        guard let recentRecording = audioRecordings.last else { return nil }
-        return recentRecording
-    }
-    
-    // Function will all the audioRecordings when app starts up.
-    func loadAudioRecordings() {
+    func loadAllFiles() -> [URL] {
+        let fileManager = FileManager.default
+        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = urls[0] as URL
+        let directoryURL = documentDirectory.appendingPathComponent("TalkAloud")
         
+        do {
+            try audioRecordings = fileManager.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+            return audioRecordings
+        } catch {
+            print(error.localizedDescription)
+        }
+        return audioRecordings
+    }
+    
+    func getShortenedURL(audioRecording: URL) -> String {
+        let shortenedURL = audioRecording.lastPathComponent
+        return shortenedURL
+    }
+    
+    func setSelectedRecording(index: Int) {
+        self.audioRecording = audioRecordings[index]
+    }
+    
+    func getRecordingForIndex(index: Int) -> URL {
+        return audioRecordings[index]
+    }
+    
+    func getPlayBackURL() -> URL {
+        if let audioRecording = audioRecording {
+            return audioRecording
+        } else {
+            let recentRecording = audioRecordings.last!
+            return recentRecording
+        }
+    }
+    
+    func isArrayEmpty() -> Bool {
+        if audioRecordings.count == 0 {
+            return true
+        } else {
+            return false
+        }
     }
     
     // Get count of all audioRecordings
