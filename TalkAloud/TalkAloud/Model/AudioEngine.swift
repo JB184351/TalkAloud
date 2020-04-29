@@ -27,6 +27,8 @@ class AudioEngine: NSObject {
         }
     }
     
+    private override init() {}
+    
     // Intializing audioPlayer here to make clear when I'm initializing and playing
     func setupAudioPlayer(fileURL: URL) {
         do {

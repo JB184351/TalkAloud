@@ -11,16 +11,13 @@ import AVFoundation
 
 class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     
-    // Intialized AudioEngine object so properties and methods can be used for later
-    let audioEngine = AudioEngine()
-    let audioManager = AudioManager.sharedInstance
     
     @IBOutlet var playAudioButton: UIButton!
     @IBOutlet var recordAudioButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        audioEngine.delegate = self
+        AudioEngine.sharedInstance.delegate = self
         recordAudioButton.isEnabled = true
     }
     
@@ -30,7 +27,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         // when I have the option to delete recording from the
         // Audio Player View I will know that this check will always
         // happen
-        if audioManager.isArrayEmpty() {
+        if AudioManager.sharedInstance.isArrayEmpty() {
             playAudioButton.isEnabled = false
         } else {
             playAudioButton.isEnabled = true
@@ -39,28 +36,28 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     }
     
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {
-        if audioEngine.audioState == .stopped {
+        if AudioEngine.sharedInstance.audioState == .stopped {
             recordAudioButton.isEnabled = false
             sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-            let playBackURL = audioManager.getPlayBackURL()
-            audioEngine.play(withFileURL: playBackURL)
-        } else if audioEngine.audioState == .playing {
-            audioEngine.pause()
+            let playBackURL = AudioManager.sharedInstance.getPlayBackURL()
+            AudioEngine.sharedInstance.play(withFileURL: playBackURL)
+        } else if AudioEngine.sharedInstance.audioState == .playing {
+            AudioEngine.sharedInstance.pause()
             sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
             recordAudioButton.isEnabled = false
         }
     }
     
     @IBAction func recordAudioButtonAction(_ sender: UIButton) {
-        if audioEngine.audioState == .stopped {
-            audioEngine.setupRecorder(fileURL: audioManager.getNewRecordingURL())
+        if AudioEngine.sharedInstance.audioState == .stopped {
+            AudioEngine.sharedInstance.setupRecorder(fileURL: AudioManager.sharedInstance.getNewRecordingURL())
             sender.setImage(UIImage(named: "stopbutton"), for: .normal)
             playAudioButton.isEnabled = false
-            audioEngine.record()
-        } else if audioEngine.audioState == .recording {
+            AudioEngine.sharedInstance.record()
+        } else if AudioEngine.sharedInstance.audioState == .recording {
             sender.setImage(UIImage(named: "recordbutton"), for: .normal)
             playAudioButton.isEnabled = true
-            audioEngine.stop()
+            AudioEngine.sharedInstance.stop()
         }
     }
     
