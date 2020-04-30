@@ -82,8 +82,6 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         AudioEngine.sharedInstance.rewindFifteenSeonds()
     }
     
-    
-    
     func didUpdateAudioState(with audioState: AudioEngineState) {
         updateUI(audioState: audioState)
     }
