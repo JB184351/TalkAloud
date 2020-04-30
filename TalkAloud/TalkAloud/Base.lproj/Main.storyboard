@@ -39,6 +39,9 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <state key="normal" image="gobackward.15" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="goBackAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vdo-PP-1yu"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sTD-fj-i87">
                                                         <rect key="frame" x="178" y="0.0" width="18.5" height="27"/>
@@ -54,6 +57,9 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <state key="normal" image="goforward.15" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="skipForwardAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z4Z-ER-J9C"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFB-mR-xqv">
                                                         <rect key="frame" x="351.5" y="0.0" width="22.5" height="27"/>

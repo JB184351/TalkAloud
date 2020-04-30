@@ -74,6 +74,16 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         }
     }
     
+    @IBAction func skipForwardAction(_ sender: Any) {
+        AudioEngine.sharedInstance.skipFifteenSeconds()
+    }
+    
+    @IBAction func goBackAction(_ sender: Any) {
+        AudioEngine.sharedInstance.rewindFifteenSeonds()
+    }
+    
+    
+    
     func didUpdateAudioState(with audioState: AudioEngineState) {
         updateUI(audioState: audioState)
     }

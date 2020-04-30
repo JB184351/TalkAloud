@@ -68,6 +68,14 @@ class AudioEngine: NSObject {
         audioState = .playing
     }
     
+    func skipFifteenSeconds() {
+        audioPlayer.currentTime += 15
+    }
+    
+    func rewindFifteenSeonds() {
+        audioPlayer.currentTime -= 15
+    }
+    
     func pause() {
         audioPlayer.pause()
         audioState = .stopped
