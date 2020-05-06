@@ -16,9 +16,9 @@ protocol AudioEngineStateChangeDelegate: class {
 // Class is responsible for Recording and Playing an AudioRecording
 class AudioEngine: NSObject {
     weak var delegate: AudioEngineStateChangeDelegate?
-    private var audioRecorder: AVAudioRecorder!
-    private var audioPlayer: AVAudioPlayer!
-    private var recordingSession: AVAudioSession!
+    private var audioRecorder: AVAudioRecorder?
+    private var audioPlayer: AVAudioPlayer?
+    private var recordingSession: AVAudioSession?
     private let audioRecordingSession = AVAudioSession.sharedInstance()
     static let sharedInstance = AudioEngine()
     public private(set) var audioState: AudioEngineState = .stopped {
@@ -33,8 +33,8 @@ class AudioEngine: NSObject {
     func setupAudioPlayer(fileURL: URL) {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
-            audioPlayer.delegate = self
-            audioPlayer.volume = 1.0
+            audioPlayer?.delegate = self
+            audioPlayer?.volume = 1.0
         } catch {
             if let err = error as Error? {
                 print("AVAudioPlayer error: \(err.localizedDescription)")
@@ -56,28 +56,35 @@ class AudioEngine: NSObject {
                 print("AVAudioRecorder error: \(err.localizedDescription)")
                 audioRecorder = nil
             } else {
-                audioRecorder.delegate = self
-                audioRecorder.prepareToRecord()
+                audioRecorder?.delegate = self
+                audioRecorder?.prepareToRecord()
             }
         }
     }
     
-    func play(withFileURL: URL) {
-        setupAudioPlayer(fileURL: withFileURL)
-        audioPlayer.play()
+    func getCurrentAudioDuration() -> Float {
+        return Float(audioPlayer?.duration ?? 0.0)
+    }
+    
+    func getCurrentAudioTime() -> Float {
+        return Float(audioPlayer?.currentTime ?? 0.0)
+    }
+    
+    func play() {
+        audioPlayer?.play()
         audioState = .playing
     }
     
     func skipFifteenSeconds() {
-        audioPlayer.currentTime += 15
+        audioPlayer?.currentTime += 15
     }
     
     func rewindFifteenSeonds() {
-        audioPlayer.currentTime -= 15
+        audioPlayer?.currentTime -= 15
     }
     
     func pause() {
-        audioPlayer.pause()
+        audioPlayer?.pause()
         audioState = .stopped
     }
     
@@ -89,12 +96,12 @@ class AudioEngine: NSObject {
             print("Failed to record")
         }
         audioState = .recording
-        audioRecorder.record()
+        audioRecorder?.record()
     }
     
     func stop() {
         audioState = .stopped
-        audioRecorder.stop()
+        audioRecorder?.stop()
     }
 }
 

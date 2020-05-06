@@ -12,7 +12,7 @@ class AudioManager {
     
     static let sharedInstance = AudioManager()
     
-    private var audioRecording: URL!
+    private var audioRecording: URL?
     private var audioRecordings: [URL] = []
     
     private init() {}
@@ -71,13 +71,9 @@ class AudioManager {
         return audioRecordings[index]
     }
     
-    func getPlayBackURL() -> URL {
-        if let audioRecording = audioRecording {
-            return audioRecording
-        } else {
-            let recentRecording = audioRecordings.last!
-            return recentRecording
-        }
+    func getPlayBackURL() -> URL? {
+        guard  let audioRecording = audioRecording else { return nil }
+        return audioRecording
     }
     
     func isArrayEmpty() -> Bool {
@@ -88,7 +84,6 @@ class AudioManager {
         }
     }
     
-    // Get count of all audioRecordings
     func getAudioRecordingCount() -> Int {
         return audioRecordings.count
     }
