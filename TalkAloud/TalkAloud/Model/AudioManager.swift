@@ -14,10 +14,17 @@ class AudioManager {
     
     private var audioRecording: URL?
     private var audioRecordings: [URL] = []
+//    private var isNewURLGenerated: Bool = false {
+//        didSet {
+//            guard let lastRecording = audioRecordings.last else { return }
+//            audioRecording = lastRecording
+//        }
+//    }
     
     private init() {}
     
     func getNewRecordingURL() -> URL {
+       // isNewURLGenerated = true
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
 
@@ -72,9 +79,17 @@ class AudioManager {
     }
     
     func getPlayBackURL() -> URL? {
-        guard  let audioRecording = audioRecording else { return nil }
-        return audioRecording
+        if let audioRecording = audioRecording {
+            return audioRecording
+        } else {
+            return nil
+        }
     }
+    
+//    func getLastRecording() -> URL? {
+//        guard let lastRecording = audioRecordings.last else { return nil }
+//        return lastRecording
+//    }
     
     func isArrayEmpty() -> Bool {
         if audioRecordings.count == 0 {

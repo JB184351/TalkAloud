@@ -33,6 +33,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         super.viewWillAppear(animated)
         setupSlider()
         initializeTimer()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -44,7 +45,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         if AudioEngine.sharedInstance.audioState == .stopped {
             recordAudioButton.isEnabled = false
             sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-            let playBackURL = AudioManager.sharedInstance.getPlayBackURL()
+            AudioEngine.sharedInstance.play()
             initializeTimer()
         } else if AudioEngine.sharedInstance.audioState == .playing {
             AudioEngine.sharedInstance.pause()
