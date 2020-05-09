@@ -139,6 +139,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             AudioEngine.sharedInstance.play()
             if progressSlider.value == 0 {
                 setupSlider()
+                initializeTimer()
             }
         }
     }
