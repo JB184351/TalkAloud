@@ -73,20 +73,17 @@ class AudioManager {
     }
     
     func getPlayBackURL() -> URL? {
-        if let audioRecording = audioRecording {
-            return audioRecording
-        } else {
-            return nil
-        }
+        guard let audioRecording = audioRecording else { return nil }
+        return audioRecording
     }
     
-    func getLatesRecording() -> URL? {
-        guard let lastestRecording = audioRecordings.last else { return nil }
-        return lastestRecording
+    func getLastestURL() -> URL? {
+        guard let recentRecording = audioRecordings.last else { return nil }
+        return recentRecording
     }
     
-    func isArrayEmpty() -> Bool {
-        if audioRecordings.count == 0 {
+    func isURLNil() -> Bool {
+        if audioRecording == nil {
             return true
         } else {
             return false
@@ -96,5 +93,4 @@ class AudioManager {
     func getAudioRecordingCount() -> Int {
         return audioRecordings.count
     }
-    
 }

@@ -75,6 +75,12 @@ class AudioEngine: NSObject {
         audioState = .playing
     }
     
+    func play(withFileURL: URL) {
+        setupAudioPlayer(fileURL: withFileURL)
+        audioPlayer?.play()
+        audioState = .playing
+    }
+    
     func skipFifteenSeconds() {
         audioPlayer?.currentTime += 15
     }

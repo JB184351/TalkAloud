@@ -12,7 +12,14 @@ class AudioTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        AudioEngine.sharedInstance.delegate = self.viewControllers?[1] as? AudioPlayerViewController
+        
+        guard let viewControllers = self.viewControllers else { return }
+        for viewController in viewControllers {
+            if viewController is AudioPlayerViewController {
+                AudioEngine.sharedInstance.delegate = viewController as? AudioPlayerViewController
+                break
+            }
+        }
     }
 
 }

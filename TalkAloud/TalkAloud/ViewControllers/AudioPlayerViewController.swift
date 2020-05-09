@@ -41,7 +41,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     }
     
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {
-        if AudioEngine.sharedInstance.audioState == .stopped {
+        if AudioEngine.sharedInstance.audioState == .stopped || AudioEngine.sharedInstance.audioState == .finished {
             recordAudioButton.isEnabled = false
             sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             determinePlay()
@@ -90,7 +90,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         let minutes = Int(time) / 60 % 60
         let seconds = Int(time) % 60
         
-        return String(format: "%02d:%02d", minutes, seconds)
+        return String(format: "%02i:%02i", minutes, seconds)
     }
     
     private func setupSlider() {
@@ -106,8 +106,21 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         remainingTimeLabel.text = "0:00"
     }
     
+    // TODO: Move this logic to AudioManager
+    func determinePlay() {
+        let latestRecording = AudioManager.sharedInstance.getLastestURL()!
+        if !AudioManager.sharedInstance.isURLNil() {
+            AudioEngine.sharedInstance.play()
+        } else {
+            AudioEngine.sharedInstance.play(withFileURL: latestRecording)
+            setupSlider()
+            initializeTimer()
+        }
+    }
+    
     private func updateUI(audioState: AudioEngineState) {
         switch audioState {
+        // Changed stopped to pause
         case .stopped:
             playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             playAudioButton.isEnabled = true
@@ -127,20 +140,6 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             progressTimer?.invalidate()
             progressSlider.value = 0
             resetDurationLabels()
-        }
-    }
-    
-    func determinePlay() {
-        if AudioEngine.sharedInstance.getCurrentAudioTime() > 0 {
-            AudioEngine.sharedInstance.play()
-        } else {
-            guard let playBackURL = AudioManager.sharedInstance.getLatesRecording() else { return }
-            AudioEngine.sharedInstance.setupAudioPlayer(fileURL: playBackURL)
-            AudioEngine.sharedInstance.play()
-            if progressSlider.value == 0 {
-                setupSlider()
-                initializeTimer()
-            }
         }
     }
     
