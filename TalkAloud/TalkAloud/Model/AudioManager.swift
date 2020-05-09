@@ -80,6 +80,11 @@ class AudioManager {
         }
     }
     
+    func getLatesRecording() -> URL? {
+        guard let lastestRecording = audioRecordings.last else { return nil }
+        return lastestRecording
+    }
+    
     func isArrayEmpty() -> Bool {
         if audioRecordings.count == 0 {
             return true

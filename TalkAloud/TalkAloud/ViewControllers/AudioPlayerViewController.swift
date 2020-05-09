@@ -33,7 +33,6 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         super.viewWillAppear(animated)
         setupSlider()
         initializeTimer()
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -45,8 +44,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         if AudioEngine.sharedInstance.audioState == .stopped {
             recordAudioButton.isEnabled = false
             sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-            AudioEngine.sharedInstance.play()
-            initializeTimer()
+            determinePlay()
         } else if AudioEngine.sharedInstance.audioState == .playing {
             AudioEngine.sharedInstance.pause()
             sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
@@ -115,9 +113,18 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             playAudioButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             playAudioButton.isEnabled = true
             recordAudioButton.isEnabled = false
-            setupSlider()
         case .recording:
             progressTimer?.invalidate()
+        }
+    }
+    
+    func determinePlay() {
+        if AudioEngine.sharedInstance.getCurrentAudioTime() > 0 {
+            AudioEngine.sharedInstance.play()
+        } else {
+            guard let playBackURL = AudioManager.sharedInstance.getLatesRecording() else { return }
+            AudioEngine.sharedInstance.setupAudioPlayer(fileURL: playBackURL)
+            AudioEngine.sharedInstance.play()
         }
     }
     
