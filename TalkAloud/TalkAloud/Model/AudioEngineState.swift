@@ -10,7 +10,7 @@ import Foundation
 
 enum AudioEngineState {
     case playing
-    case stopped
+    case paused
     case recording
-    case finished
+    case stopped
 }

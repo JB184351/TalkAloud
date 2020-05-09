@@ -14,7 +14,7 @@ class AudioManager {
     
     private var audioRecording: URL?
     private var audioRecordings: [URL] = []
-
+    private var didNewRecording = false
     
     private init() {}
     
@@ -39,6 +39,7 @@ class AudioManager {
             }
         }
         
+        didNewRecording = true
         let soundURL = directoryURL.appendingPathComponent(uniqueFileName)
         audioRecordings.append(soundURL)
         return soundURL
@@ -73,20 +74,13 @@ class AudioManager {
     }
     
     func getPlayBackURL() -> URL? {
-        guard let audioRecording = audioRecording else { return nil }
-        return audioRecording
-    }
-    
-    func getLastestURL() -> URL? {
-        guard let recentRecording = audioRecordings.last else { return nil }
-        return recentRecording
-    }
-    
-    func isURLNil() -> Bool {
-        if audioRecording == nil {
-            return true
+        if let audioRecording = audioRecording {
+            return audioRecording
+        } else if didNewRecording == false {
+            return nil
         } else {
-            return false
+            guard let recentRecording = audioRecordings.last else { return nil }
+            return recentRecording
         }
     }
     

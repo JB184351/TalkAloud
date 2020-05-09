@@ -21,7 +21,7 @@ class AudioEngine: NSObject {
     private var recordingSession: AVAudioSession?
     private let audioRecordingSession = AVAudioSession.sharedInstance()
     static let sharedInstance = AudioEngine()
-    public private(set) var audioState: AudioEngineState = .stopped {
+    public private(set) var audioState: AudioEngineState = .paused {
         didSet {
             delegate?.didUpdateAudioState(with: audioState)
         }
@@ -91,7 +91,7 @@ class AudioEngine: NSObject {
     
     func pause() {
         audioPlayer?.pause()
-        audioState = .stopped
+        audioState = .paused
     }
     
     func record() {
@@ -106,14 +106,14 @@ class AudioEngine: NSObject {
     }
     
     func stop() {
-        audioState = .stopped
+        audioState = .paused
         audioRecorder?.stop()
     }
 }
 
 extension AudioEngine: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        audioState = .finished
+        audioState = .stopped
     }
 }
 

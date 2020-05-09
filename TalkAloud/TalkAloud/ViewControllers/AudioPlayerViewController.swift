@@ -33,6 +33,10 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         super.viewWillAppear(animated)
         setupSlider()
         initializeTimer()
+        let playBackURL = AudioManager.sharedInstance.getPlayBackURL()
+        if playBackURL == nil {
+            playAudioButton.isEnabled = false
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -41,10 +45,9 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     }
     
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {
-        if AudioEngine.sharedInstance.audioState == .stopped || AudioEngine.sharedInstance.audioState == .finished {
+        if AudioEngine.sharedInstance.audioState == .paused || AudioEngine.sharedInstance.audioState == .stopped {
             recordAudioButton.isEnabled = false
             sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-            determinePlay()
         } else if AudioEngine.sharedInstance.audioState == .playing {
             AudioEngine.sharedInstance.pause()
             sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
@@ -53,7 +56,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     }
     
     @IBAction func recordAudioButtonAction(_ sender: UIButton) {
-        if AudioEngine.sharedInstance.audioState == .stopped || AudioEngine.sharedInstance.audioState == .finished {
+        if AudioEngine.sharedInstance.audioState == .paused || AudioEngine.sharedInstance.audioState == .stopped {
             AudioEngine.sharedInstance.setupRecorder(fileURL: AudioManager.sharedInstance.getNewRecordingURL())
             sender.setImage(UIImage(named: "stopbutton"), for: .normal)
             playAudioButton.isEnabled = false
@@ -106,22 +109,17 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         remainingTimeLabel.text = "0:00"
     }
     
-    // TODO: Move this logic to AudioManager
-    func determinePlay() {
-        let latestRecording = AudioManager.sharedInstance.getLastestURL()!
-        if !AudioManager.sharedInstance.isURLNil() {
-            AudioEngine.sharedInstance.play()
-        } else {
-            AudioEngine.sharedInstance.play(withFileURL: latestRecording)
-            setupSlider()
-            initializeTimer()
+    func determineURLPlayBack() {
+        var playBackURL = AudioManager.sharedInstance.getPlayBackURL()
+        if playBackURL == nil {
+            
         }
     }
     
     private func updateUI(audioState: AudioEngineState) {
         switch audioState {
         // Changed stopped to pause
-        case .stopped:
+        case .paused:
             playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             playAudioButton.isEnabled = true
             recordAudioButton.isEnabled = true
@@ -133,7 +131,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             progressTimer?.invalidate()
             progressSlider.value = 0
             resetDurationLabels()
-        case .finished:
+        case .stopped:
             playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             playAudioButton.isEnabled = true
             recordAudioButton.isEnabled = true
