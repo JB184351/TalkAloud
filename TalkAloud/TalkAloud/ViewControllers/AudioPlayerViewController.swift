@@ -53,7 +53,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     }
     
     @IBAction func recordAudioButtonAction(_ sender: UIButton) {
-        if AudioEngine.sharedInstance.audioState == .stopped {
+        if AudioEngine.sharedInstance.audioState == .stopped || AudioEngine.sharedInstance.audioState == .finished {
             AudioEngine.sharedInstance.setupRecorder(fileURL: AudioManager.sharedInstance.getNewRecordingURL())
             sender.setImage(UIImage(named: "stopbutton"), for: .normal)
             playAudioButton.isEnabled = false
@@ -119,6 +119,14 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         case .recording:
             progressTimer?.invalidate()
             progressSlider.value = 0
+            resetDurationLabels()
+        case .finished:
+            playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            playAudioButton.isEnabled = true
+            recordAudioButton.isEnabled = true
+            progressTimer?.invalidate()
+            progressSlider.value = 0
+            resetDurationLabels()
         }
     }
     

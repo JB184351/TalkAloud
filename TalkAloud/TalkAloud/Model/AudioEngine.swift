@@ -107,7 +107,7 @@ class AudioEngine: NSObject {
 
 extension AudioEngine: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        audioState = .stopped
+        audioState = .finished
     }
 }
 
