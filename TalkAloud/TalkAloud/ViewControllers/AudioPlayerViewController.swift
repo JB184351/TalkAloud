@@ -125,6 +125,9 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             guard let playBackURL = AudioManager.sharedInstance.getLatesRecording() else { return }
             AudioEngine.sharedInstance.setupAudioPlayer(fileURL: playBackURL)
             AudioEngine.sharedInstance.play()
+            if progressSlider.value == 0 {
+                setupSlider()
+            }
         }
     }
     
