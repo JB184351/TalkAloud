@@ -74,19 +74,16 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     }
     
     private func initializeTimer() {
-        progressTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-    }
-    
-    @objc func updateTimer() {
-        let currentAudioDuration = AudioEngine.sharedInstance.getCurrentAudioDuration()
-        let currentAudioTime = AudioEngine.sharedInstance.getCurrentAudioTime()
-        let remainingAudioTime = currentAudioDuration - currentAudioTime
-        
-        self.progressSlider.value = currentAudioTime
-        
-        currentTimeLabel.text = timeToString(time: TimeInterval(currentAudioTime))
-        remainingTimeLabel.text = timeToString(time: TimeInterval(remainingAudioTime))
-        
+        progressTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            let currentAudioDuration = AudioEngine.sharedInstance.getCurrentAudioDuration()
+            let currentAudioTime = AudioEngine.sharedInstance.getCurrentAudioTime()
+            let remainingAudioTime = currentAudioDuration - currentAudioTime
+            
+            self.progressSlider.value = currentAudioTime
+            
+            self.currentTimeLabel.text = self.timeToString(time: TimeInterval(currentAudioTime))
+            self.remainingTimeLabel.text = self.timeToString(time: TimeInterval(remainingAudioTime))
+        })
     }
     
     func timeToString(time: TimeInterval) -> String {
