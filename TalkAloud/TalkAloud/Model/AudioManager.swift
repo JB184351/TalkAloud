@@ -79,8 +79,21 @@ class AudioManager {
         } else if didNewRecording == false {
             return nil
         } else {
+            return nil
+        }
+    }
+    
+    // Made this function because I found that
+    // when I had this functionality back in one
+    // function that I would never get to the else statement
+    // which is where the logic for this function was so I
+    // made it easier to do by placing it here
+    func getLatestRecording() -> URL? {
+        if didNewRecording == true {
             guard let recentRecording = audioRecordings.last else { return nil }
             return recentRecording
+        } else {
+            return nil
         }
     }
     
