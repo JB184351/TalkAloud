@@ -98,6 +98,12 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         progressSlider.minimumValue = 0
         progressSlider.maximumValue = maxValue
         progressSlider.value = 0
+        resetDurationLabels()
+    }
+    
+    private func resetDurationLabels() {
+        currentTimeLabel.text = "0:00"
+        remainingTimeLabel.text = "0:00"
     }
     
     private func updateUI(audioState: AudioEngineState) {
@@ -112,6 +118,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             recordAudioButton.isEnabled = false
         case .recording:
             progressTimer?.invalidate()
+            progressSlider.value = 0
         }
     }
     
