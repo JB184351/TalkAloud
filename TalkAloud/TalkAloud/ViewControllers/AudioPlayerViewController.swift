@@ -48,6 +48,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         if AudioEngine.sharedInstance.audioState == .paused || AudioEngine.sharedInstance.audioState == .stopped {
             recordAudioButton.isEnabled = false
             sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            playURL()
         } else if AudioEngine.sharedInstance.audioState == .playing {
             AudioEngine.sharedInstance.pause()
             sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
@@ -109,10 +110,15 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         remainingTimeLabel.text = "0:00"
     }
     
-    func determineURLPlayBack() {
-        var playBackURL = AudioManager.sharedInstance.getPlayBackURL()
-        if playBackURL == nil {
-            
+    func playURL() {
+        guard let playBackURL = AudioManager.sharedInstance.getPlayBackURL() else { return }
+        
+        if AudioEngine.sharedInstance.getCurrentAudioTime() > 0 {
+            AudioEngine.sharedInstance.play()
+        } else {
+            AudioEngine.sharedInstance.play(withFileURL: playBackURL)
+            setupSlider()
+            initializeTimer()
         }
     }
     

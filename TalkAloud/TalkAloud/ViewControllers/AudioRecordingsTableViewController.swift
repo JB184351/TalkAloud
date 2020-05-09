@@ -36,11 +36,8 @@ class AudioRecordingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // setting to right recording
         AudioManager.sharedInstance.setSelectedRecording(index: indexPath.row)
-        let url = AudioManager.sharedInstance.getPlayBackURL()
-        AudioEngine.sharedInstance.setupAudioPlayer(fileURL: url!)
-        AudioEngine.sharedInstance.play()
-        
-        
+        guard let url = AudioManager.sharedInstance.getPlayBackURL() else { return }
+        AudioEngine.sharedInstance.play(withFileURL: url)
         self.tabBarController?.selectedIndex = 1
         
     }
