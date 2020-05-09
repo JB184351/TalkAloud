@@ -34,8 +34,15 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         setupSlider()
         initializeTimer()
         let playBackURL = AudioManager.sharedInstance.getPlayBackURL()
+        
         if playBackURL == nil {
             playAudioButton.isEnabled = false
+        }
+        
+        // This is for when after playing a recording and coming back to the
+        // audioState the progresstimer doesn't initialize immediately.
+        if AudioEngine.sharedInstance.audioState == .stopped {
+            progressTimer?.invalidate()
         }
     }
     
