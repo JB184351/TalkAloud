@@ -43,6 +43,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         // audioState the progresstimer doesn't initialize immediately.
         if AudioEngine.sharedInstance.audioState == .stopped {
             progressTimer?.invalidate()
+            resetDurationLabels()
         }
     }
     
