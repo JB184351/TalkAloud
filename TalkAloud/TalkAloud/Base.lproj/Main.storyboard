@@ -40,7 +40,7 @@
                                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <state key="normal" image="gobackward.15" catalog="system"/>
                                                         <connections>
-                                                            <action selector="goBackAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vdo-PP-1yu"/>
+                                                            <action selector="rewindAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vdo-PP-1yu"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sTD-fj-i87">
@@ -61,7 +61,7 @@
                                                             <action selector="skipForwardAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z4Z-ER-J9C"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFB-mR-xqv">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFB-mR-xqv">
                                                         <rect key="frame" x="351.5" y="0.0" width="22.5" height="27"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <nil key="textColor"/>
@@ -98,18 +98,21 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="PlayBack" image="play.circle" catalog="system" id="TLa-hh-c8y"/>
                     <connections>
+                        <outlet property="currentTimeLabel" destination="EgS-L9-d1d" id="rD6-zw-Jrc"/>
                         <outlet property="playAudioButton" destination="sTD-fj-i87" id="5Pl-hy-kna"/>
+                        <outlet property="progressSlider" destination="vH1-sC-WK6" id="fVF-wc-91P"/>
                         <outlet property="recordAudioButton" destination="cz8-eV-Moy" id="uy8-Uf-dTT"/>
+                        <outlet property="remainingTimeLabel" destination="QFB-mR-xqv" id="uK0-cy-MwU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="819" y="-157"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Audio Tab Bar Controller-->
         <scene sceneID="Ngm-AU-JQ1">
             <objects>
-                <tabBarController id="Mpi-wa-Yvj" sceneMemberID="viewController">
+                <tabBarController id="Mpi-wa-Yvj" customClass="AudioTabBarController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Vvh-jd-kef">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
