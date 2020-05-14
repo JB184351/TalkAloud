@@ -176,6 +176,7 @@ extension AudioPlayerViewController: AudioSliderDelegate {
     func didEndScrolling(in audioSlider: UISlider) {
         AudioEngine.sharedInstance.setAudioTime(playBackTime: audioSlider.value)
         initializeTimer()
+        AudioEngine.sharedInstance.play()
     }
     
     
