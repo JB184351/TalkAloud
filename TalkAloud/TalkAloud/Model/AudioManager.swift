@@ -60,7 +60,7 @@ class AudioManager {
         return audioRecordings
     }
     
-    func removeFile(index: Int) {
+    func removeFile(at index: Int) {
         let fileManager = FileManager.default
         do {
             try fileManager.removeItem(at: getRecordingForIndex(index: index))
