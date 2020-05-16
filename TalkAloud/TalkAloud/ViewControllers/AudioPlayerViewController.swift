@@ -166,7 +166,6 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
 
 extension AudioPlayerViewController: AudioSliderDelegate {
     func didChangeScrolling(in audioSlider: UISlider) {
-        print(audioSlider.value)
         AudioEngine.sharedInstance.setAudioTime(playBackTime: audioSlider.value)
         initializeTimer()
     }

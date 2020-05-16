@@ -10,7 +10,6 @@ import UIKit
 
 protocol AudioSliderDelegate: class {
     func didChangeScrolling(in audioSlider: UISlider)
-    
 }
 
 class AudioSlider: UISlider {
