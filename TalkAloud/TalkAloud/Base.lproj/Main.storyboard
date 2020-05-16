@@ -22,7 +22,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="aYx-eZ-I5n" userLabel="Playback Info Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="77"/>
                                         <subviews>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-1.5" minValue="-1.5" maxValue="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="vH1-sC-WK6">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-1.5" minValue="-1.5" maxValue="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="vH1-sC-WK6" customClass="AudioSlider" customModule="TalkAloud" customModuleProvider="target">
                                                 <rect key="frame" x="-2" y="0.0" width="378" height="31"/>
                                             </slider>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="sgQ-2l-PLP" userLabel="Duration Stack View">

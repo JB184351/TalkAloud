@@ -14,7 +14,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     
     @IBOutlet var playAudioButton: UIButton!
     @IBOutlet var recordAudioButton: UIButton!
-    @IBOutlet var progressSlider: UISlider!
+    @IBOutlet var progressSlider: AudioSlider!
     @IBOutlet var currentTimeLabel: UILabel!
     @IBOutlet var remainingTimeLabel: UILabel!
     private var progressTimer: Timer?
@@ -27,6 +27,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         isFirstRun = true
+        progressSlider.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -154,9 +155,19 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         }
     }
     
+    
+    
     func didUpdateAudioState(with audioState: AudioEngineState) {
         if isFirstRun {
             updateUI(audioState: audioState)
         }
     }
 }
+
+extension AudioPlayerViewController: AudioSliderDelegate {
+    func didChangeScrolling(in audioSlider: UISlider) {
+        AudioEngine.sharedInstance.setAudioTime(playBackTime: audioSlider.value)
+        initializeTimer()
+    }
+}
+

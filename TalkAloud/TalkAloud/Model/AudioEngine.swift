@@ -70,6 +70,10 @@ class AudioEngine: NSObject {
         return Float(audioPlayer?.currentTime ?? 0.0)
     }
     
+    func setAudioTime(playBackTime: Float) {
+        audioPlayer?.currentTime = TimeInterval(playBackTime)
+    }
+    
     func play() {
         audioPlayer?.play()
         audioState = .playing
