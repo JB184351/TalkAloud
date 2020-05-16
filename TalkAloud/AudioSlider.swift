@@ -10,8 +10,7 @@ import UIKit
 
 protocol AudioSliderDelegate: class {
     func didChangeScrolling(in audioSlider: UISlider)
-    func didBeginScrolling(in audioSlider: UISlider)
-    func didEndScrolling(in audioSlider: UISlider)
+    
 }
 
 class AudioSlider: UISlider {
@@ -29,23 +28,11 @@ class AudioSlider: UISlider {
     }
     
     private func addTargets() {
-        addTarget(self, action: #selector(didStartScrubbing(_:)), for: .editingDidBegin)
         addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
-        addTarget(self, action: #selector(didEndScrubbing(_:)), for: .valueChanged)
-    }
-    
-    @objc private func didStartScrubbing(_ sender: UISlider) {
-        delegate?.didBeginScrolling(in: sender)
     }
     
     @objc private func sliderValueChanged(_ sender: UISlider) {
         delegate?.didChangeScrolling(in: sender)
     }
-    
-    @objc private func didEndScrubbing(_ sender: UISlider) {
-        delegate?.didEndScrolling(in: sender)
-    }
-    
-    
-    
+
 }

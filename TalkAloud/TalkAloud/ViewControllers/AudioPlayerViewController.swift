@@ -167,18 +167,8 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
 extension AudioPlayerViewController: AudioSliderDelegate {
     func didChangeScrolling(in audioSlider: UISlider) {
         print(audioSlider.value)
-    }
-    
-    func didBeginScrolling(in audioSlider: UISlider) {
-        progressTimer?.invalidate()
-    }
-    
-    func didEndScrolling(in audioSlider: UISlider) {
         AudioEngine.sharedInstance.setAudioTime(playBackTime: audioSlider.value)
         initializeTimer()
-        AudioEngine.sharedInstance.play()
     }
-    
-    
 }
 
