@@ -60,6 +60,16 @@ class AudioManager {
         return audioRecordings
     }
     
+    func removeFile(at index: Int) {
+        let fileManager = FileManager.default
+        do {
+            try fileManager.removeItem(at: getRecordingForIndex(index: index))
+            audioRecordings.remove(at: index)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     func getShortenedURL(audioRecording: URL) -> String {
         let shortenedURL = audioRecording.lastPathComponent
         return shortenedURL
