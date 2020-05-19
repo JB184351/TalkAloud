@@ -46,11 +46,22 @@ class AudioRecordingsTableViewController: UITableViewController {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             AudioManager.sharedInstance.removeFile(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
+        
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, completionHandler) in
+            print("Edit")
+        }
+        
+        editAction.backgroundColor = .blue
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        return configuration
     }
+    
+    
 }
 
