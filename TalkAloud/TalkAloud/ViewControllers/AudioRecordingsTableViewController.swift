@@ -47,13 +47,29 @@ class AudioRecordingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath)
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             AudioManager.sharedInstance.removeFile(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
         let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, completionHandler) in
-            print("Edit")
+            let ac = UIAlertController(title: "Change name", message: nil, preferredStyle: .alert)
+            ac.addTextField()
+            
+            let renameCellAction = UIAlertAction(title: "Done", style: .default) { [unowned ac] action in
+                let newCellName = ac.textFields?[0].text
+                
+                if let newCellName = newCellName {
+                    audioCell.textLabel?.text = newCellName
+                    AudioManager.sharedInstance.renameFile(at: indexPath.row, newURL: newCellName)
+                    self.tableView.reloadData()
+                }
+            }
+            
+            ac.addAction(renameCellAction)
+            self.present(ac, animated: true)
+            
         }
         
         editAction.backgroundColor = .blue
@@ -61,7 +77,6 @@ class AudioRecordingsTableViewController: UITableViewController {
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         return configuration
     }
-    
     
 }
 
