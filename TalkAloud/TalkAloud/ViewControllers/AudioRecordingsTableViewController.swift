@@ -62,7 +62,15 @@ class AudioRecordingsTableViewController: UITableViewController {
                 
                 if let newCellName = newCellName {
                     audioCell.textLabel?.text = newCellName
-                    AudioManager.sharedInstance.renameFile(at: indexPath.row, newURL: newCellName)
+                    let errorMessage = AudioManager.sharedInstance.renameFile(at: indexPath.row, newURL: newCellName)
+                    
+                    if errorMessage != nil {
+                        let ac = UIAlertController(title: "Same File Name Exists Already!", message: errorMessage?.localizedDescription, preferredStyle: .alert)
+                        let doneAction = UIAlertAction(title: "Done", style: .default)
+                        ac.addAction(doneAction)
+                        self.present(ac, animated: true)
+                    }
+                    
                     self.tableView.reloadData()
                 }
             }

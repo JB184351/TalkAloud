@@ -70,7 +70,9 @@ class AudioManager {
         }
     }
     
-    func renameFile(at index: Int, newURL: String) {
+    func renameFile(at index: Int, newURL: String) -> Error? {
+        // TO DO: Handle Happy Flow and Unhappy
+        
         let fileManager = FileManager.default
         
         let uniqueFileName = newURL + ".m4a"
@@ -86,7 +88,10 @@ class AudioManager {
             audioRecordings[index] = newDestinationURL
         } catch {
             print(error.localizedDescription)
+            return error
         }
+        
+        return nil
     }
     
     func getShortenedURL(audioRecording: URL) -> String {
