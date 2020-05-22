@@ -76,12 +76,8 @@ class AudioManager {
         let fileManager = FileManager.default
         
         let uniqueFileName = newURL + ".m4a"
-        
-        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentDirectory = urls[0] as URL
-        let directoryURL = documentDirectory.appendingPathComponent("TalkAloud", isDirectory: true)
-        
-        let newDestinationURL = directoryURL.appendingPathComponent(uniqueFileName)
+        let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).deletingLastPathComponent()
+        let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
         
         do {
             try fileManager.moveItem(at: getRecordingForIndex(index: index), to: newDestinationURL)
