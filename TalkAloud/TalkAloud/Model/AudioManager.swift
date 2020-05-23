@@ -70,12 +70,10 @@ class AudioManager {
         }
     }
     
-    func renameFile(at index: Int, newURL: String) -> Error? {
-        // TO DO: Handle Happy Flow and Unhappy
-        
+    func renameFile(at index: Int, newFileName: String) -> Error? {
         let fileManager = FileManager.default
         
-        let uniqueFileName = newURL + ".m4a"
+        let uniqueFileName = newFileName + ".m4a"
         let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).deletingLastPathComponent()
         let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
         

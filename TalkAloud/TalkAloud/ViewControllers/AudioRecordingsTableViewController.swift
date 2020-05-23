@@ -47,7 +47,6 @@ class AudioRecordingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath)
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             AudioManager.sharedInstance.removeFile(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -57,12 +56,13 @@ class AudioRecordingsTableViewController: UITableViewController {
             let ac = UIAlertController(title: "Change name", message: nil, preferredStyle: .alert)
             ac.addTextField()
             
-            let renameCellAction = UIAlertAction(title: "Done", style: .default) { [unowned ac] action in
-                let newCellName = ac.textFields?[0].text
+            let renameFileAction = UIAlertAction(title: "Done", style: .default) { [unowned ac] action in
+                let newFileName = ac.textFields?[0].text
                 
-                if let newCellName = newCellName {
-                    audioCell.textLabel?.text = newCellName
-                    let errorMessage = AudioManager.sharedInstance.renameFile(at: indexPath.row, newURL: newCellName)
+                if let newFileName = newFileName {
+                    let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath)
+                    audioCell.textLabel?.text = newFileName
+                    let errorMessage = AudioManager.sharedInstance.renameFile(at: indexPath.row, newFileName: newFileName)
                     
                     if errorMessage != nil {
                         let ac = UIAlertController(title: "Same File Name Exists Already!", message: errorMessage?.localizedDescription, preferredStyle: .alert)
@@ -75,7 +75,7 @@ class AudioRecordingsTableViewController: UITableViewController {
                 }
             }
             
-            ac.addAction(renameCellAction)
+            ac.addAction(renameFileAction)
             self.present(ac, animated: true)
             
         }
@@ -85,6 +85,5 @@ class AudioRecordingsTableViewController: UITableViewController {
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         return configuration
     }
-    
 }
 
