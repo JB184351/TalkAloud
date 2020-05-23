@@ -60,7 +60,7 @@ class AudioRecordingsTableViewController: UITableViewController {
                 let newFileName = ac.textFields?[0].text
                 
                 if let newFileName = newFileName {
-                    let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath)
+                    let audioCell = UITableViewCell(style: .default, reuseIdentifier: "audio")
                     audioCell.textLabel?.text = newFileName
                     let errorMessage = AudioManager.sharedInstance.renameFile(at: indexPath.row, newFileName: newFileName)
                     
