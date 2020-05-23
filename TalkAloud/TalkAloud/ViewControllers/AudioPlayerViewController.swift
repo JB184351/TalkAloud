@@ -17,6 +17,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     @IBOutlet var progressSlider: AudioSlider!
     @IBOutlet var currentTimeLabel: UILabel!
     @IBOutlet var remainingTimeLabel: UILabel!
+    @IBOutlet var audioPlayerVisualizer: UIView!
     private var progressTimer: Timer?
     private var isFirstRun = false  {
         didSet {

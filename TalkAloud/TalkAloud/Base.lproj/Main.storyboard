@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mpi-wa-Yvj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mpi-wa-Yvj">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -83,6 +83,11 @@
                                     <action selector="recordAudioButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pvD-d0-Rep"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O8a-Iy-7wO" customClass="AudioPlayerVisualizer" customModule="TalkAloud" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="534" width="414" height="145"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -98,6 +103,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="PlayBack" image="play.circle" catalog="system" id="TLa-hh-c8y"/>
                     <connections>
+                        <outlet property="audioPlayerVisualizer" destination="O8a-Iy-7wO" id="s44-lc-c6h"/>
                         <outlet property="currentTimeLabel" destination="EgS-L9-d1d" id="rD6-zw-Jrc"/>
                         <outlet property="playAudioButton" destination="sTD-fj-i87" id="5Pl-hy-kna"/>
                         <outlet property="progressSlider" destination="vH1-sC-WK6" id="fVF-wc-91P"/>
@@ -107,7 +113,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="819" y="-157"/>
+            <point key="canvasLocation" x="818.84057971014499" y="-157.36607142857142"/>
         </scene>
         <!--Audio Tab Bar Controller-->
         <scene sceneID="Ngm-AU-JQ1">
