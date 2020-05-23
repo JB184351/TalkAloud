@@ -70,6 +70,24 @@ class AudioManager {
         }
     }
     
+    func renameFile(at index: Int, newFileName: String) -> Error? {
+        let fileManager = FileManager.default
+        
+        let uniqueFileName = newFileName + ".m4a"
+        let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).deletingLastPathComponent()
+        let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
+        
+        do {
+            try fileManager.moveItem(at: getRecordingForIndex(index: index), to: newDestinationURL)
+            audioRecordings[index] = newDestinationURL
+        } catch {
+            print(error.localizedDescription)
+            return error
+        }
+        
+        return nil
+    }
+    
     func getShortenedURL(audioRecording: URL) -> String {
         let shortenedURL = audioRecording.lastPathComponent
         return shortenedURL
@@ -93,11 +111,6 @@ class AudioManager {
         }
     }
     
-    // Made this function because I found that
-    // when I had this functionality back in one
-    // function that I would never get to the else statement
-    // which is where the logic for this function was so I
-    // made it easier to do by placing it here
     func getLatestRecording() -> URL? {
         if didNewRecording == true {
             guard let recentRecording = audioRecordings.last else { return nil }
