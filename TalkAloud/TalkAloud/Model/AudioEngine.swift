@@ -102,6 +102,7 @@ class AudioEngine: NSObject {
         do {
             try audioRecordingSession.setCategory(.playAndRecord, mode: .default)
             try audioRecordingSession.setActive(true)
+            audioRecorder?.isMeteringEnabled = true
         } catch {
             print("Failed to record")
         }
@@ -111,6 +112,7 @@ class AudioEngine: NSObject {
     
     func stop() {
         audioState = .paused
+        audioRecorder?.isMeteringEnabled = false
         audioRecorder?.stop()
     }
 }

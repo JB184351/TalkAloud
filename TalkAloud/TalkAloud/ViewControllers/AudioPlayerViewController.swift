@@ -17,7 +17,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     @IBOutlet var progressSlider: AudioSlider!
     @IBOutlet var currentTimeLabel: UILabel!
     @IBOutlet var remainingTimeLabel: UILabel!
-    @IBOutlet var audioPlayerVisualizer: UIView!
+    @IBOutlet var audioPlayerVisualizer: AudioPlayerVisualizerView!
     private var progressTimer: Timer?
     private var isFirstRun = false  {
         didSet {
@@ -138,15 +138,23 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             playAudioButton.isEnabled = true
             recordAudioButton.isEnabled = true
+            audioPlayerVisualizer.isHidden = false
+            audioPlayerVisualizer.active = true
         case .playing:
             playAudioButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             playAudioButton.isEnabled = true
             recordAudioButton.isEnabled = false
+            audioPlayerVisualizer.active = true
+            audioPlayerVisualizer.isHidden = false
         case .recording:
             progressTimer?.invalidate()
             progressSlider.value = 0
             resetDurationLabels()
+            audioPlayerVisualizer.active = true
+            audioPlayerVisualizer.isHidden = false
         case .stopped:
+            audioPlayerVisualizer.active = false
+            audioPlayerVisualizer.isHidden = true
             playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             playAudioButton.isEnabled = false
             recordAudioButton.isEnabled = true
@@ -155,7 +163,6 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             resetDurationLabels()
         }
     }
-    
     
     
     func didUpdateAudioState(with audioState: AudioEngineState) {
