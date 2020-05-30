@@ -19,6 +19,9 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     @IBOutlet var remainingTimeLabel: UILabel!
     @IBOutlet var audioPlayerVisualizer: AudioPlayerVisualizerView!
     private var progressTimer: Timer?
+    private var recordTimer: Timer?
+    private var peakPower: Float?
+    private var averagePower: Float?
     private var isFirstRun = false  {
         didSet {
             updateUI(audioState: AudioEngine.sharedInstance.audioState)
@@ -72,10 +75,12 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             sender.setImage(UIImage(named: "stopbutton"), for: .normal)
             playAudioButton.isEnabled = false
             AudioEngine.sharedInstance.record()
+            initializeRecordTimer()
         } else if AudioEngine.sharedInstance.audioState == .recording {
             sender.setImage(UIImage(named: "recordbutton"), for: .normal)
             playAudioButton.isEnabled = true
             AudioEngine.sharedInstance.stop()
+            recordTimer?.invalidate()
         }
     }
     
@@ -97,6 +102,19 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             
             self.currentTimeLabel.text = self.timeToString(time: TimeInterval(currentAudioTime))
             self.remainingTimeLabel.text = self.timeToString(time: TimeInterval(remainingAudioTime))
+        })
+    }
+    
+    private func initializeRecordTimer() {
+        recordTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
+            AudioEngine.sharedInstance.updateMeters()
+            self.peakPower = AudioEngine.sharedInstance.setPeakPower(channel: 0)
+            self.averagePower = AudioEngine.sharedInstance.setAveragePower(channel: 0)
+            
+            DispatchQueue.main.async {
+                self.audioPlayerVisualizer.waveforms.append(abs(Int(self.averagePower ?? 0)))
+                self.audioPlayerVisualizer.setNeedsDisplay()
+            }
         })
     }
     

@@ -62,6 +62,18 @@ class AudioEngine: NSObject {
         }
     }
     
+    func setAveragePower(channel: Int) -> Float {
+        return audioRecorder?.averagePower(forChannel: channel) ?? -160.0
+    }
+    
+    func setPeakPower(channel: Int) -> Float {
+        return audioRecorder?.peakPower(forChannel: channel) ?? -160.0
+    }
+    
+    func updateMeters() {
+        audioRecorder?.updateMeters()
+    }
+    
     func getCurrentAudioDuration() -> Float {
         return Float(audioPlayer?.duration ?? 0.0)
     }
