@@ -20,8 +20,6 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     @IBOutlet var audioPlayerVisualizer: AudioPlayerVisualizerView!
     private var progressTimer: Timer?
     private var recordTimer: Timer?
-    private var peakPower: Float?
-    private var averagePower: Float?
     private var isFirstRun = false  {
         didSet {
             updateUI(audioState: AudioEngine.sharedInstance.audioState)
@@ -81,6 +79,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             playAudioButton.isEnabled = true
             AudioEngine.sharedInstance.stop()
             recordTimer?.invalidate()
+            audioPlayerVisualizer.waveforms.removeAll()
         }
     }
     
@@ -108,11 +107,11 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     private func initializeRecordTimer() {
         recordTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
             AudioEngine.sharedInstance.updateMeters()
-            self.peakPower = AudioEngine.sharedInstance.setPeakPower(channel: 0)
-            self.averagePower = AudioEngine.sharedInstance.setAveragePower(channel: 0)
+            let peakPower = AudioEngine.sharedInstance.getPeakPower()
+            let averagePower = AudioEngine.sharedInstance.getAveragePower()
             
             DispatchQueue.main.async {
-                self.audioPlayerVisualizer.waveforms.append(abs(Int(self.averagePower ?? 0)))
+                self.audioPlayerVisualizer.waveforms.append(abs(Int(peakPower)))
                 self.audioPlayerVisualizer.setNeedsDisplay()
             }
         })

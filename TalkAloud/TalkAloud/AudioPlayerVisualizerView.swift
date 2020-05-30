@@ -24,7 +24,7 @@ class AudioPlayerVisualizerView: UIView {
     // Color for bars
     var color = UIColor.gray.cgColor
     // Given waveforms
-    var waveforms: [Int] = Array(repeating: 0, count: 100)
+    var waveforms = [Int]()
     
     // MARK: - Init
     override init (frame : CGRect) {
