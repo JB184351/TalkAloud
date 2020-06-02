@@ -25,7 +25,6 @@ class AudioPlayerVisualizerView: UIView {
     var color = UIColor.gray.cgColor
     // Given waveforms
     var waveforms = [Int]()
-    
     // MARK: - Init
     override init (frame : CGRect) {
         super.init(frame : frame)
@@ -55,12 +54,14 @@ class AudioPlayerVisualizerView: UIView {
         var bar: CGFloat = 0
         for i in s ..< self.waveforms.count {
             var v = height * CGFloat(self.waveforms[i]) / 50.0
+            
             if v > x {
                 v = x
             }
             else if v < 3 {
                 v = 3
             }
+            
             let oneX = bar * self.barWidth
             var oneY: CGFloat = 0
             let twoX = oneX + r
@@ -70,20 +71,21 @@ class AudioPlayerVisualizerView: UIView {
             var twoC: Bool = false
             let threeX = twoX + r
             let threeY = middle
+            
             if i % 2 == 1 {
                 oneY = middle - v
                 twoY = middle - v
                 twoS = -180.degreesToRadians
                 twoE = 0.degreesToRadians
                 twoC = false
-            }
-            else {
+            } else {
                 oneY = middle + v
                 twoY = middle + v
                 twoS = 180.degreesToRadians
                 twoE = 0.degreesToRadians
                 twoC = true
             }
+            
             context.move(to: CGPoint(x: oneX, y: middle))
             context.addLine(to: CGPoint(x: oneX, y: oneY))
             context.addArc(center: CGPoint(x: twoX, y: twoY), radius: r, startAngle: twoS, endAngle: twoE, clockwise: twoC)
