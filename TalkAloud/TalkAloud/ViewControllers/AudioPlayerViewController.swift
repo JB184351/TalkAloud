@@ -105,12 +105,23 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     }
     
     private func initializeRecordTimer() {
-        recordTimer = Timer.scheduledTimer(withTimeInterval: 0.08, repeats: true, block: { _ in
+        recordTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
             AudioEngine.sharedInstance.updateMeters()
             let peakPower = AudioEngine.sharedInstance.getPeakPower()
             
+            let positivePeakPower = abs(peakPower)
+            var power: Float = 0.0
+            
+            if positivePeakPower <= 20 {
+                power = (positivePeakPower + 10) / 2
+            } else if positivePeakPower <= 1 {
+                power = (positivePeakPower + 10) / 100
+            } else {
+                power = 0
+            }
+            
             DispatchQueue.main.async {
-                self.audioPlayerVisualizer.waveforms.append(min(30, Int(peakPower)))
+                self.audioPlayerVisualizer.waveforms.append(Int(power))
                 self.audioPlayerVisualizer.setNeedsDisplay()
             }
         })
