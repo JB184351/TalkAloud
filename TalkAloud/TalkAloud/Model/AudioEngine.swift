@@ -62,10 +62,6 @@ class AudioEngine: NSObject {
         }
     }
     
-    func getAveragePower() -> Float {
-        return audioRecorder?.averagePower(forChannel: 0) ?? -160.0
-    }
-    
     func getPeakPower() -> Float {
         return audioRecorder?.peakPower(forChannel: 0) ?? -160.0
     }
