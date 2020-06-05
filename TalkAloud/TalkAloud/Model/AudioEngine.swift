@@ -35,6 +35,7 @@ class AudioEngine: NSObject {
             audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
             audioPlayer?.delegate = self
             audioPlayer?.volume = 1.0
+            audioPlayer?.isMeteringEnabled = true
         } catch {
             if let err = error as Error? {
                 print("AVAudioPlayer error: \(err.localizedDescription)")
@@ -62,12 +63,32 @@ class AudioEngine: NSObject {
         }
     }
     
-    func getPeakPower() -> Float {
-        return audioRecorder?.peakPower(forChannel: 0) ?? -160.0
+    func getPeakPower(audioState: AudioEngineState) -> Float {
+        switch audioState {
+        case .playing:
+            return audioPlayer?.peakPower(forChannel: 0) ?? -160.00
+        case .recording:
+            return audioRecorder?.peakPower(forChannel: 0) ?? -160.0
+        case .paused:
+            print("Paused")
+        case .stopped:
+            print("Stopped")
+        }
+        // We should never get to this point
+        return 0
     }
     
-    func updateMeters() {
-        audioRecorder?.updateMeters()
+    func updateMeters(audioState: AudioEngineState) {
+        switch audioState {
+        case .playing:
+            audioPlayer?.updateMeters()
+        case .recording:
+            audioRecorder?.updateMeters()
+        case .paused:
+            print("Paused")
+        case .stopped:
+            print("Stopped")
+        }
     }
     
     func getCurrentAudioDuration() -> Float {
@@ -84,6 +105,7 @@ class AudioEngine: NSObject {
     
     func play() {
         audioPlayer?.play()
+        audioPlayer?.isMeteringEnabled = true
         audioState = .playing
     }
     
@@ -121,6 +143,7 @@ class AudioEngine: NSObject {
     func stop() {
         audioState = .paused
         audioRecorder?.isMeteringEnabled = false
+        audioPlayer?.isMeteringEnabled = false
         audioRecorder?.stop()
     }
 }
