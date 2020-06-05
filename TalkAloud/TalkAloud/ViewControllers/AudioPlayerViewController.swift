@@ -207,6 +207,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             recordAudioButton.isEnabled = false
             audioPlayerVisualizer.active = true
             audioPlayerVisualizer.isHidden = false
+            displayAudioVisualizer(audioState: audioState)
         case .recording:
             progressTimer?.invalidate()
             progressSlider.value = 0
