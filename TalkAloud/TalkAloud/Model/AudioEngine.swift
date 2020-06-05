@@ -112,6 +112,7 @@ class AudioEngine: NSObject {
     func play(withFileURL: URL) {
         setupAudioPlayer(fileURL: withFileURL)
         audioPlayer?.play()
+        audioPlayer?.isMeteringEnabled = true
         audioState = .playing
     }
     

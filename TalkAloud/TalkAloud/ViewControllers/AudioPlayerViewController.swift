@@ -66,6 +66,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             AudioEngine.sharedInstance.pause()
             sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
             recordAudioButton.isEnabled = true
+            playerTimer?.invalidate()
         }
     }
     
@@ -80,8 +81,8 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             sender.setImage(UIImage(named: "recordbutton"), for: .normal)
             playAudioButton.isEnabled = true
             AudioEngine.sharedInstance.stop()
-            recordTimer?.invalidate()
             audioPlayerVisualizer.waveforms.removeAll()
+            recordTimer?.invalidate()
         }
     }
     
@@ -219,7 +220,9 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             playAudioButton.isEnabled = false
             recordAudioButton.isEnabled = true
             progressTimer?.invalidate()
+            playerTimer?.invalidate()
             progressSlider.value = 0
+            audioPlayerVisualizer.waveforms.removeAll()
             resetDurationLabels()
         }
     }
