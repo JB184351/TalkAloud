@@ -48,11 +48,20 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             progressTimer?.invalidate()
             resetDurationLabels()
         }
+        
+        // Reset the visualizer in case we start playing
+        // another recording in the middle of playing another recording
+        audioPlayerVisualizer.waveforms.removeAll()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         progressTimer?.invalidate()
+        visualizerTimer?.invalidate()
+        // Added this here to avoid additional complexity of timers when
+        // switching back between AudioRecordingsViewController and
+        // the AudioPlayerViewController
+        AudioEngine.sharedInstance.forceStopPlayer()
     }
     
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {
@@ -72,7 +81,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             AudioEngine.sharedInstance.setupRecorder(fileURL: AudioManager.sharedInstance.getNewRecordingURL())
             sender.setImage(UIImage(named: "stopbutton"), for: .normal)
             playAudioButton.isEnabled = false
-            // Removing before recording in case we start recording while playing another recording
+            // Removing before recording in case we start recording while paused
             audioPlayerVisualizer.waveforms.removeAll()
             AudioEngine.sharedInstance.record()
             displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
