@@ -70,12 +70,10 @@ class AudioEngine: NSObject {
         case .recording:
             return audioRecorder?.peakPower(forChannel: 0) ?? -160.0
         case .paused:
-            print("Paused")
+            return 0
         case .stopped:
-            print("Stopped")
+            return 0
         }
-        // We should never get to this point
-        return 0
     }
     
     func updateMeters(audioState: AudioEngineState) {

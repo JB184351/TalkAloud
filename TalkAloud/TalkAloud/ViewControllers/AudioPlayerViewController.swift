@@ -19,8 +19,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     @IBOutlet var remainingTimeLabel: UILabel!
     @IBOutlet var audioPlayerVisualizer: AudioPlayerVisualizerView!
     private var progressTimer: Timer?
-    private var playerTimer: Timer?
-    private var recordTimer: Timer?
+    private var visualizerTimer: Timer?
     private var isFirstRun = false  {
         didSet {
             updateUI(audioState: AudioEngine.sharedInstance.audioState)
@@ -61,12 +60,10 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             recordAudioButton.isEnabled = false
             sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             playURL()
-            displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
         } else if AudioEngine.sharedInstance.audioState == .playing {
             AudioEngine.sharedInstance.pause()
             sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
             recordAudioButton.isEnabled = true
-            playerTimer?.invalidate()
         }
     }
     
@@ -75,6 +72,8 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             AudioEngine.sharedInstance.setupRecorder(fileURL: AudioManager.sharedInstance.getNewRecordingURL())
             sender.setImage(UIImage(named: "stopbutton"), for: .normal)
             playAudioButton.isEnabled = false
+            // Removing before recording in case we start recording while playing another recording
+            audioPlayerVisualizer.waveforms.removeAll()
             AudioEngine.sharedInstance.record()
             displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
         } else if AudioEngine.sharedInstance.audioState == .recording {
@@ -82,7 +81,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             playAudioButton.isEnabled = true
             AudioEngine.sharedInstance.stop()
             audioPlayerVisualizer.waveforms.removeAll()
-            recordTimer?.invalidate()
+            visualizerTimer?.invalidate()
         }
     }
     
@@ -108,57 +107,26 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     }
     
     private func displayAudioVisualizer(audioState: AudioEngineState) {
-        switch audioState {
-        case .recording:
-            recordTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
-                AudioEngine.sharedInstance.updateMeters(audioState: audioState)
-                let peakPower = AudioEngine.sharedInstance.getPeakPower(audioState: audioState)
-                
-                let positivePeakPower = abs(peakPower)
-                var power: Float = 0.0
-                
-                if positivePeakPower <= 20 {
-                    power = (positivePeakPower + 10) / 2
-                } else if positivePeakPower <= 1 {
-                    power = (positivePeakPower + 10) / 100
-                } else {
-                    power = 0
-                }
-                
-                DispatchQueue.main.async {
-                    self.audioPlayerVisualizer.waveforms.append(Int(power))
-                    self.audioPlayerVisualizer.setNeedsDisplay()
-                }
-            })
-        case .playing:
-            playerTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
-                AudioEngine.sharedInstance.updateMeters(audioState: audioState)
-                let peakPower = AudioEngine.sharedInstance.getPeakPower(audioState: audioState)
-                
-                let positivePeakPower = abs(peakPower)
-                var power: Float = 0.0
-                
-                if positivePeakPower <= 20 {
-                    power = (positivePeakPower + 10) / 2
-                } else if positivePeakPower <= 1 {
-                    power = (positivePeakPower + 10) / 100
-                } else {
-                    power = 0
-                }
-                
-                DispatchQueue.main.async {
-                    self.audioPlayerVisualizer.waveforms.append(Int(power))
-                    self.audioPlayerVisualizer.setNeedsDisplay()
-                }
-            })
-            print("playing")
-        case .paused:
-            playerTimer?.invalidate()
-        case .stopped:
-            recordTimer?.invalidate()
-            playerTimer?.invalidate()
-        }
-        
+        visualizerTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
+            AudioEngine.sharedInstance.updateMeters(audioState: audioState)
+            let peakPower = AudioEngine.sharedInstance.getPeakPower(audioState: audioState)
+            
+            let positivePeakPower = abs(peakPower)
+            var power: Float = 0.0
+            
+            if positivePeakPower <= 20 {
+                power = (positivePeakPower + 10) / 2
+            } else if positivePeakPower <= 1 {
+                power = (positivePeakPower + 10) / 100
+            } else {
+                power = 0
+            }
+            
+            DispatchQueue.main.async {
+                self.audioPlayerVisualizer.waveforms.append(Int(power))
+                self.audioPlayerVisualizer.setNeedsDisplay()
+            }
+        })
     }
     
     func timeToString(time: TimeInterval) -> String {
@@ -201,6 +169,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             recordAudioButton.isEnabled = true
             audioPlayerVisualizer.isHidden = false
             audioPlayerVisualizer.active = true
+            visualizerTimer?.invalidate()
         case .playing:
             playAudioButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             playAudioButton.isEnabled = true
@@ -215,13 +184,12 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             audioPlayerVisualizer.active = true
             audioPlayerVisualizer.isHidden = false
         case .stopped:
-            audioPlayerVisualizer.active = false
             audioPlayerVisualizer.isHidden = true
             playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             playAudioButton.isEnabled = false
             recordAudioButton.isEnabled = true
             progressTimer?.invalidate()
-            playerTimer?.invalidate()
+            visualizerTimer?.invalidate()
             progressSlider.value = 0
             audioPlayerVisualizer.waveforms.removeAll()
             resetDurationLabels()
