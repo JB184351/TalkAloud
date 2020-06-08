@@ -101,12 +101,6 @@ class AudioEngine: NSObject {
         audioPlayer?.currentTime = TimeInterval(playBackTime)
     }
     
-    // Adding this to force the AudioPlayer to stop as needed
-    func forceStopPlayer() {
-        audioPlayer?.stop()
-        audioState = .stopped
-    }
-    
     func play() {
         audioPlayer?.play()
         audioPlayer?.isMeteringEnabled = true
@@ -146,10 +140,11 @@ class AudioEngine: NSObject {
     }
     
     func stop() {
-        audioState = .paused
+        audioState = .stopped
         audioRecorder?.isMeteringEnabled = false
         audioPlayer?.isMeteringEnabled = false
         audioRecorder?.stop()
+        audioPlayer?.stop()
     }
 }
 

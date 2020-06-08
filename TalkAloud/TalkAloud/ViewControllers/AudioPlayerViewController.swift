@@ -61,7 +61,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         // Added this here to avoid additional complexity of timers when
         // switching back between AudioRecordingsViewController and
         // the AudioPlayerViewController
-        AudioEngine.sharedInstance.forceStopPlayer()
+        AudioEngine.sharedInstance.stop()
     }
     
     @IBAction func playAndStopButtonAction(_ sender: UIButton) {
@@ -87,8 +87,8 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
         } else if AudioEngine.sharedInstance.audioState == .recording {
             sender.setImage(UIImage(named: "recordbutton"), for: .normal)
-            playAudioButton.isEnabled = true
             AudioEngine.sharedInstance.stop()
+            playAudioButton.isEnabled = true
             audioPlayerVisualizer.waveforms.removeAll()
             visualizerTimer?.invalidate()
         }
