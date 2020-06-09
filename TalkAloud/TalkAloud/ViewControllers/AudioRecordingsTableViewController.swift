@@ -48,16 +48,27 @@ class AudioRecordingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
-            AudioManager.sharedInstance.removeFile(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            let deleteAlertController = UIAlertController(title: "Are you sure you want to delete?", message: "You won't be able to recover this file", preferredStyle: .alert)
+            let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
+                AudioManager.sharedInstance.removeFile(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            })
+            let cancelDeleteAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+                completionHandler(false)
+            })
+            
+            deleteAlertController.addAction(deleteAlertAction)
+            deleteAlertController.addAction(cancelDeleteAction)
+            self.present(deleteAlertController, animated: true)
         }
         
         let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, completionHandler) in
-            let ac = UIAlertController(title: "Change name", message: nil, preferredStyle: .alert)
-            ac.addTextField()
+            let editAlertController = UIAlertController(title: "Change name", message: nil, preferredStyle: .alert)
+            editAlertController.addTextField()
             
-            let renameFileAction = UIAlertAction(title: "Done", style: .default) { [unowned ac] action in
-                let newFileName = ac.textFields?[0].text
+            let renameFileAction = UIAlertAction(title: "Done", style: .default) { [unowned editAlertController] action in
+                let newFileName = editAlertController.textFields?[0].text
                 
                 if let newFileName = newFileName {
                     let audioCell = UITableViewCell(style: .default, reuseIdentifier: "audio")
@@ -73,10 +84,16 @@ class AudioRecordingsTableViewController: UITableViewController {
                     
                     self.tableView.reloadData()
                 }
+                
             }
             
-            ac.addAction(renameFileAction)
-            self.present(ac, animated: true)
+            let cancelEditAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+                completionHandler(false)
+            })
+            
+            editAlertController.addAction(renameFileAction)
+            editAlertController.addAction(cancelEditAction)
+            self.present(editAlertController, animated: true)
             
         }
         
