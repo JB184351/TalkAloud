@@ -35,6 +35,7 @@ class AudioEngine: NSObject {
             audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
             audioPlayer?.delegate = self
             audioPlayer?.volume = 1.0
+            audioPlayer?.isMeteringEnabled = true
         } catch {
             if let err = error as Error? {
                 print("AVAudioPlayer error: \(err.localizedDescription)")
@@ -62,6 +63,32 @@ class AudioEngine: NSObject {
         }
     }
     
+    func getPeakPower(audioState: AudioEngineState) -> Float {
+        switch audioState {
+        case .playing:
+            return audioPlayer?.peakPower(forChannel: 0) ?? -160.00
+        case .recording:
+            return audioRecorder?.peakPower(forChannel: 0) ?? -160.0
+        case .paused:
+            return 0
+        case .stopped:
+            return 0
+        }
+    }
+    
+    func updateMeters(audioState: AudioEngineState) {
+        switch audioState {
+        case .playing:
+            audioPlayer?.updateMeters()
+        case .recording:
+            audioRecorder?.updateMeters()
+        case .paused:
+            print("Paused")
+        case .stopped:
+            print("Stopped")
+        }
+    }
+    
     func getCurrentAudioDuration() -> Float {
         return Float(audioPlayer?.duration ?? 0.0)
     }
@@ -76,12 +103,14 @@ class AudioEngine: NSObject {
     
     func play() {
         audioPlayer?.play()
+        audioPlayer?.isMeteringEnabled = true
         audioState = .playing
     }
     
     func play(withFileURL: URL) {
         setupAudioPlayer(fileURL: withFileURL)
         audioPlayer?.play()
+        audioPlayer?.isMeteringEnabled = true
         audioState = .playing
     }
     
@@ -102,6 +131,7 @@ class AudioEngine: NSObject {
         do {
             try audioRecordingSession.setCategory(.playAndRecord, mode: .default)
             try audioRecordingSession.setActive(true)
+            audioRecorder?.isMeteringEnabled = true
         } catch {
             print("Failed to record")
         }
@@ -110,8 +140,11 @@ class AudioEngine: NSObject {
     }
     
     func stop() {
-        audioState = .paused
+        audioState = .stopped
+        audioRecorder?.isMeteringEnabled = false
+        audioPlayer?.isMeteringEnabled = false
         audioRecorder?.stop()
+        audioPlayer?.stop()
     }
 }
 
