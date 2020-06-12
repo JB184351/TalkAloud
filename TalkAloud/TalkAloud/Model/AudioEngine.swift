@@ -46,6 +46,7 @@ class AudioEngine: NSObject {
     
     // Intializing audioRecorder here to make clear
     // when I'm initializing the audioRecorder and actually recording
+    // TODO: Change fileURL to use attribute url
     func setupRecorder(fileURL: URL) {
         let settings = [AVFormatIDKey: Int(kAudioFormatAppleLossless), AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
                         AVEncoderBitRateKey : 320000, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
@@ -107,6 +108,7 @@ class AudioEngine: NSObject {
         audioState = .playing
     }
     
+    // TODO Change withFileURL to fetch url attribute
     func play(withFileURL: URL) {
         setupAudioPlayer(fileURL: withFileURL)
         audioPlayer?.play()

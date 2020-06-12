@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import CoreData
 
 class AudioManager {
     
     static let sharedInstance = AudioManager()
     
+    // TODO: Make audioRecording and audioRecordings NSManangedObjects
     private var audioRecording: URL?
     private var audioRecordings: [URL] = []
     private var didNewRecording = false
@@ -40,11 +42,13 @@ class AudioManager {
         }
         
         didNewRecording = true
+        // TODO: Change to use fileName and url attributes from AudioRecording Entity
         let soundURL = directoryURL.appendingPathComponent(uniqueFileName)
         audioRecordings.append(soundURL)
         return soundURL
     }
     
+    // TODO: Fetch from CoreData here
     func loadAllFiles() -> [URL] {
         let fileManager = FileManager.default
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
@@ -52,11 +56,13 @@ class AudioManager {
         let directoryURL = documentDirectory.appendingPathComponent("TalkAloud")
         
         do {
+            // TODO: Change to use url attribute
             try audioRecordings = fileManager.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
             return audioRecordings
         } catch {
             print(error.localizedDescription)
         }
+        // change to use the array of audiorecording attribute url
         return audioRecordings
     }
     
@@ -64,6 +70,7 @@ class AudioManager {
         let fileManager = FileManager.default
         do {
             try fileManager.removeItem(at: getRecordingForIndex(index: index))
+            // Change to use url attribute
             audioRecordings.remove(at: index)
         } catch {
             print(error.localizedDescription)
@@ -79,6 +86,7 @@ class AudioManager {
         
         do {
             try fileManager.moveItem(at: getRecordingForIndex(index: index), to: newDestinationURL)
+            // TODO: Change to use url attribute
             audioRecordings[index] = newDestinationURL
         } catch {
             print(error.localizedDescription)
@@ -88,19 +96,23 @@ class AudioManager {
         return nil
     }
     
+    // TODO: Change to use filename attribute
     func getShortenedURL(audioRecording: URL) -> String {
         let shortenedURL = audioRecording.lastPathComponent
         return shortenedURL
     }
     
+    // TODO: Change to use url attirbute
     func setSelectedRecording(index: Int) {
         self.audioRecording = audioRecordings[index]
     }
     
+    // TODO: Change to use url attirbute
     func getRecordingForIndex(index: Int) -> URL {
         return audioRecordings[index]
     }
     
+    // TODO: Change to use url attribute
     func getPlayBackURL() -> URL? {
         if let audioRecording = audioRecording {
             return audioRecording
@@ -111,6 +123,7 @@ class AudioManager {
         }
     }
     
+    // TODO: Change to use url attribute
     func getLatestRecording() -> URL? {
         if didNewRecording == true {
             guard let recentRecording = audioRecordings.last else { return nil }
@@ -121,6 +134,7 @@ class AudioManager {
     }
     
     func getAudioRecordingCount() -> Int {
+        // TODO: Change to use url attribute
         return audioRecordings.count
     }
 }
