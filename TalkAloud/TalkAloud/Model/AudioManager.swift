@@ -8,19 +8,21 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class AudioManager {
     
     static let sharedInstance = AudioManager()
     
     // TODO: Make audioRecording and audioRecordings NSManangedObjects
-    private var audioRecording: URL?
-    private var audioRecordings: [URL] = []
+    private var audioRecording: NSManagedObject?
+    private var audioRecordings: [NSManagedObject] = []
+
     private var didNewRecording = false
     
     private init() {}
     
-    func getNewRecordingURL() -> URL {
+    func getNewRecordingURL() -> NSManagedObject? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
 
@@ -42,27 +44,52 @@ class AudioManager {
         }
         
         didNewRecording = true
-        // TODO: Change to use fileName and url attributes from AudioRecording Entity
+        
         let soundURL = directoryURL.appendingPathComponent(uniqueFileName)
-        audioRecordings.append(soundURL)
-        return soundURL
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let entityDescription = NSEntityDescription.entity(forEntityName: "AudioRecording", in: managedContext)!
+        
+        audioRecording = NSManagedObject(entity: entityDescription, insertInto: managedContext)
+        
+        // let soundURL = audioRecording.url
+        // Get the value
+        //let url = audioRecording?.value(forKey: "url")
+        
+        // audioRecording.url = soundURL
+        // assign the value
+        audioRecording?.setValue(uniqueFileName, forKey: "fileName")
+        audioRecording?.setValue(soundURL, forKey: "url") 
+        
+        if let audioRecording = audioRecording {
+            do {
+                try managedContext.save()
+                audioRecordings.append(audioRecording)
+            } catch let error as NSError {
+                print("Could not save \(error), \(error.userInfo)")
+            } 
+        }
+        
+        return audioRecording
     }
     
     // TODO: Fetch from CoreData here
-    func loadAllFiles() -> [URL] {
-        let fileManager = FileManager.default
-        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentDirectory = urls[0] as URL
-        let directoryURL = documentDirectory.appendingPathComponent("TalkAloud")
+    func loadAllFiles() -> [NSManagedObject]? {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AudioRecording")
         
         do {
-            // TODO: Change to use url attribute
-            try audioRecordings = fileManager.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
-            return audioRecordings
-        } catch {
-            print(error.localizedDescription)
+            audioRecordings = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch, \(error), \(error.userInfo)")
         }
-        // change to use the array of audiorecording attribute url
+        
         return audioRecordings
     }
     
@@ -86,8 +113,10 @@ class AudioManager {
         
         do {
             try fileManager.moveItem(at: getRecordingForIndex(index: index), to: newDestinationURL)
-            // TODO: Change to use url attribute
-            audioRecordings[index] = newDestinationURL
+            // TODO: DEBUG THIS WITH VIRGIL WHEN THE PROJECT WORKS
+            let currentAudioRecording = audioRecordings[index]
+            currentAudioRecording.setValue(newDestinationURL, forKey: "url")
+            audioRecordings[index] = currentAudioRecording
         } catch {
             print(error.localizedDescription)
             return error
@@ -109,7 +138,7 @@ class AudioManager {
     
     // TODO: Change to use url attirbute
     func getRecordingForIndex(index: Int) -> URL {
-        return audioRecordings[index]
+        return audioRecordings[index].value(forKey: "url") as! URL
     }
     
     // TODO: Change to use url attribute

@@ -78,6 +78,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     
     @IBAction func recordAudioButtonAction(_ sender: UIButton) {
         if AudioEngine.sharedInstance.audioState == .paused || AudioEngine.sharedInstance.audioState == .stopped {
+            // Use value forKey here to pass the url from the AudioRecording Object
             AudioEngine.sharedInstance.setupRecorder(fileURL: AudioManager.sharedInstance.getNewRecordingURL())
             sender.setImage(UIImage(named: "stopbutton"), for: .normal)
             playAudioButton.isEnabled = false
