@@ -144,7 +144,7 @@ class AudioManager {
     // TODO: Change to use url attribute
     func getPlayBackURL() -> URL? {
         if let audioRecording = audioRecording {
-            return audioRecording
+            return audioRecording.value(forKey: "url") as? URL
         } else if didNewRecording == false {
             return nil
         } else {
@@ -156,7 +156,7 @@ class AudioManager {
     func getLatestRecording() -> URL? {
         if didNewRecording == true {
             guard let recentRecording = audioRecordings.last else { return nil }
-            return recentRecording
+            return recentRecording.value(forKey: "url") as? URL
         } else {
             return nil
         }
