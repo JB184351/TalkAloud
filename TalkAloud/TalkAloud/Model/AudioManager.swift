@@ -143,8 +143,16 @@ class AudioManager {
     
     // TODO: Change to use url attribute
     func getPlayBackURL() -> URL? {
-        if let audioRecording = audioRecording {
-            return audioRecording.value(forKey: "url") as? URL
+        if let audioRecording = audioRecording?.value(forKey: "url") as? URL {
+            
+            do {
+                let isReachable = try audioRecording.checkResourceIsReachable()
+                print(isReachable)
+            } catch let e {
+                print("Couldn't load file \(e.localizedDescription)")
+            }
+            
+            return audioRecording
         } else if didNewRecording == false {
             return nil
         } else {
