@@ -20,6 +20,7 @@
 		305EF78B240D53E000CF53A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 305EF789240D53E000CF53A0 /* LaunchScreen.storyboard */; };
 		307F71E724492CAB004AE308 /* AudioRecordingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F71E624492CAB004AE308 /* AudioRecordingsTableViewController.swift */; };
 		30DBE24824798E08003716B3 /* AudioPlayerVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DBE24724798E08003716B3 /* AudioPlayerVisualizerView.swift */; };
+		30DEEABB249A59AC002BAF73 /* AudioRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DEEABA249A59AC002BAF73 /* AudioRecording.swift */; };
 		30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA0838241095CB008743E8 /* AudioEngine.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		305EF78C240D53E000CF53A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		307F71E624492CAB004AE308 /* AudioRecordingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordingsTableViewController.swift; sourceTree = "<group>"; };
 		30DBE24724798E08003716B3 /* AudioPlayerVisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerVisualizerView.swift; sourceTree = "<group>"; };
+		30DEEABA249A59AC002BAF73 /* AudioRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecording.swift; sourceTree = "<group>"; };
 		30FA0838241095CB008743E8 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 		30FA083B241099FC008743E8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -95,6 +97,7 @@
 				305EF789240D53E000CF53A0 /* LaunchScreen.storyboard */,
 				305EF78C240D53E000CF53A0 /* Info.plist */,
 				305EF784240D53DF00CF53A0 /* TalkAloud.xcdatamodeld */,
+				30DEEABA249A59AC002BAF73 /* AudioRecording.swift */,
 			);
 			path = TalkAloud;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 				3036C5E2246B95A300B082EF /* AudioSlider.swift in Sources */,
 				305EF77C240D53DF00CF53A0 /* AppDelegate.swift in Sources */,
 				307F71E724492CAB004AE308 /* AudioRecordingsTableViewController.swift in Sources */,
+				30DEEABB249A59AC002BAF73 /* AudioRecording.swift in Sources */,
 				30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */,
 				305EF77E240D53DF00CF53A0 /* SceneDelegate.swift in Sources */,
 				305EF786240D53DF00CF53A0 /* TalkAloud.xcdatamodeld in Sources */,

@@ -30,7 +30,7 @@ class AudioRecordingsTableViewController: UITableViewController {
         let currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
         
         // TODO: Change to CoreData Object filename attribute
-        let cellText = AudioManager.sharedInstance.getShortenedURL(audioRecording: currentAudio)
+        let cellText = currentAudio.value(forKey: "fileName") as! String
         let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath)
         audioCell.textLabel?.text = cellText
         return audioCell

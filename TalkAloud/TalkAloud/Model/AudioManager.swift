@@ -45,24 +45,21 @@ class AudioManager {
         
         didNewRecording = true
         
-        let soundURL = directoryURL.appendingPathComponent(uniqueFileName)
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let entityDescription = NSEntityDescription.entity(forEntityName: "AudioRecording", in: managedContext)!
+        let entityDescription = NSEntityDescription.entity(forEntityName: "AudioRecordingObject", in: managedContext)!
         
         audioRecording = NSManagedObject(entity: entityDescription, insertInto: managedContext)
         
+        audioRecording?.setValue(uniqueFileName, forKey: "fileName")
         // let soundURL = audioRecording.url
         // Get the value
         //let url = audioRecording?.value(forKey: "url")
         
         // audioRecording.url = soundURL
         // assign the value
-        audioRecording?.setValue(uniqueFileName, forKey: "fileName")
-        audioRecording?.setValue(soundURL, forKey: "url") 
         
         if let audioRecording = audioRecording {
             do {
@@ -82,7 +79,7 @@ class AudioManager {
         
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AudioRecording")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AudioRecordingObject")
         
         do {
             audioRecordings = try managedContext.fetch(fetchRequest)
@@ -94,9 +91,15 @@ class AudioManager {
     }
     
     func removeFile(at index: Int) {
-        let fileManager = FileManager.default
         do {
-            try fileManager.removeItem(at: getRecordingForIndex(index: index))
+            let fileManager = FileManager.default
+            let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+            let documentDirectory = urls[0] as URL
+            let directoryURL = documentDirectory.appendingPathComponent("TalkAloud", isDirectory: true)
+            let fileName = audioRecordings[index].value(forKey: "fileName") as! String
+            let url = directoryURL.appendingPathComponent(fileName)
+            
+            try fileManager.removeItem(at: url)
             // Change to use url attribute
             audioRecordings.remove(at: index)
         } catch {
@@ -107,29 +110,29 @@ class AudioManager {
     func renameFile(at index: Int, newFileName: String) -> Error? {
         let fileManager = FileManager.default
         
-        let uniqueFileName = newFileName + ".m4a"
-        let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).deletingLastPathComponent()
-        let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
+//        let uniqueFileName = newFileName + ".m4a"
+//        let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).deletingLastPathComponent()
+//        let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
         
-        do {
-            try fileManager.moveItem(at: getRecordingForIndex(index: index), to: newDestinationURL)
-            // TODO: DEBUG THIS WITH VIRGIL WHEN THE PROJECT WORKS
-            let currentAudioRecording = audioRecordings[index]
-            currentAudioRecording.setValue(newDestinationURL, forKey: "url")
-            audioRecordings[index] = currentAudioRecording
-        } catch {
-            print(error.localizedDescription)
-            return error
-        }
+//        do {
+//            try fileManager.moveItem(at: getRecordingForIndex(index: index), to: newDestinationURL)
+//            // TODO: DEBUG THIS WITH VIRGIL WHEN THE PROJECT WORKS
+//            let currentAudioRecording = audioRecordings[index]
+//            currentAudioRecording.setValue(newDestinationURL, forKey: "url")
+//            audioRecordings[index] = currentAudioRecording
+//        } catch {
+//            print(error.localizedDescription)
+//            return error
+//        }
         
         return nil
     }
     
     // TODO: Change to use filename attribute
-    func getShortenedURL(audioRecording: URL) -> String {
-        let shortenedURL = audioRecording.lastPathComponent
-        return shortenedURL
-    }
+//    func getShortenedURL(audioRecording: URL) -> String {
+//        let shortenedURL = audioRecording.lastPathComponent
+//        return shortenedURL
+//    }
     
     // TODO: Change to use url attirbute
     func setSelectedRecording(index: Int) {
@@ -137,22 +140,28 @@ class AudioManager {
     }
     
     // TODO: Change to use url attirbute
-    func getRecordingForIndex(index: Int) -> URL {
-        return audioRecordings[index].value(forKey: "url") as! URL
+    func getRecordingForIndex(index: Int) -> NSManagedObject {
+        return audioRecordings[index]
     }
     
     // TODO: Change to use url attribute
     func getPlayBackURL() -> URL? {
-        if let audioRecording = audioRecording?.value(forKey: "url") as? URL {
+        if let audioRecordingFileName = audioRecording?.value(forKey: "fileName") as? String {
+            let fileManager = FileManager.default
+            let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+            let documentDirectory = urls[0] as URL
+            let directoryURL = documentDirectory.appendingPathComponent("TalkAloud", isDirectory: true)
+            
+            let url = directoryURL.appendingPathComponent(audioRecordingFileName)
             
             do {
-                let isReachable = try audioRecording.checkResourceIsReachable()
+                let isReachable = try url.checkResourceIsReachable()
                 print(isReachable)
             } catch let e {
                 print("Couldn't load file \(e.localizedDescription)")
             }
             
-            return audioRecording
+            return url
         } else if didNewRecording == false {
             return nil
         } else {
