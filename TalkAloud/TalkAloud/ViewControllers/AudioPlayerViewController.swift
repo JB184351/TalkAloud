@@ -79,16 +79,8 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     @IBAction func recordAudioButtonAction(_ sender: UIButton) {
         if AudioEngine.sharedInstance.audioState == .paused || AudioEngine.sharedInstance.audioState == .stopped {
             // Use value forKey here to pass the url from the AudioRecording Object
-            
-            let fileManager = FileManager.default
-            let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
-            let documentDirectory = urls[0] as URL
-            let directoryURL = documentDirectory.appendingPathComponent("TalkAloud", isDirectory: true)
-            
-            let fileName = AudioManager.sharedInstance.getNewRecordingURL()?.value(forKey: "fileName") as! String
-            
-            let url = directoryURL.appendingPathComponent(fileName)
-            
+
+            guard let url = AudioManager.sharedInstance.getNewRecordingURL()?.url else { return }
             AudioEngine.sharedInstance.setupRecorder(fileURL: url)
             sender.setImage(UIImage(named: "stopbutton"), for: .normal)
             playAudioButton.isEnabled = false

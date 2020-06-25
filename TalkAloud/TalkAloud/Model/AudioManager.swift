@@ -14,15 +14,14 @@ class AudioManager {
     
     static let sharedInstance = AudioManager()
     
-    // TODO: Make audioRecording and audioRecordings NSManangedObjects
-    private var audioRecording: NSManagedObject?
-    private var audioRecordings: [NSManagedObject] = []
+    private var audioRecording: AudioRecording?
+    private var audioRecordings: [AudioRecording] = []
 
     private var didNewRecording = false
     
     private init() {}
     
-    func getNewRecordingURL() -> NSManagedObject? {
+    func getNewRecordingURL() -> AudioRecording? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
 
@@ -30,36 +29,15 @@ class AudioManager {
         let dateString = dateFormatter.string(from: date)
         let uniqueFileName = "talkaloud" + "_" + dateString + ".m4a"
         
-        let fileManager = FileManager.default
-        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentDirectory = urls[0] as URL
-        let directoryURL = documentDirectory.appendingPathComponent("TalkAloud", isDirectory: true)
-        
-        if !fileManager.fileExists(atPath: directoryURL.path) {
-            do {
-                try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-        
         didNewRecording = true
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         
         let managedContext = appDelegate.persistentContainer.viewContext
-        
         let entityDescription = NSEntityDescription.entity(forEntityName: "AudioRecordingObject", in: managedContext)!
-        
-        audioRecording = NSManagedObject(entity: entityDescription, insertInto: managedContext)
-        
-        audioRecording?.setValue(uniqueFileName, forKey: "fileName")
-        // let soundURL = audioRecording.url
-        // Get the value
-        //let url = audioRecording?.value(forKey: "url")
-        
-        // audioRecording.url = soundURL
-        // assign the value
+    
+        audioRecording = AudioRecording(object: NSManagedObject(entity: entityDescription, insertInto: managedContext))
+        audioRecording?.setFileName(filename: uniqueFileName)
         
         if let audioRecording = audioRecording {
             do {
@@ -73,16 +51,21 @@ class AudioManager {
         return audioRecording
     }
     
-    // TODO: Fetch from CoreData here
-    func loadAllFiles() -> [NSManagedObject]? {
+    func loadAllFiles() -> [AudioRecording]? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         
         let managedContext = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AudioRecordingObject")
+        audioRecordings.removeAll()
         
         do {
-            audioRecordings = try managedContext.fetch(fetchRequest)
+            let audioRecordingObjects = try managedContext.fetch(fetchRequest)
+            
+            for object in audioRecordingObjects {
+                let audioRecording = AudioRecording(object: object)
+                audioRecordings.append(audioRecording)
+            }
+
         } catch let error as NSError {
             print("Could not fetch, \(error), \(error.userInfo)")
         }
@@ -93,11 +76,7 @@ class AudioManager {
     func removeFile(at index: Int) {
         do {
             let fileManager = FileManager.default
-            let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
-            let documentDirectory = urls[0] as URL
-            let directoryURL = documentDirectory.appendingPathComponent("TalkAloud", isDirectory: true)
-            let fileName = audioRecordings[index].value(forKey: "fileName") as! String
-            let url = directoryURL.appendingPathComponent(fileName)
+            let url = audioRecordings[index].url
             
             try fileManager.removeItem(at: url)
             // Change to use url attribute
@@ -128,31 +107,17 @@ class AudioManager {
         return nil
     }
     
-    // TODO: Change to use filename attribute
-//    func getShortenedURL(audioRecording: URL) -> String {
-//        let shortenedURL = audioRecording.lastPathComponent
-//        return shortenedURL
-//    }
-    
-    // TODO: Change to use url attirbute
     func setSelectedRecording(index: Int) {
         self.audioRecording = audioRecordings[index]
     }
     
-    // TODO: Change to use url attirbute
-    func getRecordingForIndex(index: Int) -> NSManagedObject {
+    func getRecordingForIndex(index: Int) -> AudioRecording {
         return audioRecordings[index]
     }
     
-    // TODO: Change to use url attribute
     func getPlayBackURL() -> URL? {
-        if let audioRecordingFileName = audioRecording?.value(forKey: "fileName") as? String {
-            let fileManager = FileManager.default
-            let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
-            let documentDirectory = urls[0] as URL
-            let directoryURL = documentDirectory.appendingPathComponent("TalkAloud", isDirectory: true)
-            
-            let url = directoryURL.appendingPathComponent(audioRecordingFileName)
+        if let audioRecording = audioRecording {
+            let url = audioRecording.url
             
             do {
                 let isReachable = try url.checkResourceIsReachable()
@@ -160,8 +125,8 @@ class AudioManager {
             } catch let e {
                 print("Couldn't load file \(e.localizedDescription)")
             }
-            
             return url
+            
         } else if didNewRecording == false {
             return nil
         } else {
@@ -169,18 +134,16 @@ class AudioManager {
         }
     }
     
-    // TODO: Change to use url attribute
     func getLatestRecording() -> URL? {
         if didNewRecording == true {
             guard let recentRecording = audioRecordings.last else { return nil }
-            return recentRecording.value(forKey: "url") as? URL
+            return recentRecording.url
         } else {
             return nil
         }
     }
     
     func getAudioRecordingCount() -> Int {
-        // TODO: Change to use url attribute
         return audioRecordings.count
     }
 }
