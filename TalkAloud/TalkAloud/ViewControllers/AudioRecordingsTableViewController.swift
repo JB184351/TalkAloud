@@ -16,6 +16,7 @@ class AudioRecordingsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         AudioManager.sharedInstance.loadAllFiles()
         tableView.reloadData()
     }
@@ -27,7 +28,7 @@ class AudioRecordingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
         
-        let cellText = AudioManager.sharedInstance.getShortenedURL(audioRecording: currentAudio)
+        let cellText = currentAudio.fileName
         let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath)
         audioCell.textLabel?.text = cellText
         return audioCell

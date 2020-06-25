@@ -7,18 +7,21 @@
 //
 
 import Foundation
+import CoreData
+import UIKit
 
 class AudioManager {
     
     static let sharedInstance = AudioManager()
     
-    private var audioRecording: URL?
-    private var audioRecordings: [URL] = []
+    private var audioRecording: AudioRecording?
+    private var audioRecordings: [AudioRecording] = []
+
     private var didNewRecording = false
     
     private init() {}
     
-    func getNewRecordingURL() -> URL {
+    func getNewRecordingURL() -> AudioRecording? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
 
@@ -26,44 +29,57 @@ class AudioManager {
         let dateString = dateFormatter.string(from: date)
         let uniqueFileName = "talkaloud" + "_" + dateString + ".m4a"
         
-        let fileManager = FileManager.default
-        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentDirectory = urls[0] as URL
-        let directoryURL = documentDirectory.appendingPathComponent("TalkAloud", isDirectory: true)
+        didNewRecording = true
         
-        if !fileManager.fileExists(atPath: directoryURL.path) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entityDescription = NSEntityDescription.entity(forEntityName: "AudioRecordingObject", in: managedContext)!
+    
+        audioRecording = AudioRecording(object: NSManagedObject(entity: entityDescription, insertInto: managedContext))
+        audioRecording?.setFileName(filename: uniqueFileName)
+        
+        if let audioRecording = audioRecording {
             do {
-                try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                print(error.localizedDescription)
-            }
+                try managedContext.save()
+                audioRecordings.append(audioRecording)
+            } catch let error as NSError {
+                print("Could not save \(error), \(error.userInfo)")
+            } 
         }
         
-        didNewRecording = true
-        let soundURL = directoryURL.appendingPathComponent(uniqueFileName)
-        audioRecordings.append(soundURL)
-        return soundURL
+        return audioRecording
     }
     
-    func loadAllFiles() -> [URL] {
-        let fileManager = FileManager.default
-        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentDirectory = urls[0] as URL
-        let directoryURL = documentDirectory.appendingPathComponent("TalkAloud")
+    func loadAllFiles() -> [AudioRecording]? {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AudioRecordingObject")
+        audioRecordings.removeAll()
         
         do {
-            try audioRecordings = fileManager.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
-            return audioRecordings
-        } catch {
-            print(error.localizedDescription)
+            let audioRecordingObjects = try managedContext.fetch(fetchRequest)
+            
+            for object in audioRecordingObjects {
+                let audioRecording = AudioRecording(object: object)
+                audioRecordings.append(audioRecording)
+            }
+
+        } catch let error as NSError {
+            print("Could not fetch, \(error), \(error.userInfo)")
         }
+        
         return audioRecordings
     }
     
     func removeFile(at index: Int) {
-        let fileManager = FileManager.default
         do {
-            try fileManager.removeItem(at: getRecordingForIndex(index: index))
+            let fileManager = FileManager.default
+            let url = audioRecordings[index].url
+            
+            try fileManager.removeItem(at: url)
+            // Change to use url attribute
             audioRecordings.remove(at: index)
         } catch {
             print(error.localizedDescription)
@@ -73,37 +89,44 @@ class AudioManager {
     func renameFile(at index: Int, newFileName: String) -> Error? {
         let fileManager = FileManager.default
         
-        let uniqueFileName = newFileName + ".m4a"
-        let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).deletingLastPathComponent()
-        let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
+//        let uniqueFileName = newFileName + ".m4a"
+//        let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).deletingLastPathComponent()
+//        let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
         
-        do {
-            try fileManager.moveItem(at: getRecordingForIndex(index: index), to: newDestinationURL)
-            audioRecordings[index] = newDestinationURL
-        } catch {
-            print(error.localizedDescription)
-            return error
-        }
+//        do {
+//            try fileManager.moveItem(at: getRecordingForIndex(index: index), to: newDestinationURL)
+//            // TODO: DEBUG THIS WITH VIRGIL WHEN THE PROJECT WORKS
+//            let currentAudioRecording = audioRecordings[index]
+//            currentAudioRecording.setValue(newDestinationURL, forKey: "url")
+//            audioRecordings[index] = currentAudioRecording
+//        } catch {
+//            print(error.localizedDescription)
+//            return error
+//        }
         
         return nil
-    }
-    
-    func getShortenedURL(audioRecording: URL) -> String {
-        let shortenedURL = audioRecording.lastPathComponent
-        return shortenedURL
     }
     
     func setSelectedRecording(index: Int) {
         self.audioRecording = audioRecordings[index]
     }
     
-    func getRecordingForIndex(index: Int) -> URL {
+    func getRecordingForIndex(index: Int) -> AudioRecording {
         return audioRecordings[index]
     }
     
     func getPlayBackURL() -> URL? {
         if let audioRecording = audioRecording {
-            return audioRecording
+            let url = audioRecording.url
+            
+            do {
+                let isReachable = try url.checkResourceIsReachable()
+                print(isReachable)
+            } catch let e {
+                print("Couldn't load file \(e.localizedDescription)")
+            }
+            return url
+            
         } else if didNewRecording == false {
             return nil
         } else {
@@ -114,7 +137,7 @@ class AudioManager {
     func getLatestRecording() -> URL? {
         if didNewRecording == true {
             guard let recentRecording = audioRecordings.last else { return nil }
-            return recentRecording
+            return recentRecording.url
         } else {
             return nil
         }
