@@ -24,52 +24,23 @@ class AudioManager {
     func getNewRecordingURL() -> AudioRecording? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
-
+        
         let date = Date()
         let dateString = dateFormatter.string(from: date)
         let uniqueFileName = "talkaloud" + "_" + dateString + ".m4a"
         
         didNewRecording = true
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        audioRecording = CoreDataManager.sharedInstance.saveToCoreDataObject()
         
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let entityDescription = NSEntityDescription.entity(forEntityName: "AudioRecordingObject", in: managedContext)!
-    
-        audioRecording = AudioRecording(object: NSManagedObject(entity: entityDescription, insertInto: managedContext))
         audioRecording?.setFileName(filename: uniqueFileName)
-        
-        if let audioRecording = audioRecording {
-            do {
-                try managedContext.save()
-                audioRecordings.append(audioRecording)
-            } catch let error as NSError {
-                print("Could not save \(error), \(error.userInfo)")
-            } 
-        }
         
         return audioRecording
     }
     
     func loadAllFiles() -> [AudioRecording]? {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AudioRecordingObject")
-        audioRecordings.removeAll()
-        
-        do {
-            let audioRecordingObjects = try managedContext.fetch(fetchRequest)
-            
-            for object in audioRecordingObjects {
-                let audioRecording = AudioRecording(object: object)
-                audioRecordings.append(audioRecording)
-            }
-
-        } catch let error as NSError {
-            print("Could not fetch, \(error), \(error.userInfo)")
-        }
-        
+        guard let allRecordings = CoreDataManager.sharedInstance.loadFromCoreData() else { return nil }
+        audioRecordings = allRecordings
         return audioRecordings
     }
     
