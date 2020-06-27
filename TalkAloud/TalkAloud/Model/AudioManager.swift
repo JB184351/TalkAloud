@@ -31,20 +31,19 @@ class AudioManager {
         
         didNewRecording = true
         
-        audioRecording = CoreDataManager.sharedInstance.saveToCoreDataObject()
-        
-        audioRecording?.setFileName(filename: uniqueFileName)
+        audioRecording = CoreDataManager.sharedInstance.createNewAudioRecording(uniqueFileName: uniqueFileName)
         
         return audioRecording
     }
     
-    func loadAllFiles() -> [AudioRecording]? {
-        guard let allRecordings = CoreDataManager.sharedInstance.loadFromCoreData() else { return nil }
+    func loadAllRecordings() -> [AudioRecording]? {
+        guard let allRecordings = CoreDataManager.sharedInstance.loadAudioRecordings() else { return nil }
         audioRecordings = allRecordings
         return audioRecordings
     }
     
     func removeFile(at index: Int) {
+        
         do {
             let fileManager = FileManager.default
             let url = audioRecordings[index].url
@@ -55,6 +54,8 @@ class AudioManager {
         } catch {
             print(error.localizedDescription)
         }
+        
+        CoreDataManager.sharedInstance.deleteAudioRecording(at: index)
     }
     
     func renameFile(at index: Int, newFileName: String) -> Error? {
