@@ -33,6 +33,12 @@ class AudioManager {
         
         audioRecording = CoreDataManager.sharedInstance.createNewAudioRecording(uniqueFileName: uniqueFileName)
         
+        if let audioRecording = audioRecording {
+            audioRecordings.append(audioRecording)
+        } else {
+            return nil
+        }
+        
         return audioRecording
     }
     
