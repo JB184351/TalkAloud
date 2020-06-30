@@ -61,20 +61,21 @@ class AudioManager {
     func renameFile(at index: Int, newFileName: String) -> Error? {
         let fileManager = FileManager.default
         
-//        let uniqueFileName = newFileName + ".m4a"
-//        let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).deletingLastPathComponent()
-//        let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
+        let uniqueFileName = newFileName + ".m4a"
+        let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).url.deletingLastPathComponent()
+        let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
         
-//        do {
-//            try fileManager.moveItem(at: getRecordingForIndex(index: index), to: newDestinationURL)
-//            // TODO: DEBUG THIS WITH VIRGIL WHEN THE PROJECT WORKS
-//            let currentAudioRecording = audioRecordings[index]
-//            currentAudioRecording.setValue(newDestinationURL, forKey: "url")
-//            audioRecordings[index] = currentAudioRecording
-//        } catch {
-//            print(error.localizedDescription)
-//            return error
-//        }
+        do {
+            try fileManager.moveItem(at: getRecordingForIndex(index: index).url, to: newDestinationURL)
+            // TODO: DEBUG THIS WITH VIRGIL WHEN THE PROJECT WORKS
+            let currentAudioRecording = audioRecordings[index]
+            audioRecordings[index] = currentAudioRecording
+        } catch {
+            print(error.localizedDescription)
+            return error
+        }
+        
+        CoreDataManager.sharedInstance.updateAudioRecordingFileName(at: index, newFileName: uniqueFileName)
         
         return nil
     }

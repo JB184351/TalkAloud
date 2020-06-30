@@ -10,14 +10,10 @@ import Foundation
 import UIKit
 import CoreData
 
-class CoreDataManager: NSManagedObject {
-    
+class CoreDataManager {
     static let sharedInstance = CoreDataManager()
     
-    
     func createNewAudioRecording(uniqueFileName: String) -> AudioRecording? {
-        var audioRecordings = [AudioRecording]()
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -30,7 +26,6 @@ class CoreDataManager: NSManagedObject {
         
         do {
             try managedContext.save()
-            audioRecordings.append(audioRecording)
         } catch let error as NSError {
             print("Could not save \(error), \(error.userInfo)")
         }
@@ -45,7 +40,6 @@ class CoreDataManager: NSManagedObject {
         
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AudioRecordingObject")
-        audioRecordings.removeAll()
         
         do {
             let audioRecordingObjects = try managedContext.fetch(fetchRequest)
@@ -63,30 +57,41 @@ class CoreDataManager: NSManagedObject {
     }
     
     func deleteAudioRecording(at index: Int) {
-
-        var audioRecordings = [AudioRecording]()
-
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
         let managedContext = appDelegate.persistentContainer.viewContext
         let deleteRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AudioRecordingObject")
 
         do {
             let objects = try managedContext.fetch(deleteRequest)
-
-            for object in objects as! [NSManagedObject] {
-                
-                if object == objects[index] as! NSManagedObject {
-                    managedContext.delete(object)
-                } else {
-                    let audioRecording = AudioRecording(object: object)
-                    audioRecordings.append(audioRecording)
-                }
-            }
-
+            managedContext.delete(objects[index] as! NSManagedObject)
         } catch {
             print(error.localizedDescription)
         }
 
+        do {
+            try managedContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func updateAudioRecordingFileName(at index: Int, newFileName: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let changeRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AudioRecordingObject")
+        
+        do {
+            let objects = try managedContext.fetch(changeRequest)
+            
+            let currentAudioRecordingObject = objects[index]
+            let audioRecording = AudioRecording(object: currentAudioRecordingObject as! NSManagedObject)
+            audioRecording.setFileName(filename: newFileName)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
         do {
             try managedContext.save()
         } catch {
