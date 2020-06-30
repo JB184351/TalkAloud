@@ -24,56 +24,32 @@ class AudioManager {
     func getNewRecordingURL() -> AudioRecording? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
-
+        
         let date = Date()
         let dateString = dateFormatter.string(from: date)
         let uniqueFileName = "talkaloud" + "_" + dateString + ".m4a"
         
         didNewRecording = true
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let entityDescription = NSEntityDescription.entity(forEntityName: "AudioRecordingObject", in: managedContext)!
-    
-        audioRecording = AudioRecording(object: NSManagedObject(entity: entityDescription, insertInto: managedContext))
-        audioRecording?.setFileName(filename: uniqueFileName)
+        audioRecording = CoreDataManager.sharedInstance.createNewAudioRecording(uniqueFileName: uniqueFileName)
         
         if let audioRecording = audioRecording {
-            do {
-                try managedContext.save()
-                audioRecordings.append(audioRecording)
-            } catch let error as NSError {
-                print("Could not save \(error), \(error.userInfo)")
-            } 
+            audioRecordings.append(audioRecording)
+        } else {
+            return nil
         }
         
         return audioRecording
     }
     
-    func loadAllFiles() -> [AudioRecording]? {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AudioRecordingObject")
-        audioRecordings.removeAll()
-        
-        do {
-            let audioRecordingObjects = try managedContext.fetch(fetchRequest)
-            
-            for object in audioRecordingObjects {
-                let audioRecording = AudioRecording(object: object)
-                audioRecordings.append(audioRecording)
-            }
-
-        } catch let error as NSError {
-            print("Could not fetch, \(error), \(error.userInfo)")
-        }
-        
+    func loadAllRecordings() -> [AudioRecording]? {
+        guard let allRecordings = CoreDataManager.sharedInstance.loadAudioRecordings() else { return nil }
+        audioRecordings = allRecordings
         return audioRecordings
     }
     
     func removeFile(at index: Int) {
+        
         do {
             let fileManager = FileManager.default
             let url = audioRecordings[index].url
@@ -84,25 +60,28 @@ class AudioManager {
         } catch {
             print(error.localizedDescription)
         }
+        
+        CoreDataManager.sharedInstance.deleteAudioRecording(at: index)
     }
     
     func renameFile(at index: Int, newFileName: String) -> Error? {
         let fileManager = FileManager.default
         
-//        let uniqueFileName = newFileName + ".m4a"
-//        let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).deletingLastPathComponent()
-//        let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
+        let uniqueFileName = newFileName + ".m4a"
+        let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).url.deletingLastPathComponent()
+        let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
         
-//        do {
-//            try fileManager.moveItem(at: getRecordingForIndex(index: index), to: newDestinationURL)
-//            // TODO: DEBUG THIS WITH VIRGIL WHEN THE PROJECT WORKS
-//            let currentAudioRecording = audioRecordings[index]
-//            currentAudioRecording.setValue(newDestinationURL, forKey: "url")
-//            audioRecordings[index] = currentAudioRecording
-//        } catch {
-//            print(error.localizedDescription)
-//            return error
-//        }
+        do {
+            try fileManager.moveItem(at: getRecordingForIndex(index: index).url, to: newDestinationURL)
+            // TODO: DEBUG THIS WITH VIRGIL WHEN THE PROJECT WORKS
+            let currentAudioRecording = audioRecordings[index]
+            audioRecordings[index] = currentAudioRecording
+        } catch {
+            print(error.localizedDescription)
+            return error
+        }
+        
+        CoreDataManager.sharedInstance.updateAudioRecordingFileName(at: index, newFileName: uniqueFileName)
         
         return nil
     }

@@ -17,7 +17,7 @@ class AudioRecordingsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        AudioManager.sharedInstance.loadAllFiles()
+        AudioManager.sharedInstance.loadAllRecordings()
         tableView.reloadData()
     }
     
