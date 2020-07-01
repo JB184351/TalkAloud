@@ -10,7 +10,6 @@
 		300EBDBE2444AD610069EF00 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300EBDBD2444AD610069EF00 /* AudioManager.swift */; };
 		3018126524114A76001999EA /* AudioEngineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3018126424114A76001999EA /* AudioEngineState.swift */; };
 		3023D7272462F40900D35EA8 /* AudioTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3023D7262462F40900D35EA8 /* AudioTabBarController.swift */; };
-		3036C5E2246B95A300B082EF /* AudioSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3036C5E1246B95A300B082EF /* AudioSlider.swift */; };
 		305EF77C240D53DF00CF53A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305EF77B240D53DF00CF53A0 /* AppDelegate.swift */; };
 		305EF77E240D53DF00CF53A0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305EF77D240D53DF00CF53A0 /* SceneDelegate.swift */; };
 		305EF780240D53DF00CF53A0 /* AudioPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305EF77F240D53DF00CF53A0 /* AudioPlayerViewController.swift */; };
@@ -22,6 +21,7 @@
 		30A1C9C624A5808500AB0C59 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A1C9C524A5808500AB0C59 /* CoreDataManager.swift */; };
 		30DBE24824798E08003716B3 /* AudioPlayerVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DBE24724798E08003716B3 /* AudioPlayerVisualizerView.swift */; };
 		30DEEABB249A59AC002BAF73 /* AudioRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DEEABA249A59AC002BAF73 /* AudioRecording.swift */; };
+		30F4116124ACC3A200EA4EF6 /* AudioSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4116024ACC3A200EA4EF6 /* AudioSlider.swift */; };
 		30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA0838241095CB008743E8 /* AudioEngine.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,7 +29,6 @@
 		300EBDBD2444AD610069EF00 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		3018126424114A76001999EA /* AudioEngineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineState.swift; sourceTree = "<group>"; };
 		3023D7262462F40900D35EA8 /* AudioTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTabBarController.swift; sourceTree = "<group>"; };
-		3036C5E1246B95A300B082EF /* AudioSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSlider.swift; sourceTree = SOURCE_ROOT; };
 		305EF778240D53DF00CF53A0 /* TalkAloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TalkAloud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		305EF77B240D53DF00CF53A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		305EF77D240D53DF00CF53A0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +42,7 @@
 		30A1C9C524A5808500AB0C59 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		30DBE24724798E08003716B3 /* AudioPlayerVisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerVisualizerView.swift; sourceTree = "<group>"; };
 		30DEEABA249A59AC002BAF73 /* AudioRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecording.swift; sourceTree = "<group>"; };
+		30F4116024ACC3A200EA4EF6 /* AudioSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSlider.swift; sourceTree = "<group>"; };
 		30FA0838241095CB008743E8 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 		30FA083B241099FC008743E8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -61,10 +61,8 @@
 		301B143E244A80D3007C3050 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3018126424114A76001999EA /* AudioEngineState.swift */,
-				30FA0838241095CB008743E8 /* AudioEngine.swift */,
-				300EBDBD2444AD610069EF00 /* AudioManager.swift */,
-				30A1C9C524A5808500AB0C59 /* CoreDataManager.swift */,
+				30DEEABA249A59AC002BAF73 /* AudioRecording.swift */,
+				305EF784240D53DF00CF53A0 /* TalkAloud.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -89,18 +87,17 @@
 		305EF77A240D53DF00CF53A0 /* TalkAloud */ = {
 			isa = PBXGroup;
 			children = (
+				305EF78C240D53E000CF53A0 /* Info.plist */,
 				305EF77B240D53DF00CF53A0 /* AppDelegate.swift */,
 				305EF77D240D53DF00CF53A0 /* SceneDelegate.swift */,
-				3036C5E1246B95A300B082EF /* AudioSlider.swift */,
-				30DBE24724798E08003716B3 /* AudioPlayerVisualizerView.swift */,
-				307F71E824492CF0004AE308 /* ViewControllers */,
-				301B143E244A80D3007C3050 /* Model */,
-				305EF781240D53DF00CF53A0 /* Main.storyboard */,
 				305EF787240D53E000CF53A0 /* Assets.xcassets */,
 				305EF789240D53E000CF53A0 /* LaunchScreen.storyboard */,
-				305EF78C240D53E000CF53A0 /* Info.plist */,
-				305EF784240D53DF00CF53A0 /* TalkAloud.xcdatamodeld */,
-				30DEEABA249A59AC002BAF73 /* AudioRecording.swift */,
+				305EF781240D53DF00CF53A0 /* Main.storyboard */,
+				30F4115E24ACC2D200EA4EF6 /* AudioEngine */,
+				30F4115D24ACC2B100EA4EF6 /* Managers */,
+				301B143E244A80D3007C3050 /* Model */,
+				307F71E824492CF0004AE308 /* ViewControllers */,
+				30F4115F24ACC2F400EA4EF6 /* Views */,
 			);
 			path = TalkAloud;
 			sourceTree = "<group>";
@@ -113,6 +110,33 @@
 				3023D7262462F40900D35EA8 /* AudioTabBarController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		30F4115D24ACC2B100EA4EF6 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				300EBDBD2444AD610069EF00 /* AudioManager.swift */,
+				30A1C9C524A5808500AB0C59 /* CoreDataManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		30F4115E24ACC2D200EA4EF6 /* AudioEngine */ = {
+			isa = PBXGroup;
+			children = (
+				3018126424114A76001999EA /* AudioEngineState.swift */,
+				30FA0838241095CB008743E8 /* AudioEngine.swift */,
+			);
+			path = AudioEngine;
+			sourceTree = "<group>";
+		};
+		30F4115F24ACC2F400EA4EF6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				30F4116024ACC3A200EA4EF6 /* AudioSlider.swift */,
+				30DBE24724798E08003716B3 /* AudioPlayerVisualizerView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		30FA083A241099FC008743E8 /* Frameworks */ = {
@@ -197,11 +221,11 @@
 				3018126524114A76001999EA /* AudioEngineState.swift in Sources */,
 				300EBDBE2444AD610069EF00 /* AudioManager.swift in Sources */,
 				305EF780240D53DF00CF53A0 /* AudioPlayerViewController.swift in Sources */,
-				3036C5E2246B95A300B082EF /* AudioSlider.swift in Sources */,
 				305EF77C240D53DF00CF53A0 /* AppDelegate.swift in Sources */,
 				307F71E724492CAB004AE308 /* AudioRecordingsTableViewController.swift in Sources */,
 				30DEEABB249A59AC002BAF73 /* AudioRecording.swift in Sources */,
 				30A1C9C624A5808500AB0C59 /* CoreDataManager.swift in Sources */,
+				30F4116124ACC3A200EA4EF6 /* AudioSlider.swift in Sources */,
 				30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */,
 				305EF77E240D53DF00CF53A0 /* SceneDelegate.swift in Sources */,
 				305EF786240D53DF00CF53A0 /* TalkAloud.xcdatamodeld in Sources */,
