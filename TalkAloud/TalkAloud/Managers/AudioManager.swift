@@ -73,9 +73,6 @@ class AudioManager {
         
         do {
             try fileManager.moveItem(at: getRecordingForIndex(index: index).url, to: newDestinationURL)
-            // TODO: DEBUG THIS WITH VIRGIL WHEN THE PROJECT WORKS
-            let currentAudioRecording = audioRecordings[index]
-            audioRecordings[index] = currentAudioRecording
         } catch {
             print(error.localizedDescription)
             return error
