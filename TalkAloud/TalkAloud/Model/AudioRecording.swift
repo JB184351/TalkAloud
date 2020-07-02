@@ -16,8 +16,8 @@ struct AudioRecording {
         return object.value(forKey: "fileName") as! String
     }
     
-    var tags: String {
-        return object.value(forKey: "tags") as! String
+    var tags: String? {
+        return object.value(forKey: "tag") as? String ?? ""
     }
     
     var url: URL {
@@ -45,5 +45,9 @@ struct AudioRecording {
     
     func setFileName(filename: String) {
         object.setValue(filename, forKey: "fileName")
+    }
+    
+    func setTag(tag: String) {
+        object.setValue(tag, forKey: "tag")
     }
 }

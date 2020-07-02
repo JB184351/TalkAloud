@@ -30,10 +30,14 @@ class AudioRecordingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
         
-        let cellText = currentAudio.fileName
+        let cellFileName = currentAudio.fileName
+        let tagName = currentAudio.tags
+        
         let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath) as! AudioRecordingCell
-        audioCell.fileNameLabel?.text = cellText
-        audioCell.tagLabel?.text = "Tags go here"
+        audioCell.fileNameLabel?.text = cellFileName
+        audioCell.tagLabel?.text = tagName
+        
+        
         return audioCell
     }
     
@@ -75,8 +79,8 @@ class AudioRecordingsTableViewController: UITableViewController {
                 let newFileName = editAlertController.textFields?[0].text
                 
                 if let newFileName = newFileName {
-                    let audioCell = UITableViewCell(style: .default, reuseIdentifier: "audio")
-                    audioCell.textLabel?.text = newFileName
+                    let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath) as! AudioRecordingCell
+                    audioCell.fileNameLabel?.text = newFileName
                     let errorMessage = AudioManager.sharedInstance.renameFile(at: indexPath.row, newFileName: newFileName)
                     
                     if errorMessage != nil {
@@ -101,9 +105,33 @@ class AudioRecordingsTableViewController: UITableViewController {
             
         }
         
-        editAction.backgroundColor = .blue
+        let tagAction = UIContextualAction(style: .normal, title: "Tag") { (action, view, completionHandler) in
+            let tagAlertController = UIAlertController(title: "Edit Tag", message: nil, preferredStyle: .alert)
+            tagAlertController.addTextField()
+            
+            let addTagAction = UIAlertAction(title: "Done", style: .default) { [unowned tagAlertController] action in
+                let tagName = tagAlertController.textFields?[0].text
+                
+                let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath) as! AudioRecordingCell
+                audioCell.tagLabel?.text = tagName
+                AudioManager.sharedInstance.setTag(at: indexPath.row, tag: tagName ?? "")
+                
+                self.tableView.reloadData()
+            }
+            
+            let cancelTagAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                completionHandler(false)
+            }
+            
+            tagAlertController.addAction(addTagAction)
+            tagAlertController.addAction(cancelTagAction)
+            self.present(tagAlertController, animated: true)
+        }
         
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        editAction.backgroundColor = .blue
+        tagAction.backgroundColor = .systemTeal
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction, tagAction])
         return configuration
     }
 }
