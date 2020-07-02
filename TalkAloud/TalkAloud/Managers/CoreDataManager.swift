@@ -88,6 +88,7 @@ class CoreDataManager {
             let currentAudioRecordingObject = objects[index]
             let audioRecording = AudioRecording(object: currentAudioRecordingObject as! NSManagedObject)
             audioRecording.setFileName(filename: newFileName)
+
         } catch {
             print(error.localizedDescription)
         }

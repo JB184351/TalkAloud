@@ -12,6 +12,8 @@ class AudioRecordingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "audio")
+        tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,8 +31,9 @@ class AudioRecordingsTableViewController: UITableViewController {
         let currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
         
         let cellText = currentAudio.fileName
-        let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath)
-        audioCell.textLabel?.text = cellText
+        let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath) as! AudioRecordingCell
+        audioCell.fileNameLabel?.text = cellText
+        audioCell.tagLabel?.text = "Tags go here"
         return audioCell
     }
     
