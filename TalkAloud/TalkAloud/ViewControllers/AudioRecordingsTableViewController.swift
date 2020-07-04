@@ -126,7 +126,7 @@ class AudioRecordingsTableViewController: UITableViewController {
                 completionHandler(false)
             }
             
-            let removeTagAction = UIAlertAction(title: "Remove Tag", style: .destructive) { [unowned tagAlertController] action in
+            let removeTagAction = UIAlertAction(title: "Remove Tag", style: .destructive) { (UIAlertAction) in
                 AudioManager.sharedInstance.removeTag(at: indexPath.row)
                 tableView.reloadData()
             }
