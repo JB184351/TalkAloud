@@ -123,4 +123,28 @@ class CoreDataManager {
             print(error.localizedDescription)
         }
     }
+    
+    func removeAudioRecordingTag(at index: Int) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AudioRecordingObject")
+
+        do {
+            let objects = try managedContext.fetch(fetchRequest)
+            
+            let currentAudioRecordingObject = objects[index] as! NSManagedObject
+            let audioRecording = AudioRecording(object: currentAudioRecordingObject)
+            audioRecording.removeTag()
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+
+        do {
+            try managedContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }

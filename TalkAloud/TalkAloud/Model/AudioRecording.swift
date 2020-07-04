@@ -50,4 +50,8 @@ struct AudioRecording {
     func setTag(tag: String) {
         object.setValue(tag, forKey: "tag")
     }
+    
+    func removeTag() {
+        object.setValue("", forKey: "tag")
+    }
 }

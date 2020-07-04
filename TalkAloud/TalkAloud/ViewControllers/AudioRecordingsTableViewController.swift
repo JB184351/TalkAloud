@@ -12,7 +12,7 @@ class AudioRecordingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "audio")
+        tableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")
         tableView.reloadData()
     }
     
@@ -23,6 +23,17 @@ class AudioRecordingsTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    func configureAudioRecordingCell(currentAudioRecording: AudioRecording, indexPath: IndexPath) -> UITableViewCell {
+        let cellFileName = currentAudioRecording.fileName
+        let tagName = currentAudioRecording.tags
+        
+        let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
+        audioCell.fileNameLabel?.text = cellFileName
+        audioCell.tagLabel?.text = tagName
+        
+        return audioCell
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return AudioManager.sharedInstance.getAudioRecordingCount()
     }
@@ -30,15 +41,7 @@ class AudioRecordingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
         
-        let cellFileName = currentAudio.fileName
-        let tagName = currentAudio.tags
-        
-        let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath) as! AudioRecordingCell
-        audioCell.fileNameLabel?.text = cellFileName
-        audioCell.tagLabel?.text = tagName
-        
-        
-        return audioCell
+        return configureAudioRecordingCell(currentAudioRecording: currentAudio, indexPath: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -79,7 +82,7 @@ class AudioRecordingsTableViewController: UITableViewController {
                 let newFileName = editAlertController.textFields?[0].text
                 
                 if let newFileName = newFileName {
-                    let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath) as! AudioRecordingCell
+                    let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
                     audioCell.fileNameLabel?.text = newFileName
                     let errorMessage = AudioManager.sharedInstance.renameFile(at: indexPath.row, newFileName: newFileName)
                     
@@ -112,7 +115,7 @@ class AudioRecordingsTableViewController: UITableViewController {
             let addTagAction = UIAlertAction(title: "Done", style: .default) { [unowned tagAlertController] action in
                 let tagName = tagAlertController.textFields?[0].text
                 
-                let audioCell = tableView.dequeueReusableCell(withIdentifier: "audio", for: indexPath) as! AudioRecordingCell
+                let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
                 audioCell.tagLabel?.text = tagName
                 AudioManager.sharedInstance.setTag(at: indexPath.row, tag: tagName ?? "")
                 

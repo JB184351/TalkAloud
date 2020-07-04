@@ -9,8 +9,8 @@
 import UIKit
 
 class AudioRecordingCell: UITableViewCell {
+    
     @IBOutlet var fileNameLabel: UILabel!
     @IBOutlet var tagLabel: UILabel!
-    
     
 }

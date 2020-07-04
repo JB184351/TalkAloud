@@ -87,6 +87,10 @@ class AudioManager {
         CoreDataManager.sharedInstance.updateAudioRecordingTag(at: index, tag: tag)
     }
     
+    func removeTag(at index: Int) {
+        CoreDataManager.sharedInstance.removeAudioRecordingTag(at: index)
+    }
+    
     func setSelectedRecording(index: Int) {
         self.audioRecording = audioRecordings[index]
     }
