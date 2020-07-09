@@ -13,9 +13,9 @@ class AudioRecordingCell: UITableViewCell {
     @IBOutlet var fileNameLabel: UILabel!
     @IBOutlet var tagLabel: UILabel!
     
-    func configureAudioRecordingCell(currentAudioRecording: AudioRecording) {
-        let cellFileName = currentAudioRecording.fileName
-        let tags = currentAudioRecording.tags
+    func setup(with model: AudioRecording) {
+        let cellFileName = model.fileName
+        let tags = model.tags
         var allTags = ""
         
         if let tags = tags {

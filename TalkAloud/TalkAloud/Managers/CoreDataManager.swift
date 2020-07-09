@@ -23,7 +23,6 @@ class CoreDataManager {
         
         let audioRecording = AudioRecording(object: coreDataObject)
         audioRecording.setFileName(filename: uniqueFileName)
-        
         do {
             try managedContext.save()
         } catch let error as NSError {

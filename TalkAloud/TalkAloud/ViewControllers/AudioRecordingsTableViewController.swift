@@ -13,7 +13,6 @@ class AudioRecordingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")
-        tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,7 +30,7 @@ class AudioRecordingsTableViewController: UITableViewController {
         let currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
         let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
         
-        audioCell.configureAudioRecordingCell(currentAudioRecording: currentAudio)
+        audioCell.setup(with: currentAudio)
         return audioCell
     }
     
@@ -104,7 +103,6 @@ class AudioRecordingsTableViewController: UITableViewController {
             let addTagAction = UIAlertAction(title: "Add", style: .default) { [unowned tagAlertController] action in
                 let tagName = tagAlertController.textFields?[0].text
                 AudioManager.sharedInstance.setTag(at: indexPath.row, tag: tagName ?? "")
-                
                 self.tableView.reloadData()
             }
             
