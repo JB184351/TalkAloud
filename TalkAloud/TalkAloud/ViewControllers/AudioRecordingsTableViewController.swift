@@ -23,25 +23,16 @@ class AudioRecordingsTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func configureAudioRecordingCell(currentAudioRecording: AudioRecording, indexPath: IndexPath) -> UITableViewCell {
-        let cellFileName = currentAudioRecording.fileName
-        let tagName = currentAudioRecording.tags
-        
-        let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
-        audioCell.fileNameLabel?.text = cellFileName
-        audioCell.tagLabel?.text = tagName
-        
-        return audioCell
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return AudioManager.sharedInstance.getAudioRecordingCount()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
+        let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
         
-        return configureAudioRecordingCell(currentAudioRecording: currentAudio, indexPath: indexPath)
+        audioCell.configureAudioRecordingCell(currentAudioRecording: currentAudio)
+        return audioCell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -82,8 +73,6 @@ class AudioRecordingsTableViewController: UITableViewController {
                 let newFileName = editAlertController.textFields?[0].text
                 
                 if let newFileName = newFileName {
-                    let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
-                    audioCell.fileNameLabel?.text = newFileName
                     let errorMessage = AudioManager.sharedInstance.renameFile(at: indexPath.row, newFileName: newFileName)
                     
                     if errorMessage != nil {
@@ -112,11 +101,8 @@ class AudioRecordingsTableViewController: UITableViewController {
             let tagAlertController = UIAlertController(title: "Edit Tag", message: nil, preferredStyle: .alert)
             tagAlertController.addTextField()
             
-            let addTagAction = UIAlertAction(title: "Done", style: .default) { [unowned tagAlertController] action in
+            let addTagAction = UIAlertAction(title: "Add", style: .default) { [unowned tagAlertController] action in
                 let tagName = tagAlertController.textFields?[0].text
-                
-                let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
-                audioCell.tagLabel?.text = tagName
                 AudioManager.sharedInstance.setTag(at: indexPath.row, tag: tagName ?? "")
                 
                 self.tableView.reloadData()
@@ -126,18 +112,14 @@ class AudioRecordingsTableViewController: UITableViewController {
                 completionHandler(false)
             }
             
-            let removeTagAction = UIAlertAction(title: "Remove Tag", style: .destructive) { (UIAlertAction) in
+            let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
                 AudioManager.sharedInstance.removeTag(at: indexPath.row)
-                tableView.reloadData()
+                self.tableView.reloadData()
             }
             
             tagAlertController.addAction(addTagAction)
-            
-            if AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row).tags != "" {
-                tagAlertController.addAction(removeTagAction)
-            } else {
-                tagAlertController.addAction(cancelTagAction)
-            }
+            tagAlertController.addAction(removeTagAction)
+            tagAlertController.addAction(cancelTagAction)
 
             self.present(tagAlertController, animated: true)
         }

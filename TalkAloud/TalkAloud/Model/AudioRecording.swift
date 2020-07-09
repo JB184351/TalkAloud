@@ -16,8 +16,8 @@ struct AudioRecording {
         return object.value(forKey: "fileName") as! String
     }
     
-    var tags: String? {
-        return object.value(forKey: "tag") as? String ?? ""
+    var tags: [String]? {
+        return object.value(forKey: "tag") as? [String] ?? [""]
     }
     
     var url: URL {
@@ -25,15 +25,6 @@ struct AudioRecording {
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = urls[0] as URL
         let directoryURL = documentDirectory.appendingPathComponent("TalkAloud", isDirectory: true)
-        
-        // Keeping this here for new app install
-        if !fileManager.fileExists(atPath: directoryURL.path) {
-            do {
-                try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
         
         let newURL = directoryURL.appendingPathComponent(self.fileName)
         return newURL
@@ -48,10 +39,12 @@ struct AudioRecording {
     }
     
     func setTag(tag: String) {
-        object.setValue(tag, forKey: "tag")
+        var tempTags = self.tags
+        tempTags?.append(tag)
+        object.setValue(tempTags, forKey: "tag")
     }
     
-    func removeTag() {
-        object.setValue("", forKey: "tag")
+    func removeTags() {
+        object.setValue(nil, forKey: "tag")
     }
 }

@@ -135,7 +135,7 @@ class CoreDataManager {
             
             let currentAudioRecordingObject = objects[index] as! NSManagedObject
             let audioRecording = AudioRecording(object: currentAudioRecordingObject)
-            audioRecording.removeTag()
+            audioRecording.removeTags()
             
         } catch {
             print(error.localizedDescription)
