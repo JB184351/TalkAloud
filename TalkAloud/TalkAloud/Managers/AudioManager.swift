@@ -107,6 +107,26 @@ class AudioManager {
         CoreDataManager.sharedInstance.removeAudioRecordingTag(at: index)
     }
     
+    func filteredAudioRecordings(with tag: String) -> [AudioRecording] {
+        var filteredAudioRecordings = [AudioRecording]()
+        
+        for audioRecording in audioRecordings {
+            if let tags = audioRecording.tags {
+                for tag in tags {
+                    if tag == tag {
+                        filteredAudioRecordings.append(audioRecording)
+                    }
+                }
+            }
+        }
+        
+        return filteredAudioRecordings
+    }
+    
+    func filteredAudioRecordingsCount() -> Int {
+        return 0
+    }
+    
     func setSelectedRecording(index: Int) {
         self.audioRecording = audioRecordings[index]
     }

@@ -10,20 +10,57 @@ import UIKit
 
 class AudioRecordingsTableViewController: UITableViewController {
     
+    private var isFiltered = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")
+        
+        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(filterAudioRecordingTags))
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         AudioManager.sharedInstance.loadAllRecordings()
+        isFiltered = false
+        tableView.reloadData()
+    }
+    
+    @objc func filterAudioRecordingTags() {
+        let filterTagAlertController = UIAlertController(title: nil, message: "Choose tag to filter by", preferredStyle: .alert)
+        
+        if let audioRecordings = AudioManager.sharedInstance.loadAllRecordings() {
+            for audioRecording in audioRecordings {
+                if let tags = audioRecording.tags {
+                    for tag in tags {
+                        let tagFilterAction = UIAlertAction(title: tag, style: .default) { (UIAlertAction) in
+                            self.filter(by: tag)
+                        }
+                        filterTagAlertController.addAction(tagFilterAction)
+                    }
+                }
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        filterTagAlertController.addAction(cancelAction)
+        self.present(filterTagAlertController, animated: true)
+    }
+    
+    func filter(by tag: String) {
+        print(tag)
+        isFiltered = true
+        AudioManager.sharedInstance.filteredAudioRecordings(with: tag)
         tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return AudioManager.sharedInstance.getAudioRecordingCount()
+        if isFiltered {
+            return 0
+        } else {
+            return AudioManager.sharedInstance.getAudioRecordingCount()
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -102,7 +139,11 @@ class AudioRecordingsTableViewController: UITableViewController {
             
             let addTagAction = UIAlertAction(title: "Add", style: .default) { [unowned tagAlertController] action in
                 let tagName = tagAlertController.textFields?[0].text
-                AudioManager.sharedInstance.setTag(at: indexPath.row, tag: tagName ?? "")
+                
+                if let tagName = tagName {
+                    AudioManager.sharedInstance.setTag(at: indexPath.row, tag: tagName)
+                }
+                
                 self.tableView.reloadData()
             }
             

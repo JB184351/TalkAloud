@@ -128,7 +128,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="uQ4-T3-O6c" kind="relationship" relationship="viewControllers" id="pkV-ng-KIR"/>
+                        <segue destination="hDy-SF-TNt" kind="relationship" relationship="viewControllers" id="pkV-ng-KIR"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="t4T-UJ-IDU"/>
                     </connections>
                 </tabBarController>
@@ -136,7 +136,7 @@
             </objects>
             <point key="canvasLocation" x="-100" y="-532"/>
         </scene>
-        <!--AudioFiles-->
+        <!--Audio Recordings Table View Controller-->
         <scene sceneID="77I-8Q-peu">
             <objects>
                 <tableViewController id="uQ4-T3-O6c" customClass="AudioRecordingsTableViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
@@ -159,11 +159,30 @@
                             <outlet property="delegate" destination="uQ4-T3-O6c" id="i6d-7z-xf4"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="AudioFiles" image="folder" catalog="system" id="8If-8B-4LG"/>
+                    <navigationItem key="navigationItem" id="73L-xU-RcF"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W7E-4l-sou" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="819" y="-830"/>
+            <point key="canvasLocation" x="1728.985507246377" y="-830.35714285714278"/>
+        </scene>
+        <!--AudioFiles-->
+        <scene sceneID="eYM-eW-LdT">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hDy-SF-TNt" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="AudioFiles" image="folder" catalog="system" id="8If-8B-4LG"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yuO-gt-KSI">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="uQ4-T3-O6c" kind="relationship" relationship="rootViewController" id="MNX-cK-90I"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iXh-YI-DcY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="818.84057971014499" y="-830.35714285714278"/>
         </scene>
     </scenes>
     <resources>
