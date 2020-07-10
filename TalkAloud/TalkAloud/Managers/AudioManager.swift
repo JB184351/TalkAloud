@@ -21,7 +21,7 @@ class AudioManager {
     
     private init() {}
     
-    func getNewRecordingURL() -> AudioRecording? {
+    func createNewAudioRecording() -> AudioRecording? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
         
@@ -31,6 +31,7 @@ class AudioManager {
         
         didNewRecording = true
         
+        createDirectoryURL()
         audioRecording = CoreDataManager.sharedInstance.createNewAudioRecording(uniqueFileName: uniqueFileName)
         
         if let audioRecording = audioRecording {
@@ -40,6 +41,21 @@ class AudioManager {
         }
         
         return audioRecording
+    }
+    
+    func createDirectoryURL() {
+        let fileManager = FileManager.default
+        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = urls[0] as URL
+        let directoryURL = documentDirectory.appendingPathComponent("TalkAloud", isDirectory: true)
+        
+        if !fileManager.fileExists(atPath: directoryURL.path) {
+            do {
+                try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func loadAllRecordings() -> [AudioRecording]? {
@@ -81,6 +97,14 @@ class AudioManager {
         CoreDataManager.sharedInstance.updateAudioRecordingFileName(at: index, newFileName: uniqueFileName)
         
         return nil
+    }
+    
+    func setTag(at index: Int, tag: String) {
+        CoreDataManager.sharedInstance.updateAudioRecordingTag(at: index, tag: tag)
+    }
+    
+    func removeTag(at index: Int) {
+        CoreDataManager.sharedInstance.removeAudioRecordingTag(at: index)
     }
     
     func setSelectedRecording(index: Int) {

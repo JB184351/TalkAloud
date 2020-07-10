@@ -19,6 +19,8 @@
 		305EF78B240D53E000CF53A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 305EF789240D53E000CF53A0 /* LaunchScreen.storyboard */; };
 		307F71E724492CAB004AE308 /* AudioRecordingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F71E624492CAB004AE308 /* AudioRecordingsTableViewController.swift */; };
 		30A1C9C624A5808500AB0C59 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A1C9C524A5808500AB0C59 /* CoreDataManager.swift */; };
+		30B0459524AD5864007D7568 /* AudioRecordingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B0459324AD5864007D7568 /* AudioRecordingCell.swift */; };
+		30B0459624AD5864007D7568 /* AudioRecordingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B0459424AD5864007D7568 /* AudioRecordingCell.xib */; };
 		30DBE24824798E08003716B3 /* AudioPlayerVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DBE24724798E08003716B3 /* AudioPlayerVisualizerView.swift */; };
 		30DEEABB249A59AC002BAF73 /* AudioRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DEEABA249A59AC002BAF73 /* AudioRecording.swift */; };
 		30F4116124ACC3A200EA4EF6 /* AudioSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4116024ACC3A200EA4EF6 /* AudioSlider.swift */; };
@@ -40,6 +42,8 @@
 		305EF78C240D53E000CF53A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		307F71E624492CAB004AE308 /* AudioRecordingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordingsTableViewController.swift; sourceTree = "<group>"; };
 		30A1C9C524A5808500AB0C59 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		30B0459324AD5864007D7568 /* AudioRecordingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordingCell.swift; sourceTree = "<group>"; };
+		30B0459424AD5864007D7568 /* AudioRecordingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioRecordingCell.xib; sourceTree = "<group>"; };
 		30DBE24724798E08003716B3 /* AudioPlayerVisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerVisualizerView.swift; sourceTree = "<group>"; };
 		30DEEABA249A59AC002BAF73 /* AudioRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecording.swift; sourceTree = "<group>"; };
 		30F4116024ACC3A200EA4EF6 /* AudioSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSlider.swift; sourceTree = "<group>"; };
@@ -93,6 +97,7 @@
 				305EF787240D53E000CF53A0 /* Assets.xcassets */,
 				305EF789240D53E000CF53A0 /* LaunchScreen.storyboard */,
 				305EF781240D53DF00CF53A0 /* Main.storyboard */,
+				30B0459724AD586E007D7568 /* Cells */,
 				30F4115E24ACC2D200EA4EF6 /* AudioEngine */,
 				30F4115D24ACC2B100EA4EF6 /* Managers */,
 				301B143E244A80D3007C3050 /* Model */,
@@ -110,6 +115,15 @@
 				3023D7262462F40900D35EA8 /* AudioTabBarController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		30B0459724AD586E007D7568 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				30B0459324AD5864007D7568 /* AudioRecordingCell.swift */,
+				30B0459424AD5864007D7568 /* AudioRecordingCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		30F4115D24ACC2B100EA4EF6 /* Managers */ = {
@@ -207,6 +221,7 @@
 			files = (
 				305EF78B240D53E000CF53A0 /* LaunchScreen.storyboard in Resources */,
 				305EF788240D53E000CF53A0 /* Assets.xcassets in Resources */,
+				30B0459624AD5864007D7568 /* AudioRecordingCell.xib in Resources */,
 				305EF783240D53DF00CF53A0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,6 +241,7 @@
 				30DEEABB249A59AC002BAF73 /* AudioRecording.swift in Sources */,
 				30A1C9C624A5808500AB0C59 /* CoreDataManager.swift in Sources */,
 				30F4116124ACC3A200EA4EF6 /* AudioSlider.swift in Sources */,
+				30B0459524AD5864007D7568 /* AudioRecordingCell.swift in Sources */,
 				30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */,
 				305EF77E240D53DF00CF53A0 /* SceneDelegate.swift in Sources */,
 				305EF786240D53DF00CF53A0 /* TalkAloud.xcdatamodeld in Sources */,
