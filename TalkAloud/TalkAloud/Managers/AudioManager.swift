@@ -31,11 +31,8 @@ class AudioManager {
         
         didNewRecording = true
         
-        if isDirectoryCreated() {
-            audioRecording = CoreDataManager.sharedInstance.createNewAudioRecording(uniqueFileName: uniqueFileName)
-        } else {
-            audioRecording = CoreDataManager.sharedInstance.createNewAudioRecording(uniqueFileName: uniqueFileName)
-        }
+        createDirectoryURL()
+        audioRecording = CoreDataManager.sharedInstance.createNewAudioRecording(uniqueFileName: uniqueFileName)
         
         if let audioRecording = audioRecording {
             audioRecordings.append(audioRecording)
@@ -46,7 +43,7 @@ class AudioManager {
         return audioRecording
     }
     
-    func isDirectoryCreated() -> Bool {
+    func createDirectoryURL() {
         let fileManager = FileManager.default
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = urls[0] as URL
@@ -55,13 +52,10 @@ class AudioManager {
         if !fileManager.fileExists(atPath: directoryURL.path) {
             do {
                 try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
-                return true
             } catch {
                 print(error.localizedDescription)
             }
         }
-        
-        return false
     }
     
     func loadAllRecordings() -> [AudioRecording]? {
