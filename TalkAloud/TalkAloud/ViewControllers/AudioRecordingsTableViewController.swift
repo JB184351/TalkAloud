@@ -29,27 +29,40 @@ class AudioRecordingsTableViewController: UITableViewController {
     }
     
     @objc func filterAudioRecordingTags() {
+        var allTags = [String]()
+        
         let filterTagAlertController = UIAlertController(title: nil, message: "Choose tag to filter by", preferredStyle: .alert)
         
         if let audioRecordings = AudioManager.sharedInstance.loadAllRecordings() {
             for audioRecording in audioRecordings {
                 if let tags = audioRecording.tags {
                     for tag in tags {
-                        let tagFilterAction = UIAlertAction(title: tag, style: .default) { (UIAlertAction) in
-                            self.filter(by: tag)
-                        }
-                        filterTagAlertController.addAction(tagFilterAction)
+                        allTags.append(tag)
                     }
                 }
             }
         }
+        
+        let uniqueTags = Array(Set(allTags))
+         for tag in uniqueTags {
+            let tagFilterAction = UIAlertAction(title: tag, style: .default) { (UIAlertAction) in
+                self.filter(by: tag)
+            }
+            filterTagAlertController.addAction(tagFilterAction)
+        }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let removeFilterAction = UIAlertAction(title: "Remove Filtter", style: .destructive) { (UIAlertAction) in
+            self.isFiltered = false
+            self.tableView.reloadData()
+        }
+        
         filterTagAlertController.addAction(cancelAction)
+        filterTagAlertController.addAction(removeFilterAction)
         self.present(filterTagAlertController, animated: true)
     }
     
     func filter(by tag: String) {
-        print(tag)
         isFiltered = true
         AudioManager.sharedInstance.filteredAudioRecordings(with: tag)
         tableView.reloadData()
@@ -57,14 +70,21 @@ class AudioRecordingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltered {
-            return 0
+            return AudioManager.sharedInstance.filteredAudioRecordingsCount()
         } else {
             return AudioManager.sharedInstance.getAudioRecordingCount()
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
+        var currentAudio: AudioRecording
+        
+        if isFiltered {
+            currentAudio = AudioManager.sharedInstance.getFilteredRecordingForIndex(index: indexPath.row)
+        } else {
+           currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
+        }
+        
         let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
         
         audioCell.setup(with: currentAudio)
@@ -171,3 +191,8 @@ class AudioRecordingsTableViewController: UITableViewController {
     }
 }
 
+extension Array where Element : Hashable {
+    var unique: [Element] {
+        return Array(Set(self))
+    }
+}

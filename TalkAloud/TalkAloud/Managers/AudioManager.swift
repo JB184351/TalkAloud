@@ -16,6 +16,7 @@ class AudioManager {
     
     private var audioRecording: AudioRecording?
     private var audioRecordings: [AudioRecording] = []
+    private var filteredAudioRecordings: [AudioRecording] = []
 
     private var didNewRecording = false
     
@@ -108,12 +109,11 @@ class AudioManager {
     }
     
     func filteredAudioRecordings(with tag: String) -> [AudioRecording] {
-        var filteredAudioRecordings = [AudioRecording]()
-        
+        filteredAudioRecordings.removeAll()
         for audioRecording in audioRecordings {
             if let tags = audioRecording.tags {
-                for tag in tags {
-                    if tag == tag {
+                for filterTag in tags {
+                    if filterTag == tag {
                         filteredAudioRecordings.append(audioRecording)
                     }
                 }
@@ -124,7 +124,7 @@ class AudioManager {
     }
     
     func filteredAudioRecordingsCount() -> Int {
-        return 0
+        return filteredAudioRecordings.count
     }
     
     func setSelectedRecording(index: Int) {
@@ -133,6 +133,10 @@ class AudioManager {
     
     func getRecordingForIndex(index: Int) -> AudioRecording {
         return audioRecordings[index]
+    }
+    
+    func getFilteredRecordingForIndex(index: Int) -> AudioRecording {
+        return filteredAudioRecordings[index]
     }
     
     func getPlayBackURL() -> URL? {
