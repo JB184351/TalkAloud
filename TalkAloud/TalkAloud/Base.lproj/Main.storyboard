@@ -139,7 +139,7 @@
         <!--Audio Recordings Table View Controller-->
         <scene sceneID="77I-8Q-peu">
             <objects>
-                <tableViewController id="uQ4-T3-O6c" customClass="AudioRecordingsTableViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AudioRecordingsTableViewController" id="uQ4-T3-O6c" customClass="AudioRecordingsTableViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="QdT-eF-apS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -159,7 +159,13 @@
                             <outlet property="delegate" destination="uQ4-T3-O6c" id="i6d-7z-xf4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="73L-xU-RcF"/>
+                    <navigationItem key="navigationItem" id="73L-xU-RcF">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="tray" catalog="system" id="CEw-VB-yRa">
+                            <connections>
+                                <segue destination="Gca-53-fbo" kind="presentation" id="CpC-yH-eW5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W7E-4l-sou" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -184,6 +190,34 @@
             </objects>
             <point key="canvasLocation" x="818.84057971014499" y="-830.35714285714278"/>
         </scene>
+        <!--Tag Table View Controller-->
+        <scene sceneID="6mN-P6-BAx">
+            <objects>
+                <tableViewController id="Gca-53-fbo" customClass="TagTableViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dfF-Hc-rpk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioRecordingTags" id="26M-Bn-2dc">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="26M-Bn-2dc" id="iqa-9v-JS1">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Gca-53-fbo" id="tmQ-gg-Zoo"/>
+                            <outlet property="delegate" destination="Gca-53-fbo" id="3LP-jP-j2J"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="294-XL-23E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2712" y="-830"/>
+        </scene>
     </scenes>
     <resources>
         <image name="folder" catalog="system" width="128" height="95"/>
@@ -192,5 +226,6 @@
         <image name="play.circle" catalog="system" width="128" height="121"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="recordbutton" width="100" height="100"/>
+        <image name="tray" catalog="system" width="128" height="88"/>
     </resources>
 </document>

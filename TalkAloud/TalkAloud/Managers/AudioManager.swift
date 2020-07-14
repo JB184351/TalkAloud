@@ -17,6 +17,7 @@ class AudioManager {
     private var audioRecording: AudioRecording?
     private var audioRecordings: [AudioRecording] = []
     private var filteredAudioRecordings: [AudioRecording] = []
+    private var allUniqueTags: [String] = []
 
     private var didNewRecording = false
     
@@ -137,6 +138,26 @@ class AudioManager {
     
     func getFilteredRecordingForIndex(index: Int) -> AudioRecording {
         return filteredAudioRecordings[index]
+    }
+    
+    func getAllAudioRecordingTags() -> [String]? {
+        var allTags = [String]()
+        
+        guard let audioRecordings = loadAllRecordings() else { return nil }
+        
+        for audioRecording in audioRecordings {
+            if let tags = audioRecording.tags {
+                for tag in tags {
+                    allTags.append(tag)
+                }
+            }
+        }
+        allUniqueTags = allTags.unique
+        return allUniqueTags
+    }
+    
+    func getTagForIndex(index: Int) -> String {
+        return allUniqueTags[index]
     }
     
     func getPlayBackURL() -> URL? {

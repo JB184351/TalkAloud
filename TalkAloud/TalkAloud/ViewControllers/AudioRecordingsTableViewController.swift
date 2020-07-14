@@ -10,14 +10,11 @@ import UIKit
 
 class AudioRecordingsTableViewController: UITableViewController {
     
-    private var isFiltered = false
+    var isFiltered = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")
-        
-        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(filterAudioRecordingTags))
-        self.navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,40 +23,6 @@ class AudioRecordingsTableViewController: UITableViewController {
         AudioManager.sharedInstance.loadAllRecordings()
         isFiltered = false
         tableView.reloadData()
-    }
-    
-    @objc func filterAudioRecordingTags() {
-        var allTags = [String]()
-        
-        let filterTagAlertController = UIAlertController(title: nil, message: "Choose tag to filter by", preferredStyle: .alert)
-        
-        if let audioRecordings = AudioManager.sharedInstance.loadAllRecordings() {
-            for audioRecording in audioRecordings {
-                if let tags = audioRecording.tags {
-                    for tag in tags {
-                        allTags.append(tag)
-                    }
-                }
-            }
-        }
-        
-        let uniqueTags = Array(Set(allTags))
-         for tag in uniqueTags {
-            let tagFilterAction = UIAlertAction(title: tag, style: .default) { (UIAlertAction) in
-                self.filter(by: tag)
-            }
-            filterTagAlertController.addAction(tagFilterAction)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        let removeFilterAction = UIAlertAction(title: "Remove Filtter", style: .destructive) { (UIAlertAction) in
-            self.isFiltered = false
-            self.tableView.reloadData()
-        }
-        
-        filterTagAlertController.addAction(cancelAction)
-        filterTagAlertController.addAction(removeFilterAction)
-        self.present(filterTagAlertController, animated: true)
     }
     
     func filter(by tag: String) {
