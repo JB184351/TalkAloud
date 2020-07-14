@@ -33,15 +33,14 @@ class TagTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.dismiss(animated: true) {
-            if let audioRecordingsTableViewController = self.storyboard?.instantiateViewController(identifier: "AudioRecordingsTableViewController") as? AudioRecordingsTableViewController {
-                let selectedTag = AudioManager.sharedInstance.getTagForIndex(index: indexPath.row)
-                audioRecordingsTableViewController.isFiltered = true
-                audioRecordingsTableViewController.filter(by: selectedTag)
-            } else {
-                print("Whoops!")
-            }
-            
-        }
+        
     }
+}
+
+extension TagTableViewController: AudioRecordingsTableViewDelegate {
+    func didSelectTagToFilterBy(tag: String) {
+        
+    }
+    
+    
 }

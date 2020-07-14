@@ -8,9 +8,14 @@
 
 import UIKit
 
+protocol AudioRecordingsTableViewDelegate: class {
+    func didSelectTagToFilterBy(tag: String)
+}
+
 class AudioRecordingsTableViewController: UITableViewController {
     
     var isFiltered = false
+    weak var delegate: AudioRecordingsTableViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +24,6 @@ class AudioRecordingsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         AudioManager.sharedInstance.loadAllRecordings()
         isFiltered = false
         tableView.reloadData()
