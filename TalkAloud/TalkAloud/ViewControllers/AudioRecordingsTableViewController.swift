@@ -8,18 +8,13 @@
 
 import UIKit
 
-protocol AudioRecordingsTableViewDelegate: class {
-    func didSelectTagToFilterBy(tag: String)
-}
-
 class AudioRecordingsTableViewController: UITableViewController {
     
     var isFiltered = false
-    weak var delegate: AudioRecordingsTableViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")
+        tableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,6 +23,14 @@ class AudioRecordingsTableViewController: UITableViewController {
         isFiltered = false
         tableView.reloadData()
     }
+    
+    @IBAction func tappedRightButton(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tagFilterViewController = storyboard.instantiateViewController(identifier: "TagTableViewController") as! TagTableViewController
+        tagFilterViewController.delegate = self
+        self.present(tagFilterViewController, animated: true)
+    }
+    
     
     func filter(by tag: String) {
         isFiltered = true
@@ -161,5 +164,11 @@ class AudioRecordingsTableViewController: UITableViewController {
 extension Array where Element : Hashable {
     var unique: [Element] {
         return Array(Set(self))
+    }
+}
+
+extension AudioRecordingsTableViewController: TagFilterDelegate {
+    func didUpdateTagToFilter(by tag: String) {
+        filter(by: tag)
     }
 }

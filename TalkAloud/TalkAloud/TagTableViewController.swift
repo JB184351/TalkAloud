@@ -8,14 +8,13 @@
 
 import UIKit
 
+protocol TagFilterDelegate: class {
+    func didUpdateTagToFilter(by tag: String)
+}
+
 class TagTableViewController: UITableViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
-    // MARK: - Table view data source
+    weak var delegate: TagFilterDelegate?
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let allTags = AudioManager.sharedInstance.getAllAudioRecordingTags() else { return 0 }
@@ -33,14 +32,8 @@ class TagTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let selectedTag = AudioManager.sharedInstance.getTagForIndex(index: indexPath.row)
+        self.delegate?.didUpdateTagToFilter(by: selectedTag)
+        self.dismiss(animated: true)
     }
-}
-
-extension TagTableViewController: AudioRecordingsTableViewDelegate {
-    func didSelectTagToFilterBy(tag: String) {
-        
-    }
-    
-    
 }
