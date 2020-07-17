@@ -24,18 +24,20 @@ class AudioRecordingsTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    @IBAction func tappedRightButton(_ sender: Any) {
+    @IBAction func tappedLeftButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let tagFilterViewController = storyboard.instantiateViewController(identifier: "TagTableViewController") as! TagTableViewController
+        let navigationController = UINavigationController(rootViewController: tagFilterViewController)
         tagFilterViewController.delegate = self
-        self.present(tagFilterViewController, animated: true)
+        self.present(navigationController, animated: true)
     }
     
     
-    func filter(by tag: String) {
+    func filter(by tags: [String]) {
         isFiltered = true
-        AudioManager.sharedInstance.filteredAudioRecordings(with: tag)
+        AudioManager.sharedInstance.filteredAudioRecordings(with: tags)
         tableView.reloadData()
+        isFiltered = false
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -168,7 +170,19 @@ extension Array where Element : Hashable {
 }
 
 extension AudioRecordingsTableViewController: TagFilterDelegate {
-    func didUpdateTagToFilter(by tag: String) {
-        filter(by: tag)
+    func didUpdateTagToFilter(by tags: [String]) {
+        
+        if tags.count >= 1 {
+            isFiltered = true
+        } else {
+            isFiltered = false
+        }
+        
+        if isFiltered {
+            filter(by: tags)
+        } else {
+            AudioManager.sharedInstance.loadAllRecordings()
+            tableView.reloadData()
+        }
     }
 }

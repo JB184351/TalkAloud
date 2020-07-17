@@ -109,14 +109,25 @@ class AudioManager {
         CoreDataManager.sharedInstance.removeAudioRecordingTag(at: index)
     }
     
-    func filteredAudioRecordings(with tag: String) -> [AudioRecording] {
+    func filteredAudioRecordings(with tags: [String]) -> [AudioRecording] {
         filteredAudioRecordings.removeAll()
+        
+//        for audioRecording in audioRecordings {
+//            if let audioRecordingTags = audioRecording.tags {
+//                for audioRecordingTag in audioRecordingTags {
+//                    for tag in tags {
+//                        if audioRecordingTag == tag {
+//                            filteredArray
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        
         for audioRecording in audioRecordings {
-            if let tags = audioRecording.tags {
-                for filterTag in tags {
-                    if filterTag == tag {
-                        filteredAudioRecordings.append(audioRecording)
-                    }
+            if let audioRecordingTags = audioRecording.tags {
+                if audioRecordingTags.containsSameElements(as: tags) {
+                    filteredAudioRecordings.append(audioRecording)
                 }
             }
         }
@@ -156,8 +167,22 @@ class AudioManager {
         return allUniqueTags
     }
     
+    func getAllTagsCount() -> Int {
+        return allUniqueTags.count
+    }
+    
     func getTagForIndex(index: Int) -> String {
         return allUniqueTags[index]
+    }
+    
+    func getTagsForIndexes(indexes: [Int]) -> [String] {
+        var tags = [String]()
+        for index in indexes {
+            let tag = allUniqueTags[index]
+            tags.append(tag)
+        }
+        
+        return tags.unique
     }
     
     func getPlayBackURL() -> URL? {
@@ -190,5 +215,11 @@ class AudioManager {
     
     func getAudioRecordingCount() -> Int {
         return audioRecordings.count
+    }
+}
+
+extension Array where Element: Comparable {
+    func containsSameElements(as other: [Element]) -> Bool {
+        return self.count == other.count && self.sorted() == other.sorted()
     }
 }

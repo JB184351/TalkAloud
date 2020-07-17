@@ -162,7 +162,7 @@
                     <navigationItem key="navigationItem" id="73L-xU-RcF">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="tray" catalog="system" id="l8i-h8-9Pf">
                             <connections>
-                                <action selector="tappedRightButton:" destination="uQ4-T3-O6c" id="6cH-7w-5cR"/>
+                                <action selector="tappedLeftButton:" destination="uQ4-T3-O6c" id="6cH-7w-5cR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -213,10 +213,35 @@
                             <outlet property="delegate" destination="Gca-53-fbo" id="3LP-jP-j2J"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="kXo-NB-QuQ">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="Owv-oV-Sy6">
+                            <connections>
+                                <action selector="rightButtonAction:" destination="Gca-53-fbo" id="aZf-SP-yWQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="294-XL-23E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2712" y="-830"/>
+            <point key="canvasLocation" x="3621.739130434783" y="-830.35714285714278"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hEC-A1-LbG">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RiC-ab-Cos" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5B0-cH-o4B">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Gca-53-fbo" kind="relationship" relationship="rootViewController" id="5Ra-sc-YQs"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="git-tE-oDx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2711.594202898551" y="-830.35714285714278"/>
         </scene>
     </scenes>
     <resources>

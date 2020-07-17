@@ -9,16 +9,22 @@
 import UIKit
 
 protocol TagFilterDelegate: class {
-    func didUpdateTagToFilter(by tag: String)
+    func didUpdateTagToFilter(by tags: [String])
 }
 
 class TagTableViewController: UITableViewController {
     
     weak var delegate: TagFilterDelegate?
+    private var indexes = [Int]()
+    private var selectedTags = [String]()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        AudioManager.sharedInstance.getAllAudioRecordingTags() ?? []
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let allTags = AudioManager.sharedInstance.getAllAudioRecordingTags() else { return 0 }
-        return allTags.count
+        return AudioManager.sharedInstance.getAllTagsCount()
     }
     
     
@@ -32,8 +38,24 @@ class TagTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedTag = AudioManager.sharedInstance.getTagForIndex(index: indexPath.row)
-        self.delegate?.didUpdateTagToFilter(by: selectedTag)
-        self.dismiss(animated: true)
+        tableView.allowsMultipleSelection = true
+        if let selectedCells = tableView.indexPathsForSelectedRows {
+            for selectedCell in selectedCells {
+                indexes.append(selectedCell.row)
+            }
+        }
     }
+    
+    @IBAction func rightButtonAction(_ sender: Any) {
+        self.dismiss(animated: true)
+        selectedTags = AudioManager.sharedInstance.getTagsForIndexes(indexes: indexes)
+        
+        if selectedTags.count >= 1 {
+            self.delegate?.didUpdateTagToFilter(by: selectedTags)
+            indexes.removeAll()
+        } else {
+            print("Nothing")
+        }
+    }
+    
 }
