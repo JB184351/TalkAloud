@@ -22,11 +22,10 @@ class AudioRecordingCell: UITableViewCell {
             for tag in tags {
                 allTags += tag + ", "
             }
-            allTags.removeFirst()
             
             allTags = allTags.trimmingCharacters(in: .whitespaces)
             
-            if tags.count > 1 {
+            if !tags.isEmpty {
                 allTags.removeLast()
             }
         }

@@ -17,7 +17,7 @@ struct AudioRecording {
     }
     
     var tags: [String]? {
-        return object.value(forKey: "tag") as? [String] ?? [""]
+        return object.value(forKey: "tag") as? [String] ?? []
     }
     
     var url: URL {
