@@ -165,7 +165,6 @@ class AudioRecordingsTableViewController: UITableViewController {
 extension AudioRecordingsTableViewController: TagFilterDelegate {
     func didUpdateTagToFilter(by tags: [String]?) {
         if let tags = tags {
-            isFiltered = true
             filter(by: tags)
         } else {
             isFiltered = false
