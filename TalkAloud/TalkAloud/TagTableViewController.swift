@@ -15,46 +15,36 @@ protocol TagFilterDelegate: class {
 class TagTableViewController: UITableViewController {
     
     weak var delegate: TagFilterDelegate?
-    private var indexes = [Int]()
     private var selectedTags = [String]()
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        AudioManager.sharedInstance.getAllAudioRecordingTags() ?? []
-    }
+    private var allTags = AudioManager.sharedInstance.getAllAudioRecordingTags() ?? []
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return AudioManager.sharedInstance.getAllTagsCount()
+        return allTags.count
     }
     
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let currentTag = AudioManager.sharedInstance.getTagForIndex(index: indexPath.row)
-        
+        let currentTag = allTags[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingTags", for: indexPath)
         cell.textLabel?.text = currentTag
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.allowsMultipleSelection = true
-        if let selectedCells = tableView.indexPathsForSelectedRows {
-            for selectedCell in selectedCells {
-                indexes.append(selectedCell.row)
-            }
-        }
+        let selectedTag = allTags[indexPath.row]
+        selectedTags.append(selectedTag)
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let deselectedTag = allTags[indexPath.row]
+        guard let tagToRemoveIndex = selectedTags.firstIndex(of: deselectedTag) else { return }
+        selectedTags.remove(at: tagToRemoveIndex)
     }
     
     @IBAction func rightButtonAction(_ sender: Any) {
-        selectedTags = AudioManager.sharedInstance.getTagsForIndexes(indexes: indexes)
-        
         if selectedTags.count >= 1 {
             self.delegate?.didUpdateTagToFilter(by: selectedTags)
-            indexes.removeAll()
         } else {
             self.delegate?.didUpdateTagToFilter(by: nil)
-            indexes.removeAll()
         }
         
         self.dismiss(animated: true)

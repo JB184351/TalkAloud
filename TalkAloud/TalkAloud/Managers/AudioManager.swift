@@ -164,25 +164,8 @@ class AudioManager {
             }
         }
         allUniqueTags = allTags.unique
-        return allUniqueTags
-    }
-    
-    func getAllTagsCount() -> Int {
-        return allUniqueTags.count
-    }
-    
-    func getTagForIndex(index: Int) -> String {
-        return allUniqueTags[index]
-    }
-    
-    func getTagsForIndexes(indexes: [Int]) -> [String] {
-        var tags = [String]()
-        for index in indexes {
-            let tag = allUniqueTags[index]
-            tags.append(tag)
-        }
         
-        return tags.unique
+        return allUniqueTags.sorted()
     }
     
     func getPlayBackURL() -> URL? {
