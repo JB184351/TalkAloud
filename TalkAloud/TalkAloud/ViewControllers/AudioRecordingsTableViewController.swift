@@ -164,17 +164,11 @@ class AudioRecordingsTableViewController: UITableViewController {
 
 extension AudioRecordingsTableViewController: TagFilterDelegate {
     func didUpdateTagToFilter(by tags: [String]?) {
-        guard let tags = tags else { return }
-        
-        if tags.count >= 1 {
+        if let tags = tags {
             isFiltered = true
-        } else {
-            isFiltered = false
-        }
-        
-        if isFiltered {
             filter(by: tags)
         } else {
+            isFiltered = false
             tableView.reloadData()
         }
     }
