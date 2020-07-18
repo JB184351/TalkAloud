@@ -11,6 +11,8 @@ import UIKit
 class AudioRecordingsTableViewController: UITableViewController {
     
     var isFiltered = false
+    private var allAudioRecordings = AudioManager.sharedInstance.loadAllRecordings()
+    private var filteredAudioRecordings = [AudioRecording]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +21,6 @@ class AudioRecordingsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        AudioManager.sharedInstance.loadAllRecordings()
         isFiltered = false
         tableView.reloadData()
     }
@@ -35,7 +36,7 @@ class AudioRecordingsTableViewController: UITableViewController {
     
     func filter(by tags: [String]) {
         isFiltered = true
-        AudioManager.sharedInstance.filteredAudioRecordings(with: tags)
+        filteredAudioRecordings = AudioManager.sharedInstance.filteredAudioRecordings(with: tags)
         tableView.reloadData()
     }
     

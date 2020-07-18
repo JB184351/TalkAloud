@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		300EBDBE2444AD610069EF00 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300EBDBD2444AD610069EF00 /* AudioManager.swift */; };
 		3018126524114A76001999EA /* AudioEngineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3018126424114A76001999EA /* AudioEngineState.swift */; };
-		30233A9F24C27B88002E0CE0 /* ExtensionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30233A9E24C27B88002E0CE0 /* ExtensionManager.swift */; };
+		30233A9F24C27B88002E0CE0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30233A9E24C27B88002E0CE0 /* Extensions.swift */; };
 		3023D7272462F40900D35EA8 /* AudioTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3023D7262462F40900D35EA8 /* AudioTabBarController.swift */; };
 		305EF77C240D53DF00CF53A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305EF77B240D53DF00CF53A0 /* AppDelegate.swift */; };
 		305EF77E240D53DF00CF53A0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305EF77D240D53DF00CF53A0 /* SceneDelegate.swift */; };
@@ -32,7 +32,7 @@
 /* Begin PBXFileReference section */
 		300EBDBD2444AD610069EF00 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		3018126424114A76001999EA /* AudioEngineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineState.swift; sourceTree = "<group>"; };
-		30233A9E24C27B88002E0CE0 /* ExtensionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionManager.swift; sourceTree = "<group>"; };
+		30233A9E24C27B88002E0CE0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3023D7262462F40900D35EA8 /* AudioTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTabBarController.swift; sourceTree = "<group>"; };
 		305EF778240D53DF00CF53A0 /* TalkAloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TalkAloud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		305EF77B240D53DF00CF53A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +101,7 @@
 				305EF787240D53E000CF53A0 /* Assets.xcassets */,
 				305EF789240D53E000CF53A0 /* LaunchScreen.storyboard */,
 				305EF781240D53DF00CF53A0 /* Main.storyboard */,
+				30233A9E24C27B88002E0CE0 /* Extensions.swift */,
 				30B0459724AD586E007D7568 /* Cells */,
 				30F4115E24ACC2D200EA4EF6 /* AudioEngine */,
 				30F4115D24ACC2B100EA4EF6 /* Managers */,
@@ -136,7 +137,6 @@
 			children = (
 				300EBDBD2444AD610069EF00 /* AudioManager.swift */,
 				30A1C9C524A5808500AB0C59 /* CoreDataManager.swift */,
-				30233A9E24C27B88002E0CE0 /* ExtensionManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -250,7 +250,7 @@
 				30F4116124ACC3A200EA4EF6 /* AudioSlider.swift in Sources */,
 				30B0459524AD5864007D7568 /* AudioRecordingCell.swift in Sources */,
 				30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */,
-				30233A9F24C27B88002E0CE0 /* ExtensionManager.swift in Sources */,
+				30233A9F24C27B88002E0CE0 /* Extensions.swift in Sources */,
 				305EF77E240D53DF00CF53A0 /* SceneDelegate.swift in Sources */,
 				305EF786240D53DF00CF53A0 /* TalkAloud.xcdatamodeld in Sources */,
 				3023D7272462F40900D35EA8 /* AudioTabBarController.swift in Sources */,
