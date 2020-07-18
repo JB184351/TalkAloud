@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TagFilterDelegate: class {
-    func didUpdateTagToFilter(by tags: [String])
+    func didUpdateTagToFilter(by tags: [String]?)
 }
 
 class TagTableViewController: UITableViewController {
@@ -47,16 +47,17 @@ class TagTableViewController: UITableViewController {
     }
     
     @IBAction func rightButtonAction(_ sender: Any) {
-        self.dismiss(animated: true)
         selectedTags = AudioManager.sharedInstance.getTagsForIndexes(indexes: indexes)
         
         if selectedTags.count >= 1 {
             self.delegate?.didUpdateTagToFilter(by: selectedTags)
             indexes.removeAll()
         } else {
-            self.delegate?.didUpdateTagToFilter(by: [])
+            self.delegate?.didUpdateTagToFilter(by: nil)
             indexes.removeAll()
         }
+        
+        self.dismiss(animated: true)
     }
     
 }
