@@ -25,7 +25,7 @@ class AudioRecordingCell: UITableViewCell {
             
             allTags = allTags.trimmingCharacters(in: .whitespaces)
             
-            if tags.count >= 1 {
+            if tags.isEmpty == false {
                 allTags.removeLast()
             }
         }
