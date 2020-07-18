@@ -54,7 +54,8 @@ class TagTableViewController: UITableViewController {
             self.delegate?.didUpdateTagToFilter(by: selectedTags)
             indexes.removeAll()
         } else {
-            print("Nothing")
+            self.delegate?.didUpdateTagToFilter(by: [])
+            indexes.removeAll()
         }
     }
     

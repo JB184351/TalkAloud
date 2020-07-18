@@ -37,7 +37,6 @@ class AudioRecordingsTableViewController: UITableViewController {
         isFiltered = true
         AudioManager.sharedInstance.filteredAudioRecordings(with: tags)
         tableView.reloadData()
-        isFiltered = false
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -163,15 +162,8 @@ class AudioRecordingsTableViewController: UITableViewController {
     }
 }
 
-extension Array where Element : Hashable {
-    var unique: [Element] {
-        return Array(Set(self))
-    }
-}
-
 extension AudioRecordingsTableViewController: TagFilterDelegate {
     func didUpdateTagToFilter(by tags: [String]) {
-        
         if tags.count >= 1 {
             isFiltered = true
         } else {
@@ -181,7 +173,6 @@ extension AudioRecordingsTableViewController: TagFilterDelegate {
         if isFiltered {
             filter(by: tags)
         } else {
-            AudioManager.sharedInstance.loadAllRecordings()
             tableView.reloadData()
         }
     }

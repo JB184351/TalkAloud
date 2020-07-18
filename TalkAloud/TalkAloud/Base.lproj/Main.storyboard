@@ -214,7 +214,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="kXo-NB-QuQ">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="Owv-oV-Sy6">
+                        <barButtonItem key="rightBarButtonItem" title="Filter" id="Owv-oV-Sy6">
                             <connections>
                                 <action selector="rightButtonAction:" destination="Gca-53-fbo" id="aZf-SP-yWQ"/>
                             </connections>

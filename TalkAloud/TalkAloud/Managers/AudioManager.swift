@@ -112,22 +112,22 @@ class AudioManager {
     func filteredAudioRecordings(with tags: [String]) -> [AudioRecording] {
         filteredAudioRecordings.removeAll()
         
-//        for audioRecording in audioRecordings {
-//            if let audioRecordingTags = audioRecording.tags {
-//                for audioRecordingTag in audioRecordingTags {
-//                    for tag in tags {
-//                        if audioRecordingTag == tag {
-//                            filteredArray
-//                        }
-//                    }
-//                }
-//            }
-//        }
-        
-        for audioRecording in audioRecordings {
-            if let audioRecordingTags = audioRecording.tags {
-                if audioRecordingTags.containsSameElements(as: tags) {
-                    filteredAudioRecordings.append(audioRecording)
+        if tags.count == 1 {
+            for audioRecording in audioRecordings {
+                if let audioRecordingsTags = audioRecording.tags {
+                    for tag in tags {
+                        if audioRecordingsTags.contains(tag) {
+                            filteredAudioRecordings.append(audioRecording)
+                        }
+                    }
+                }
+            }
+        } else {
+            for audioRecording in audioRecordings {
+                if let audioRecordingTags = audioRecording.tags {
+                    if audioRecordingTags.containsSameElements(as: tags) {
+                        filteredAudioRecordings.append(audioRecording)
+                    }
                 }
             }
         }
@@ -215,11 +215,5 @@ class AudioManager {
     
     func getAudioRecordingCount() -> Int {
         return audioRecordings.count
-    }
-}
-
-extension Array where Element: Comparable {
-    func containsSameElements(as other: [Element]) -> Bool {
-        return self.count == other.count && self.sorted() == other.sorted()
     }
 }
