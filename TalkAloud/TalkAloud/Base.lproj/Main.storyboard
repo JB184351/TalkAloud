@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mpi-wa-Yvj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mpi-wa-Yvj">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -8,6 +8,43 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Record-->
+        <scene sceneID="8nI-W3-lMn">
+            <objects>
+                <viewController id="t3H-T8-1Hi" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wzs-6Q-Nho">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYU-yj-P5v">
+                                <rect key="frame" x="66" y="225" width="282" height="126"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="105"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New Recording" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCu-i9-Ns7">
+                                <rect key="frame" x="118" y="197" width="178" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5S-8I-WId">
+                                <rect key="frame" x="157" y="688" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="recordbutton"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="eEJ-gf-e5V"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Record" image="circle.fill" catalog="system" id="R3K-vd-95U"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DAQ-eN-O11" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="842" y="509"/>
+        </scene>
         <!--PlayBack-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -130,6 +167,7 @@
                     <connections>
                         <segue destination="hDy-SF-TNt" kind="relationship" relationship="viewControllers" id="pkV-ng-KIR"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="t4T-UJ-IDU"/>
+                        <segue destination="t3H-T8-1Hi" kind="relationship" relationship="viewControllers" id="5Wy-3Q-jC4"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ggB-a1-reo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -245,6 +283,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="folder" catalog="system" width="128" height="95"/>
         <image name="gobackward.15" catalog="system" width="121" height="128"/>
         <image name="goforward.15" catalog="system" width="121" height="128"/>
