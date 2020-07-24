@@ -16,34 +16,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYU-yj-P5v">
-                                <rect key="frame" x="66" y="225" width="282" height="126"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="105"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New Recording" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCu-i9-Ns7">
-                                <rect key="frame" x="118" y="197" width="178" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5S-8I-WId">
-                                <rect key="frame" x="157" y="688" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c7r-j2-pOm">
+                                <rect key="frame" x="66.5" y="215" width="281.5" height="166"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Recording" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCu-i9-Ns7">
+                                        <rect key="frame" x="52" y="0.0" width="177.5" height="32.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYU-yj-P5v">
+                                        <rect key="frame" x="0.0" y="40.5" width="281.5" height="125.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="105"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5S-8I-WId">
+                                <rect key="frame" x="157" y="678" width="100" height="100"/>
                                 <state key="normal" image="recordbutton"/>
                             </button>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pj6-wU-H8F">
+                                <rect key="frame" x="0.0" y="451" width="414" height="164"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="pj6-wU-H8F" firstAttribute="centerY" secondItem="wzs-6Q-Nho" secondAttribute="centerY" id="BUm-2B-ZJ3"/>
+                            <constraint firstItem="eEJ-gf-e5V" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="u5S-8I-WId" secondAttribute="bottom" constant="35" id="JOd-fr-WeQ"/>
+                            <constraint firstItem="pj6-wU-H8F" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="Jbh-6p-93M"/>
+                            <constraint firstItem="u5S-8I-WId" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="QUa-f3-Jfg"/>
+                            <constraint firstItem="c7r-j2-pOm" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="Zoc-B8-VKS"/>
+                            <constraint firstItem="pj6-wU-H8F" firstAttribute="centerY" secondItem="wzs-6Q-Nho" secondAttribute="centerY" id="aQe-Oo-QVZ"/>
+                            <constraint firstItem="pj6-wU-H8F" firstAttribute="trailing" secondItem="eEJ-gf-e5V" secondAttribute="trailing" id="ch1-pX-e68"/>
+                            <constraint firstItem="pj6-wU-H8F" firstAttribute="leading" secondItem="eEJ-gf-e5V" secondAttribute="leading" id="nJS-5x-tBE"/>
+                            <constraint firstItem="c7r-j2-pOm" firstAttribute="centerY" secondItem="wzs-6Q-Nho" secondAttribute="centerY" constant="-150" id="nmt-wm-kmy"/>
+                            <constraint firstItem="u5S-8I-WId" firstAttribute="centerY" secondItem="wzs-6Q-Nho" secondAttribute="centerY" constant="280" id="pwp-LF-XZx"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="eEJ-gf-e5V"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Record" image="circle.fill" catalog="system" id="R3K-vd-95U"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DAQ-eN-O11" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="842" y="509"/>
+            <point key="canvasLocation" x="840.57971014492762" y="508.92857142857139"/>
         </scene>
         <!--PlayBack-->
         <scene sceneID="tne-QT-ifu">
