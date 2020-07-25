@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c7r-j2-pOm">
-                                <rect key="frame" x="47" y="92" width="281.5" height="166"/>
+                                <rect key="frame" x="47" y="94" width="281.5" height="166"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="New Recording" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCu-i9-Ns7">
                                         <rect key="frame" x="52" y="0.0" width="177.5" height="32.5"/>
@@ -33,38 +33,32 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="5jp-vm-fXU">
-                                <rect key="frame" x="0.0" y="343" width="375" height="260"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pj6-wU-H8F">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
-                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="130" id="Kwi-Yp-bqi"/>
-                                        </constraints>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5S-8I-WId">
-                                        <rect key="frame" x="137.5" y="160" width="100" height="100"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="U4A-D6-Mkf"/>
-                                            <constraint firstAttribute="width" constant="100" id="gs6-Pc-9s5"/>
-                                        </constraints>
-                                        <state key="normal" image="recordbutton"/>
-                                    </button>
-                                </subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pj6-wU-H8F">
+                                <rect key="frame" x="0.0" y="300" width="375" height="130"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="pj6-wU-H8F" firstAttribute="width" secondItem="5jp-vm-fXU" secondAttribute="width" id="mD6-kn-XVv"/>
+                                    <constraint firstAttribute="height" constant="130" id="Kwi-Yp-bqi"/>
                                 </constraints>
-                            </stackView>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5S-8I-WId">
+                                <rect key="frame" x="137.5" y="500" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="U4A-D6-Mkf"/>
+                                    <constraint firstAttribute="width" constant="100" id="gs6-Pc-9s5"/>
+                                </constraints>
+                                <state key="normal" image="recordbutton"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="5jp-vm-fXU" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="UHU-av-p2U"/>
-                            <constraint firstItem="eEJ-gf-e5V" firstAttribute="bottom" secondItem="5jp-vm-fXU" secondAttribute="bottom" constant="15" id="W0u-Eg-tuk"/>
-                            <constraint firstItem="5jp-vm-fXU" firstAttribute="trailing" secondItem="eEJ-gf-e5V" secondAttribute="trailing" id="ajP-vc-U2i"/>
+                            <constraint firstItem="pj6-wU-H8F" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="4XN-LH-DL3"/>
+                            <constraint firstItem="pj6-wU-H8F" firstAttribute="top" secondItem="c7r-j2-pOm" secondAttribute="bottom" constant="40" id="IXt-ca-f5E"/>
+                            <constraint firstItem="u5S-8I-WId" firstAttribute="top" secondItem="pj6-wU-H8F" secondAttribute="bottom" constant="70" id="Lse-yG-xhQ"/>
+                            <constraint firstItem="pj6-wU-H8F" firstAttribute="trailing" secondItem="eEJ-gf-e5V" secondAttribute="trailing" id="TVX-Xo-m48"/>
+                            <constraint firstItem="pj6-wU-H8F" firstAttribute="leading" secondItem="eEJ-gf-e5V" secondAttribute="leading" id="Twm-ax-iXZ"/>
+                            <constraint firstItem="u5S-8I-WId" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="gh5-9o-kQ5"/>
                             <constraint firstItem="c7r-j2-pOm" firstAttribute="top" relation="lessThanOrEqual" secondItem="eEJ-gf-e5V" secondAttribute="top" constant="150" id="hYL-29-SOV"/>
-                            <constraint firstItem="5jp-vm-fXU" firstAttribute="leading" secondItem="eEJ-gf-e5V" secondAttribute="leading" id="or0-Zv-AZ8"/>
-                            <constraint firstItem="5jp-vm-fXU" firstAttribute="top" secondItem="c7r-j2-pOm" secondAttribute="bottom" constant="85" id="q3x-OV-k8C"/>
+                            <constraint firstItem="eEJ-gf-e5V" firstAttribute="bottom" secondItem="u5S-8I-WId" secondAttribute="bottom" constant="18" id="nnN-3o-7HX"/>
                             <constraint firstItem="c7r-j2-pOm" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="xeO-T3-DaP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eEJ-gf-e5V"/>
