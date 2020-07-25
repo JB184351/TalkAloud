@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mpi-wa-Yvj">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,11 +13,11 @@
             <objects>
                 <viewController id="t3H-T8-1Hi" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wzs-6Q-Nho">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c7r-j2-pOm">
-                                <rect key="frame" x="66.5" y="185" width="281.5" height="226"/>
+                                <rect key="frame" x="47" y="92" width="281.5" height="166"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="New Recording" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCu-i9-Ns7">
                                         <rect key="frame" x="52" y="0.0" width="177.5" height="32.5"/>
@@ -26,35 +26,46 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYU-yj-P5v">
-                                        <rect key="frame" x="0.0" y="40.5" width="281.5" height="185.5"/>
+                                        <rect key="frame" x="0.0" y="40.5" width="281.5" height="125.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="105"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5S-8I-WId">
-                                <rect key="frame" x="157" y="678" width="100" height="100"/>
-                                <state key="normal" image="recordbutton"/>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pj6-wU-H8F">
-                                <rect key="frame" x="0.0" y="481" width="414" height="134"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="5jp-vm-fXU">
+                                <rect key="frame" x="0.0" y="343" width="375" height="260"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pj6-wU-H8F">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="130" id="Kwi-Yp-bqi"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5S-8I-WId">
+                                        <rect key="frame" x="137.5" y="160" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="U4A-D6-Mkf"/>
+                                            <constraint firstAttribute="width" constant="100" id="gs6-Pc-9s5"/>
+                                        </constraints>
+                                        <state key="normal" image="recordbutton"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="pj6-wU-H8F" firstAttribute="width" secondItem="5jp-vm-fXU" secondAttribute="width" id="mD6-kn-XVv"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="eEJ-gf-e5V" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="u5S-8I-WId" secondAttribute="bottom" constant="35" id="JOd-fr-WeQ"/>
-                            <constraint firstItem="pj6-wU-H8F" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="Jbh-6p-93M"/>
-                            <constraint firstItem="u5S-8I-WId" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="QUa-f3-Jfg"/>
-                            <constraint firstItem="pj6-wU-H8F" firstAttribute="centerY" secondItem="wzs-6Q-Nho" secondAttribute="centerY" constant="100" id="SSf-ML-rD4"/>
-                            <constraint firstItem="c7r-j2-pOm" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="Zoc-B8-VKS"/>
-                            <constraint firstItem="pj6-wU-H8F" firstAttribute="trailing" secondItem="eEJ-gf-e5V" secondAttribute="trailing" id="ch1-pX-e68"/>
-                            <constraint firstItem="pj6-wU-H8F" firstAttribute="leading" secondItem="eEJ-gf-e5V" secondAttribute="leading" id="nJS-5x-tBE"/>
-                            <constraint firstItem="c7r-j2-pOm" firstAttribute="centerY" secondItem="wzs-6Q-Nho" secondAttribute="centerY" constant="-150" id="nmt-wm-kmy"/>
-                            <constraint firstItem="u5S-8I-WId" firstAttribute="centerY" secondItem="wzs-6Q-Nho" secondAttribute="centerY" constant="280" id="pwp-LF-XZx"/>
-                            <constraint firstItem="pj6-wU-H8F" firstAttribute="top" relation="lessThanOrEqual" secondItem="c7r-j2-pOm" secondAttribute="bottom" constant="70" id="qQc-3c-UUd"/>
-                            <constraint firstItem="u5S-8I-WId" firstAttribute="top" secondItem="pj6-wU-H8F" secondAttribute="bottom" constant="63" id="tLV-v7-Pmc"/>
+                            <constraint firstItem="5jp-vm-fXU" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="UHU-av-p2U"/>
+                            <constraint firstItem="eEJ-gf-e5V" firstAttribute="bottom" secondItem="5jp-vm-fXU" secondAttribute="bottom" constant="15" id="W0u-Eg-tuk"/>
+                            <constraint firstItem="5jp-vm-fXU" firstAttribute="trailing" secondItem="eEJ-gf-e5V" secondAttribute="trailing" id="ajP-vc-U2i"/>
+                            <constraint firstItem="c7r-j2-pOm" firstAttribute="top" relation="lessThanOrEqual" secondItem="eEJ-gf-e5V" secondAttribute="top" constant="150" id="hYL-29-SOV"/>
+                            <constraint firstItem="5jp-vm-fXU" firstAttribute="leading" secondItem="eEJ-gf-e5V" secondAttribute="leading" id="or0-Zv-AZ8"/>
+                            <constraint firstItem="5jp-vm-fXU" firstAttribute="top" secondItem="c7r-j2-pOm" secondAttribute="bottom" constant="85" id="q3x-OV-k8C"/>
+                            <constraint firstItem="c7r-j2-pOm" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="xeO-T3-DaP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eEJ-gf-e5V"/>
                     </view>
@@ -69,20 +80,20 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="AudioPlayerViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c2y-90-BuO" userLabel="Playback Stack View">
-                                <rect key="frame" x="20" y="409.5" width="374" height="77"/>
+                                <rect key="frame" x="20" y="295" width="335" height="77"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="aYx-eZ-I5n" userLabel="Playback Info Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="77"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="77"/>
                                         <subviews>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-1.5" minValue="-1.5" maxValue="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="vH1-sC-WK6" customClass="AudioSlider" customModule="TalkAloud" customModuleProvider="target">
-                                                <rect key="frame" x="-2" y="0.0" width="378" height="31"/>
+                                                <rect key="frame" x="-2" y="0.0" width="339" height="31"/>
                                             </slider>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="sgQ-2l-PLP" userLabel="Duration Stack View">
-                                                <rect key="frame" x="0.0" y="50" width="374" height="27"/>
+                                                <rect key="frame" x="0.0" y="50" width="335" height="27"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EgS-L9-d1d">
                                                         <rect key="frame" x="0.0" y="0.0" width="22.5" height="27"/>
@@ -91,7 +102,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvn-qG-103" userLabel="Back Button">
-                                                        <rect key="frame" x="87.5" y="0.0" width="25" height="27"/>
+                                                        <rect key="frame" x="78" y="0.0" width="25" height="27"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <state key="normal" image="gobackward.15" catalog="system"/>
@@ -100,7 +111,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sTD-fj-i87">
-                                                        <rect key="frame" x="178" y="0.0" width="18.5" height="27"/>
+                                                        <rect key="frame" x="158.5" y="0.0" width="18.5" height="27"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <state key="normal" image="play.fill" catalog="system"/>
@@ -109,7 +120,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yUy-OD-8ik" userLabel="Forward Button">
-                                                        <rect key="frame" x="261.5" y="0.0" width="25" height="27"/>
+                                                        <rect key="frame" x="232" y="0.0" width="25" height="27"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <state key="normal" image="goforward.15" catalog="system"/>
@@ -118,7 +129,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFB-mR-xqv">
-                                                        <rect key="frame" x="351.5" y="0.0" width="22.5" height="27"/>
+                                                        <rect key="frame" x="312.5" y="0.0" width="22.5" height="27"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -133,14 +144,14 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cz8-eV-Moy">
-                                <rect key="frame" x="157" y="713" width="100" height="100"/>
+                                <rect key="frame" x="137.5" y="518" width="100" height="100"/>
                                 <state key="normal" image="recordbutton"/>
                                 <connections>
                                     <action selector="recordAudioButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pvD-d0-Rep"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O8a-Iy-7wO" customClass="AudioPlayerVisualizerView" customModule="TalkAloud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="534" width="414" height="145"/>
+                                <rect key="frame" x="0.0" y="419.5" width="375" height="64.5"/>
                                 <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
@@ -198,15 +209,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="AudioRecordingsTableViewController" id="uQ4-T3-O6c" customClass="AudioRecordingsTableViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="QdT-eF-apS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioRecordingCell" id="5ic-OS-Rvq" customClass="AudioRecordingCell" customModule="TalkAloud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5ic-OS-Rvq" id="wsY-V8-zyC">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -235,7 +246,7 @@
                     <tabBarItem key="tabBarItem" title="AudioFiles" image="folder" catalog="system" id="8If-8B-4LG"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yuO-gt-KSI">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -252,15 +263,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="TagTableViewController" id="Gca-53-fbo" customClass="TagTableViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dfF-Hc-rpk">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioRecordingTags" id="26M-Bn-2dc">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="26M-Bn-2dc" id="iqa-9v-JS1">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -288,7 +299,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RiC-ab-Cos" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5B0-cH-o4B">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
