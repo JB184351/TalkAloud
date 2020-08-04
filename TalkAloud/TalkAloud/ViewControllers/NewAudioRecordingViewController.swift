@@ -53,7 +53,6 @@ class NewAudioRecordingViewController: UIViewController {
     private func intializeRecordingTimer() {
         progressTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
             let recordingTime = AudioEngine.sharedInstance.getCurrentAudioRecorderDuration()
-            //print(recordingTime)
             self.audioRecordingTimeLabel.text = self.timeToString(time: TimeInterval(recordingTime))
         })
     }
