@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3003546B24D8D2BF00774738 /* NewAudioRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3003546A24D8D2BF00774738 /* NewAudioRecordingViewController.swift */; };
 		300EBDBE2444AD610069EF00 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300EBDBD2444AD610069EF00 /* AudioManager.swift */; };
 		3018126524114A76001999EA /* AudioEngineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3018126424114A76001999EA /* AudioEngineState.swift */; };
 		30233A9F24C27B88002E0CE0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30233A9E24C27B88002E0CE0 /* Extensions.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3003546A24D8D2BF00774738 /* NewAudioRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAudioRecordingViewController.swift; sourceTree = "<group>"; };
 		300EBDBD2444AD610069EF00 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		3018126424114A76001999EA /* AudioEngineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineState.swift; sourceTree = "<group>"; };
 		30233A9E24C27B88002E0CE0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				30692A5A24BC9B5800728C26 /* TagTableViewController.swift */,
 				307F71E624492CAB004AE308 /* AudioRecordingsTableViewController.swift */,
 				305EF77F240D53DF00CF53A0 /* AudioPlayerViewController.swift */,
+				3003546A24D8D2BF00774738 /* NewAudioRecordingViewController.swift */,
 				3023D7262462F40900D35EA8 /* AudioTabBarController.swift */,
 			);
 			path = ViewControllers;
@@ -247,6 +250,7 @@
 				307F71E724492CAB004AE308 /* AudioRecordingsTableViewController.swift in Sources */,
 				30DEEABB249A59AC002BAF73 /* AudioRecording.swift in Sources */,
 				30A1C9C624A5808500AB0C59 /* CoreDataManager.swift in Sources */,
+				3003546B24D8D2BF00774738 /* NewAudioRecordingViewController.swift in Sources */,
 				30F4116124ACC3A200EA4EF6 /* AudioSlider.swift in Sources */,
 				30B0459524AD5864007D7568 /* AudioRecordingCell.swift in Sources */,
 				30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */,
