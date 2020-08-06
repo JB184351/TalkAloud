@@ -56,7 +56,7 @@ class AudioPlayer1ViewController: UIViewController, AudioEngineStateChangeDelega
             play()
         } else if AudioEngine.sharedInstance.audioState == .playing {
             AudioEngine.sharedInstance.pause()
-            playButton.setImage(UIImage(named: "play.fill"), for: .normal)
+            playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
     }
     
