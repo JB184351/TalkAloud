@@ -68,8 +68,10 @@ class AudioRecordingsTableViewController: UITableViewController {
         AudioManager.sharedInstance.setSelectedRecording(index: indexPath.row)
         guard let url = AudioManager.sharedInstance.getPlayBackURL() else { return }
         AudioEngine.sharedInstance.play(withFileURL: url)
-        self.tabBarController?.selectedIndex = 1
-        
+//        self.tabBarController?.selectedIndex = 1
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let audioPlayerViewController = storyboard.instantiateViewController(identifier: "AudioPlayerVIewController") as! AudioPlayer1ViewController
+        self.navigationController?.pushViewController(audioPlayerViewController, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
