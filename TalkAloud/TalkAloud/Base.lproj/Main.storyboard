@@ -82,7 +82,7 @@
         <!--PlayBackViewController-->
         <scene sceneID="CSy-ts-b8j">
             <objects>
-                <viewController storyboardIdentifier="AudioPlayerVIewController" id="A0l-Qz-JxR" userLabel="PlayBackViewController" customClass="AudioPlayer1ViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AudioPlayerView1Controller" id="A0l-Qz-JxR" userLabel="PlayBackViewController" customClass="AudioPlayer1ViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nbt-O0-52y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

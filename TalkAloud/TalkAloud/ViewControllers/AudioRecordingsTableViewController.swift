@@ -68,9 +68,11 @@ class AudioRecordingsTableViewController: UITableViewController {
         AudioManager.sharedInstance.setSelectedRecording(index: indexPath.row)
         guard let url = AudioManager.sharedInstance.getPlayBackURL() else { return }
         AudioEngine.sharedInstance.play(withFileURL: url)
-//        self.tabBarController?.selectedIndex = 1
+        
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let audioPlayerViewController = storyboard.instantiateViewController(identifier: "AudioPlayerVIewController") as! AudioPlayer1ViewController
+        let audioPlayerViewController = storyboard.instantiateViewController(identifier: "AudioPlayerView1Controller") as! AudioPlayer1ViewController
+        AudioEngine.sharedInstance.delegate = audioPlayerViewController
         self.navigationController?.pushViewController(audioPlayerViewController, animated: true)
     }
     

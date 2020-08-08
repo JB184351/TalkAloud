@@ -124,7 +124,6 @@ class AudioPlayer1ViewController: UIViewController, AudioEngineStateChangeDelega
         audioPlayerRemainingTimeLabel.text = "0:00"
         progressSlider.value = 0
         audioPlayerVisualizer.waveforms.removeAll()
-        audioPlayerVisualizer.isHidden = true
     }
     
     func play() {
@@ -143,11 +142,13 @@ class AudioPlayer1ViewController: UIViewController, AudioEngineStateChangeDelega
         case .playing:
             playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             audioPlayerVisualizer.active = true
+            audioPlayerVisualizer.isHidden = false
             displayAudioVisualizer(audioState: audioState)
         case .stopped:
             progressTimer?.invalidate()
             visualizerTimer?.invalidate()
             resetView()
+            audioPlayerVisualizer.isHidden = true
         case .recording:
             print("Should never be recording here")
         }
