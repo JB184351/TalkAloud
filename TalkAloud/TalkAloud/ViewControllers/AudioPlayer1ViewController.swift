@@ -23,6 +23,8 @@ class AudioPlayer1ViewController: UIViewController, AudioEngineStateChangeDelega
     @IBOutlet var goForwardFifteenSecondsButton: UIButton!
     private var progressTimer: Timer?
     private var visualizerTimer: Timer?
+    var audioRecordingName: String?
+    var audioRecordingDetail: String?
     private var isAudioPlaying = false {
         didSet {
             updateUI(audioState: AudioEngine.sharedInstance.audioState)
@@ -32,6 +34,7 @@ class AudioPlayer1ViewController: UIViewController, AudioEngineStateChangeDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         progressSlider.delegate = self
+        self.audioRecordingNameLabel.text = audioRecordingName
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -149,6 +152,7 @@ class AudioPlayer1ViewController: UIViewController, AudioEngineStateChangeDelega
             visualizerTimer?.invalidate()
             resetView()
             audioPlayerVisualizer.isHidden = true
+            playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         case .recording:
             print("Should never be recording here")
         }
