@@ -14,7 +14,6 @@ class AudioPlayer1ViewController: UIViewController, AudioEngineStateChangeDelega
     @IBOutlet var audioPlayerVisualizer: AudioPlayerVisualizerView!
     @IBOutlet var audioRecordingNameLabel: UILabel!
     @IBOutlet var audioRecordingDetailLabel: UILabel!
-    @IBOutlet var audioRecordingMoreOptionButton: UIButton!
     @IBOutlet var progressSlider: AudioSlider!
     @IBOutlet var audioPlayerCurrentTimeLabel: UILabel!
     @IBOutlet var audioPlayerRemainingTimeLabel: UILabel!
@@ -71,6 +70,11 @@ class AudioPlayer1ViewController: UIViewController, AudioEngineStateChangeDelega
     @IBAction func skipForwardAction(_ sender: Any) {
         AudioEngine.sharedInstance.skipFifteenSeconds()
     }
+    
+    @IBAction func moreButtonAction(_ sender: Any) {
+        print("Tapped More Button")
+    }
+    
     
     private func initializeTimer() {
         progressTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in

@@ -124,6 +124,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVF-In-pJZ">
                                                         <rect key="frame" x="356.66666666666669" y="34" width="18.333333333333314" height="22"/>
                                                         <state key="normal" image="ellipsis" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="moreButtonAction:" destination="A0l-Qz-JxR" eventType="touchUpInside" id="e7s-yH-JgO"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -209,7 +212,6 @@
                         <outlet property="audioPlayerRemainingTimeLabel" destination="eAO-du-C4f" id="Ene-hs-waN"/>
                         <outlet property="audioPlayerVisualizer" destination="dpj-fg-LIQ" id="wYu-SL-2il"/>
                         <outlet property="audioRecordingDetailLabel" destination="p76-ZJ-K65" id="fhg-wP-ZOe"/>
-                        <outlet property="audioRecordingMoreOptionButton" destination="gVF-In-pJZ" id="j7d-dl-54W"/>
                         <outlet property="audioRecordingNameLabel" destination="tiu-9e-FrF" id="TaO-BU-8lB"/>
                         <outlet property="goBackFifteenSecondsButton" destination="Eje-z9-jVv" id="REB-vk-Hjz"/>
                         <outlet property="goForwardFifteenSecondsButton" destination="II5-ZR-4ZQ" id="BMO-1B-SHP"/>
