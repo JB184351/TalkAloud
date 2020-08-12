@@ -25,6 +25,7 @@ class AudioPlayer1ViewController: UIViewController, AudioEngineStateChangeDelega
     private var visualizerTimer: Timer?
     var audioRecordingName: String?
     var audioRecordingDetail: String?
+    var currentAudioRecording: AudioRecording?
     private var isAudioPlaying = false {
         didSet {
             updateUI(audioState: AudioEngine.sharedInstance.audioState)
@@ -34,7 +35,7 @@ class AudioPlayer1ViewController: UIViewController, AudioEngineStateChangeDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         progressSlider.delegate = self
-        self.audioRecordingNameLabel.text = audioRecordingName
+        self.audioRecordingNameLabel.text = currentAudioRecording?.fileName
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -142,6 +143,7 @@ class AudioPlayer1ViewController: UIViewController, AudioEngineStateChangeDelega
         switch audioState {
         case .paused:
             playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            visualizerTimer?.invalidate()
         case .playing:
             playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             audioPlayerVisualizer.active = true

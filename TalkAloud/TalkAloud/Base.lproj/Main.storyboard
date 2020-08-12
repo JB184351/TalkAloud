@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mpi-wa-Yvj">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,20 +13,20 @@
             <objects>
                 <viewController id="t3H-T8-1Hi" customClass="NewAudioRecordingViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wzs-6Q-Nho">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="S3p-RH-3Lg" userLabel="durationStackView">
-                                <rect key="frame" x="73" y="240" width="268" height="152"/>
+                                <rect key="frame" x="67.000000000000014" y="168" width="241.33333333333337" height="140"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="New Recording" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCu-i9-Ns7">
-                                        <rect key="frame" x="45.5" y="0.0" width="177.5" height="32.5"/>
+                                        <rect key="frame" x="32" y="0.0" width="177.33333333333334" height="32.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYU-yj-P5v" userLabel="durationLabel">
-                                        <rect key="frame" x="13.5" y="32.5" width="241.5" height="119.5"/>
+                                        <rect key="frame" x="0.0" y="32.33333333333335" width="241.33333333333334" height="107.66666666666669"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="90"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -34,14 +34,14 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pj6-wU-H8F" userLabel="visualizerView" customClass="AudioPlayerVisualizerView" customModule="TalkAloud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="495" width="414" height="130"/>
+                                <rect key="frame" x="0.0" y="411" width="375" height="130"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="Kwi-Yp-bqi"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5S-8I-WId" userLabel="recordButton">
-                                <rect key="frame" x="157" y="695" width="100" height="100"/>
+                                <rect key="frame" x="137.66666666666666" y="611" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="U4A-D6-Mkf"/>
                                     <constraint firstAttribute="width" constant="100" id="gs6-Pc-9s5"/>
@@ -84,69 +84,72 @@
             <objects>
                 <viewController storyboardIdentifier="AudioPlayerView1Controller" id="A0l-Qz-JxR" userLabel="PlayBackViewController" customClass="AudioPlayer1ViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nbt-O0-52y">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="76" translatesAutoresizingMaskIntoConstraints="NO" id="bso-eS-0iy" userLabel="playBackStackView">
-                                <rect key="frame" x="0.0" y="205" width="414" height="612"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="114" translatesAutoresizingMaskIntoConstraints="NO" id="c7b-zN-M92">
+                                <rect key="frame" x="0.0" y="122.66666666666669" width="375" height="626"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dpj-fg-LIQ" userLabel="playbackVisualizerView" customClass="AudioPlayerVisualizerView" customModule="TalkAloud" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="189"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="189"/>
                                         <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="414" id="1v7-QM-F6e"/>
-                                            <constraint firstAttribute="height" constant="189" id="4mT-LJ-wqX"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="189" id="HiZ-iN-FXZ"/>
                                         </constraints>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="128" translatesAutoresizingMaskIntoConstraints="NO" id="4HN-IX-fQ2">
-                                        <rect key="frame" x="0.0" y="265" width="414" height="347"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="153" translatesAutoresizingMaskIntoConstraints="NO" id="vZp-GV-QC1">
+                                        <rect key="frame" x="0.0" y="303" width="375" height="323"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="207" translatesAutoresizingMaskIntoConstraints="NO" id="7ZG-hv-S81" userLabel="recordingInfoStackVIew">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="267" translatesAutoresizingMaskIntoConstraints="NO" id="LhE-Le-BpA">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="89.666666666666671"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="3oO-2I-wk4">
-                                                        <rect key="frame" x="0.0" y="0.0" width="135.5" height="84"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="xJY-fW-QLO" userLabel="audioRecordingInfoStackView">
+                                                        <rect key="frame" x="0.0" y="0.0" width="89.666666666666671" height="89.666666666666671"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tiu-9e-FrF" userLabel="recordingNameLabel">
-                                                                <rect key="frame" x="0.0" y="0.0" width="110" height="56.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="47"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tiu-9e-FrF" userLabel="recordingNameLabel">
+                                                                <rect key="frame" x="0.0" y="0.0" width="89.666666666666671" height="55"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p76-ZJ-K65" userLabel="recordingMetaDataLabel">
-                                                                <rect key="frame" x="0.0" y="56.5" width="55" height="27.5"/>
+                                                                <rect key="frame" x="0.0" y="61.999999999999993" width="89.666666666666671" height="27.666666666666664"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
                                                     </stackView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nUL-XN-hNx" userLabel="moreButton">
-                                                        <rect key="frame" x="342.5" y="31" width="71.5" height="22"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVF-In-pJZ">
+                                                        <rect key="frame" x="356.66666666666669" y="34" width="18.333333333333314" height="22"/>
                                                         <state key="normal" image="ellipsis" catalog="system"/>
                                                     </button>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="59" translatesAutoresizingMaskIntoConstraints="NO" id="bQw-og-bBW">
-                                                <rect key="frame" x="0.0" y="212" width="414" height="135"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Mbo-kF-mMu">
+                                                <rect key="frame" x="0.0" y="242.66666666666671" width="375" height="80.333333333333343"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hRK-kY-XZM" userLabel="durationStackView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cfO-t4-E9c">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                                         <subviews>
                                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="deI-zQ-21s" customClass="AudioSlider" customModule="TalkAloud" customModuleProvider="target">
-                                                                <rect key="frame" x="-2" y="0.0" width="418" height="31"/>
+                                                                <rect key="frame" x="-2" y="0.0" width="379" height="31"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="nfB-xe-B1e"/>
+                                                                </constraints>
                                                             </slider>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="317" translatesAutoresizingMaskIntoConstraints="NO" id="hQv-cT-RxU" userLabel="timeLabelStackView">
-                                                                <rect key="frame" x="0.0" y="38" width="414" height="12"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="315" translatesAutoresizingMaskIntoConstraints="NO" id="87g-jR-74k" userLabel="timeLabelStackView">
+                                                                <rect key="frame" x="0.0" y="38" width="375" height="12"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZ6-gf-KFq" userLabel="currentTimeLabel">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="74.5" height="12"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="37.333333333333336" height="12"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAO-du-C4f" userLabel="durationLabel">
-                                                                        <rect key="frame" x="391.5" y="0.0" width="22.5" height="12"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAO-du-C4f" userLabel="durationLabel">
+                                                                        <rect key="frame" x="352.33333333333331" y="0.0" width="22.666666666666686" height="12"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -155,37 +158,28 @@
                                                             </stackView>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="65" translatesAutoresizingMaskIntoConstraints="NO" id="Z9j-Po-zEr" userLabel="playbackButtonsStackView">
-                                                        <rect key="frame" x="108" y="109" width="198.5" height="26"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="52" translatesAutoresizingMaskIntoConstraints="NO" id="aOd-L8-CBW" userLabel="playBackControlsStackView">
+                                                        <rect key="frame" x="108.33333333333333" y="58.000000000000007" width="158.33333333333337" height="22.333333333333336"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BXO-7y-0U5" userLabel="Back Button">
-                                                                <rect key="frame" x="0.0" y="0.0" width="25" height="26"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eje-z9-jVv" userLabel="goBackButton">
+                                                                <rect key="frame" x="0.0" y="0.0" width="19.666666666666668" height="22.333333333333332"/>
                                                                 <state key="normal" image="gobackward.15" catalog="system"/>
                                                                 <connections>
-                                                                    <action selector="rewindAction:" destination="A0l-Qz-JxR" eventType="touchUpInside" id="W18-qI-S3g"/>
-                                                                    <action selector="rewindAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wRe-TQ-wyV"/>
+                                                                    <action selector="rewindAction:" destination="A0l-Qz-JxR" eventType="touchUpInside" id="08T-Xe-URt"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVG-z9-Adc">
-                                                                <rect key="frame" x="90" y="0.0" width="18.5" height="26"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zcp-AC-a6F" userLabel="playButton">
+                                                                <rect key="frame" x="71.666666666666671" y="0.0" width="15" height="22.333333333333332"/>
                                                                 <state key="normal" image="play.fill" catalog="system"/>
                                                                 <connections>
-                                                                    <action selector="playAndPauseButtonAction:" destination="A0l-Qz-JxR" eventType="touchUpInside" id="sAr-QZ-gbD"/>
-                                                                    <action selector="playAndStopButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wpr-hk-sLz"/>
+                                                                    <action selector="playAndPauseButtonAction:" destination="A0l-Qz-JxR" eventType="touchUpInside" id="58q-5L-RPf"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eCg-3Q-VE2" userLabel="Forward Button">
-                                                                <rect key="frame" x="173.5" y="0.0" width="25" height="26"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="II5-ZR-4ZQ" userLabel="forwardButton">
+                                                                <rect key="frame" x="138.66666666666669" y="0.0" width="19.666666666666657" height="22.333333333333332"/>
                                                                 <state key="normal" image="goforward.15" catalog="system"/>
                                                                 <connections>
-                                                                    <action selector="skipForwardAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eBJ-LL-NEx"/>
-                                                                    <action selector="skipForwardAction:" destination="A0l-Qz-JxR" eventType="touchUpInside" id="gwu-tj-19V"/>
+                                                                    <action selector="skipForwardAction:" destination="A0l-Qz-JxR" eventType="touchUpInside" id="nNc-bH-ekL"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -195,15 +189,17 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="vZp-GV-QC1" firstAttribute="top" secondItem="c7b-zN-M92" secondAttribute="top" constant="303" id="guf-8Z-ZmD"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="bso-eS-0iy" firstAttribute="leading" secondItem="zCb-wm-4On" secondAttribute="leading" id="3mE-tt-268"/>
-                            <constraint firstItem="bso-eS-0iy" firstAttribute="centerX" secondItem="nbt-O0-52y" secondAttribute="centerX" id="Jql-5N-4Cw"/>
-                            <constraint firstItem="bso-eS-0iy" firstAttribute="trailing" secondItem="zCb-wm-4On" secondAttribute="trailing" id="LYI-rI-g9t"/>
-                            <constraint firstItem="zCb-wm-4On" firstAttribute="bottom" secondItem="bso-eS-0iy" secondAttribute="bottom" constant="45" id="gZT-Du-hBg"/>
-                            <constraint firstItem="bso-eS-0iy" firstAttribute="top" relation="lessThanOrEqual" secondItem="zCb-wm-4On" secondAttribute="top" constant="160" id="rf5-3G-8bG"/>
+                            <constraint firstItem="zCb-wm-4On" firstAttribute="bottom" secondItem="c7b-zN-M92" secondAttribute="bottom" constant="29.329999999999998" id="R9P-p0-t39"/>
+                            <constraint firstItem="c7b-zN-M92" firstAttribute="top" relation="lessThanOrEqual" secondItem="zCb-wm-4On" secondAttribute="top" constant="118.67" id="aak-E9-1jS"/>
+                            <constraint firstItem="c7b-zN-M92" firstAttribute="trailing" secondItem="zCb-wm-4On" secondAttribute="trailing" id="en9-Kd-cgc"/>
+                            <constraint firstItem="c7b-zN-M92" firstAttribute="leading" secondItem="zCb-wm-4On" secondAttribute="leading" id="x52-Bt-av1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zCb-wm-4On"/>
                     </view>
@@ -213,46 +209,46 @@
                         <outlet property="audioPlayerRemainingTimeLabel" destination="eAO-du-C4f" id="Ene-hs-waN"/>
                         <outlet property="audioPlayerVisualizer" destination="dpj-fg-LIQ" id="wYu-SL-2il"/>
                         <outlet property="audioRecordingDetailLabel" destination="p76-ZJ-K65" id="fhg-wP-ZOe"/>
-                        <outlet property="audioRecordingMoreOptionButton" destination="nUL-XN-hNx" id="7ij-Ms-0bS"/>
+                        <outlet property="audioRecordingMoreOptionButton" destination="gVF-In-pJZ" id="j7d-dl-54W"/>
                         <outlet property="audioRecordingNameLabel" destination="tiu-9e-FrF" id="TaO-BU-8lB"/>
-                        <outlet property="goBackFifteenSecondsButton" destination="BXO-7y-0U5" id="A4X-Hq-cOB"/>
-                        <outlet property="goForwardFifteenSecondsButton" destination="eCg-3Q-VE2" id="cHw-sc-Mh5"/>
-                        <outlet property="playButton" destination="UVG-z9-Adc" id="CPM-cu-p4t"/>
+                        <outlet property="goBackFifteenSecondsButton" destination="Eje-z9-jVv" id="REB-vk-Hjz"/>
+                        <outlet property="goForwardFifteenSecondsButton" destination="II5-ZR-4ZQ" id="BMO-1B-SHP"/>
+                        <outlet property="playButton" destination="zcp-AC-a6F" id="haY-C9-SEr"/>
                         <outlet property="progressSlider" destination="deI-zQ-21s" id="nEX-BF-SXP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zJk-gr-qN8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2777" y="509"/>
+            <point key="canvasLocation" x="2776.8000000000002" y="508.37438423645324"/>
         </scene>
         <!--PlayBack-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="AudioPlayerViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c2y-90-BuO" userLabel="Playback Stack View">
-                                <rect key="frame" x="20" y="409.5" width="374" height="77"/>
+                                <rect key="frame" x="20" y="367.66666666666669" width="335" height="77"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="aYx-eZ-I5n" userLabel="Playback Info Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="77"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="77"/>
                                         <subviews>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-1.5" minValue="-1.5" maxValue="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="vH1-sC-WK6" customClass="AudioSlider" customModule="TalkAloud" customModuleProvider="target">
-                                                <rect key="frame" x="-2" y="0.0" width="378" height="31"/>
+                                                <rect key="frame" x="-2" y="0.0" width="339" height="31"/>
                                             </slider>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="sgQ-2l-PLP" userLabel="Duration Stack View">
-                                                <rect key="frame" x="0.0" y="50" width="374" height="27"/>
+                                                <rect key="frame" x="0.0" y="50" width="335" height="27"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EgS-L9-d1d">
-                                                        <rect key="frame" x="0.0" y="0.0" width="22.5" height="27"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="22.666666666666668" height="27"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvn-qG-103" userLabel="Back Button">
-                                                        <rect key="frame" x="87.5" y="0.0" width="25" height="27"/>
+                                                        <rect key="frame" x="78.333333333333329" y="0.0" width="24.333333333333329" height="27"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <state key="normal" image="gobackward.15" catalog="system"/>
@@ -261,7 +257,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sTD-fj-i87">
-                                                        <rect key="frame" x="178" y="0.0" width="18.5" height="27"/>
+                                                        <rect key="frame" x="158.33333333333334" y="0.0" width="18.666666666666657" height="27"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <state key="normal" image="play.fill" catalog="system"/>
@@ -270,7 +266,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yUy-OD-8ik" userLabel="Forward Button">
-                                                        <rect key="frame" x="261.5" y="0.0" width="25" height="27"/>
+                                                        <rect key="frame" x="232.33333333333334" y="0.0" width="24.333333333333343" height="27"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <state key="normal" image="goforward.15" catalog="system"/>
@@ -279,7 +275,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFB-mR-xqv">
-                                                        <rect key="frame" x="351.5" y="0.0" width="22.5" height="27"/>
+                                                        <rect key="frame" x="312.33333333333331" y="0.0" width="22.666666666666686" height="27"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -294,14 +290,14 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cz8-eV-Moy">
-                                <rect key="frame" x="157" y="713" width="100" height="100"/>
+                                <rect key="frame" x="137.66666666666666" y="629" width="100" height="100"/>
                                 <state key="normal" image="recordbutton"/>
                                 <connections>
                                     <action selector="recordAudioButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pvD-d0-Rep"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O8a-Iy-7wO" customClass="AudioPlayerVisualizerView" customModule="TalkAloud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="534" width="414" height="145"/>
+                                <rect key="frame" x="0.0" y="492" width="375" height="103"/>
                                 <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
@@ -359,15 +355,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="AudioRecordingsTableViewController" id="uQ4-T3-O6c" customClass="AudioRecordingsTableViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="QdT-eF-apS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioRecordingCell" id="5ic-OS-Rvq" customClass="AudioRecordingCell" customModule="TalkAloud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5ic-OS-Rvq" id="wsY-V8-zyC">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -396,7 +392,7 @@
                     <tabBarItem key="tabBarItem" title="AudioFiles" image="folder" catalog="system" id="8If-8B-4LG"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yuO-gt-KSI">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -413,15 +409,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="TagTableViewController" id="Gca-53-fbo" customClass="TagTableViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dfF-Hc-rpk">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioRecordingTags" id="26M-Bn-2dc">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="26M-Bn-2dc" id="iqa-9v-JS1">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -449,7 +445,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RiC-ab-Cos" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5B0-cH-o4B">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -467,7 +463,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bDs-b3-HfP" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="R1V-s3-KVc">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
