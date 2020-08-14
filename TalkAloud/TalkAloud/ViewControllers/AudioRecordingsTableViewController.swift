@@ -72,7 +72,7 @@ class AudioRecordingsTableViewController: UITableViewController {
         let selectedAudioRecording = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let audioPlayerViewController = storyboard.instantiateViewController(identifier: "AudioPlayerView1Controller") as! AudioPlayer1ViewController
+        let audioPlayerViewController = storyboard.instantiateViewController(identifier: "AudioPlayerView1Controller") as! AudioPlayerViewController
         AudioEngine.sharedInstance.delegate = audioPlayerViewController
         audioPlayerViewController.currentAudioRecording = selectedAudioRecording
         self.navigationController?.pushViewController(audioPlayerViewController, animated: true)

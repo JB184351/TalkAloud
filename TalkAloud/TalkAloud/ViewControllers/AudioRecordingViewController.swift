@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewAudioRecordingViewController: UIViewController {
+class AudioRecordingViewController: UIViewController {
 
     @IBOutlet var audioRecordingTimeLabel: UILabel!
     @IBOutlet var audioRecordingVisualizer: AudioPlayerVisualizerView!

@@ -11,7 +11,7 @@
         <!--Record-->
         <scene sceneID="8nI-W3-lMn">
             <objects>
-                <viewController id="t3H-T8-1Hi" customClass="NewAudioRecordingViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="t3H-T8-1Hi" customClass="AudioRecordingViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wzs-6Q-Nho">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -77,44 +77,36 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DAQ-eN-O11" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="840.57971014492762" y="508.92857142857139"/>
+            <point key="canvasLocation" x="818" y="-179"/>
         </scene>
         <!--PlayBackViewController-->
         <scene sceneID="CSy-ts-b8j">
             <objects>
-                <viewController storyboardIdentifier="AudioPlayerView1Controller" id="A0l-Qz-JxR" userLabel="PlayBackViewController" customClass="AudioPlayer1ViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AudioPlayerView1Controller" id="A0l-Qz-JxR" userLabel="PlayBackViewController" customClass="AudioPlayerViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nbt-O0-52y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="114" translatesAutoresizingMaskIntoConstraints="NO" id="c7b-zN-M92">
-                                <rect key="frame" x="0.0" y="122.66666666666669" width="375" height="626"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c7b-zN-M92">
+                                <rect key="frame" x="8" y="278" width="359" height="472"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dpj-fg-LIQ" userLabel="playbackVisualizerView" customClass="AudioPlayerVisualizerView" customModule="TalkAloud" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="189"/>
-                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="414" id="1v7-QM-F6e"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="189" id="HiZ-iN-FXZ"/>
-                                        </constraints>
-                                    </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="153" translatesAutoresizingMaskIntoConstraints="NO" id="vZp-GV-QC1">
-                                        <rect key="frame" x="0.0" y="303" width="375" height="323"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vZp-GV-QC1">
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="472"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="267" translatesAutoresizingMaskIntoConstraints="NO" id="LhE-Le-BpA">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="89.666666666666671"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LhE-Le-BpA">
+                                                <rect key="frame" x="0.0" y="0.0" width="359" height="383.66666666666669"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="xJY-fW-QLO" userLabel="audioRecordingInfoStackView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="89.666666666666671" height="89.666666666666671"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xJY-fW-QLO" userLabel="audioRecordingInfoStackView">
+                                                        <rect key="frame" x="0.0" y="156" width="285.33333333333331" height="71.666666666666686"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tiu-9e-FrF" userLabel="recordingNameLabel">
-                                                                <rect key="frame" x="0.0" y="0.0" width="89.666666666666671" height="55"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tiu-9e-FrF" userLabel="recordingNameLabel">
+                                                                <rect key="frame" x="0.0" y="0.0" width="285.33333333333331" height="36"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p76-ZJ-K65" userLabel="recordingMetaDataLabel">
-                                                                <rect key="frame" x="0.0" y="61.999999999999993" width="89.666666666666671" height="27.666666666666664"/>
+                                                                <rect key="frame" x="0.0" y="44" width="285.33333333333331" height="27.666666666666671"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -122,7 +114,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVF-In-pJZ">
-                                                        <rect key="frame" x="356.66666666666669" y="34" width="18.333333333333314" height="22"/>
+                                                        <rect key="frame" x="293.33333333333331" y="181" width="65.666666666666686" height="22"/>
                                                         <state key="normal" image="ellipsis" catalog="system"/>
                                                         <connections>
                                                             <action selector="moreButtonAction:" destination="A0l-Qz-JxR" eventType="touchUpInside" id="e7s-yH-JgO"/>
@@ -130,29 +122,29 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Mbo-kF-mMu">
-                                                <rect key="frame" x="0.0" y="242.66666666666671" width="375" height="80.333333333333343"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Mbo-kF-mMu">
+                                                <rect key="frame" x="0.0" y="391.66666666666663" width="359" height="80.333333333333314"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cfO-t4-E9c">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="cfO-t4-E9c">
+                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="50"/>
                                                         <subviews>
                                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="deI-zQ-21s" customClass="AudioSlider" customModule="TalkAloud" customModuleProvider="target">
-                                                                <rect key="frame" x="-2" y="0.0" width="379" height="31"/>
+                                                                <rect key="frame" x="-2" y="0.0" width="363" height="31"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="nfB-xe-B1e"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="nfB-xe-B1e"/>
                                                                 </constraints>
                                                             </slider>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="315" translatesAutoresizingMaskIntoConstraints="NO" id="87g-jR-74k" userLabel="timeLabelStackView">
-                                                                <rect key="frame" x="0.0" y="38" width="375" height="12"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="87g-jR-74k" userLabel="timeLabelStackView">
+                                                                <rect key="frame" x="0.0" y="38" width="359" height="12"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZ6-gf-KFq" userLabel="currentTimeLabel">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="37.333333333333336" height="12"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="328.33333333333331" height="12"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAO-du-C4f" userLabel="durationLabel">
-                                                                        <rect key="frame" x="352.33333333333331" y="0.0" width="22.666666666666686" height="12"/>
+                                                                        <rect key="frame" x="336.33333333333331" y="0.0" width="22.666666666666686" height="12"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -161,8 +153,8 @@
                                                             </stackView>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="52" translatesAutoresizingMaskIntoConstraints="NO" id="aOd-L8-CBW" userLabel="playBackControlsStackView">
-                                                        <rect key="frame" x="108.33333333333333" y="58.000000000000007" width="158.33333333333337" height="22.333333333333336"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="aOd-L8-CBW" userLabel="playBackControlsStackView">
+                                                        <rect key="frame" x="102.33333333333333" y="58.000000000000007" width="154.33333333333337" height="22.333333333333336"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eje-z9-jVv" userLabel="goBackButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="19.666666666666668" height="22.333333333333332"/>
@@ -172,14 +164,14 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zcp-AC-a6F" userLabel="playButton">
-                                                                <rect key="frame" x="71.666666666666671" y="0.0" width="15" height="22.333333333333332"/>
+                                                                <rect key="frame" x="69.666666666666671" y="0.0" width="15" height="22.333333333333332"/>
                                                                 <state key="normal" image="play.fill" catalog="system"/>
                                                                 <connections>
                                                                     <action selector="playAndPauseButtonAction:" destination="A0l-Qz-JxR" eventType="touchUpInside" id="58q-5L-RPf"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="II5-ZR-4ZQ" userLabel="forwardButton">
-                                                                <rect key="frame" x="138.66666666666669" y="0.0" width="19.666666666666657" height="22.333333333333332"/>
+                                                                <rect key="frame" x="134.66666666666669" y="0.0" width="19.666666666666657" height="22.333333333333332"/>
                                                                 <state key="normal" image="goforward.15" catalog="system"/>
                                                                 <connections>
                                                                     <action selector="skipForwardAction:" destination="A0l-Qz-JxR" eventType="touchUpInside" id="nNc-bH-ekL"/>
@@ -188,21 +180,31 @@
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="deI-zQ-21s" secondAttribute="width" id="vPb-pX-Zcf"/>
+                                                </constraints>
                                             </stackView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="vZp-GV-QC1" firstAttribute="top" secondItem="c7b-zN-M92" secondAttribute="top" constant="303" id="guf-8Z-ZmD"/>
-                                </constraints>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dpj-fg-LIQ" userLabel="playbackVisualizerView" customClass="AudioPlayerVisualizerView" customModule="TalkAloud" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="375" height="190"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="190" id="AVW-ee-xuA"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="zCb-wm-4On" firstAttribute="bottom" secondItem="c7b-zN-M92" secondAttribute="bottom" constant="29.329999999999998" id="R9P-p0-t39"/>
-                            <constraint firstItem="c7b-zN-M92" firstAttribute="top" relation="lessThanOrEqual" secondItem="zCb-wm-4On" secondAttribute="top" constant="118.67" id="aak-E9-1jS"/>
-                            <constraint firstItem="c7b-zN-M92" firstAttribute="trailing" secondItem="zCb-wm-4On" secondAttribute="trailing" id="en9-Kd-cgc"/>
-                            <constraint firstItem="c7b-zN-M92" firstAttribute="leading" secondItem="zCb-wm-4On" secondAttribute="leading" id="x52-Bt-av1"/>
+                            <constraint firstItem="dpj-fg-LIQ" firstAttribute="trailing" secondItem="zCb-wm-4On" secondAttribute="trailing" id="Gzg-8g-Afv"/>
+                            <constraint firstItem="c7b-zN-M92" firstAttribute="top" secondItem="dpj-fg-LIQ" secondAttribute="bottom" id="JBV-n1-hxJ"/>
+                            <constraint firstItem="zCb-wm-4On" firstAttribute="bottom" secondItem="c7b-zN-M92" secondAttribute="bottom" constant="28" id="R9P-p0-t39"/>
+                            <constraint firstItem="dpj-fg-LIQ" firstAttribute="leading" secondItem="zCb-wm-4On" secondAttribute="leading" id="TpN-Td-sCn"/>
+                            <constraint firstItem="zCb-wm-4On" firstAttribute="trailing" secondItem="c7b-zN-M92" secondAttribute="trailing" constant="8" id="en9-Kd-cgc"/>
+                            <constraint firstItem="dpj-fg-LIQ" firstAttribute="top" secondItem="zCb-wm-4On" secondAttribute="top" id="fSG-pn-Whx"/>
+                            <constraint firstItem="c7b-zN-M92" firstAttribute="leading" secondItem="zCb-wm-4On" secondAttribute="leading" constant="8" id="x52-Bt-av1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zCb-wm-4On"/>
                     </view>
@@ -221,117 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zJk-gr-qN8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2776.8000000000002" y="508.37438423645324"/>
-        </scene>
-        <!--PlayBack-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="AudioPlayerViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c2y-90-BuO" userLabel="Playback Stack View">
-                                <rect key="frame" x="20" y="367.66666666666669" width="335" height="77"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="aYx-eZ-I5n" userLabel="Playback Info Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="77"/>
-                                        <subviews>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-1.5" minValue="-1.5" maxValue="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="vH1-sC-WK6" customClass="AudioSlider" customModule="TalkAloud" customModuleProvider="target">
-                                                <rect key="frame" x="-2" y="0.0" width="339" height="31"/>
-                                            </slider>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="sgQ-2l-PLP" userLabel="Duration Stack View">
-                                                <rect key="frame" x="0.0" y="50" width="335" height="27"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EgS-L9-d1d">
-                                                        <rect key="frame" x="0.0" y="0.0" width="22.666666666666668" height="27"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvn-qG-103" userLabel="Back Button">
-                                                        <rect key="frame" x="78.333333333333329" y="0.0" width="24.333333333333329" height="27"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <state key="normal" image="gobackward.15" catalog="system"/>
-                                                        <connections>
-                                                            <action selector="rewindAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vdo-PP-1yu"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sTD-fj-i87">
-                                                        <rect key="frame" x="158.33333333333334" y="0.0" width="18.666666666666657" height="27"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <state key="normal" image="play.fill" catalog="system"/>
-                                                        <connections>
-                                                            <action selector="playAndStopButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hZJ-D9-apx"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yUy-OD-8ik" userLabel="Forward Button">
-                                                        <rect key="frame" x="232.33333333333334" y="0.0" width="24.333333333333343" height="27"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <state key="normal" image="goforward.15" catalog="system"/>
-                                                        <connections>
-                                                            <action selector="skipForwardAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z4Z-ER-J9C"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFB-mR-xqv">
-                                                        <rect key="frame" x="312.33333333333331" y="0.0" width="22.666666666666686" height="27"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="vH1-sC-WK6" firstAttribute="width" secondItem="c2y-90-BuO" secondAttribute="width" id="Mcw-JV-tnU"/>
-                                </constraints>
-                            </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cz8-eV-Moy">
-                                <rect key="frame" x="137.66666666666666" y="629" width="100" height="100"/>
-                                <state key="normal" image="recordbutton"/>
-                                <connections>
-                                    <action selector="recordAudioButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pvD-d0-Rep"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O8a-Iy-7wO" customClass="AudioPlayerVisualizerView" customModule="TalkAloud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="492" width="375" height="103"/>
-                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="c2y-90-BuO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7lq-DT-zKw"/>
-                            <constraint firstItem="c2y-90-BuO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="9Ox-Vc-BtW"/>
-                            <constraint firstAttribute="trailing" secondItem="c2y-90-BuO" secondAttribute="trailing" constant="20" symbolic="YES" id="I30-9o-4wl"/>
-                            <constraint firstItem="cz8-eV-Moy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="T3A-og-I5h"/>
-                            <constraint firstItem="c2y-90-BuO" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Y7g-af-ndh"/>
-                            <constraint firstItem="O8a-Iy-7wO" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="aRL-SU-WmO"/>
-                            <constraint firstItem="cz8-eV-Moy" firstAttribute="top" secondItem="O8a-Iy-7wO" secondAttribute="bottom" constant="34" id="nLL-ka-yH5"/>
-                            <constraint firstItem="cz8-eV-Moy" firstAttribute="top" relation="lessThanOrEqual" secondItem="c2y-90-BuO" secondAttribute="bottom" constant="269.32999999999998" id="vQz-H0-WWQ"/>
-                            <constraint firstItem="cz8-eV-Moy" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="vhG-R0-l5g"/>
-                            <constraint firstItem="O8a-Iy-7wO" firstAttribute="top" secondItem="c2y-90-BuO" secondAttribute="bottom" constant="47.5" id="wcY-Eb-TRa"/>
-                            <constraint firstItem="O8a-Iy-7wO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xVe-ok-OcK"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="PlayBack" image="play.circle" catalog="system" id="TLa-hh-c8y"/>
-                    <connections>
-                        <outlet property="audioPlayerVisualizer" destination="O8a-Iy-7wO" id="s44-lc-c6h"/>
-                        <outlet property="currentTimeLabel" destination="EgS-L9-d1d" id="rD6-zw-Jrc"/>
-                        <outlet property="playAudioButton" destination="sTD-fj-i87" id="5Pl-hy-kna"/>
-                        <outlet property="progressSlider" destination="vH1-sC-WK6" id="fVF-wc-91P"/>
-                        <outlet property="recordAudioButton" destination="cz8-eV-Moy" id="uy8-Uf-dTT"/>
-                        <outlet property="remainingTimeLabel" destination="QFB-mR-xqv" id="uK0-cy-MwU"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="818.84057971014499" y="-157.36607142857142"/>
+            <point key="canvasLocation" x="2711" y="-168"/>
         </scene>
         <!--Audio Tab Bar Controller-->
         <scene sceneID="Ngm-AU-JQ1">
@@ -344,7 +236,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="hDy-SF-TNt" kind="relationship" relationship="viewControllers" id="pkV-ng-KIR"/>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="t4T-UJ-IDU"/>
                         <segue destination="t3H-T8-1Hi" kind="relationship" relationship="viewControllers" id="5Wy-3Q-jC4"/>
                     </connections>
                 </tabBarController>
@@ -475,7 +366,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MHz-j9-0y8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1865" y="508"/>
+            <point key="canvasLocation" x="1729" y="-168"/>
         </scene>
     </scenes>
     <resources>
@@ -484,7 +375,6 @@
         <image name="folder" catalog="system" width="128" height="95"/>
         <image name="gobackward.15" catalog="system" width="121" height="128"/>
         <image name="goforward.15" catalog="system" width="121" height="128"/>
-        <image name="play.circle" catalog="system" width="128" height="121"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="recordbutton" width="100" height="100"/>
         <image name="tray" catalog="system" width="128" height="88"/>

@@ -1,26 +1,31 @@
 //
-//  ViewController.swift
+//  AudioPlayer1ViewController.swift
 //  TalkAloud
 //
-//  Created by Justin Bengtson on 3/2/20.
+//  Created by Justin Bengtson on 8/4/20.
 //  Copyright © 2020 Justin Bengtson. All rights reserved.
 //
 
 import UIKit
-import AVFoundation
 
 class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     
     
-    @IBOutlet var playAudioButton: UIButton!
-    @IBOutlet var recordAudioButton: UIButton!
-    @IBOutlet var progressSlider: AudioSlider!
-    @IBOutlet var currentTimeLabel: UILabel!
-    @IBOutlet var remainingTimeLabel: UILabel!
     @IBOutlet var audioPlayerVisualizer: AudioPlayerVisualizerView!
+    @IBOutlet var audioRecordingNameLabel: UILabel!
+    @IBOutlet var audioRecordingDetailLabel: UILabel!
+    @IBOutlet var progressSlider: AudioSlider!
+    @IBOutlet var audioPlayerCurrentTimeLabel: UILabel!
+    @IBOutlet var audioPlayerRemainingTimeLabel: UILabel!
+    @IBOutlet var goBackFifteenSecondsButton: UIButton!
+    @IBOutlet var playButton: UIButton!
+    @IBOutlet var goForwardFifteenSecondsButton: UIButton!
     private var progressTimer: Timer?
     private var visualizerTimer: Timer?
-    private var isFirstRun = false  {
+    var audioRecordingName: String?
+    var audioRecordingDetail: String?
+    var currentAudioRecording: AudioRecording?
+    private var isAudioPlaying = false {
         didSet {
             updateUI(audioState: AudioEngine.sharedInstance.audioState)
         }
@@ -28,29 +33,15 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isFirstRun = true
         progressSlider.delegate = self
+        self.audioRecordingNameLabel.text = currentAudioRecording?.fileName
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        isAudioPlaying = true
         setupSlider()
         initializeTimer()
-        let playBackURL = AudioManager.sharedInstance.getPlayBackURL()
-        
-        if playBackURL == nil {
-            playAudioButton.isEnabled = false
-        }
-        
-        // This is for when after playing a recording and coming back to the
-        // audioState the progresstimer doesn't initialize immediately.
-        if AudioEngine.sharedInstance.audioState == .stopped {
-            progressTimer?.invalidate()
-            resetDurationLabels()
-        }
-        
-        // Reset the visualizer in case we start playing
-        // another recording in the middle of playing another recording
         audioPlayerVisualizer.waveforms.removeAll()
     }
     
@@ -58,62 +49,43 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         super.viewWillDisappear(animated)
         progressTimer?.invalidate()
         visualizerTimer?.invalidate()
-        // Added this here to avoid additional complexity of timers when
-        // switching back between AudioRecordingsViewController and
-        // the AudioPlayerViewController
+        
         AudioEngine.sharedInstance.stop()
     }
     
-    @IBAction func playAndStopButtonAction(_ sender: UIButton) {
-        if AudioEngine.sharedInstance.audioState == .paused || AudioEngine.sharedInstance.audioState == .stopped {
-            recordAudioButton.isEnabled = false
-            sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-            playURL()
+    @IBAction func playAndPauseButtonAction(_ sender: UIButton) {
+        if AudioEngine.sharedInstance.audioState == .paused {
+            playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            play()
         } else if AudioEngine.sharedInstance.audioState == .playing {
             AudioEngine.sharedInstance.pause()
-            sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
-            recordAudioButton.isEnabled = true
+            playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
-    }
-    
-    @IBAction func recordAudioButtonAction(_ sender: UIButton) {
-        if AudioEngine.sharedInstance.audioState == .paused || AudioEngine.sharedInstance.audioState == .stopped {
-            guard let url = AudioManager.sharedInstance.createNewAudioRecording()?.url else { return }
-            
-            AudioEngine.sharedInstance.setupRecorder(fileURL: url)
-            sender.setImage(UIImage(named: "stopbutton"), for: .normal)
-            playAudioButton.isEnabled = false
-            // Removing before recording in case we start recording while paused
-            audioPlayerVisualizer.waveforms.removeAll()
-            AudioEngine.sharedInstance.record()
-            displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
-        } else if AudioEngine.sharedInstance.audioState == .recording {
-            sender.setImage(UIImage(named: "recordbutton"), for: .normal)
-            AudioEngine.sharedInstance.stop()
-            playAudioButton.isEnabled = true
-            audioPlayerVisualizer.waveforms.removeAll()
-            visualizerTimer?.invalidate()
-        }
-    }
-    
-    @IBAction func skipForwardAction(_ sender: Any) {
-        AudioEngine.sharedInstance.skipFifteenSeconds()
     }
     
     @IBAction func rewindAction(_ sender: Any) {
         AudioEngine.sharedInstance.rewindFifteenSeonds()
     }
     
+    @IBAction func skipForwardAction(_ sender: Any) {
+        AudioEngine.sharedInstance.skipFifteenSeconds()
+    }
+    
+    @IBAction func moreButtonAction(_ sender: Any) {
+        print("Tapped More Button")
+    }
+    
+    
     private func initializeTimer() {
         progressTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
             let currentAudioDuration = AudioEngine.sharedInstance.getCurrentAudioDuration()
             let currentAudioTime = AudioEngine.sharedInstance.getCurrentAudioTime()
-            let remainingAudioTime = currentAudioDuration - currentAudioTime
+            let remainingTime = currentAudioDuration - currentAudioTime
             
             self.progressSlider.value = currentAudioTime
             
-            self.currentTimeLabel.text = self.timeToString(time: TimeInterval(currentAudioTime))
-            self.remainingTimeLabel.text = self.timeToString(time: TimeInterval(remainingAudioTime))
+            self.audioPlayerCurrentTimeLabel.text = self.timeToString(time: TimeInterval(currentAudioTime))
+            self.audioPlayerRemainingTimeLabel.text = self.timeToString(time: TimeInterval(remainingTime))
         })
     }
     
@@ -152,67 +124,50 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         progressSlider.minimumValue = 0
         progressSlider.maximumValue = maxValue
         progressSlider.value = 0
-        resetDurationLabels()
+        resetView()
     }
     
-    private func resetDurationLabels() {
-        currentTimeLabel.text = "0:00"
-        remainingTimeLabel.text = "0:00"
+    private func resetView() {
+        audioPlayerCurrentTimeLabel.text = "0:00"
+        audioPlayerRemainingTimeLabel.text = "0:00"
+        progressSlider.value = 0
+        audioPlayerVisualizer.waveforms.removeAll()
     }
     
-    func playURL() {
+    func play() {
         if AudioEngine.sharedInstance.getCurrentAudioTime() > 0 {
             AudioEngine.sharedInstance.play()
         } else {
-            guard let playBackURL = AudioManager.sharedInstance.getLatestRecording() else { return }
-            AudioEngine.sharedInstance.play(withFileURL: playBackURL)
             setupSlider()
             initializeTimer()
         }
     }
     
-    private func updateUI(audioState: AudioEngineState) {
+    func updateUI(audioState: AudioEngineState) {
         switch audioState {
-        // Changed stopped to pause
         case .paused:
-            playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-            playAudioButton.isEnabled = true
-            recordAudioButton.isEnabled = true
-            audioPlayerVisualizer.isHidden = false
-            audioPlayerVisualizer.active = true
+            playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             visualizerTimer?.invalidate()
         case .playing:
-            playAudioButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-            playAudioButton.isEnabled = true
-            recordAudioButton.isEnabled = false
+            playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             audioPlayerVisualizer.active = true
             audioPlayerVisualizer.isHidden = false
             displayAudioVisualizer(audioState: audioState)
-        case .recording:
-            progressTimer?.invalidate()
-            progressSlider.value = 0
-            resetDurationLabels()
-            audioPlayerVisualizer.active = true
-            audioPlayerVisualizer.isHidden = false
         case .stopped:
-            audioPlayerVisualizer.isHidden = true
-            playAudioButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-            playAudioButton.isEnabled = false
-            recordAudioButton.isEnabled = true
             progressTimer?.invalidate()
             visualizerTimer?.invalidate()
-            progressSlider.value = 0
-            audioPlayerVisualizer.waveforms.removeAll()
-            resetDurationLabels()
+            resetView()
+            audioPlayerVisualizer.isHidden = true
+            playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        case .recording:
+            print("Should never be recording here")
         }
     }
-    
     
     func didUpdateAudioState(with audioState: AudioEngineState) {
-        if isFirstRun {
-            updateUI(audioState: audioState)
-        }
+        updateUI(audioState: audioState)
     }
+    
 }
 
 extension AudioPlayerViewController: AudioSliderDelegate {
@@ -221,4 +176,3 @@ extension AudioPlayerViewController: AudioSliderDelegate {
         initializeTimer()
     }
 }
-
