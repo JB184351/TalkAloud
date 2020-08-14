@@ -43,7 +43,6 @@ class AudioRecordingViewController: UIViewController {
             audioRecordingVisualizer.active = true
             audioRecordingVisualizer.isHidden = false
         } else if AudioEngine.sharedInstance.audioState == .recording {
-            recordButton.setImage(UIImage(named: "recordbutton"), for: .normal)
             AudioEngine.sharedInstance.stop()
             resetView()
             visualizerTimer?.invalidate()
@@ -93,5 +92,6 @@ class AudioRecordingViewController: UIViewController {
         visualizerTimer?.invalidate()
         audioRecordingVisualizer.waveforms.removeAll()
         audioRecordingVisualizer.isHidden = true
+        recordButton.setImage(UIImage(named: "recordbutton"), for: .normal)
     }
 }
