@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     
@@ -35,6 +36,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         super.viewDidLoad()
         progressSlider.delegate = self
         self.audioRecordingNameLabel.text = currentAudioRecording?.fileName
+        self.audioRecordingDetailLabel.text = currentAudioRecording?.creationDate.description
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,6 +76,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     @IBAction func moreButtonAction(_ sender: Any) {
         print("Tapped More Button")
     }
+    
     
     
     private func initializeTimer() {
