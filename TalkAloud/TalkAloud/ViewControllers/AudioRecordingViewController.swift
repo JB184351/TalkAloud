@@ -9,16 +9,12 @@
 import UIKit
 
 class AudioRecordingViewController: UIViewController {
-
+    
     @IBOutlet var audioRecordingTimeLabel: UILabel!
     @IBOutlet var audioRecordingVisualizer: AudioPlayerVisualizerView!
     @IBOutlet var recordButton: UIButton!
     private var progressTimer: Timer?
     private var visualizerTimer: Timer?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -32,8 +28,10 @@ class AudioRecordingViewController: UIViewController {
     }
     
     @IBAction func recordButtonAction(_ sender: Any) {
-        if AudioEngine.sharedInstance.audioState == .stopped || AudioEngine.sharedInstance.audioState == .paused {
-            
+        let audioState = AudioEngine.sharedInstance.audioState
+        
+        switch audioState {
+        case .stopped:
             guard let url = AudioManager.sharedInstance.createNewAudioRecording()?.url else { return }
             AudioEngine.sharedInstance.setupRecorder(fileURL: url)
             AudioEngine.sharedInstance.record()
@@ -42,25 +40,23 @@ class AudioRecordingViewController: UIViewController {
             displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
             audioRecordingVisualizer.active = true
             audioRecordingVisualizer.isHidden = false
-        } else if AudioEngine.sharedInstance.audioState == .recording {
+        case .recording:
             AudioEngine.sharedInstance.stop()
             resetView()
             visualizerTimer?.invalidate()
+        case .paused:
+            print("Paused should never be happening")
+        case .playing:
+            print("Should never get here")
         }
     }
     
     private func intializeRecordingTimer() {
         progressTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
             let recordingTime = AudioEngine.sharedInstance.getCurrentAudioRecorderDuration()
-            self.audioRecordingTimeLabel.text = self.timeToString(time: TimeInterval(recordingTime))
+            let recordingTimeInterval = TimeInterval(recordingTime)
+            self.audioRecordingTimeLabel.text = recordingTimeInterval.timeToString()
         })
-    }
-    
-    func timeToString(time: TimeInterval) -> String {
-        let minutes = Int(time) / 60 % 60
-        let seconds = Int(time) % 60
-        
-        return String(format: "%2i:%02i", minutes, seconds)
     }
     
     private func displayAudioVisualizer(audioState: AudioEngineState) {
@@ -85,7 +81,7 @@ class AudioRecordingViewController: UIViewController {
             }
         })
     }
-
+    
     private func resetView() {
         audioRecordingTimeLabel.text = "0:00"
         progressTimer?.invalidate()

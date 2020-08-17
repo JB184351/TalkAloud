@@ -51,7 +51,8 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
         super.viewWillDisappear(animated)
         progressTimer?.invalidate()
         visualizerTimer?.invalidate()
-        
+        audioRecordingNameLabel.text = "File Name"
+        audioRecordingDetailLabel.text = "Metadata Will Go Here"
         AudioEngine.sharedInstance.stop()
     }
     
@@ -87,8 +88,11 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
             
             self.progressSlider.value = currentAudioTime
             
-            self.audioPlayerCurrentTimeLabel.text = self.timeToString(time: TimeInterval(currentAudioTime))
-            self.audioPlayerRemainingTimeLabel.text = self.timeToString(time: TimeInterval(remainingTime))
+            let currentTimeInterval = TimeInterval(currentAudioTime)
+            let remainingTimeInterval = TimeInterval(remainingTime)
+            
+            self.audioPlayerCurrentTimeLabel.text = currentTimeInterval.timeToString()
+            self.audioPlayerRemainingTimeLabel.text = remainingTimeInterval.timeToString()
         })
     }
     
@@ -113,13 +117,6 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
                 self.audioPlayerVisualizer.setNeedsDisplay()
             }
         })
-    }
-    
-    func timeToString(time: TimeInterval) -> String {
-        let minutes = Int(time) / 60 % 60
-        let seconds = Int(time) % 60
-        
-        return String(format: "%2i:%02i", minutes, seconds)
     }
     
     private func setupSlider() {

@@ -19,3 +19,12 @@ extension Array where Element : Hashable {
         return Array(Set(self))
     }
 }
+
+extension TimeInterval {
+    func timeToString() -> String {
+        let minutes = Int(self) / 60 % 60
+        let seconds = Int(self) % 60
+        
+        return String(format: "%2i:%02i", minutes, seconds)
+    }
+}
