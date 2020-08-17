@@ -30,6 +30,15 @@ struct AudioRecording {
         return newURL
     }
     
+    var creationDate: Date {
+        let fileManager = FileManager.default
+        let urlPath = url.path
+        let attributesDictionary = try? fileManager.attributesOfItem(atPath: urlPath)
+        let creationDate = attributesDictionary?[.creationDate] as! Date
+        
+        return creationDate
+    }
+    
     init(object: NSManagedObject) {
         self.object = object
     }

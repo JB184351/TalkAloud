@@ -89,6 +89,10 @@ class AudioEngine: NSObject {
         }
     }
     
+    func getCurrentAudioRecorderDuration() -> Float {
+        return Float(audioRecorder?.currentTime ?? 0.0)
+    }
+    
     func getCurrentAudioDuration() -> Float {
         return Float(audioPlayer?.duration ?? 0.0)
     }
