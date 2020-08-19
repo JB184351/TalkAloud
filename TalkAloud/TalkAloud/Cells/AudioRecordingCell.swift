@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol AudioRecordingCellDelegate: class {
+    func didTappedMoreButton(for cell: AudioRecordingCell)
+}
+
 class AudioRecordingCell: UITableViewCell {
     
     @IBOutlet var fileNameLabel: UILabel!
     @IBOutlet var tagLabel: UILabel!
+    weak var delegate: AudioRecordingCellDelegate?
     
     func setup(with model: AudioRecording) {
         let cellFileName = model.fileName
@@ -35,10 +40,7 @@ class AudioRecordingCell: UITableViewCell {
     }
     
     @IBAction func moreButtonAction(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! AudioRecodrdingOptionsViewController
-        
-        // Don't have option to push view controller here how should I do it?
+        delegate?.didTappedMoreButton(for: self)
     }
     
 }

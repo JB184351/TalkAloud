@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AudioRecodrdingOptionsViewController: UIViewController {
+class MoreOptionsViewConroller: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -14,6 +14,8 @@ class AudioRecordingsTableViewController: UITableViewController {
     private var allAudioRecordings = AudioManager.sharedInstance.loadAllRecordings()
     private var filteredAudioRecordings = [AudioRecording]()
     
+    // MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")        
@@ -25,6 +27,16 @@ class AudioRecordingsTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    // MARK: - Public Methods
+    
+    func filter(by tags: [String]) {
+        isFiltered = true
+        filteredAudioRecordings = AudioManager.sharedInstance.filteredAudioRecordings(with: tags)
+        tableView.reloadData()
+    }
+    
+    // MARK: - Actions
+    
     @IBAction func tappedLeftButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let tagFilterViewController = storyboard.instantiateViewController(identifier: "TagTableViewController") as! TagTableViewController
@@ -33,12 +45,7 @@ class AudioRecordingsTableViewController: UITableViewController {
         self.present(navigationController, animated: true)
     }
     
-    
-    func filter(by tags: [String]) {
-        isFiltered = true
-        filteredAudioRecordings = AudioManager.sharedInstance.filteredAudioRecordings(with: tags)
-        tableView.reloadData()
-    }
+    // MARK: - UITableViewDataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltered {
@@ -47,6 +54,7 @@ class AudioRecordingsTableViewController: UITableViewController {
             return AudioManager.sharedInstance.getAudioRecordingCount()
         }
     }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var currentAudio: AudioRecording
@@ -59,8 +67,11 @@ class AudioRecordingsTableViewController: UITableViewController {
         
         let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
         audioCell.setup(with: currentAudio)
+        audioCell.delegate = self
         return audioCell
     }
+    
+    // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // setting to right recording
@@ -71,7 +82,7 @@ class AudioRecordingsTableViewController: UITableViewController {
         let selectedAudioRecording = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let audioPlayerViewController = storyboard.instantiateViewController(identifier: "AudioPlayerViewController") as! AudioPlayerViewController
+        let audioPlayerViewController = storyboard.instantiateViewController(identifier: "AudioPlayerViewController") as! PlayerViewController
         AudioEngine.sharedInstance.delegate = audioPlayerViewController
         audioPlayerViewController.currentAudioRecording = selectedAudioRecording
         self.navigationController?.pushViewController(audioPlayerViewController, animated: true)
@@ -177,4 +188,14 @@ extension AudioRecordingsTableViewController: TagFilterDelegate {
             tableView.reloadData()
         }
     }
+}
+
+extension AudioRecordingsTableViewController: AudioRecordingCellDelegate {
+    func didTappedMoreButton(for cell: AudioRecordingCell) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewConroller
+        self.navigationController?.pushViewController(audioRecordingOptionViewControler, animated: true)
+    }
+    
+    
 }
