@@ -33,4 +33,12 @@ class AudioRecordingCell: UITableViewCell {
         self.fileNameLabel?.text = cellFileName
         self.tagLabel?.text = allTags
     }
+    
+    @IBAction func moreButtonAction(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! AudioRecodrdingOptionsViewController
+        
+        // Don't have option to push view controller here how should I do it?
+    }
+    
 }

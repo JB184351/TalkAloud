@@ -58,7 +58,6 @@ class AudioRecordingsTableViewController: UITableViewController {
         }
         
         let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
-        
         audioCell.setup(with: currentAudio)
         return audioCell
     }
@@ -72,7 +71,7 @@ class AudioRecordingsTableViewController: UITableViewController {
         let selectedAudioRecording = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let audioPlayerViewController = storyboard.instantiateViewController(identifier: "AudioPlayerView1Controller") as! AudioPlayerViewController
+        let audioPlayerViewController = storyboard.instantiateViewController(identifier: "AudioPlayerViewController") as! AudioPlayerViewController
         AudioEngine.sharedInstance.delegate = audioPlayerViewController
         audioPlayerViewController.currentAudioRecording = selectedAudioRecording
         self.navigationController?.pushViewController(audioPlayerViewController, animated: true)
