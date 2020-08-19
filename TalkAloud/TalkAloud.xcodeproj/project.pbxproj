@@ -18,6 +18,7 @@
 		305EF788240D53E000CF53A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 305EF787240D53E000CF53A0 /* Assets.xcassets */; };
 		305EF78B240D53E000CF53A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 305EF789240D53E000CF53A0 /* LaunchScreen.storyboard */; };
 		30692A5B24BC9B5800728C26 /* TagTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30692A5A24BC9B5800728C26 /* TagTableViewController.swift */; };
+		3073D72E24EB56F900FDA6BA /* AudioRecodrdingOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3073D72D24EB56F900FDA6BA /* AudioRecodrdingOptionsViewController.swift */; };
 		307F71E724492CAB004AE308 /* AudioRecordingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F71E624492CAB004AE308 /* AudioRecordingsTableViewController.swift */; };
 		3090198024DA3DDD007999CB /* AudioPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3090197F24DA3DDD007999CB /* AudioPlayerViewController.swift */; };
 		30A1C9C624A5808500AB0C59 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A1C9C524A5808500AB0C59 /* CoreDataManager.swift */; };
@@ -43,6 +44,7 @@
 		305EF78A240D53E000CF53A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		305EF78C240D53E000CF53A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30692A5A24BC9B5800728C26 /* TagTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagTableViewController.swift; path = TalkAloud/TagTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		3073D72D24EB56F900FDA6BA /* AudioRecodrdingOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecodrdingOptionsViewController.swift; sourceTree = "<group>"; };
 		307F71E624492CAB004AE308 /* AudioRecordingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordingsTableViewController.swift; sourceTree = "<group>"; };
 		3090197F24DA3DDD007999CB /* AudioPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewController.swift; sourceTree = "<group>"; };
 		30A1C9C524A5808500AB0C59 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		307F71E824492CF0004AE308 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3073D72D24EB56F900FDA6BA /* AudioRecodrdingOptionsViewController.swift */,
 				30692A5A24BC9B5800728C26 /* TagTableViewController.swift */,
 				307F71E624492CAB004AE308 /* AudioRecordingsTableViewController.swift */,
 				3003546A24D8D2BF00774738 /* AudioRecordingViewController.swift */,
@@ -253,6 +256,7 @@
 				30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */,
 				30233A9F24C27B88002E0CE0 /* Extensions.swift in Sources */,
 				305EF77E240D53DF00CF53A0 /* SceneDelegate.swift in Sources */,
+				3073D72E24EB56F900FDA6BA /* AudioRecodrdingOptionsViewController.swift in Sources */,
 				305EF786240D53DF00CF53A0 /* TalkAloud.xcdatamodeld in Sources */,
 				30DBE24824798E08003716B3 /* AudioPlayerVisualizerView.swift in Sources */,
 			);
