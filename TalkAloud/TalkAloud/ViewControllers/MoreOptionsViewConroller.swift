@@ -23,13 +23,14 @@ class MoreOptionsViewConroller: UIViewController {
         super.viewDidLoad()
 
         moreOptionsTableView.dataSource = self
+        moreOptionsTableView.delegate = self
     }
     
     // ViewController should be driven by a model with name and icons
 
 }
 
-extension MoreOptionsViewConroller: UITableViewDataSource {
+extension MoreOptionsViewConroller: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 1 Rename
         // 2 Add Tag
@@ -63,5 +64,20 @@ extension MoreOptionsViewConroller: UITableViewDataSource {
         }
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let row = indexPath.row
+        
+        switch row {
+        case 0:
+            print("Rename Cell")
+        case 1:
+            print("Add Tag")
+        case 2:
+            print("Share")
+        case 3:
+            print("Delete")
+        default:
+            return
+        }
+    }
 }
