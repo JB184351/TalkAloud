@@ -65,14 +65,13 @@ extension AudioRecordingsViewController: TagFilterDelegate {
 extension AudioRecordingsViewController: AudioRecordingCellDelegate {
     func didTappedMoreButton(for cell: AudioRecordingCell) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewConroller
+        let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
         self.navigationController?.pushViewController(audioRecordingOptionViewControler, animated: true)
     }
     
 }
 
-extension AudioRecordingsViewController: UITableViewDataSource, UITableViewDelegate {
-    // MARK: - UITableViewDataSource
+extension AudioRecordingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltered {
@@ -97,8 +96,9 @@ extension AudioRecordingsViewController: UITableViewDataSource, UITableViewDeleg
         audioCell.delegate = self
         return audioCell
     }
+}
     
-    // MARK: - UITableViewDelegate
+extension AudioRecordingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // setting to right recording

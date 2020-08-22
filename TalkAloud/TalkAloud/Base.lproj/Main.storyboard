@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--More Options View Conroller-->
+        <!--More Options View Controller-->
         <scene sceneID="id8-Nn-cYi">
             <objects>
-                <viewController storyboardIdentifier="AudioRecodrdingOptionsViewController" id="dFV-Ae-xmb" customClass="MoreOptionsViewConroller" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AudioRecodrdingOptionsViewController" id="dFV-Ae-xmb" customClass="MoreOptionsViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gwU-JD-Htd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,7 +26,7 @@
                         <viewLayoutGuide key="safeArea" id="7Ee-Bx-ega"/>
                     </view>
                     <connections>
-                        <outlet property="moreOptionsTableView" destination="tBN-9s-Zcd" id="uMP-PY-XAK"/>
+                        <outlet property="tableView" destination="tBN-9s-Zcd" id="4Md-FP-0Ij"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eel-zH-sBR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
