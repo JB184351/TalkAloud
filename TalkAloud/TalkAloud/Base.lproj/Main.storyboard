@@ -31,7 +31,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eel-zH-sBR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4436" y="-168.4729064039409"/>
+            <point key="canvasLocation" x="3622" y="-153"/>
         </scene>
         <!--Record-->
         <scene sceneID="8nI-W3-lMn">
@@ -260,67 +260,13 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="hDy-SF-TNt" kind="relationship" relationship="viewControllers" id="pkV-ng-KIR"/>
+                        <segue destination="2AD-7g-4Nv" kind="relationship" relationship="viewControllers" id="Whs-2M-R9q"/>
                         <segue destination="t3H-T8-1Hi" kind="relationship" relationship="viewControllers" id="5Wy-3Q-jC4"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ggB-a1-reo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-100" y="-532"/>
-        </scene>
-        <!--Audio Recordings Table View Controller-->
-        <scene sceneID="77I-8Q-peu">
-            <objects>
-                <tableViewController storyboardIdentifier="AudioRecordingsTableViewController" id="uQ4-T3-O6c" customClass="AudioRecordingsTableViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="QdT-eF-apS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioRecordingCell" id="5ic-OS-Rvq" customClass="AudioRecordingCell" customModule="TalkAloud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5ic-OS-Rvq" id="wsY-V8-zyC">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="uQ4-T3-O6c" id="VvZ-5r-b16"/>
-                            <outlet property="delegate" destination="uQ4-T3-O6c" id="i6d-7z-xf4"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="73L-xU-RcF">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="tray" catalog="system" id="l8i-h8-9Pf">
-                            <connections>
-                                <action selector="tappedLeftButton:" destination="uQ4-T3-O6c" id="6cH-7w-5cR"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="W7E-4l-sou" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1728.985507246377" y="-830.35714285714278"/>
-        </scene>
-        <!--AudioFiles-->
-        <scene sceneID="eYM-eW-LdT">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hDy-SF-TNt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="AudioFiles" image="folder" catalog="system" id="8If-8B-4LG"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yuO-gt-KSI">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="uQ4-T3-O6c" kind="relationship" relationship="rootViewController" id="MNX-cK-90I"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iXh-YI-DcY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="818.84057971014499" y="-830.35714285714278"/>
         </scene>
         <!--Tag Table View Controller-->
         <scene sceneID="6mN-P6-BAx">
@@ -392,6 +338,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MHz-j9-0y8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1729" y="-168"/>
+        </scene>
+        <!--Audio Recordings View Controller-->
+        <scene sceneID="1u4-t9-piJ">
+            <objects>
+                <viewController id="3jk-mm-Ij7" customClass="AudioRecordingsViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Aj-Me-tL8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9YN-jF-K8p">
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="9YN-jF-K8p" firstAttribute="trailing" secondItem="MDY-0G-fGV" secondAttribute="trailing" id="6iL-yg-p9B"/>
+                            <constraint firstItem="9YN-jF-K8p" firstAttribute="leading" secondItem="MDY-0G-fGV" secondAttribute="leading" id="NM8-1a-YNM"/>
+                            <constraint firstItem="9YN-jF-K8p" firstAttribute="top" secondItem="MDY-0G-fGV" secondAttribute="top" id="eJ6-le-QHD"/>
+                            <constraint firstItem="9YN-jF-K8p" firstAttribute="bottom" secondItem="MDY-0G-fGV" secondAttribute="bottom" id="p39-ng-8xf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="MDY-0G-fGV"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="d5E-om-kN7">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="tray" catalog="system" id="VFh-VD-IGc">
+                            <connections>
+                                <action selector="tappedLeftButton:" destination="3jk-mm-Ij7" id="pO0-1T-Bv1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="recordingsTableView" destination="9YN-jF-K8p" id="m7c-kb-zf6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G8d-bs-CR9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1728.8" y="-862.3152709359606"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="5qR-gg-OQC">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2AD-7g-4Nv" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" image="folder" catalog="system" id="xa2-Mq-xPs"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UY8-Q9-JOA">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="3jk-mm-Ij7" kind="relationship" relationship="rootViewController" id="0Ne-6A-Kbw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kI5-KE-eYb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="817" y="-862"/>
         </scene>
     </scenes>
     <resources>
