@@ -9,20 +9,20 @@
 import UIKit
 
 class MoreOptionsViewController: UIViewController {
-
+    
     @IBOutlet var tableView: UITableView!
     var moreOptions = [MoreOptionsModel]()
+    var currentlySelectedRecording: AudioRecording?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MoreOptions")
         createMoreOptionModelObjects()
     }
     
-
+    
     func createMoreOptionModelObjects() {
         let rename = MoreOptionsModel(title: "Rename", icon: nil) {
             print("Rename")
@@ -36,7 +36,7 @@ class MoreOptionsViewController: UIViewController {
             print("Delete")
         }
         
-        let editTag = MoreOptionsModel(title: "Editt Tag(s)", icon: nil) {
+        let editTag = MoreOptionsModel(title: "Edit Tag", icon: nil) {
             print("Editing Tags")
         }
         
@@ -45,7 +45,23 @@ class MoreOptionsViewController: UIViewController {
         moreOptions.append(share)
         moreOptions.append(delete)
     }
-
+    
+    func renameAction() {
+        
+    }
+    
+    func shareAction() {
+        
+    }
+    
+    func deleteAction() {
+       
+    }
+    
+    func editTagAction() {
+        
+    }
+    
 }
 
 extension MoreOptionsViewController: UITableViewDataSource {

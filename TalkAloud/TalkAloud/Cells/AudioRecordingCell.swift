@@ -17,8 +17,10 @@ class AudioRecordingCell: UITableViewCell {
     @IBOutlet var fileNameLabel: UILabel!
     @IBOutlet var tagLabel: UILabel!
     weak var delegate: AudioRecordingCellDelegate?
+    var selectedRecording: AudioRecording?
     
     func setup(with model: AudioRecording) {
+        selectedRecording = model
         let cellFileName = model.fileName
         let tags = model.tags
         var allTags = ""
