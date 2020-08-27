@@ -31,7 +31,7 @@ class AudioRecordingsViewController: UIViewController {
     }
     
     // MARK: - Public Methods
-    
+    // TODO: Make tags param optional
     func filter(by tags: [String]) {
         isFiltered = true
         filteredAudioRecordings = AudioManager.sharedInstance.filteredAudioRecordings(with: tags)
@@ -66,7 +66,13 @@ extension AudioRecordingsViewController: AudioRecordingCellDelegate {
     func didTappedMoreButton(for cell: AudioRecordingCell) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
-        audioRecordingOptionViewControler.currentlySelectedRecording = cell.selectedRecording
+        
+        if !isFiltered {
+            audioRecordingOptionViewControler.currentlySelectedRecording = AudioManager.sharedInstance.getRecordingForIndex(index: recordingsTableView.indexPath(for: cell)!.row)
+        } else {
+            audioRecordingOptionViewControler.currentlySelectedRecording = filteredAudioRecordings[recordingsTableView.indexPath(for: cell)!.row]
+        }
+        
         self.navigationController?.pushViewController(audioRecordingOptionViewControler, animated: true)
     }
     
@@ -85,11 +91,11 @@ extension AudioRecordingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var currentAudio: AudioRecording
-        
+        // TODO: Change to single datasource in the future
         if isFiltered {
             currentAudio = AudioManager.sharedInstance.getFilteredRecordingForIndex(index: indexPath.row)
         } else {
-           currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
+            currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
         }
         
         let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
@@ -98,7 +104,7 @@ extension AudioRecordingsViewController: UITableViewDataSource {
         return audioCell
     }
 }
-    
+
 extension AudioRecordingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

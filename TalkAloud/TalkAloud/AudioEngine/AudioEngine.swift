@@ -21,7 +21,7 @@ class AudioEngine: NSObject {
     private var recordingSession: AVAudioSession?
     private let audioRecordingSession = AVAudioSession.sharedInstance()
     static let sharedInstance = AudioEngine()
-    public private(set) var audioState: AudioEngineState = .paused {
+    public private(set) var audioState: AudioEngineState = .stopped {
         didSet {
             delegate?.didUpdateAudioState(with: audioState)
         }

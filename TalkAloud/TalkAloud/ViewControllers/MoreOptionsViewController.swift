@@ -25,7 +25,7 @@ class MoreOptionsViewController: UIViewController {
     
     func createMoreOptionModelObjects() {
         let rename = MoreOptionsModel(title: "Rename", icon: nil) {
-            print("Rename")
+            self.renameAction()
         }
         
         let share = MoreOptionsModel(title: "Share", icon: nil) {
@@ -47,7 +47,7 @@ class MoreOptionsViewController: UIViewController {
     }
     
     func renameAction() {
-        
+        AudioManager.sharedInstance.renameFile(with: currentlySelectedRecording!, newFileName: "nothing")
     }
     
     func shareAction() {

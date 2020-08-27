@@ -83,11 +83,38 @@ class CoreDataManager {
         
         do {
             let objects = try managedContext.fetch(changeRequest)
-            
+            // TODO: Find a way to compare objects
             let currentAudioRecordingObject = objects[index]
             let audioRecording = AudioRecording(object: currentAudioRecordingObject as! NSManagedObject)
             audioRecording.setFileName(filename: newFileName)
 
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        do {
+            try managedContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func updateAudioRecordingFileName(with recording: AudioRecording, newFileName: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let changeRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AudioRecordingObject")
+
+        do {
+            let objects = try managedContext.fetch(changeRequest)
+            
+//            for i in 0..<objects.count {
+//                let recordingInObjects = AudioRecording(object: objects[i] as! NSManagedObject)
+//                if recording == recordingInObjects {
+//                    recording.setFileName(filename: newFileName)
+//                    break
+//                }
+//            }
         } catch {
             print(error.localizedDescription)
         }
