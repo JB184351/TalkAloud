@@ -43,6 +43,10 @@ struct AudioRecording {
         self.object = object
     }
     
+    static func == (lhs: AudioRecording, rhs: AudioRecording) -> Bool {
+        return lhs.object == rhs.object && lhs.tags == rhs.tags && lhs.fileName == rhs.fileName
+    }
+    
     func setFileName(filename: String) {
         object.setValue(filename, forKey: "fileName")
     }

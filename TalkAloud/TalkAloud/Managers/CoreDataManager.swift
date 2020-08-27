@@ -108,13 +108,13 @@ class CoreDataManager {
         do {
             let objects = try managedContext.fetch(changeRequest)
             
-//            for i in 0..<objects.count {
-//                let recordingInObjects = AudioRecording(object: objects[i] as! NSManagedObject)
-//                if recording == recordingInObjects {
-//                    recording.setFileName(filename: newFileName)
-//                    break
-//                }
-//            }
+            for i in 0..<objects.count {
+                let recordingInObjects = AudioRecording(object: objects[i] as! NSManagedObject)
+                if recording == recordingInObjects {
+                    recording.setFileName(filename: newFileName)
+                    break
+                }
+            }
         } catch {
             print(error.localizedDescription)
         }
