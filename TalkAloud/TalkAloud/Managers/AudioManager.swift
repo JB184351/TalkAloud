@@ -88,7 +88,7 @@ class AudioManager {
         let uniqueFileName = newFileName + ".m4a"
         let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).url.deletingLastPathComponent()
         let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
-        
+
         do {
             try fileManager.moveItem(at: getRecordingForIndex(index: index).url, to: newDestinationURL)
         } catch {
@@ -115,7 +115,7 @@ class AudioManager {
             return error
         }
         
-        CoreDataManager.sharedInstance.updateAudioRecordingFileName(with: selectedRecording, newFileName: newFileName)
+        CoreDataManager.sharedInstance.updateAudioRecordingFileName(with: selectedRecording, newFileName: uniqueFileName)
         
         return nil
     }
