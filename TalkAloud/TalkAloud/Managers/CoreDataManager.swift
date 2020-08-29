@@ -125,7 +125,7 @@ class CoreDataManager {
         }
     }
     
-    func updateAudioRecordingFileName(with recording: AudioRecording, newFileName: String) {
+    func updateAudioRecordingFileName(with selectedRecording: AudioRecording, newFileName: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -136,8 +136,8 @@ class CoreDataManager {
             
             for i in 0..<objects.count {
                 let recordingInObjects = AudioRecording(object: objects[i] as! NSManagedObject)
-                if recording == recordingInObjects {
-                    recording.setFileName(filename: newFileName)
+                if selectedRecording == recordingInObjects {
+                    selectedRecording.setFileName(filename: newFileName)
                     break
                 }
             }
