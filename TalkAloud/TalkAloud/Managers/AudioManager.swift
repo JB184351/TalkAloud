@@ -66,21 +66,6 @@ class AudioManager {
         return audioRecordings
     }
     
-    func removeFile(at index: Int) {
-        
-        do {
-            let fileManager = FileManager.default
-            let url = audioRecordings[index].url
-            
-            try fileManager.removeItem(at: url)
-            audioRecordings.remove(at: index)
-        } catch {
-            print(error.localizedDescription)
-        }
-        
-        CoreDataManager.sharedInstance.deleteAudioRecording(at: index)
-    }
-    
     func removeAudioRecording(with selectedRecording: AudioRecording) {
         do {
             let fileManager = FileManager.default
@@ -101,25 +86,6 @@ class AudioManager {
         CoreDataManager.sharedInstance.deleteAudioRecording(with: selectedRecording)
     }
     
-    func renameFile(at index: Int, newFileName: String) -> Error? {
-        let fileManager = FileManager.default
-        
-        let uniqueFileName = newFileName + ".m4a"
-        let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).url.deletingLastPathComponent()
-        let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
-
-        do {
-            try fileManager.moveItem(at: getRecordingForIndex(index: index).url, to: newDestinationURL)
-        } catch {
-            print(error.localizedDescription)
-            return error
-        }
-        
-        CoreDataManager.sharedInstance.updateAudioRecordingFileName(at: index, newFileName: uniqueFileName)
-        
-        return nil
-    }
-    
     func renameFile(with selectedRecording: AudioRecording, newFileName: String) -> Error? {
         let fileManager = FileManager.default
         
@@ -137,14 +103,6 @@ class AudioManager {
         CoreDataManager.sharedInstance.updateAudioRecordingFileName(with: selectedRecording, newFileName: uniqueFileName)
         
         return nil
-    }
-    
-    func setTag(at index: Int, tag: String) {
-        CoreDataManager.sharedInstance.updateAudioRecordingTag(at: index, tag: tag)
-    }
-    
-    func removeTag(at index: Int) {
-        CoreDataManager.sharedInstance.removeAudioRecordingTag(at: index)
     }
     
     func setTag(for selectedRecording: AudioRecording, tag: String) {

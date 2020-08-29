@@ -127,11 +127,13 @@ extension AudioRecordingsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let currentRecording = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
+        
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             
             let deleteAlertController = UIAlertController(title: "Are you sure you want to delete?", message: "You won't be able to recover this file", preferredStyle: .alert)
             let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
-                AudioManager.sharedInstance.removeFile(at: indexPath.row)
+                AudioManager.sharedInstance.removeAudioRecording(with: currentRecording)
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             })
             let cancelDeleteAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
@@ -151,7 +153,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 let newFileName = editAlertController.textFields?[0].text
                 
                 if let newFileName = newFileName {
-                    let errorMessage = AudioManager.sharedInstance.renameFile(at: indexPath.row, newFileName: newFileName)
+                    let errorMessage = AudioManager.sharedInstance.renameFile(with: currentRecording, newFileName: newFileName)
                     
                     if errorMessage != nil {
                         let ac = UIAlertController(title: "Same File Name Exists Already!", message: errorMessage?.localizedDescription, preferredStyle: .alert)
@@ -183,7 +185,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 let tagName = tagAlertController.textFields?[0].text
                 
                 if let tagName = tagName {
-                    AudioManager.sharedInstance.setTag(at: indexPath.row, tag: tagName)
+                    AudioManager.sharedInstance.setTag(for: currentRecording, tag: tagName)
                 }
                 
                 self.recordingsTableView.reloadData()
@@ -194,7 +196,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             }
             
             let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
-                AudioManager.sharedInstance.removeTag(at: indexPath.row)
+                AudioManager.sharedInstance.removeTag(for: currentRecording)
                 self.recordingsTableView.reloadData()
             }
             
