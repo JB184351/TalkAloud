@@ -147,6 +147,14 @@ class AudioManager {
         CoreDataManager.sharedInstance.removeAudioRecordingTag(at: index)
     }
     
+    func setTag(for selectedRecording: AudioRecording, tag: String) {
+        CoreDataManager.sharedInstance.updateAudioRecordingTag(with: selectedRecording, with: tag)
+    }
+    
+    func removeTag(for selectedRecording: AudioRecording) {
+        CoreDataManager.sharedInstance.removeAudioRecordingTag(for: selectedRecording)
+    }
+    
     func filteredAudioRecordings(with tags: [String]) -> [AudioRecording] {
         filteredAudioRecordings.removeAll()
         

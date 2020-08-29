@@ -37,7 +37,7 @@ class MoreOptionsViewController: UIViewController {
         }
         
         let editTag = MoreOptionsModel(title: "Edit Tag", icon: nil) {
-            print("Editing Tags")
+            self.editTagAction()
         }
         
         moreOptions.append(rename)
@@ -85,7 +85,28 @@ class MoreOptionsViewController: UIViewController {
     }
     
     private func editTagAction() {
+        let tagAlertController = UIAlertController(title: "Edit Tag", message: nil, preferredStyle: .alert)
+        tagAlertController.addTextField()
         
+        let addTagAction = UIAlertAction(title: "Add", style: .default) { [unowned tagAlertController] action in
+            let tagName = tagAlertController.textFields?[0].text
+            
+            if let tagName = tagName {
+                AudioManager.sharedInstance.setTag(for: self.currentlySelectedRecording!, tag: tagName)
+            }
+        }
+        
+        let cancelTagAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
+            AudioManager.sharedInstance.removeTag(for: self.currentlySelectedRecording!)
+        }
+        
+        tagAlertController.addAction(addTagAction)
+        tagAlertController.addAction(removeTagAction)
+        tagAlertController.addAction(cancelTagAction)
+
+        self.present(tagAlertController, animated: true)
     }
     
 }

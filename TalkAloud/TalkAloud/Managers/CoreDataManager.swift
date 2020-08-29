@@ -176,6 +176,34 @@ class CoreDataManager {
         }
     }
     
+    func updateAudioRecordingTag(with selectedRecording: AudioRecording, with tag: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let changeRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AudioRecordingObject")
+        
+        do {
+            let objects = try managedContext.fetch(changeRequest)
+            
+            for object in objects {
+                let audioRecording = AudioRecording(object: object as! NSManagedObject)
+                if selectedRecording == audioRecording {
+                    selectedRecording.setTag(tag: tag)
+                    break
+                }
+            }
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        do {
+            try managedContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     func removeAudioRecordingTag(at index: Int) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
@@ -193,6 +221,33 @@ class CoreDataManager {
             print(error.localizedDescription)
         }
 
+        do {
+            try managedContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func removeAudioRecordingTag(for selectedRecording: AudioRecording) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext  = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AudioRecordingObject")
+        
+        do {
+            let objects = try managedContext.fetch(fetchRequest)
+            
+            for object in objects {
+                let audioRecording = AudioRecording(object: object as! NSManagedObject)
+                if selectedRecording == audioRecording {
+                    selectedRecording.removeTags()
+                }
+            }
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+        
         do {
             try managedContext.save()
         } catch {
