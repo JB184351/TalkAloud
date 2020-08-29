@@ -134,8 +134,8 @@ class CoreDataManager {
         do {
             let objects = try managedContext.fetch(changeRequest)
             
-            for i in 0..<objects.count {
-                let recordingInObjects = AudioRecording(object: objects[i] as! NSManagedObject)
+            for object in objects {
+                let recordingInObjects = AudioRecording(object: object as! NSManagedObject)
                 if selectedRecording == recordingInObjects {
                     selectedRecording.setFileName(filename: newFileName)
                     break
