@@ -75,6 +75,32 @@ class CoreDataManager {
         }
     }
     
+    func deleteAudioRecording(with selectedRecording: AudioRecording) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let deleteRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AudioRecordingObject")
+        
+        do {
+            let objects = try managedContext.fetch(deleteRequest)
+            
+            for object in objects {
+                let audioRecording = AudioRecording(object: object as! NSManagedObject)
+                if selectedRecording == audioRecording {
+                    managedContext.delete(object as! NSManagedObject)
+                }
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        do {
+            try managedContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     func updateAudioRecordingFileName(at index: Int, newFileName: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         

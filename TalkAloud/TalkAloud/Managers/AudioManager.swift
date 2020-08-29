@@ -73,13 +73,32 @@ class AudioManager {
             let url = audioRecordings[index].url
             
             try fileManager.removeItem(at: url)
-            // Change to use url attribute
             audioRecordings.remove(at: index)
         } catch {
             print(error.localizedDescription)
         }
         
         CoreDataManager.sharedInstance.deleteAudioRecording(at: index)
+    }
+    
+    func removeAudioRecording(with selectedRecording: AudioRecording) {
+        do {
+            let fileManager = FileManager.default
+            let url = selectedRecording.url
+            
+            try fileManager.removeItem(at: url)
+            
+            for i in 0..<audioRecordings.count {
+                if selectedRecording == audioRecordings[i] {
+                    audioRecordings.remove(at: i)
+                }
+            }
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        CoreDataManager.sharedInstance.deleteAudioRecording(with: selectedRecording)
     }
     
     func renameFile(at index: Int, newFileName: String) -> Error? {

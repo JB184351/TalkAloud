@@ -33,7 +33,7 @@ class MoreOptionsViewController: UIViewController {
         }
         
         let delete = MoreOptionsModel(title: "Delete", icon: nil) {
-            print("Delete")
+            self.deleteAction()
         }
         
         let editTag = MoreOptionsModel(title: "Edit Tag", icon: nil) {
@@ -46,7 +46,7 @@ class MoreOptionsViewController: UIViewController {
         moreOptions.append(delete)
     }
     
-    func renameAction() {
+    private func renameAction() {
         let editAlertController = UIAlertController(title: "Change name", message: nil, preferredStyle: .alert)
         editAlertController.addTextField()
         
@@ -67,43 +67,51 @@ class MoreOptionsViewController: UIViewController {
         editAlertController.addAction(renameFileAction)
         present(editAlertController, animated: true)
     }
-        
-        func shareAction() {
-            
-        }
-        
-        func deleteAction() {
-            
-        }
-        
-        func editTagAction() {
-            
-        }
+    
+    private func shareAction() {
         
     }
     
-    extension MoreOptionsViewController: UITableViewDataSource {
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return moreOptions.count
-        }
+    private func deleteAction() {
+        let deleteAlertController = UIAlertController(title: "Are you sure you want to delete?", message: "You won't be able to recover this file", preferredStyle: .alert)
+        let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
+            AudioManager.sharedInstance.removeAudioRecording(with: self.currentlySelectedRecording!)
+        })
+        let cancelDeleteAction = UIAlertAction(title: "Cancel", style: .cancel)
         
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MoreOptions")!
-            
-            cell.textLabel?.text = moreOptions[indexPath.row].title
-            
-            return cell
-        }
-        
+        deleteAlertController.addAction(deleteAlertAction)
+        deleteAlertController.addAction(cancelDeleteAction)
+        self.present(deleteAlertController, animated: true)
+    }
+    
+    private func editTagAction() {
         
     }
     
-    extension MoreOptionsViewController: UITableViewDelegate {
-        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let index = indexPath.row
-            
-            let currentOption = moreOptions[index].action
-            
-            currentOption()
-        }
+}
+
+extension MoreOptionsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return moreOptions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MoreOptions")!
+        
+        cell.textLabel?.text = moreOptions[indexPath.row].title
+        
+        return cell
+    }
+    
+    
+}
+
+extension MoreOptionsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = indexPath.row
+        
+        let currentOption = moreOptions[index].action
+        
+        currentOption()
+    }
 }

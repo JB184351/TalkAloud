@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-struct AudioRecording {
+struct AudioRecording: Equatable {
     private var object: NSManagedObject
     
     var fileName: String {
