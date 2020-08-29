@@ -47,45 +47,63 @@ class MoreOptionsViewController: UIViewController {
     }
     
     func renameAction() {
-        AudioManager.sharedInstance.renameFile(with: currentlySelectedRecording!, newFileName: "nothing")
+        let editAlertController = UIAlertController(title: "Change name", message: nil, preferredStyle: .alert)
+        editAlertController.addTextField()
+        
+        let renameFileAction = UIAlertAction(title: "Done", style: .default) { [unowned editAlertController] action in
+            let newFileName = editAlertController.textFields?[0].text
+            
+            if let newFileName = newFileName {
+                let errorMessage = AudioManager.sharedInstance.renameFile(with: self.currentlySelectedRecording!, newFileName: newFileName)
+                
+                if errorMessage != nil {
+                    let ac = UIAlertController(title: "Same File Name Exists Already!", message: errorMessage?.localizedDescription, preferredStyle: .alert)
+                    let doneAction = UIAlertAction(title: "Done", style: .default)
+                    ac.addAction(doneAction)
+                    self.present(ac, animated: true)
+                }
+            }
+        }
+        editAlertController.addAction(renameFileAction)
+        present(editAlertController, animated: true)
     }
-    
-    func shareAction() {
+        
+        func shareAction() {
+            
+        }
+        
+        func deleteAction() {
+            
+        }
+        
+        func editTagAction() {
+            
+        }
         
     }
     
-    func deleteAction() {
-       
-    }
-    
-    func editTagAction() {
+    extension MoreOptionsViewController: UITableViewDataSource {
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return moreOptions.count
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MoreOptions")!
+            
+            cell.textLabel?.text = moreOptions[indexPath.row].title
+            
+            return cell
+        }
+        
         
     }
     
-}
-
-extension MoreOptionsViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return moreOptions.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MoreOptions")!
-        
-        cell.textLabel?.text = moreOptions[indexPath.row].title
-        
-        return cell
-    }
-    
-    
-}
-
-extension MoreOptionsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let index = indexPath.row
-        
-        let currentOption = moreOptions[index].action
-        
-        currentOption()
-    }
+    extension MoreOptionsViewController: UITableViewDelegate {
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            let index = indexPath.row
+            
+            let currentOption = moreOptions[index].action
+            
+            currentOption()
+        }
 }
