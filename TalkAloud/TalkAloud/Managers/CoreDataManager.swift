@@ -55,26 +55,6 @@ class CoreDataManager {
         return audioRecordings
     }
     
-    func deleteAudioRecording(at index: Int) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let deleteRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AudioRecordingObject")
-
-        do {
-            let objects = try managedContext.fetch(deleteRequest)
-            managedContext.delete(objects[index] as! NSManagedObject)
-        } catch {
-            print(error.localizedDescription)
-        }
-
-        do {
-            try managedContext.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
     func deleteAudioRecording(with selectedRecording: AudioRecording) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
@@ -135,36 +115,12 @@ class CoreDataManager {
             let objects = try managedContext.fetch(changeRequest)
             
             for object in objects {
-                let recordingInObjects = AudioRecording(object: object as! NSManagedObject)
-                if selectedRecording == recordingInObjects {
+                let audioRecording = AudioRecording(object: object as! NSManagedObject)
+                if selectedRecording == audioRecording {
                     selectedRecording.setFileName(filename: newFileName)
                     break
                 }
             }
-        } catch {
-            print(error.localizedDescription)
-        }
-        
-        do {
-            try managedContext.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func updateAudioRecordingTag(at index: Int, tag: String) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let changeRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AudioRecordingObject")
-        
-        do {
-            let objects = try managedContext.fetch(changeRequest)
-            
-            let currentAudioRecordingObject = objects[index]
-            let audioRecording = AudioRecording(object: currentAudioRecordingObject as! NSManagedObject)
-            audioRecording.setTag(tag: tag)
-
         } catch {
             print(error.localizedDescription)
         }
@@ -197,30 +153,6 @@ class CoreDataManager {
             print(error.localizedDescription)
         }
         
-        do {
-            try managedContext.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func removeAudioRecordingTag(at index: Int) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AudioRecordingObject")
-
-        do {
-            let objects = try managedContext.fetch(fetchRequest)
-            
-            let currentAudioRecordingObject = objects[index] as! NSManagedObject
-            let audioRecording = AudioRecording(object: currentAudioRecordingObject)
-            audioRecording.removeTags()
-            
-        } catch {
-            print(error.localizedDescription)
-        }
-
         do {
             try managedContext.save()
         } catch {

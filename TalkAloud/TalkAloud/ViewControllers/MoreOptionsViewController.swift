@@ -112,6 +112,7 @@ class MoreOptionsViewController: UIViewController {
 }
 
 extension MoreOptionsViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return moreOptions.count
     }
@@ -128,6 +129,7 @@ extension MoreOptionsViewController: UITableViewDataSource {
 }
 
 extension MoreOptionsViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.row
         

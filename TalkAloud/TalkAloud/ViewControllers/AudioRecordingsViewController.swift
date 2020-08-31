@@ -48,10 +48,10 @@ class AudioRecordingsViewController: UIViewController {
         self.present(navigationController, animated: true)
     }
     
-    
 }
 
 extension AudioRecordingsViewController: TagFilterDelegate {
+    
     func didUpdateTagToFilter(by tags: [String]?) {
         if let tags = tags {
             filter(by: tags)
@@ -63,6 +63,7 @@ extension AudioRecordingsViewController: TagFilterDelegate {
 }
 
 extension AudioRecordingsViewController: AudioRecordingCellDelegate {
+    
     func didTappedMoreButton(for cell: AudioRecordingCell) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
