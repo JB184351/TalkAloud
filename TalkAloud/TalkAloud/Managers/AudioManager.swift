@@ -25,7 +25,7 @@ class AudioManager {
     
     // MARK: - Public Methods
     
-    func loadAudioRecordings(with tags: [String]?) -> [AudioRecording] {
+    func loadAudioRecordings(with tags: [String]?) -> [AudioRecording]? {
         guard let tags = tags else { return loadAllRecordings()!}
         
         return filteredAudioRecordings(with: tags)!

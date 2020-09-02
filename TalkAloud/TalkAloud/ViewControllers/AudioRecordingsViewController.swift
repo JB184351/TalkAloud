@@ -22,7 +22,7 @@ class AudioRecordingsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: nil)
+        audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: nil)!
         recordingsTableView.reloadData()
     }
     
@@ -35,7 +35,7 @@ class AudioRecordingsViewController: UIViewController {
     // MARK: - Private Methods
     
     private func loadAudioRecordings(with tags: [String]?) {
-        audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: tags)
+        audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: tags)!
         recordingsTableView.reloadData()
     }
     
