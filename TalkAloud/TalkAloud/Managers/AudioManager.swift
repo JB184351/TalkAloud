@@ -66,47 +66,51 @@ class AudioManager {
         return audioRecordings
     }
     
-    func removeFile(at index: Int) {
-        
+    func removeAudioRecording(with selectedRecording: AudioRecording) {
         do {
             let fileManager = FileManager.default
-            let url = audioRecordings[index].url
+            let url = selectedRecording.url
             
             try fileManager.removeItem(at: url)
-            // Change to use url attribute
-            audioRecordings.remove(at: index)
+            
+            for i in 0..<audioRecordings.count {
+                if selectedRecording == audioRecordings[i] {
+                    audioRecordings.remove(at: i)
+                }
+            }
+            
         } catch {
             print(error.localizedDescription)
         }
         
-        CoreDataManager.sharedInstance.deleteAudioRecording(at: index)
+        CoreDataManager.sharedInstance.deleteAudioRecording(with: selectedRecording)
     }
     
-    func renameFile(at index: Int, newFileName: String) -> Error? {
+    func renameFile(with selectedRecording: AudioRecording, newFileName: String) -> Error? {
         let fileManager = FileManager.default
         
         let uniqueFileName = newFileName + ".m4a"
-        let oldURLWithFileNameDeleted = getRecordingForIndex(index: index).url.deletingLastPathComponent()
+        let oldURLWithFileNameDeleted = selectedRecording.url.deletingLastPathComponent()
         let newDestinationURL = oldURLWithFileNameDeleted.appendingPathComponent(uniqueFileName)
         
         do {
-            try fileManager.moveItem(at: getRecordingForIndex(index: index).url, to: newDestinationURL)
+            try fileManager.moveItem(at: selectedRecording.url, to: newDestinationURL)
         } catch {
             print(error.localizedDescription)
             return error
         }
         
-        CoreDataManager.sharedInstance.updateAudioRecordingFileName(at: index, newFileName: uniqueFileName)
+        CoreDataManager.sharedInstance.updateAudioRecordingFileName(with: selectedRecording, newFileName: uniqueFileName)
         
         return nil
     }
     
-    func setTag(at index: Int, tag: String) {
-        CoreDataManager.sharedInstance.updateAudioRecordingTag(at: index, tag: tag)
+    func setTag(for selectedRecording: AudioRecording, tag: String) {
+        CoreDataManager.sharedInstance.updateAudioRecordingTag(with: selectedRecording, with: tag)
     }
     
-    func removeTag(at index: Int) {
-        CoreDataManager.sharedInstance.removeAudioRecordingTag(at: index)
+    func removeTag(for selectedRecording: AudioRecording) {
+        CoreDataManager.sharedInstance.removeAudioRecordingTag(for: selectedRecording)
     }
     
     func filteredAudioRecordings(with tags: [String]) -> [AudioRecording] {

@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
+class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     
     
     @IBOutlet var audioPlayerVisualizer: AudioPlayerVisualizerView!
@@ -170,7 +170,7 @@ class AudioPlayerViewController: UIViewController, AudioEngineStateChangeDelegat
     
 }
 
-extension AudioPlayerViewController: AudioSliderDelegate {
+extension PlayerViewController: AudioSliderDelegate {
     func didChangeScrolling(in audioSlider: UISlider) {
         AudioEngine.sharedInstance.setAudioTime(playBackTime: audioSlider.value)
         initializeTimer()

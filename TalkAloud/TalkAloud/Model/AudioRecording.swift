@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-struct AudioRecording {
+struct AudioRecording: Equatable {
     private var object: NSManagedObject
     
     var fileName: String {
@@ -41,6 +41,10 @@ struct AudioRecording {
     
     init(object: NSManagedObject) {
         self.object = object
+    }
+    
+    static func == (lhs: AudioRecording, rhs: AudioRecording) -> Bool {
+        return lhs.object == rhs.object && lhs.tags == rhs.tags && lhs.fileName == rhs.fileName
     }
     
     func setFileName(filename: String) {

@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol AudioRecordingCellDelegate: class {
+    func didTappedMoreButton(for cell: AudioRecordingCell)
+}
+
 class AudioRecordingCell: UITableViewCell {
     
     @IBOutlet var fileNameLabel: UILabel!
     @IBOutlet var tagLabel: UILabel!
+    weak var delegate: AudioRecordingCellDelegate?
     
     func setup(with model: AudioRecording) {
         let cellFileName = model.fileName
@@ -33,4 +38,9 @@ class AudioRecordingCell: UITableViewCell {
         self.fileNameLabel?.text = cellFileName
         self.tagLabel?.text = allTags
     }
+    
+    @IBAction func moreButtonAction(_ sender: Any) {
+        delegate?.didTappedMoreButton(for: self)
+    }
+    
 }
