@@ -18,25 +18,25 @@ class MoreOptionsViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MoreOptions")
+        tableView.register(UINib(nibName: "MoreOptionsTableViewCell", bundle: nil), forCellReuseIdentifier: "MoreOptionsCell")
         createMoreOptionModelObjects()
     }
     
     
     func createMoreOptionModelObjects() {
-        let rename = MoreOptionsModel(title: "Rename", icon: nil) {
+        let rename = MoreOptionsModel(title: "Rename", icon: "pencil.tip") {
             self.renameAction()
         }
         
-        let share = MoreOptionsModel(title: "Share", icon: nil) {
+        let share = MoreOptionsModel(title: "Share", icon: "square.and.arrow.up") {
             self.shareAction()
         }
         
-        let delete = MoreOptionsModel(title: "Delete", icon: nil) {
+        let delete = MoreOptionsModel(title: "Delete", icon: "trash") {
             self.deleteAction()
         }
         
-        let editTag = MoreOptionsModel(title: "Edit Tag", icon: nil) {
+        let editTag = MoreOptionsModel(title: "Edit Tag", icon: "tag") {
             self.editTagAction()
         }
         
@@ -120,13 +120,13 @@ extension MoreOptionsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MoreOptions")!
+        let moreOptionsCell = tableView.dequeueReusableCell(withIdentifier: "MoreOptionsCell", for: indexPath) as! MoreOptionsTableViewCell
         
-        cell.textLabel?.text = moreOptions[indexPath.row].title
+        moreOptionsCell.moreOptionsLabel.text = moreOptions[indexPath.row].title
+        moreOptionsCell.moreOptionsButton.setImage(UIImage(systemName: moreOptions[indexPath.row].icon!), for: .normal)
         
-        return cell
+        return moreOptionsCell
     }
-    
     
 }
 
