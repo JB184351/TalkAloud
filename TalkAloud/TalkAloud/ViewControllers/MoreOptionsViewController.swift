@@ -69,9 +69,6 @@ class MoreOptionsViewController: UIViewController {
     }
     
     private func shareAction() {
-        let items = [currentlySelectedRecording?.url]
-        let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        present(ac, animated: true)
     }
     
     private func deleteAction() {
