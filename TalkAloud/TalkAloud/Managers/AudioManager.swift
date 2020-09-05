@@ -18,10 +18,18 @@ class AudioManager {
     private var audioRecordings: [AudioRecording] = []
     private var filteredAudioRecordings: [AudioRecording] = []
     private var allUniqueTags: [String] = []
-
+    
     private var didNewRecording = false
     
     private init() {}
+    
+    // MARK: - Public Methods
+    
+    func loadAudioRecordings(with tags: [String]?) -> [AudioRecording]? {
+        guard let tags = tags else { return loadAllRecordings()!}
+        
+        return filteredAudioRecordings(with: tags)!
+    }
     
     func createNewAudioRecording() -> AudioRecording? {
         let dateFormatter = DateFormatter()
@@ -58,12 +66,6 @@ class AudioManager {
                 print(error.localizedDescription)
             }
         }
-    }
-    
-    func loadAllRecordings() -> [AudioRecording]? {
-        guard let allRecordings = CoreDataManager.sharedInstance.loadAudioRecordings() else { return nil }
-        audioRecordings = allRecordings
-        return audioRecordings
     }
     
     func removeAudioRecording(with selectedRecording: AudioRecording) {
@@ -113,46 +115,12 @@ class AudioManager {
         CoreDataManager.sharedInstance.removeAudioRecordingTag(for: selectedRecording)
     }
     
-    func filteredAudioRecordings(with tags: [String]) -> [AudioRecording] {
-        filteredAudioRecordings.removeAll()
-        
-        if tags.count == 1 {
-            for audioRecording in audioRecordings {
-                if let audioRecordingsTags = audioRecording.tags {
-                    for tag in tags {
-                        if audioRecordingsTags.contains(tag) {
-                            filteredAudioRecordings.append(audioRecording)
-                        }
-                    }
-                }
-            }
-        } else {
-            for audioRecording in audioRecordings {
-                if let audioRecordingTags = audioRecording.tags {
-                    if audioRecordingTags.containsSameElements(as: tags) {
-                        filteredAudioRecordings.append(audioRecording)
-                    }
-                }
-            }
-        }
-        
-        return filteredAudioRecordings
-    }
-    
-    func filteredAudioRecordingsCount() -> Int {
-        return filteredAudioRecordings.count
-    }
-    
     func setSelectedRecording(index: Int) {
         self.audioRecording = audioRecordings[index]
     }
     
     func getRecordingForIndex(index: Int) -> AudioRecording {
         return audioRecordings[index]
-    }
-    
-    func getFilteredRecordingForIndex(index: Int) -> AudioRecording {
-        return filteredAudioRecordings[index]
     }
     
     func getAllAudioRecordingTags() -> [String]? {
@@ -202,5 +170,41 @@ class AudioManager {
     
     func getAudioRecordingCount() -> Int {
         return audioRecordings.count
+    }
+    
+    // MARK: - Private Methods
+    
+    private func loadAllRecordings() -> [AudioRecording]? {
+        guard let allRecordings = CoreDataManager.sharedInstance.loadAudioRecordings() else { return nil }
+        audioRecordings = allRecordings
+        return audioRecordings
+    }
+    
+    private func filteredAudioRecordings(with tags: [String]?) -> [AudioRecording]? {
+        guard let tags = tags else { return nil }
+        
+        filteredAudioRecordings.removeAll()
+        
+        if tags.count == 1 {
+            for audioRecording in audioRecordings {
+                if let audioRecordingsTags = audioRecording.tags {
+                    for tag in tags {
+                        if audioRecordingsTags.contains(tag) {
+                            filteredAudioRecordings.append(audioRecording)
+                        }
+                    }
+                }
+            }
+        } else {
+            for audioRecording in audioRecordings {
+                if let audioRecordingTags = audioRecording.tags {
+                    if audioRecordingTags.containsSameElements(as: tags) {
+                        filteredAudioRecordings.append(audioRecording)
+                    }
+                }
+            }
+        }
+        
+        return filteredAudioRecordings
     }
 }

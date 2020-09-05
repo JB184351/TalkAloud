@@ -10,37 +10,42 @@ import UIKit
 
 class AudioRecordingsViewController: UIViewController {
     
-    var isFiltered = false
-    private var allAudioRecordings = AudioManager.sharedInstance.loadAllRecordings()
-    private var filteredAudioRecordings = [AudioRecording]()
+    private var audioRecordings = [AudioRecording]()
     @IBOutlet var recordingsTableView: UITableView!
     
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        recordingsTableView.dataSource = self
-        recordingsTableView.delegate = self
-        recordingsTableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")
+        setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        isFiltered = false
-        recordingsTableView.reloadData()
-    }
-    
-    // MARK: - Public Methods
-    // TODO: Make tags param optional
-    func filter(by tags: [String]) {
-        isFiltered = true
-        filteredAudioRecordings = AudioManager.sharedInstance.filteredAudioRecordings(with: tags)
+        audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: nil)!
         recordingsTableView.reloadData()
     }
     
     // MARK: - Actions
     
     @IBAction func tappedLeftButton(_ sender: Any) {
+        presentTagTableViewController()
+    }
+    
+    // MARK: - Private Methods
+    
+    private func loadAudioRecordings(with tags: [String]?) {
+        audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: tags)!
+        recordingsTableView.reloadData()
+    }
+    
+    private func setupTableView() {
+        recordingsTableView.dataSource = self
+        recordingsTableView.delegate = self
+        recordingsTableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")
+    }
+    
+    private func presentTagTableViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let tagFilterViewController = storyboard.instantiateViewController(identifier: "TagTableViewController") as! TagTableViewController
         let navigationController = UINavigationController(rootViewController: tagFilterViewController)
@@ -53,12 +58,7 @@ class AudioRecordingsViewController: UIViewController {
 extension AudioRecordingsViewController: TagFilterDelegate {
     
     func didUpdateTagToFilter(by tags: [String]?) {
-        if let tags = tags {
-            filter(by: tags)
-        } else {
-            isFiltered = false
-            recordingsTableView.reloadData()
-        }
+        loadAudioRecordings(with: tags)
     }
 }
 
@@ -68,11 +68,7 @@ extension AudioRecordingsViewController: AudioRecordingCellDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
         
-        if !isFiltered {
-            audioRecordingOptionViewControler.currentlySelectedRecording = AudioManager.sharedInstance.getRecordingForIndex(index: recordingsTableView.indexPath(for: cell)!.row)
-        } else {
-            audioRecordingOptionViewControler.currentlySelectedRecording = filteredAudioRecordings[recordingsTableView.indexPath(for: cell)!.row]
-        }
+        audioRecordingOptionViewControler.currentlySelectedRecording = audioRecordings[recordingsTableView.indexPath(for: cell)!.row]
         
         self.navigationController?.pushViewController(audioRecordingOptionViewControler, animated: true)
     }
@@ -82,22 +78,13 @@ extension AudioRecordingsViewController: AudioRecordingCellDelegate {
 extension AudioRecordingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltered {
-            return AudioManager.sharedInstance.filteredAudioRecordingsCount()
-        } else {
-            return AudioManager.sharedInstance.getAudioRecordingCount()
-        }
+        return audioRecordings.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var currentAudio: AudioRecording
-        // TODO: Change to single datasource in the future
-        if isFiltered {
-            currentAudio = AudioManager.sharedInstance.getFilteredRecordingForIndex(index: indexPath.row)
-        } else {
-            currentAudio = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
-        }
+        currentAudio = audioRecordings[indexPath.row]
         
         let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
         audioCell.setup(with: currentAudio)
@@ -114,7 +101,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
         guard let url = AudioManager.sharedInstance.getPlayBackURL() else { return }
         AudioEngine.sharedInstance.play(withFileURL: url)
         
-        let selectedAudioRecording = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
+        let selectedAudioRecording = audioRecordings[indexPath.row]
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let audioPlayerViewController = storyboard.instantiateViewController(identifier: "AudioPlayerViewController") as! PlayerViewController
@@ -128,14 +115,14 @@ extension AudioRecordingsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let currentRecording = AudioManager.sharedInstance.getRecordingForIndex(index: indexPath.row)
+        let currentRecording = audioRecordings[indexPath.row]
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             
             let deleteAlertController = UIAlertController(title: "Are you sure you want to delete?", message: "You won't be able to recover this file", preferredStyle: .alert)
             let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
                 AudioManager.sharedInstance.removeAudioRecording(with: currentRecording)
-                tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.recordingsTableView.deleteRows(at: [indexPath], with: .automatic)
             })
             let cancelDeleteAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
                 completionHandler(false)
