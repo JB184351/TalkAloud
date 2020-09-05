@@ -29,7 +29,7 @@ class MoreOptionsViewController: UIViewController {
         }
         
         let share = MoreOptionsModel(title: "Share", icon: nil) {
-            print("Share")
+            self.shareAction()
         }
         
         let delete = MoreOptionsModel(title: "Delete", icon: nil) {
@@ -69,7 +69,9 @@ class MoreOptionsViewController: UIViewController {
     }
     
     private func shareAction() {
-        
+        let items = [currentlySelectedRecording?.url]
+        let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(ac, animated: true)
     }
     
     private func deleteAction() {
