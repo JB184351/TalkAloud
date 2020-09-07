@@ -8,5 +8,10 @@
 
 import UIKit
 
-class MoreOptionsTableViewCell: UITableViewCell {    
+
+
+class MoreOptionsTableViewCell: UITableViewCell {
+    
+    @IBOutlet var moreOptionsLabel: UILabel!
+    @IBOutlet var moreOptionsButton: UIButton!
 }
