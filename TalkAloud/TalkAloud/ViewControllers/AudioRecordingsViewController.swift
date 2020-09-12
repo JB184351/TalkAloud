@@ -67,10 +67,10 @@ extension AudioRecordingsViewController: AudioRecordingCellDelegate {
     func didTappedMoreButton(for cell: AudioRecordingCell) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
-        
+        audioRecordingOptionViewControler.modalPresentationStyle = .overCurrentContext
         audioRecordingOptionViewControler.currentlySelectedRecording = audioRecordings[recordingsTableView.indexPath(for: cell)!.row]
         
-        self.navigationController?.pushViewController(audioRecordingOptionViewControler, animated: true)
+        self.present(audioRecordingOptionViewControler, animated: true)
     }
     
 }
