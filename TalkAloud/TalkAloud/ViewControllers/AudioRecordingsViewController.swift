@@ -55,12 +55,16 @@ class AudioRecordingsViewController: UIViewController {
     
 }
 
+// MARK: - Tag Filter Delegate
+
 extension AudioRecordingsViewController: TagFilterDelegate {
     
     func didUpdateTagToFilter(by tags: [String]?) {
         loadAudioRecordings(with: tags)
     }
 }
+
+// MARK: - AudioRecording Delegate
 
 extension AudioRecordingsViewController: AudioRecordingCellDelegate {
     
@@ -74,6 +78,8 @@ extension AudioRecordingsViewController: AudioRecordingCellDelegate {
     }
     
 }
+
+// MARK: - TableView Data Source
 
 extension AudioRecordingsViewController: UITableViewDataSource {
     
@@ -92,6 +98,8 @@ extension AudioRecordingsViewController: UITableViewDataSource {
         return audioCell
     }
 }
+
+// MARK: - TableView Delegate
 
 extension AudioRecordingsViewController: UITableViewDelegate {
     

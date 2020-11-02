@@ -29,8 +29,10 @@ class AudioEngine: NSObject {
     
     private override init() {}
     
+    // MARK: - Public Methods
+    
     // Intializing audioPlayer here to make clear when I'm initializing and playing
-    func setupAudioPlayer(fileURL: URL) {
+    public func setupAudioPlayer(fileURL: URL) {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
             audioPlayer?.delegate = self
@@ -46,7 +48,7 @@ class AudioEngine: NSObject {
     
     // Intializing audioRecorder here to make clear
     // when I'm initializing the audioRecorder and actually recording
-    func setupRecorder(fileURL: URL) {
+    public func setupRecorder(fileURL: URL) {
         let settings = [AVFormatIDKey: Int(kAudioFormatAppleLossless), AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
                         AVEncoderBitRateKey : 320000, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
         
@@ -63,7 +65,7 @@ class AudioEngine: NSObject {
         }
     }
     
-    func getPeakPower(audioState: AudioEngineState) -> Float {
+    public func getPeakPower(audioState: AudioEngineState) -> Float {
         switch audioState {
         case .playing:
             return audioPlayer?.peakPower(forChannel: 0) ?? -160.00
@@ -76,7 +78,7 @@ class AudioEngine: NSObject {
         }
     }
     
-    func updateMeters(audioState: AudioEngineState) {
+    public func updateMeters(audioState: AudioEngineState) {
         switch audioState {
         case .playing:
             audioPlayer?.updateMeters()
@@ -89,49 +91,49 @@ class AudioEngine: NSObject {
         }
     }
     
-    func getCurrentAudioRecorderDuration() -> Float {
+    public func getCurrentAudioRecorderDuration() -> Float {
         return Float(audioRecorder?.currentTime ?? 0.0)
     }
     
-    func getCurrentAudioDuration() -> Float {
+    public func getCurrentAudioDuration() -> Float {
         return Float(audioPlayer?.duration ?? 0.0)
     }
     
-    func getCurrentAudioTime() -> Float {
+    public func getCurrentAudioTime() -> Float {
         return Float(audioPlayer?.currentTime ?? 0.0)
     }
     
-    func setAudioTime(playBackTime: Float) {
+    public func setAudioTime(playBackTime: Float) {
         audioPlayer?.currentTime = TimeInterval(playBackTime)
     }
     
-    func play() {
+    public func play() {
         audioPlayer?.play()
         audioPlayer?.isMeteringEnabled = true
         audioState = .playing
     }
     
-    func play(withFileURL: URL) {
+   public func play(withFileURL: URL) {
         setupAudioPlayer(fileURL: withFileURL)
         audioPlayer?.play()
         audioPlayer?.isMeteringEnabled = true
         audioState = .playing
     }
     
-    func skipFifteenSeconds() {
+   public func skipFifteenSeconds() {
         audioPlayer?.currentTime += 15
     }
     
-    func rewindFifteenSeonds() {
+   public func rewindFifteenSeonds() {
         audioPlayer?.currentTime -= 15
     }
     
-    func pause() {
+   public func pause() {
         audioPlayer?.pause()
         audioState = .paused
     }
     
-    func record() {
+   public func record() {
         do {
             try audioRecordingSession.setCategory(.playAndRecord, mode: .default)
             try audioRecordingSession.setActive(true)
@@ -143,7 +145,7 @@ class AudioEngine: NSObject {
         audioRecorder?.record()
     }
     
-    func stop() {
+   public func stop() {
         audioState = .stopped
         audioRecorder?.isMeteringEnabled = false
         audioPlayer?.isMeteringEnabled = false
@@ -152,11 +154,15 @@ class AudioEngine: NSObject {
     }
 }
 
+// MARK: - AVAudioPlayer Delegate
+
 extension AudioEngine: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         audioState = .stopped
     }
 }
+
+// MARK: - AVAudioRecorder Delegate
 
 extension AudioEngine: AVAudioRecorderDelegate {
     

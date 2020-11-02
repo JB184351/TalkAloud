@@ -13,7 +13,9 @@ import CoreData
 class CoreDataManager {
     static let sharedInstance = CoreDataManager()
     
-    func createNewAudioRecording(uniqueFileName: String) -> AudioRecording? {
+    // MARK: - Public Methods
+    
+    public func createNewAudioRecording(uniqueFileName: String) -> AudioRecording? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -32,7 +34,7 @@ class CoreDataManager {
         return audioRecording
     }
     
-    func loadAudioRecordings() -> [AudioRecording]? {
+    public func loadAudioRecordings() -> [AudioRecording]? {
         var audioRecordings = [AudioRecording]()
     
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
@@ -55,7 +57,7 @@ class CoreDataManager {
         return audioRecordings
     }
     
-    func deleteAudioRecording(with selectedRecording: AudioRecording) {
+    public func deleteAudioRecording(with selectedRecording: AudioRecording) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -81,7 +83,7 @@ class CoreDataManager {
         }
     }
     
-    func updateAudioRecordingFileName(at index: Int, newFileName: String) {
+    public func updateAudioRecordingFileName(at index: Int, newFileName: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -105,7 +107,7 @@ class CoreDataManager {
         }
     }
     
-    func updateAudioRecordingFileName(with selectedRecording: AudioRecording, newFileName: String) {
+    public func updateAudioRecordingFileName(with selectedRecording: AudioRecording, newFileName: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -132,7 +134,7 @@ class CoreDataManager {
         }
     }
     
-    func updateAudioRecordingTag(with selectedRecording: AudioRecording, with tag: String) {
+    public func updateAudioRecordingTag(with selectedRecording: AudioRecording, with tag: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -160,7 +162,7 @@ class CoreDataManager {
         }
     }
     
-    func removeAudioRecordingTag(for selectedRecording: AudioRecording) {
+    public func removeAudioRecordingTag(for selectedRecording: AudioRecording) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let managedContext  = appDelegate.persistentContainer.viewContext

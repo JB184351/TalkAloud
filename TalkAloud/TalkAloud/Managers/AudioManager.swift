@@ -18,7 +18,6 @@ class AudioManager {
     private var audioRecordings: [AudioRecording] = []
     private var filteredAudioRecordings: [AudioRecording] = []
     private var allUniqueTags: [String] = []
-    
     private var didNewRecording = false
     
     private init() {}

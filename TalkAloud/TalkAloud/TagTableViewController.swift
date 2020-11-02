@@ -18,6 +18,16 @@ class TagTableViewController: UITableViewController {
     private var selectedTags = [String]()
     private var allTags = AudioManager.sharedInstance.getAllAudioRecordingTags() ?? []
     
+    @IBAction private func rightButtonAction(_ sender: Any) {
+        if selectedTags.count >= 1 {
+            self.delegate?.didUpdateTagToFilter(by: selectedTags)
+        } else {
+            self.delegate?.didUpdateTagToFilter(by: nil)
+        }
+        
+        self.dismiss(animated: true)
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allTags.count
     }
@@ -38,16 +48,6 @@ class TagTableViewController: UITableViewController {
         let deselectedTag = allTags[indexPath.row]
         guard let tagToRemoveIndex = selectedTags.firstIndex(of: deselectedTag) else { return }
         selectedTags.remove(at: tagToRemoveIndex)
-    }
-    
-    @IBAction func rightButtonAction(_ sender: Any) {
-        if selectedTags.count >= 1 {
-            self.delegate?.didUpdateTagToFilter(by: selectedTags)
-        } else {
-            self.delegate?.didUpdateTagToFilter(by: nil)
-        }
-        
-        self.dismiss(animated: true)
     }
     
 }

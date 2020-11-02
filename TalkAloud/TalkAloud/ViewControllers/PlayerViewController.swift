@@ -11,26 +11,32 @@ import AVFoundation
 
 class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     
+    // MARK: - Public Properties
     
-    @IBOutlet var audioPlayerVisualizer: AudioPlayerVisualizerView!
-    @IBOutlet var audioRecordingNameLabel: UILabel!
-    @IBOutlet var audioRecordingDetailLabel: UILabel!
-    @IBOutlet var progressSlider: AudioSlider!
-    @IBOutlet var audioPlayerCurrentTimeLabel: UILabel!
-    @IBOutlet var audioPlayerRemainingTimeLabel: UILabel!
-    @IBOutlet var goBackFifteenSecondsButton: UIButton!
-    @IBOutlet var playButton: UIButton!
-    @IBOutlet var goForwardFifteenSecondsButton: UIButton!
+    public var currentAudioRecording: AudioRecording?
+    
+    // MARK: - Private Properties
+    
+    @IBOutlet private var audioPlayerVisualizer: AudioPlayerVisualizerView!
+    @IBOutlet private var audioRecordingNameLabel: UILabel!
+    @IBOutlet private var audioRecordingDetailLabel: UILabel!
+    @IBOutlet private var progressSlider: AudioSlider!
+    @IBOutlet private var audioPlayerCurrentTimeLabel: UILabel!
+    @IBOutlet private var audioPlayerRemainingTimeLabel: UILabel!
+    @IBOutlet private var goBackFifteenSecondsButton: UIButton!
+    @IBOutlet private var playButton: UIButton!
+    @IBOutlet private var goForwardFifteenSecondsButton: UIButton!
     private var progressTimer: Timer?
     private var visualizerTimer: Timer?
-    var audioRecordingName: String?
-    var audioRecordingDetail: String?
-    var currentAudioRecording: AudioRecording?
+    private var audioRecordingName: String?
+    private var audioRecordingDetail: String?
     private var isAudioPlaying = false {
         didSet {
             updateUI(audioState: AudioEngine.sharedInstance.audioState)
         }
     }
+    
+    // MARK: - Life Cycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +62,9 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         AudioEngine.sharedInstance.stop()
     }
     
-    @IBAction func playAndPauseButtonAction(_ sender: UIButton) {
+    // MARK: - Private Methods
+    
+    @IBAction private func playAndPauseButtonAction(_ sender: UIButton) {
         if AudioEngine.sharedInstance.audioState == .paused {
             playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             play()
@@ -66,19 +74,17 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         }
     }
     
-    @IBAction func rewindAction(_ sender: Any) {
+    @IBAction private func rewindAction(_ sender: Any) {
         AudioEngine.sharedInstance.rewindFifteenSeonds()
     }
     
-    @IBAction func skipForwardAction(_ sender: Any) {
+    @IBAction private func skipForwardAction(_ sender: Any) {
         AudioEngine.sharedInstance.skipFifteenSeconds()
     }
     
-    @IBAction func moreButtonAction(_ sender: Any) {
+    @IBAction private func moreButtonAction(_ sender: Any) {
         print("Tapped More Button")
     }
-    
-    
     
     private func initializeTimer() {
         progressTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
@@ -134,16 +140,7 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         audioPlayerVisualizer.waveforms.removeAll()
     }
     
-    func play() {
-        if AudioEngine.sharedInstance.getCurrentAudioTime() > 0 {
-            AudioEngine.sharedInstance.play()
-        } else {
-            setupSlider()
-            initializeTimer()
-        }
-    }
-    
-    func updateUI(audioState: AudioEngineState) {
+    private func updateUI(audioState: AudioEngineState) {
         switch audioState {
         case .paused:
             playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
@@ -164,11 +161,24 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         }
     }
     
-    func didUpdateAudioState(with audioState: AudioEngineState) {
+    // MARK: - Public Methods
+    
+    public func play() {
+        if AudioEngine.sharedInstance.getCurrentAudioTime() > 0 {
+            AudioEngine.sharedInstance.play()
+        } else {
+            setupSlider()
+            initializeTimer()
+        }
+    }
+    
+    public func didUpdateAudioState(with audioState: AudioEngineState) {
         updateUI(audioState: audioState)
     }
     
 }
+
+// MARK: - AudioSlider Delegate
 
 extension PlayerViewController: AudioSliderDelegate {
     func didChangeScrolling(in audioSlider: UISlider) {

@@ -14,11 +14,19 @@ protocol AudioRecordingCellDelegate: class {
 
 class AudioRecordingCell: UITableViewCell {
     
-    @IBOutlet var fileNameLabel: UILabel!
-    @IBOutlet var tagLabel: UILabel!
+    @IBOutlet private var fileNameLabel: UILabel!
+    @IBOutlet private var tagLabel: UILabel!
     weak var delegate: AudioRecordingCellDelegate?
     
-    func setup(with model: AudioRecording) {
+    // MARK: - Private Methods
+    
+    @IBAction private func moreButtonAction(_ sender: Any) {
+        delegate?.didTappedMoreButton(for: self)
+    }
+    
+    // MARK: - Public Methods
+    
+    public func setup(with model: AudioRecording) {
         let cellFileName = model.fileName
         let tags = model.tags
         var allTags = ""
@@ -37,10 +45,6 @@ class AudioRecordingCell: UITableViewCell {
         
         self.fileNameLabel?.text = cellFileName
         self.tagLabel?.text = allTags
-    }
-    
-    @IBAction func moreButtonAction(_ sender: Any) {
-        delegate?.didTappedMoreButton(for: self)
     }
     
 }

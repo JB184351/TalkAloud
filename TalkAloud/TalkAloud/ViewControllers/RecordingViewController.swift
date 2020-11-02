@@ -10,11 +10,13 @@ import UIKit
 
 class RecordingViewController: UIViewController {
     
-    @IBOutlet var audioRecordingTimeLabel: UILabel!
-    @IBOutlet var audioRecordingVisualizer: AudioPlayerVisualizerView!
-    @IBOutlet var recordButton: UIButton!
+    @IBOutlet private var audioRecordingTimeLabel: UILabel!
+    @IBOutlet private var audioRecordingVisualizer: AudioPlayerVisualizerView!
+    @IBOutlet private var recordButton: UIButton!
     private var progressTimer: Timer?
     private var visualizerTimer: Timer?
+    
+    // MARK: - Life Cycle Methods
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -26,6 +28,8 @@ class RecordingViewController: UIViewController {
         resetView()
         AudioEngine.sharedInstance.stop()
     }
+    
+    // MARK: - Record
     
     @IBAction func recordButtonAction(_ sender: Any) {
         let audioState = AudioEngine.sharedInstance.audioState
@@ -50,6 +54,8 @@ class RecordingViewController: UIViewController {
             print("Should never get here")
         }
     }
+    
+    // MARK: - Private Methods
     
     private func intializeRecordingTimer() {
         progressTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
