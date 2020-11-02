@@ -1,5 +1,5 @@
 //
-//  MoreOptionsTableViewCell.swift
+//  MoreOptionsCell.swift
 //  TalkAloud
 //
 //  Created by Justin Bengtson on 8/22/20.
@@ -8,9 +8,7 @@
 
 import UIKit
 
-
-
-class MoreOptionsTableViewCell: UITableViewCell {
+class MoreOptionsCell: UITableViewCell {
     
     @IBOutlet var moreOptionsLabel: UILabel!
     @IBOutlet var moreOptionsButton: UIButton!

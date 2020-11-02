@@ -18,7 +18,7 @@ class MoreOptionsViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UINib(nibName: "MoreOptionsTableViewCell", bundle: nil), forCellReuseIdentifier: "MoreOptionsCell")
+        tableView.register(UINib(nibName: "MoreOptionsCell", bundle: nil), forCellReuseIdentifier: "MoreOptionsCell")
         createMoreOptionModelObjects()
     }
     
@@ -70,7 +70,7 @@ class MoreOptionsViewController: UIViewController {
     
     private func shareAction() {
         let audioRecordingItem = [currentlySelectedRecording?.url]
-        let ac = UIActivityViewController(activityItems: audioRecordingItem, applicationActivities: nil)
+        let ac = UIActivityViewController(activityItems: audioRecordingItem as [Any], applicationActivities: nil)
         present(ac, animated: true)
     }
     
@@ -120,7 +120,7 @@ extension MoreOptionsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let moreOptionsCell = tableView.dequeueReusableCell(withIdentifier: "MoreOptionsCell", for: indexPath) as! MoreOptionsTableViewCell
+        let moreOptionsCell = tableView.dequeueReusableCell(withIdentifier: "MoreOptionsCell", for: indexPath) as! MoreOptionsCell
         
         moreOptionsCell.moreOptionsLabel.text = moreOptions[indexPath.row].title
         moreOptionsCell.moreOptionsButton.setImage(UIImage(systemName: moreOptions[indexPath.row].icon!), for: .normal)
