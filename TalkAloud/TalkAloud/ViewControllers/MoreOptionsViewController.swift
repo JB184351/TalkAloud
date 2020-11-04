@@ -10,12 +10,16 @@ import UIKit
 
 class MoreOptionsViewController: UIViewController {
     
+    //==================================================
     // MARK: - Private Properties
+    //==================================================
     
     @IBOutlet private var tableView: UITableView!
     private var moreOptions = [MoreOptionsModel]()
     
+    //==================================================
     // MARK: - Public Properties
+    //==================================================
     
     public var currentlySelectedRecording: AudioRecording?
     
@@ -27,7 +31,9 @@ class MoreOptionsViewController: UIViewController {
         createMoreOptionModelObjects()
     }
     
+    //==================================================
     // MARK: - Private Methods
+    //==================================================
     
     private func createMoreOptionModelObjects() {
         let rename = MoreOptionsModel(title: "Rename", icon: "pencil.tip") {
@@ -119,7 +125,9 @@ class MoreOptionsViewController: UIViewController {
     
 }
 
+//==================================================
 // MARK: - TableView DataSource
+//==================================================
 
 extension MoreOptionsViewController: UITableViewDataSource {
     
@@ -138,7 +146,9 @@ extension MoreOptionsViewController: UITableViewDataSource {
     
 }
 
+//==================================================
 // MARK: - TableView Delegate
+//==================================================
 
 extension MoreOptionsViewController: UITableViewDelegate {
     

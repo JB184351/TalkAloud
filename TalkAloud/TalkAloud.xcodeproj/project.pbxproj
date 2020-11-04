@@ -106,13 +106,8 @@
 		305EF77A240D53DF00CF53A0 /* TalkAloud */ = {
 			isa = PBXGroup;
 			children = (
-				305EF77D240D53DF00CF53A0 /* SceneDelegate.swift */,
 				305EF78C240D53E000CF53A0 /* Info.plist */,
-				305EF77B240D53DF00CF53A0 /* AppDelegate.swift */,
-				305EF787240D53E000CF53A0 /* Assets.xcassets */,
-				305EF789240D53E000CF53A0 /* LaunchScreen.storyboard */,
-				305EF781240D53DF00CF53A0 /* Main.storyboard */,
-				30233A9E24C27B88002E0CE0 /* Extensions.swift */,
+				3085BB3D2550ECF200C18F40 /* Resources */,
 				30B0459724AD586E007D7568 /* Cells */,
 				30F4115E24ACC2D200EA4EF6 /* AudioEngine */,
 				30F4115D24ACC2B100EA4EF6 /* Managers */,
@@ -134,6 +129,19 @@
 				3090197F24DA3DDD007999CB /* PlayerViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		3085BB3D2550ECF200C18F40 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				305EF77D240D53DF00CF53A0 /* SceneDelegate.swift */,
+				305EF77B240D53DF00CF53A0 /* AppDelegate.swift */,
+				305EF787240D53E000CF53A0 /* Assets.xcassets */,
+				305EF789240D53E000CF53A0 /* LaunchScreen.storyboard */,
+				305EF781240D53DF00CF53A0 /* Main.storyboard */,
+				30233A9E24C27B88002E0CE0 /* Extensions.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		30B0459724AD586E007D7568 /* Cells */ = {

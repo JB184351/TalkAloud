@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension Array where Element: Comparable {
     func containsSameElements(as other: [Element]) -> Bool {
@@ -28,3 +29,11 @@ extension TimeInterval {
         return String(format: "%2i:%02i", minutes, seconds)
     }
 }
+
+// Used in AudioPlayerVisualizer Class
+extension Int {
+    var degreesToRadians: CGFloat {
+        return CGFloat(self) * .pi / 180.0
+    }
+}
+

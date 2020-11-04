@@ -11,11 +11,9 @@ import AVFoundation
 
 class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     
-    // MARK: - Public Properties
-    
-    public var currentAudioRecording: AudioRecording?
-    
+    //==================================================
     // MARK: - Private Properties
+    //==================================================
     
     @IBOutlet private var audioPlayerVisualizer: AudioPlayerVisualizerView!
     @IBOutlet private var audioRecordingNameLabel: UILabel!
@@ -36,7 +34,15 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         }
     }
     
+    //==================================================
+    // MARK: - Public Properties
+    //==================================================
+    
+    public var currentAudioRecording: AudioRecording?
+    
+    //==================================================
     // MARK: - Life Cycle Methods
+    //==================================================
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +68,9 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         AudioEngine.sharedInstance.stop()
     }
     
-    // MARK: - Private Methods
+    //==================================================
+    // MARK: - Action
+    //==================================================
     
     @IBAction private func playAndPauseButtonAction(_ sender: UIButton) {
         if AudioEngine.sharedInstance.audioState == .paused {
@@ -101,6 +109,10 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
             self.audioPlayerRemainingTimeLabel.text = remainingTimeInterval.timeToString()
         })
     }
+    
+    //==================================================
+    // MARK: - UI Update/Set Methods
+    //==================================================
     
     private func displayAudioVisualizer(audioState: AudioEngineState) {
         visualizerTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
@@ -161,7 +173,9 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         }
     }
     
+    //==================================================
     // MARK: - Public Methods
+    //==================================================
     
     public func play() {
         if AudioEngine.sharedInstance.getCurrentAudioTime() > 0 {
@@ -178,7 +192,9 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     
 }
 
+//==================================================
 // MARK: - AudioSlider Delegate
+//==================================================
 
 extension PlayerViewController: AudioSliderDelegate {
     func didChangeScrolling(in audioSlider: UISlider) {

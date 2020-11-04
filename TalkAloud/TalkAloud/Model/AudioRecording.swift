@@ -10,17 +10,34 @@ import Foundation
 import CoreData
 
 struct AudioRecording: Equatable {
+    
+    //==================================================
+    // MARK: - Private Properties
+    //==================================================
+    
     private var object: NSManagedObject
     
-    var fileName: String {
+    //==================================================
+    // MARK: - Initializer
+    //==================================================
+    
+    init(object: NSManagedObject) {
+        self.object = object
+    }
+    
+    //==================================================
+    // MARK: - Public Properties
+    //==================================================
+    
+    public var fileName: String {
         return object.value(forKey: "fileName") as! String
     }
     
-    var tags: [String]? {
+    public var tags: [String]? {
         return object.value(forKey: "tag") as? [String] ?? []
     }
     
-    var url: URL {
+    public var url: URL {
         let fileManager = FileManager.default
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = urls[0] as URL
@@ -30,7 +47,7 @@ struct AudioRecording: Equatable {
         return newURL
     }
     
-    var creationDate: Date {
+    public var creationDate: Date {
         let fileManager = FileManager.default
         let urlPath = url.path
         let attributesDictionary = try? fileManager.attributesOfItem(atPath: urlPath)
@@ -39,25 +56,29 @@ struct AudioRecording: Equatable {
         return creationDate
     }
     
-    init(object: NSManagedObject) {
-        self.object = object
-    }
+    //==================================================
+    // MARK: - Public Methods
+    //==================================================
     
-    static func == (lhs: AudioRecording, rhs: AudioRecording) -> Bool {
-        return lhs.object == rhs.object && lhs.tags == rhs.tags && lhs.fileName == rhs.fileName
-    }
-    
-    func setFileName(filename: String) {
+    public func setFileName(filename: String) {
         object.setValue(filename, forKey: "fileName")
     }
     
-    func setTag(tag: String) {
+    public func setTag(tag: String) {
         var tempTags = self.tags
         tempTags?.append(tag)
         object.setValue(tempTags, forKey: "tag")
     }
     
-    func removeTags() {
+    public func removeTags() {
         object.setValue(nil, forKey: "tag")
+    }
+    
+    //==================================================
+    // MARK: - Private Methods
+    //==================================================
+    
+    static private func == (lhs: AudioRecording, rhs: AudioRecording) -> Bool {
+        return lhs.object == rhs.object && lhs.tags == rhs.tags && lhs.fileName == rhs.fileName
     }
 }

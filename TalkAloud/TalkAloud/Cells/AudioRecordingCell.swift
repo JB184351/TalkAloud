@@ -14,17 +14,30 @@ protocol AudioRecordingCellDelegate: class {
 
 class AudioRecordingCell: UITableViewCell {
     
-    @IBOutlet private var fileNameLabel: UILabel!
-    @IBOutlet private var tagLabel: UILabel!
+    //==================================================
+    // MARK: - Public Properties
+    //==================================================
+    
     weak var delegate: AudioRecordingCellDelegate?
     
+    //==================================================
+    // MARK: - Private Properties
+    //==================================================
+    
+    @IBOutlet private var fileNameLabel: UILabel!
+    @IBOutlet private var tagLabel: UILabel!
+    
+    //==================================================
     // MARK: - Private Methods
+    //==================================================
     
     @IBAction private func moreButtonAction(_ sender: Any) {
         delegate?.didTappedMoreButton(for: self)
     }
     
+    //==================================================
     // MARK: - Public Methods
+    //==================================================
     
     public func setup(with model: AudioRecording) {
         let cellFileName = model.fileName

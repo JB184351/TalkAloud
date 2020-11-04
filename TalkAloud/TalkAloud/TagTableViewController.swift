@@ -14,9 +14,22 @@ protocol TagFilterDelegate: class {
 
 class TagTableViewController: UITableViewController {
     
+    //==================================================
+    // MARK: - Public Properties
+    //==================================================
+    
     weak var delegate: TagFilterDelegate?
+    
+    //==================================================
+    // MARK: - Private Properties
+    //==================================================
+    
     private var selectedTags = [String]()
     private var allTags = AudioManager.sharedInstance.getAllAudioRecordingTags() ?? []
+    
+    //==================================================
+    // MARK: - Private Methods
+    //==================================================
     
     @IBAction private func rightButtonAction(_ sender: Any) {
         if selectedTags.count >= 1 {
@@ -28,6 +41,10 @@ class TagTableViewController: UITableViewController {
         self.dismiss(animated: true)
     }
     
+    //==================================================
+    // MARK: - TableView DataSource
+    //==================================================
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allTags.count
     }
@@ -38,6 +55,10 @@ class TagTableViewController: UITableViewController {
         cell.textLabel?.text = currentTag
         return cell
     }
+    
+    //==================================================
+    // MARK: - TableView Delegate
+    //==================================================
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedTag = allTags[indexPath.row]

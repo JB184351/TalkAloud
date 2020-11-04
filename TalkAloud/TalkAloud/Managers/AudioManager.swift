@@ -12,7 +12,15 @@ import UIKit
 
 class AudioManager {
     
+    //==================================================
+    // MARK: - Public Properties
+    //==================================================
+    
     static let sharedInstance = AudioManager()
+    
+    //==================================================
+    // MARK: - Private Properties
+    //==================================================
     
     private var audioRecording: AudioRecording?
     private var audioRecordings: [AudioRecording] = []
@@ -22,15 +30,21 @@ class AudioManager {
     
     private init() {}
     
+    //==================================================
     // MARK: - Public Methods
+    //==================================================
     
-    func loadAudioRecordings(with tags: [String]?) -> [AudioRecording]? {
+    //==================================================
+    // MARK: - AudioRecording Creation
+    //==================================================
+    
+    public func loadAudioRecordings(with tags: [String]?) -> [AudioRecording]? {
         guard let tags = tags else { return loadAllRecordings()!}
         
         return filteredAudioRecordings(with: tags)!
     }
     
-    func createNewAudioRecording() -> AudioRecording? {
+    public func createNewAudioRecording() -> AudioRecording? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
         
@@ -52,7 +66,7 @@ class AudioManager {
         return audioRecording
     }
     
-    func createDirectoryURL() {
+    private func createDirectoryURL() {
         let fileManager = FileManager.default
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = urls[0] as URL
@@ -67,7 +81,11 @@ class AudioManager {
         }
     }
     
-    func removeAudioRecording(with selectedRecording: AudioRecording) {
+    //==================================================
+    // MARK: - AudioRecording Modification
+    //==================================================
+    
+    public func removeAudioRecording(with selectedRecording: AudioRecording) {
         do {
             let fileManager = FileManager.default
             let url = selectedRecording.url
@@ -87,7 +105,7 @@ class AudioManager {
         CoreDataManager.sharedInstance.deleteAudioRecording(with: selectedRecording)
     }
     
-    func renameFile(with selectedRecording: AudioRecording, newFileName: String) -> Error? {
+    public func renameFile(with selectedRecording: AudioRecording, newFileName: String) -> Error? {
         let fileManager = FileManager.default
         
         let uniqueFileName = newFileName + ".m4a"
@@ -106,23 +124,19 @@ class AudioManager {
         return nil
     }
     
-    func setTag(for selectedRecording: AudioRecording, tag: String) {
+    //==================================================
+    // MARK: - Tag Methods
+    //==================================================
+    
+    public func setTag(for selectedRecording: AudioRecording, tag: String) {
         CoreDataManager.sharedInstance.updateAudioRecordingTag(with: selectedRecording, with: tag)
     }
     
-    func removeTag(for selectedRecording: AudioRecording) {
+    public func removeTag(for selectedRecording: AudioRecording) {
         CoreDataManager.sharedInstance.removeAudioRecordingTag(for: selectedRecording)
     }
     
-    func setSelectedRecording(index: Int) {
-        self.audioRecording = audioRecordings[index]
-    }
-    
-    func getRecordingForIndex(index: Int) -> AudioRecording {
-        return audioRecordings[index]
-    }
-    
-    func getAllAudioRecordingTags() -> [String]? {
+    public func getAllAudioRecordingTags() -> [String]? {
         var allTags = [String]()
         
         guard let audioRecordings = loadAllRecordings() else { return nil }
@@ -139,7 +153,23 @@ class AudioManager {
         return allUniqueTags.sorted()
     }
     
-    func getPlayBackURL() -> URL? {
+    //==================================================
+    // MARK: - Get/Set AudioRecording
+    //==================================================
+    
+    public func getRecordingForIndex(index: Int) -> AudioRecording {
+        return audioRecordings[index]
+    }
+    
+    public func setSelectedRecording(index: Int) {
+        self.audioRecording = audioRecordings[index]
+    }
+    
+    //==================================================
+    // MARK: - Playback Methods
+    //==================================================
+    
+    public func getPlayBackURL() -> URL? {
         if let audioRecording = audioRecording {
             let url = audioRecording.url
             
@@ -158,7 +188,7 @@ class AudioManager {
         }
     }
     
-    func getLatestRecording() -> URL? {
+    private func getLatestRecording() -> URL? {
         if didNewRecording == true {
             guard let recentRecording = audioRecordings.last else { return nil }
             return recentRecording.url
@@ -167,11 +197,17 @@ class AudioManager {
         }
     }
     
-    func getAudioRecordingCount() -> Int {
+    //==================================================
+    // MARK: - AudioRecording Count
+    //==================================================
+    
+    private func getAudioRecordingCount() -> Int {
         return audioRecordings.count
     }
     
+    //==================================================
     // MARK: - Private Methods
+    //==================================================
     
     private func loadAllRecordings() -> [AudioRecording]? {
         guard let allRecordings = CoreDataManager.sharedInstance.loadAudioRecordings() else { return nil }

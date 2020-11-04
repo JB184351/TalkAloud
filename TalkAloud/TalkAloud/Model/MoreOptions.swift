@@ -9,8 +9,12 @@
 import Foundation
 
 struct MoreOptionsModel {
-    var title: String?
-    var icon: String?
     
-    var action: () -> Void
+    //==================================================
+    // MARK: - Public Properties
+    //==================================================
+    
+    public var title: String?
+    public var icon: String?
+    public var action: () -> Void
 }

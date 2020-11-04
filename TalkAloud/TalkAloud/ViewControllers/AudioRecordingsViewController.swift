@@ -10,10 +10,16 @@ import UIKit
 
 class AudioRecordingsViewController: UIViewController {
     
-    private var audioRecordings = [AudioRecording]()
-    @IBOutlet var recordingsTableView: UITableView!
+    //==================================================
+    // MARK: - Private Properties
+    //==================================================
     
-    // MARK: - LifeCycle
+    private var audioRecordings = [AudioRecording]()
+    @IBOutlet private var recordingsTableView: UITableView!
+    
+    //==================================================
+    // MARK: - LifeCycle Methods
+    //==================================================
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,13 +32,17 @@ class AudioRecordingsViewController: UIViewController {
         recordingsTableView.reloadData()
     }
     
+    //==================================================
     // MARK: - Actions
+    //==================================================
     
     @IBAction func tappedLeftButton(_ sender: Any) {
         presentTagTableViewController()
     }
     
+    //==================================================
     // MARK: - Private Methods
+    //==================================================
     
     private func loadAudioRecordings(with tags: [String]?) {
         audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: tags)!
@@ -55,7 +65,9 @@ class AudioRecordingsViewController: UIViewController {
     
 }
 
+//==================================================
 // MARK: - Tag Filter Delegate
+//==================================================
 
 extension AudioRecordingsViewController: TagFilterDelegate {
     
@@ -64,7 +76,9 @@ extension AudioRecordingsViewController: TagFilterDelegate {
     }
 }
 
-// MARK: - AudioRecording Delegate
+//==================================================
+// MARK: - AudioRecordingCell Delegate
+//==================================================
 
 extension AudioRecordingsViewController: AudioRecordingCellDelegate {
     
@@ -79,7 +93,9 @@ extension AudioRecordingsViewController: AudioRecordingCellDelegate {
     
 }
 
+//==================================================
 // MARK: - TableView Data Source
+//==================================================
 
 extension AudioRecordingsViewController: UITableViewDataSource {
     
@@ -99,7 +115,9 @@ extension AudioRecordingsViewController: UITableViewDataSource {
     }
 }
 
+//==================================================
 // MARK: - TableView Delegate
+//==================================================
 
 extension AudioRecordingsViewController: UITableViewDelegate {
     
@@ -199,7 +217,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             tagAlertController.addAction(addTagAction)
             tagAlertController.addAction(removeTagAction)
             tagAlertController.addAction(cancelTagAction)
-
+            
             self.present(tagAlertController, animated: true)
         }
         

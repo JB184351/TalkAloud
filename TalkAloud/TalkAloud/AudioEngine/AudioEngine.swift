@@ -15,11 +15,12 @@ protocol AudioEngineStateChangeDelegate: class {
 
 // Class is responsible for Recording and Playing an AudioRecording
 class AudioEngine: NSObject {
+    
+    //==================================================
+    // MARK: - Public Properties
+    //==================================================
+    
     weak var delegate: AudioEngineStateChangeDelegate?
-    private var audioRecorder: AVAudioRecorder?
-    private var audioPlayer: AVAudioPlayer?
-    private var recordingSession: AVAudioSession?
-    private let audioRecordingSession = AVAudioSession.sharedInstance()
     static let sharedInstance = AudioEngine()
     public private(set) var audioState: AudioEngineState = .stopped {
         didSet {
@@ -27,9 +28,24 @@ class AudioEngine: NSObject {
         }
     }
     
+    //==================================================
+    // MARK: - Private Properties
+    //==================================================
+    
+    private var audioRecorder: AVAudioRecorder?
+    private var audioPlayer: AVAudioPlayer?
+    private var recordingSession: AVAudioSession?
+    private let audioRecordingSession = AVAudioSession.sharedInstance()
+    
     private override init() {}
     
+    //==================================================
     // MARK: - Public Methods
+    //==================================================
+    
+    //==================================================
+    // MARK: - AudioEngine Setup
+    //==================================================
     
     // Intializing audioPlayer here to make clear when I'm initializing and playing
     public func setupAudioPlayer(fileURL: URL) {
@@ -65,10 +81,14 @@ class AudioEngine: NSObject {
         }
     }
     
+    //==================================================
+    // MARK: - Gets/Updates Peak Power
+    //==================================================
+    
     public func getPeakPower(audioState: AudioEngineState) -> Float {
         switch audioState {
         case .playing:
-            return audioPlayer?.peakPower(forChannel: 0) ?? -160.00
+            return audioPlayer?.peakPower(forChannel: 0) ?? -160.0
         case .recording:
             return audioRecorder?.peakPower(forChannel: 0) ?? -160.0
         case .paused:
@@ -91,6 +111,10 @@ class AudioEngine: NSObject {
         }
     }
     
+    //==================================================
+    // MARK: - Current Time/Duration Methods
+    //==================================================
+    
     public func getCurrentAudioRecorderDuration() -> Float {
         return Float(audioRecorder?.currentTime ?? 0.0)
     }
@@ -106,6 +130,10 @@ class AudioEngine: NSObject {
     public func setAudioTime(playBackTime: Float) {
         audioPlayer?.currentTime = TimeInterval(playBackTime)
     }
+    
+    //==================================================
+    // MARK: - Playback Controls
+    //==================================================
     
     public func play() {
         audioPlayer?.play()
@@ -133,18 +161,6 @@ class AudioEngine: NSObject {
         audioState = .paused
     }
     
-   public func record() {
-        do {
-            try audioRecordingSession.setCategory(.playAndRecord, mode: .default)
-            try audioRecordingSession.setActive(true)
-            audioRecorder?.isMeteringEnabled = true
-        } catch {
-            print("Failed to record")
-        }
-        audioState = .recording
-        audioRecorder?.record()
-    }
-    
    public func stop() {
         audioState = .stopped
         audioRecorder?.isMeteringEnabled = false
@@ -152,9 +168,27 @@ class AudioEngine: NSObject {
         audioRecorder?.stop()
         audioPlayer?.stop()
     }
+    
+    //==================================================
+    // MARK: - Record
+    //==================================================
+    
+    public func record() {
+         do {
+             try audioRecordingSession.setCategory(.playAndRecord, mode: .default)
+             try audioRecordingSession.setActive(true)
+             audioRecorder?.isMeteringEnabled = true
+         } catch {
+             print("Failed to record")
+         }
+         audioState = .recording
+         audioRecorder?.record()
+     }
 }
 
+//==================================================
 // MARK: - AVAudioPlayer Delegate
+//==================================================
 
 extension AudioEngine: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -162,7 +196,9 @@ extension AudioEngine: AVAudioPlayerDelegate {
     }
 }
 
+//==================================================
 // MARK: - AVAudioRecorder Delegate
+//==================================================
 
 extension AudioEngine: AVAudioRecorderDelegate {
     

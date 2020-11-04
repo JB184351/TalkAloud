@@ -9,10 +9,16 @@
 import UIKit
 
 class AudioPlayerVisualizerView: UIView {
-    // Bar width
-    var barWidth: CGFloat = 4.0
+    
+    //==================================================
+    // MARK: - Public Properties
+    //==================================================
+    
+    // Given waveforms
+    public var waveforms = [Int]()
+    
     // Indicate that waveform should draw active/inactive state
-    var active = false {
+    public var active = false {
         didSet {
             if self.active {
                 self.color = UIColor.red.cgColor
@@ -21,11 +27,21 @@ class AudioPlayerVisualizerView: UIView {
             }
         }
     }
+    
+    //==================================================
+    // MARK: - Private Properties
+    //==================================================
+    
+    // Bar width
+    private var barWidth: CGFloat = 4.0
+    
     // Color for bars
-    var color = UIColor.gray.cgColor
-    // Given waveforms
-    var waveforms = [Int]()
-    // MARK: - Init
+    private var color = UIColor.gray.cgColor
+    
+    //==================================================
+    // MARK: - Initializers
+    //==================================================
+    
     override init (frame : CGRect) {
         super.init(frame : frame)
         self.backgroundColor = UIColor.clear
@@ -36,7 +52,10 @@ class AudioPlayerVisualizerView: UIView {
         self.backgroundColor = UIColor.clear
     }
     
-    // MARK: - Draw bars
+    //==================================================
+    // MARK: - Draw Bars
+    //==================================================
+    
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         context.clear(rect)
@@ -95,10 +114,4 @@ class AudioPlayerVisualizerView: UIView {
         }
     }
 
-}
-
-extension Int {
-  var degreesToRadians: CGFloat {
-    return CGFloat(self) * .pi / 180.0
-  }
 }

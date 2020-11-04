@@ -14,7 +14,15 @@ protocol AudioSliderDelegate: class {
 
 class AudioSlider: UISlider {
     
+    //==================================================
+    // MARK: - Public Properties
+    //==================================================
+    
     weak var delegate: AudioSliderDelegate?
+    
+    //==================================================
+    // MARK: - Init Methods
+    //==================================================
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,6 +33,10 @@ class AudioSlider: UISlider {
         super.init(coder: coder)
         addTargets()
     }
+    
+    //==================================================
+    // MARK: - Update Slider Methods
+    //==================================================
     
     private func addTargets() {
         addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)

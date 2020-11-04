@@ -10,6 +10,10 @@ import UIKit
 
 class MoreOptionsCell: UITableViewCell {
     
-    @IBOutlet var moreOptionsLabel: UILabel!
-    @IBOutlet var moreOptionsButton: UIButton!
+    //==================================================
+    // MARK: - Public Properties
+    //==================================================
+    
+    @IBOutlet public var moreOptionsLabel: UILabel!
+    @IBOutlet public var moreOptionsButton: UIButton!
 }

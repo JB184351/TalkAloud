@@ -11,9 +11,16 @@ import UIKit
 import CoreData
 
 class CoreDataManager {
+    
+    //==================================================
+    // MARK: - Public Properties
+    //==================================================
+    
     static let sharedInstance = CoreDataManager()
     
+    //==================================================
     // MARK: - Public Methods
+    //==================================================
     
     public func createNewAudioRecording(uniqueFileName: String) -> AudioRecording? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
@@ -56,6 +63,10 @@ class CoreDataManager {
         
         return audioRecordings
     }
+    
+    //==================================================
+    // MARK: - AudioRecording Core Data Modification
+    //==================================================
     
     public func deleteAudioRecording(with selectedRecording: AudioRecording) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -133,6 +144,10 @@ class CoreDataManager {
             print(error.localizedDescription)
         }
     }
+    
+    //==================================================
+    // MARK: - AudioRecording Tag Modification
+    //==================================================
     
     public func updateAudioRecordingTag(with selectedRecording: AudioRecording, with tag: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
