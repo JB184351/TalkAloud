@@ -1,5 +1,5 @@
 //
-//  NewAudioRecordingViewController.swift
+//  RecordingViewController.swift
 //  TalkAloud
 //
 //  Created by Justin Bengtson on 8/3/20.
@@ -106,4 +106,5 @@ class RecordingViewController: UIViewController {
         audioRecordingVisualizer.isHidden = true
         recordButton.setImage(UIImage(named: "recordbutton"), for: .normal)
     }
+    
 }

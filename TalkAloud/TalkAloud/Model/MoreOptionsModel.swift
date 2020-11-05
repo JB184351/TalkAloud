@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  MoreOptionsModel.swift
 //  TalkAloud
 //
 //  Created by Justin Bengtson on 8/22/20.
@@ -17,4 +17,5 @@ struct MoreOptionsModel {
     public var title: String?
     public var icon: String?
     public var action: () -> Void
+    
 }

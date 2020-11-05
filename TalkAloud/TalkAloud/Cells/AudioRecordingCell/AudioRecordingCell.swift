@@ -24,6 +24,7 @@ class AudioRecordingCell: UITableViewCell {
     // MARK: - Private Properties
     //==================================================
     
+    // Virgil: IBOutlets aren't private :) You can make them tho
     @IBOutlet private var fileNameLabel: UILabel!
     @IBOutlet private var tagLabel: UILabel!
     
@@ -31,6 +32,7 @@ class AudioRecordingCell: UITableViewCell {
     // MARK: - Private Methods
     //==================================================
     
+    // Virgil: IBActions aren't private :) You can make them tho
     @IBAction private func moreButtonAction(_ sender: Any) {
         delegate?.didTappedMoreButton(for: self)
     }

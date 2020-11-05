@@ -11,7 +11,7 @@
 		300EBDBE2444AD610069EF00 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300EBDBD2444AD610069EF00 /* AudioManager.swift */; };
 		3018126524114A76001999EA /* AudioEngineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3018126424114A76001999EA /* AudioEngineState.swift */; };
 		30233A9F24C27B88002E0CE0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30233A9E24C27B88002E0CE0 /* Extensions.swift */; };
-		3035ABA824F1943A00095BAF /* MoreOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3035ABA724F1943A00095BAF /* MoreOptions.swift */; };
+		3035ABA824F1943A00095BAF /* MoreOptionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3035ABA724F1943A00095BAF /* MoreOptionsModel.swift */; };
 		3035ABAB24F1949500095BAF /* MoreOptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3035ABA924F1949500095BAF /* MoreOptionsCell.swift */; };
 		3035ABAC24F1949500095BAF /* MoreOptionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3035ABAA24F1949500095BAF /* MoreOptionsCell.xib */; };
 		3035ABAE24F195E600095BAF /* MoreOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3035ABAD24F195E600095BAF /* MoreOptionsViewController.swift */; };
@@ -39,9 +39,9 @@
 		300EBDBD2444AD610069EF00 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		3018126424114A76001999EA /* AudioEngineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineState.swift; sourceTree = "<group>"; };
 		30233A9E24C27B88002E0CE0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		3035ABA724F1943A00095BAF /* MoreOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoreOptions.swift; path = TalkAloud/Model/MoreOptions.swift; sourceTree = SOURCE_ROOT; };
-		3035ABA924F1949500095BAF /* MoreOptionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoreOptionsCell.swift; path = TalkAloud/Cells/MoreOptionsCell.swift; sourceTree = SOURCE_ROOT; };
-		3035ABAA24F1949500095BAF /* MoreOptionsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MoreOptionsCell.xib; path = TalkAloud/Cells/MoreOptionsCell.xib; sourceTree = SOURCE_ROOT; };
+		3035ABA724F1943A00095BAF /* MoreOptionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoreOptionsModel.swift; path = TalkAloud/Model/MoreOptionsModel.swift; sourceTree = SOURCE_ROOT; };
+		3035ABA924F1949500095BAF /* MoreOptionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoreOptionsCell.swift; path = TalkAloud/Cells/MoreOptionsCell/MoreOptionsCell.swift; sourceTree = SOURCE_ROOT; };
+		3035ABAA24F1949500095BAF /* MoreOptionsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MoreOptionsCell.xib; path = TalkAloud/Cells/MoreOptionsCell/MoreOptionsCell.xib; sourceTree = SOURCE_ROOT; };
 		3035ABAD24F195E600095BAF /* MoreOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreOptionsViewController.swift; sourceTree = "<group>"; };
 		305EF778240D53DF00CF53A0 /* TalkAloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TalkAloud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		305EF77B240D53DF00CF53A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 		301B143E244A80D3007C3050 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3035ABA724F1943A00095BAF /* MoreOptions.swift */,
+				3035ABA724F1943A00095BAF /* MoreOptionsModel.swift */,
 				30DEEABA249A59AC002BAF73 /* AudioRecording.swift */,
 				305EF784240D53DF00CF53A0 /* TalkAloud.xcdatamodeld */,
 			);
@@ -147,10 +147,8 @@
 		30B0459724AD586E007D7568 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				30B0459324AD5864007D7568 /* AudioRecordingCell.swift */,
-				30B0459424AD5864007D7568 /* AudioRecordingCell.xib */,
-				3035ABA924F1949500095BAF /* MoreOptionsCell.swift */,
-				3035ABAA24F1949500095BAF /* MoreOptionsCell.xib */,
+				C5C24DF425542AFD0060916B /* AudioRecordingCell */,
+				C5C24DF625542B520060916B /* MoreOptionsCell */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -188,6 +186,24 @@
 				30FA083B241099FC008743E8 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C5C24DF425542AFD0060916B /* AudioRecordingCell */ = {
+			isa = PBXGroup;
+			children = (
+				30B0459324AD5864007D7568 /* AudioRecordingCell.swift */,
+				30B0459424AD5864007D7568 /* AudioRecordingCell.xib */,
+			);
+			path = AudioRecordingCell;
+			sourceTree = "<group>";
+		};
+		C5C24DF625542B520060916B /* MoreOptionsCell */ = {
+			isa = PBXGroup;
+			children = (
+				3035ABA924F1949500095BAF /* MoreOptionsCell.swift */,
+				3035ABAA24F1949500095BAF /* MoreOptionsCell.xib */,
+			);
+			path = MoreOptionsCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,7 +288,7 @@
 				3035ABAE24F195E600095BAF /* MoreOptionsViewController.swift in Sources */,
 				307F71E724492CAB004AE308 /* AudioRecordingsViewController.swift in Sources */,
 				30DEEABB249A59AC002BAF73 /* AudioRecording.swift in Sources */,
-				3035ABA824F1943A00095BAF /* MoreOptions.swift in Sources */,
+				3035ABA824F1943A00095BAF /* MoreOptionsModel.swift in Sources */,
 				30A1C9C624A5808500AB0C59 /* CoreDataManager.swift in Sources */,
 				3003546B24D8D2BF00774738 /* RecordingViewController.swift in Sources */,
 				30F4116124ACC3A200EA4EF6 /* AudioSlider.swift in Sources */,

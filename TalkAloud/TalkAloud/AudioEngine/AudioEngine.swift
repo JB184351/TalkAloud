@@ -38,11 +38,7 @@ class AudioEngine: NSObject {
     private let audioRecordingSession = AVAudioSession.sharedInstance()
     
     private override init() {}
-    
-    //==================================================
-    // MARK: - Public Methods
-    //==================================================
-    
+        
     //==================================================
     // MARK: - AudioEngine Setup
     //==================================================
@@ -184,6 +180,7 @@ class AudioEngine: NSObject {
          audioState = .recording
          audioRecorder?.record()
      }
+    
 }
 
 //==================================================
@@ -191,9 +188,11 @@ class AudioEngine: NSObject {
 //==================================================
 
 extension AudioEngine: AVAudioPlayerDelegate {
+    
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         audioState = .stopped
     }
+    
 }
 
 //==================================================

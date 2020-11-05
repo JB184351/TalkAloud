@@ -1,5 +1,5 @@
 //
-//  AudioPlayer1ViewController.swift
+//  PlayerViewController.swift
 //  TalkAloud
 //
 //  Created by Justin Bengtson on 8/4/20.
@@ -197,8 +197,10 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
 //==================================================
 
 extension PlayerViewController: AudioSliderDelegate {
+    
     func didChangeScrolling(in audioSlider: UISlider) {
         AudioEngine.sharedInstance.setAudioTime(playBackTime: audioSlider.value)
         initializeTimer()
     }
+    
 }

@@ -203,4 +203,5 @@ class CoreDataManager {
             print(error.localizedDescription)
         }
     }
+    
 }

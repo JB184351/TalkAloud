@@ -1,5 +1,5 @@
 //
-//  MoreViewController.swift
+//  MoreOptionsViewController.swift
 //  TalkAloud
 //
 //  Created by Justin Bengtson on 8/22/20.
@@ -11,17 +11,22 @@ import UIKit
 class MoreOptionsViewController: UIViewController {
     
     //==================================================
-    // MARK: - Private Properties
-    //==================================================
-    
-    @IBOutlet private var tableView: UITableView!
-    private var moreOptions = [MoreOptionsModel]()
-    
-    //==================================================
     // MARK: - Public Properties
     //==================================================
     
     public var currentlySelectedRecording: AudioRecording?
+    
+    //==================================================
+    // MARK: - Private Properties
+    //==================================================
+    
+    // Virgil: IBOutlets aren't private; you can make them tho
+    @IBOutlet private var tableView: UITableView!
+    private var moreOptions = [MoreOptionsModel]()
+        
+    //==================================================
+    // MARK: - Lifecycle Methods
+    //==================================================
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -159,4 +164,5 @@ extension MoreOptionsViewController: UITableViewDelegate {
         
         currentOption()
     }
+    
 }

@@ -18,14 +18,6 @@ struct AudioRecording: Equatable {
     private var object: NSManagedObject
     
     //==================================================
-    // MARK: - Initializer
-    //==================================================
-    
-    init(object: NSManagedObject) {
-        self.object = object
-    }
-    
-    //==================================================
     // MARK: - Public Properties
     //==================================================
     
@@ -57,6 +49,14 @@ struct AudioRecording: Equatable {
     }
     
     //==================================================
+    // MARK: - Initializer
+    //==================================================
+    
+    init(object: NSManagedObject) {
+        self.object = object
+    }
+    
+    //==================================================
     // MARK: - Public Methods
     //==================================================
     
@@ -81,4 +81,5 @@ struct AudioRecording: Equatable {
     static private func == (lhs: AudioRecording, rhs: AudioRecording) -> Bool {
         return lhs.object == rhs.object && lhs.tags == rhs.tags && lhs.fileName == rhs.fileName
     }
+    
 }

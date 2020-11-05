@@ -74,6 +74,7 @@ extension AudioRecordingsViewController: TagFilterDelegate {
     func didUpdateTagToFilter(by tags: [String]?) {
         loadAudioRecordings(with: tags)
     }
+    
 }
 
 //==================================================
@@ -103,7 +104,6 @@ extension AudioRecordingsViewController: UITableViewDataSource {
         return audioRecordings.count
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var currentAudio: AudioRecording
         currentAudio = audioRecordings[indexPath.row]
@@ -113,6 +113,7 @@ extension AudioRecordingsViewController: UITableViewDataSource {
         audioCell.delegate = self
         return audioCell
     }
+    
 }
 
 //==================================================
@@ -227,4 +228,5 @@ extension AudioRecordingsViewController: UITableViewDelegate {
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction, tagAction])
         return configuration
     }
+    
 }

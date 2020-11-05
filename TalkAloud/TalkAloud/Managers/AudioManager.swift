@@ -31,10 +31,6 @@ class AudioManager {
     private init() {}
     
     //==================================================
-    // MARK: - Public Methods
-    //==================================================
-    
-    //==================================================
     // MARK: - AudioRecording Creation
     //==================================================
     
@@ -242,4 +238,5 @@ class AudioManager {
         
         return filteredAudioRecordings
     }
+    
 }
