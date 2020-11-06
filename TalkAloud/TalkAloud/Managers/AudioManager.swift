@@ -184,7 +184,7 @@ class AudioManager {
         }
     }
     
-    private func getLatestRecording() -> URL? {
+    public func getLatestRecording() -> URL? {
         if didNewRecording == true {
             guard let recentRecording = audioRecordings.last else { return nil }
             return recentRecording.url
