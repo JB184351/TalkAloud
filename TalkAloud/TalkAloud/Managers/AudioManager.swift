@@ -41,12 +41,25 @@ class AudioManager {
     }
     
     public func createNewAudioRecording() -> AudioRecording? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
+//
+//        let date = Date()
+//        let dateString = dateFormatter.string(from: date)
+        var uniqueFileName = ""
+        var audioRecordingFileNames = [String]()
         
-        let date = Date()
-        let dateString = dateFormatter.string(from: date)
-        let uniqueFileName = "talkaloud" + "_" + dateString + ".m4a"
+        for recording in audioRecordings {
+            audioRecordingFileNames.append(recording.fileName)
+        }
+        
+        for i in 0..<Int.max {
+            uniqueFileName = "talkaloud" + "_" + "\(i + 1)" + ".m4a"
+            
+            if !audioRecordingFileNames.contains(uniqueFileName) {
+                break
+            }
+        }
         
         didNewRecording = true
         

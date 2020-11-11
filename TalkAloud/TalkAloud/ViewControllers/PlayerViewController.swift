@@ -57,6 +57,8 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         setupSlider()
         initializeTimer()
         audioPlayerVisualizer.waveforms.removeAll()
+        self.audioRecordingNameLabel.text = currentAudioRecording?.fileName
+        self.audioRecordingDetailLabel.text = currentAudioRecording?.creationDate.description
     }
     
     override func viewWillDisappear(_ animated: Bool) {
