@@ -34,7 +34,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eel-zH-sBR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3622" y="-153"/>
+            <point key="canvasLocation" x="2916" y="1225"/>
         </scene>
         <!--Record-->
         <scene sceneID="8nI-W3-lMn">
@@ -150,7 +150,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nhZ-oJ-5d3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-100" y="285.96059113300493"/>
+            <point key="canvasLocation" x="817" y="527"/>
         </scene>
         <!--PlayBackViewController-->
         <scene sceneID="CSy-ts-b8j">
@@ -161,16 +161,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c7b-zN-M92">
-                                <rect key="frame" x="16" y="278" width="343" height="472"/>
+                                <rect key="frame" x="16" y="234" width="343" height="516"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vZp-GV-QC1">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="472"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="516"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LhE-Le-BpA">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="307"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="351"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xJY-fW-QLO" userLabel="audioRecordingInfoStackView">
-                                                        <rect key="frame" x="0.0" y="126" width="59" height="55"/>
+                                                        <rect key="frame" x="0.0" y="148" width="59" height="55"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tiu-9e-FrF" userLabel="recordingNameLabel">
                                                                 <rect key="frame" x="0.0" y="0.0" width="59" height="30"/>
@@ -187,7 +187,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVF-In-pJZ">
-                                                        <rect key="frame" x="321" y="142.66666666666669" width="22" height="22"/>
+                                                        <rect key="frame" x="321" y="164.66666666666669" width="22" height="22"/>
                                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" image="ellipsis" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
@@ -199,7 +199,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="Mbo-kF-mMu">
-                                                <rect key="frame" x="0.0" y="315" width="343" height="157"/>
+                                                <rect key="frame" x="0.0" y="359" width="343" height="157"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="cfO-t4-E9c">
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="53.666666666666664"/>
@@ -276,7 +276,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dpj-fg-LIQ" userLabel="playbackVisualizerView" customClass="AudioPlayerVisualizerView" customModule="TalkAloud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="375" height="190"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="190"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="190" id="AVW-ee-xuA"/>
@@ -311,7 +311,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zJk-gr-qN8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2711" y="-168"/>
+            <point key="canvasLocation" x="817" y="1225"/>
         </scene>
         <!--Audio Tab Bar Controller-->
         <scene sceneID="Ngm-AU-JQ1">
@@ -322,6 +322,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="2AD-7g-4Nv" kind="relationship" relationship="viewControllers" id="Whs-2M-R9q"/>
@@ -367,45 +368,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="294-XL-23E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3621.739130434783" y="-830.35714285714278"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="hEC-A1-LbG">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RiC-ab-Cos" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5B0-cH-o4B">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Gca-53-fbo" kind="relationship" relationship="rootViewController" id="5Ra-sc-YQs"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="git-tE-oDx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2711.594202898551" y="-830.35714285714278"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="P0l-fP-1co">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bDs-b3-HfP" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="R1V-s3-KVc">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="A0l-Qz-JxR" kind="relationship" relationship="rootViewController" id="SAK-zR-z0H"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MHz-j9-0y8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1729" y="-168"/>
+            <point key="canvasLocation" x="1852" y="1225"/>
         </scene>
         <!--Audio Recordings View Controller-->
         <scene sceneID="1u4-t9-piJ">
@@ -430,6 +393,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="d5E-om-kN7">
+                        <barButtonItem key="backBarButtonItem" title=" " id="hpZ-K5-fta"/>
                         <barButtonItem key="leftBarButtonItem" title="Item" image="tray" catalog="system" id="VFh-VD-IGc">
                             <connections>
                                 <action selector="tappedLeftButton:" destination="3jk-mm-Ij7" id="pO0-1T-Bv1"/>
@@ -453,6 +417,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UY8-Q9-JOA">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

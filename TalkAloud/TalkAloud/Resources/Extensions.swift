@@ -36,6 +36,21 @@ extension TimeInterval {
     
 }
 
+// Make Date Extension to Human Readable Format.
+extension Date {
+    
+    var localeDescription: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        dateFormatter.locale = Locale(identifier: "en_US")
+        
+        let localeString = dateFormatter.string(from: self)
+        return localeString
+    }
+    
+}
+
 // Used in AudioPlayerVisualizer Class
 extension Int {
     
