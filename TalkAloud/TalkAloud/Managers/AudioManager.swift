@@ -41,11 +41,6 @@ class AudioManager {
     }
     
     public func createNewAudioRecording() -> AudioRecording? {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
-//
-//        let date = Date()
-//        let dateString = dateFormatter.string(from: date)
         var uniqueFileName = ""
         var audioRecordingFileNames = [String]()
         
