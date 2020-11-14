@@ -48,7 +48,7 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         super.viewDidLoad()
         progressSlider.delegate = self
         self.audioRecordingNameLabel.text = currentAudioRecording?.fileName
-        self.audioRecordingDetailLabel.text = currentAudioRecording?.creationDate.localeDescription
+        self.audioRecordingDetailLabel.text = currentAudioRecording?.creationDate.localDescription
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,7 +58,7 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         initializeTimer()
         audioPlayerVisualizer.waveforms.removeAll()
         self.audioRecordingNameLabel.text = currentAudioRecording?.fileName
-        self.audioRecordingDetailLabel.text = currentAudioRecording?.creationDate.localeDescription
+        self.audioRecordingDetailLabel.text = currentAudioRecording?.creationDate.localDescription
     }
     
     override func viewWillDisappear(_ animated: Bool) {

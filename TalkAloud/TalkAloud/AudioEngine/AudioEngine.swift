@@ -127,6 +127,11 @@ class AudioEngine: NSObject {
         audioPlayer?.currentTime = TimeInterval(playBackTime)
     }
     
+    public func getDuration(for url: URL) -> Int {
+        let asset = AVURLAsset(url: url)
+        return Int(CMTimeGetSeconds(asset.duration))
+    }
+    
     //==================================================
     // MARK: - Playback Controls
     //==================================================

@@ -25,6 +25,15 @@ extension Array where Element : Hashable {
     
 }
 
+extension Int {
+    func secondsToMinutes() -> String {
+        let minutes = self / 60 % 60
+        let seconds = self % 60
+        
+        return String(format: "%2i:%02i", minutes, seconds)
+    }
+}
+
 extension TimeInterval {
     
     func timeToString() -> String {
@@ -39,7 +48,7 @@ extension TimeInterval {
 // Make Date Extension to Human Readable Format.
 extension Date {
     
-    var localeDescription: String {
+    var localDescription: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short

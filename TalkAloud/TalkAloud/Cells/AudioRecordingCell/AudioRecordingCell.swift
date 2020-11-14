@@ -26,6 +26,7 @@ class AudioRecordingCell: UITableViewCell {
     
     @IBOutlet private var fileNameLabel: UILabel!
     @IBOutlet private var tagLabel: UILabel!
+    @IBOutlet var durationLabel: UILabel!
     
     //==================================================
     // MARK: - Private Methods
@@ -56,8 +57,14 @@ class AudioRecordingCell: UITableViewCell {
             }
         }
         
-        self.fileNameLabel?.text = cellFileName
-        self.tagLabel?.text = allTags
+        fileNameLabel?.text = cellFileName
+        durationLabel.text = AudioEngine.sharedInstance.getDuration(for: model.url).secondsToMinutes()
+        
+        if !allTags.isEmpty {
+            tagLabel?.text = allTags
+        } else {
+            tagLabel?.text = model.creationDate.localDescription
+        }
     }
     
 }
