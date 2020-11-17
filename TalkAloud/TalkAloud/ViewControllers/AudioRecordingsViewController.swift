@@ -149,6 +149,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             let deleteAlertController = UIAlertController(title: "Are you sure you want to delete?", message: "You won't be able to recover this file", preferredStyle: .alert)
             let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
                 AudioManager.sharedInstance.removeAudioRecording(with: currentRecording)
+                self.audioRecordings.remove(at: indexPath.row)
                 self.recordingsTableView.deleteRows(at: [indexPath], with: .automatic)
             })
             let cancelDeleteAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in

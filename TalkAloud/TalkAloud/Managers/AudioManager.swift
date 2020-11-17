@@ -99,6 +99,7 @@ class AudioManager {
             for i in 0..<audioRecordings.count {
                 if selectedRecording == audioRecordings[i] {
                     audioRecordings.remove(at: i)
+                    break
                 }
             }
             
