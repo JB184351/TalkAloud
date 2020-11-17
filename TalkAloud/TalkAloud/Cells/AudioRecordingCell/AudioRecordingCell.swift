@@ -24,15 +24,14 @@ class AudioRecordingCell: UITableViewCell {
     // MARK: - Private Properties
     //==================================================
     
-    // Virgil: IBOutlets aren't private :) You can make them tho
     @IBOutlet private var fileNameLabel: UILabel!
     @IBOutlet private var tagLabel: UILabel!
+    @IBOutlet var durationLabel: UILabel!
     
     //==================================================
     // MARK: - Private Methods
     //==================================================
     
-    // Virgil: IBActions aren't private :) You can make them tho
     @IBAction private func moreButtonAction(_ sender: Any) {
         delegate?.didTappedMoreButton(for: self)
     }
@@ -58,8 +57,14 @@ class AudioRecordingCell: UITableViewCell {
             }
         }
         
-        self.fileNameLabel?.text = cellFileName
-        self.tagLabel?.text = allTags
+        fileNameLabel?.text = cellFileName
+        durationLabel.text = AudioEngine.sharedInstance.getDuration(for: model.url).secondsToMinutes()
+        
+        if !allTags.isEmpty {
+            tagLabel?.text = allTags
+        } else {
+            tagLabel?.text = model.creationDate.localDescription
+        }
     }
     
 }

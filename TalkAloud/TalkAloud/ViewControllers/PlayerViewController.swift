@@ -48,7 +48,7 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         super.viewDidLoad()
         progressSlider.delegate = self
         self.audioRecordingNameLabel.text = currentAudioRecording?.fileName
-        self.audioRecordingDetailLabel.text = currentAudioRecording?.creationDate.description
+        self.audioRecordingDetailLabel.text = currentAudioRecording?.creationDate.localDescription
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +57,8 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         setupSlider()
         initializeTimer()
         audioPlayerVisualizer.waveforms.removeAll()
+        self.audioRecordingNameLabel.text = currentAudioRecording?.fileName
+        self.audioRecordingDetailLabel.text = currentAudioRecording?.creationDate.localDescription
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -79,6 +81,9 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         } else if AudioEngine.sharedInstance.audioState == .playing {
             AudioEngine.sharedInstance.pause()
             playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        } else if AudioEngine.sharedInstance.audioState == .stopped {
+            playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            play()
         }
     }
     
@@ -162,6 +167,7 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
             audioPlayerVisualizer.active = true
             audioPlayerVisualizer.isHidden = false
             displayAudioVisualizer(audioState: audioState)
+            initializeTimer()
         case .stopped:
             progressTimer?.invalidate()
             visualizerTimer?.invalidate()
@@ -180,6 +186,8 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     public func play() {
         if AudioEngine.sharedInstance.getCurrentAudioTime() > 0 {
             AudioEngine.sharedInstance.play()
+        } else if AudioEngine.sharedInstance.audioState == .stopped {
+            AudioEngine.sharedInstance.play(withFileURL: currentAudioRecording!.url)
         } else {
             setupSlider()
             initializeTimer()

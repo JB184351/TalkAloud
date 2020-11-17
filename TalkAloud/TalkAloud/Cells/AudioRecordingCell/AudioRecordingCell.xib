@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,46 +18,59 @@
                 <rect key="frame" x="0.0" y="0.0" width="322" height="58"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="J17-zk-4rd" userLabel="labelStackView">
-                        <rect key="frame" x="20" y="10" width="42" height="43"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4RU-T6-4QZ" userLabel="moreButtonStackView">
+                        <rect key="frame" x="8" y="10" width="306" height="38"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sl9-M4-6z0" userLabel="fileNameLabel">
-                                <rect key="frame" x="0.0" y="0.0" width="42" height="23"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8i7-fu-Szo" userLabel="tagLabel">
-                                <rect key="frame" x="0.0" y="31" width="42" height="12"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qb4-r8-8gQ" userLabel="audioInfoStackView">
+                                <rect key="frame" x="0.0" y="0.0" width="84.666666666666671" height="38"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uz2-ev-Y9s">
+                                        <rect key="frame" x="0.0" y="0.0" width="26.333333333333332" height="38"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="ibi-yK-O0M" userLabel="labelStackView">
+                                        <rect key="frame" x="43.333333333333329" y="0.0" width="41.333333333333329" height="38"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sl9-M4-6z0" userLabel="fileNameLabel">
+                                                <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="23"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8i7-fu-Szo" userLabel="tagLabel">
+                                                <rect key="frame" x="0.0" y="26" width="41.333333333333336" height="12"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vhi-7K-QhM">
+                                <rect key="frame" x="286.33333333333331" y="0.0" width="19.666666666666686" height="38"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="ellipsis.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="moreButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="d0d-8K-TGz"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </stackView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vhi-7K-QhM">
-                        <rect key="frame" x="280" y="18" width="22" height="22"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="22" id="KiE-qL-4Fw"/>
-                            <constraint firstAttribute="width" constant="22" id="lg0-pO-9rY"/>
-                        </constraints>
-                        <state key="normal" image="ellipsis.circle.fill" catalog="system"/>
-                        <connections>
-                            <action selector="moreButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="d0d-8K-TGz"/>
-                        </connections>
-                    </button>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="J17-zk-4rd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="0bD-xd-oZK"/>
-                    <constraint firstItem="J17-zk-4rd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Btr-rQ-tNv"/>
-                    <constraint firstItem="vhi-7K-QhM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="FMO-UW-Oxh"/>
-                    <constraint firstAttribute="bottom" secondItem="J17-zk-4rd" secondAttribute="bottom" constant="5" id="Rme-aG-CtV"/>
-                    <constraint firstItem="vhi-7K-QhM" firstAttribute="leading" relation="lessThanOrEqual" secondItem="J17-zk-4rd" secondAttribute="trailing" constant="218" id="WQp-L0-JB4"/>
-                    <constraint firstAttribute="trailing" secondItem="vhi-7K-QhM" secondAttribute="trailing" constant="20" id="oV0-eL-TIt"/>
+                    <constraint firstItem="4RU-T6-4QZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="0Yn-NT-lhG"/>
+                    <constraint firstItem="4RU-T6-4QZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Pob-WT-Sjs"/>
+                    <constraint firstAttribute="bottom" secondItem="4RU-T6-4QZ" secondAttribute="bottom" constant="10" id="WTz-iU-BI2"/>
+                    <constraint firstAttribute="trailing" secondItem="4RU-T6-4QZ" secondAttribute="trailing" constant="8" id="eX5-h9-dOv"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="durationLabel" destination="uz2-ev-Y9s" id="mpk-ws-Hl2"/>
                 <outlet property="fileNameLabel" destination="Sl9-M4-6z0" id="Bem-kM-bbN"/>
                 <outlet property="tagLabel" destination="8i7-fu-Szo" id="a4t-E9-NYD"/>
             </connections>
