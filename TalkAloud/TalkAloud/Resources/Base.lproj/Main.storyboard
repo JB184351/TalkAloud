@@ -370,7 +370,7 @@
             </objects>
             <point key="canvasLocation" x="1852" y="1225"/>
         </scene>
-        <!--Audio Recordings View Controller-->
+        <!--Recordings-->
         <scene sceneID="1u4-t9-piJ">
             <objects>
                 <viewController id="3jk-mm-Ij7" customClass="AudioRecordingsViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
@@ -392,7 +392,7 @@
                             <constraint firstItem="9YN-jF-K8p" firstAttribute="bottom" secondItem="MDY-0G-fGV" secondAttribute="bottom" id="p39-ng-8xf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="d5E-om-kN7">
+                    <navigationItem key="navigationItem" title="Recordings" id="d5E-om-kN7">
                         <barButtonItem key="backBarButtonItem" title=" " id="hpZ-K5-fta"/>
                         <barButtonItem key="leftBarButtonItem" title="Item" image="tray" catalog="system" id="VFh-VD-IGc">
                             <connections>

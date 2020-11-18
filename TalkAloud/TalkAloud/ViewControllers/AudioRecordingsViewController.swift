@@ -15,6 +15,7 @@ class AudioRecordingsViewController: UIViewController {
     //==================================================
     
     private var audioRecordings = [AudioRecording]()
+    private var tagModelDataSource = [TagModel]()
     @IBOutlet private var recordingsTableView: UITableView!
     
     //==================================================
@@ -29,6 +30,7 @@ class AudioRecordingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: nil)!
+        getAllTags()
         recordingsTableView.reloadData()
     }
     
@@ -49,10 +51,22 @@ class AudioRecordingsViewController: UIViewController {
         recordingsTableView.reloadData()
     }
     
+    private func getAllTags() {
+        let allTags = AudioManager.sharedInstance.getAllAudioRecordingTags()
+        
+        if let tags = allTags {
+            for tag in tags {
+                let tagModel = TagModel(tag: tag)
+                tagModelDataSource.append(tagModel)
+            }
+        }
+    }
+    
     private func setupTableView() {
         recordingsTableView.dataSource = self
         recordingsTableView.delegate = self
         recordingsTableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")
+        recordingsTableView.register(UINib(nibName: "TagCell", bundle: nil), forCellReuseIdentifier: "tagCell")
     }
     
     private func presentTagTableViewController() {
@@ -100,13 +114,28 @@ extension AudioRecordingsViewController: AudioRecordingCellDelegate {
 
 extension AudioRecordingsViewController: UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if section == 0 {
+            return 1
+        }
+        
         return audioRecordings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var currentAudio: AudioRecording
         currentAudio = audioRecordings[indexPath.row]
+        
+        if indexPath.section == 0 {
+            let tagCell = tableView.dequeueReusableCell(withIdentifier: "tagCell", for: indexPath) as! TagCell
+            tagCell.setup(with: tagModelDataSource)
+            return tagCell
+        }
         
         let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
         audioCell.setup(with: currentAudio)
@@ -138,6 +167,10 @@ extension AudioRecordingsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 0 {
+            return false
+        }
+        
         return true
     }
     
