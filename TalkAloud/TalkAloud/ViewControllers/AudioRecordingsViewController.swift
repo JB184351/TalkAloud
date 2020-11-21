@@ -70,6 +70,14 @@ class AudioRecordingsViewController: UIViewController {
         }
     }
     
+    private func removeTags(tags: [String]) {
+        for tag in tags {
+            if let index = self.tagModelDataSource.firstIndex(where: { $0.tag == tag }) {
+                self.tagModelDataSource.remove(at: index)
+            }
+        }
+    }
+    
     private func setupTableView() {
         recordingsTableView.dataSource = self
         recordingsTableView.delegate = self
@@ -185,6 +193,8 @@ extension AudioRecordingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let currentRecording = audioRecordings[indexPath.row]
         
+        guard let tags = currentRecording.tags else { return nil }
+        
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             
             let deleteAlertController = UIAlertController(title: "Are you sure you want to delete?", message: "You won't be able to recover this file", preferredStyle: .alert)
@@ -192,7 +202,10 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 AudioManager.sharedInstance.removeAudioRecording(with: currentRecording)
                 self.audioRecordings.remove(at: indexPath.row)
                 self.recordingsTableView.deleteRows(at: [indexPath], with: .automatic)
+                self.removeTags(tags: tags)
+                self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             })
+            
             let cancelDeleteAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
                 completionHandler(false)
             })
@@ -220,6 +233,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                     }
                     
                     self.recordingsTableView.reloadRows(at: [indexPath], with: .automatic)
+                    self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
                 }
                 
             }
@@ -248,6 +262,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 }
                 
                 self.recordingsTableView.reloadRows(at: [indexPath], with: .automatic)
+                self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             }
             
             let cancelTagAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
@@ -257,6 +272,8 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
                 AudioManager.sharedInstance.removeTag(for: currentRecording)
                 self.recordingsTableView.reloadRows(at: [indexPath], with: .automatic)
+                self.removeTags(tags: tags)
+                self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             }
             
             tagAlertController.addAction(addTagAction)

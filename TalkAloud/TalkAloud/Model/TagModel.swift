@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct TagModel {
+struct TagModel: Hashable {
     var tag: String
 }

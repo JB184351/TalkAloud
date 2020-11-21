@@ -34,7 +34,10 @@ class TagCell: UITableViewCell {
     //==================================================
     
     public func setup(with model: [TagModel]) {
-        self.tagsDataSource = model
+        let uniqueTags = Set(model)
+        let tags: [TagModel] = Array(uniqueTags)
+        
+        self.tagsDataSource = tags
         self.collectionView.reloadData()
     }
     
