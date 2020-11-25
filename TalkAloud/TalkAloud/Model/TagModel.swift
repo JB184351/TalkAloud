@@ -10,4 +10,5 @@ import Foundation
 
 struct TagModel: Hashable {
     var tag: String
+    var isTagSelected: Bool = false
 }

@@ -64,7 +64,7 @@ class AudioRecordingsViewController: UIViewController {
         
         if let tags = allTags {
             for tag in tags {
-                let tagModel = TagModel(tag: tag)
+                let tagModel = TagModel(tag: tag, isTagSelected: false)
                 tagModelDataSource.append(tagModel)
             }
         }
@@ -233,7 +233,6 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                     }
                     
                     self.recordingsTableView.reloadRows(at: [indexPath], with: .automatic)
-                    self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
                 }
                 
             }
@@ -257,7 +256,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 
                 if let tagName = tagName {
                     AudioManager.sharedInstance.setTag(for: currentRecording, tag: tagName)
-                    let tagModel = TagModel(tag: tagName)
+                    let tagModel = TagModel(tag: tagName, isTagSelected: false)
                     self.tagModelDataSource.append(tagModel)
                 }
                 

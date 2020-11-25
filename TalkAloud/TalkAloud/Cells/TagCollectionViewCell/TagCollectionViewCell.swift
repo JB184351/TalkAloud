@@ -14,5 +14,11 @@ class TagCollectionViewCell: UICollectionViewCell {
     
     public func setup(with model: TagModel) {
         tagLabel.text = model.tag
+        
+        if model.isTagSelected {
+            self.backgroundColor = .red
+        } else {
+            self.backgroundColor = .black
+        }
     }
 }
