@@ -83,13 +83,21 @@ class AudioRecordingsViewController: UIViewController {
 // MARK: - Tag Filter Delegate
 //==================================================
 
-//extension AudioRecordingsViewController: TagFilterDelegate {
-//
-//    func didUpdateTagToFilter(by tags: [String]?) {
-//        loadAudioRecordings(with: tags)
-//    }
-//
-//}
+extension AudioRecordingsViewController: TagFilterDelegate {
+
+    func didUpdateTagToFilter(by tags: [TagModel]) {
+        var selectedTags = [String]()
+        
+        for tag in tags {
+            if tag.isTagSelected {
+                selectedTags.append(tag.tag)
+            }
+        }
+        
+        loadAudioRecordings(with: selectedTags)
+    }
+
+}
 
 //==================================================
 // MARK: - AudioRecordingCell Delegate
@@ -128,14 +136,16 @@ extension AudioRecordingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var currentAudio: AudioRecording
-        currentAudio = audioRecordings[indexPath.row]
         
         if indexPath.section == 0 {
             let tagCell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath) as! TagCell
             tagCell.setup(with: tagModelDataSource)
+            tagCell.delegate = self
             return tagCell
         }
+        
+        var currentAudio: AudioRecording
+        currentAudio = audioRecordings[indexPath.row]
         
         let audioCell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! AudioRecordingCell
         audioCell.setup(with: currentAudio)
@@ -241,7 +251,9 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 if let tagName = tagName {
                     AudioManager.sharedInstance.setTag(for: currentRecording, tag: tagName)
                     let tagModel = TagModel(tag: tagName, isTagSelected: false)
-                    self.tagModelDataSource.append(tagModel)
+                    if !self.tagModelDataSource.contains(tagModel) {
+                        self.tagModelDataSource.append(tagModel)
+                    }
                 }
                 
                 self.recordingsTableView.reloadRows(at: [indexPath], with: .automatic)

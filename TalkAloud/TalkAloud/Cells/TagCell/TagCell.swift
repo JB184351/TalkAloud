@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol TagFilterDelegate: class {
+    func didUpdateTagToFilter(by tags: [TagModel])
+}
+
 class TagCell: UITableViewCell {
 
     @IBOutlet var collectionView: UICollectionView!
     private var selectedTags = [String]()
     private var tagsDataSource = [TagModel]()
+    weak var delegate: TagFilterDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,10 +33,7 @@ class TagCell: UITableViewCell {
     //==================================================
     
     public func setup(with model: [TagModel]) {
-        let uniqueTags = Set(model)
-        let tags: [TagModel] = Array(uniqueTags)
-        
-        self.tagsDataSource = tags
+        self.tagsDataSource = model
         self.collectionView.reloadData()
     }
     
@@ -69,7 +71,8 @@ extension TagCell: UICollectionViewDelegate {
         
         tagsDataSource[indexPath.row] = selectedTag
         
-        self.collectionView.reloadData()
+        delegate?.didUpdateTagToFilter(by: tagsDataSource)
         
+        self.collectionView.reloadData()
     }
 }
