@@ -394,11 +394,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Recordings" id="d5E-om-kN7">
                         <barButtonItem key="backBarButtonItem" title=" " id="hpZ-K5-fta"/>
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="tray" catalog="system" id="VFh-VD-IGc">
-                            <connections>
-                                <action selector="tappedLeftButton:" destination="3jk-mm-Ij7" id="pO0-1T-Bv1"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="recordingsTableView" destination="9YN-jF-K8p" id="m7c-kb-zf6"/>
@@ -439,7 +434,6 @@
         <image name="goforward.15" catalog="system" width="121" height="128"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="recordbutton" width="100" height="100"/>
-        <image name="tray" catalog="system" width="128" height="88"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

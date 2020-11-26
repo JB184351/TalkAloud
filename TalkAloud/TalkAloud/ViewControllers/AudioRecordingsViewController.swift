@@ -43,14 +43,6 @@ class AudioRecordingsViewController: UIViewController {
     }
     
     //==================================================
-    // MARK: - Actions
-    //==================================================
-    
-    @IBAction func tappedLeftButton(_ sender: Any) {
-        presentTagTableViewController()
-    }
-    
-    //==================================================
     // MARK: - Private Methods
     //==================================================
     
@@ -85,27 +77,19 @@ class AudioRecordingsViewController: UIViewController {
         recordingsTableView.register(UINib(nibName: "TagCell", bundle: nil), forCellReuseIdentifier: "TagCell")
     }
     
-    private func presentTagTableViewController() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let tagFilterViewController = storyboard.instantiateViewController(identifier: "TagTableViewController") as! TagTableViewController
-        let navigationController = UINavigationController(rootViewController: tagFilterViewController)
-        tagFilterViewController.delegate = self
-        self.present(navigationController, animated: true)
-    }
-    
 }
 
 //==================================================
 // MARK: - Tag Filter Delegate
 //==================================================
 
-extension AudioRecordingsViewController: TagFilterDelegate {
-    
-    func didUpdateTagToFilter(by tags: [String]?) {
-        loadAudioRecordings(with: tags)
-    }
-    
-}
+//extension AudioRecordingsViewController: TagFilterDelegate {
+//
+//    func didUpdateTagToFilter(by tags: [String]?) {
+//        loadAudioRecordings(with: tags)
+//    }
+//
+//}
 
 //==================================================
 // MARK: - AudioRecordingCell Delegate
