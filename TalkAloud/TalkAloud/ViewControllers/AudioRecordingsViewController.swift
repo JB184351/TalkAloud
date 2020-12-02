@@ -52,13 +52,11 @@ class AudioRecordingsViewController: UIViewController {
     }
     
     private func getAllTags() {
-        let allTags = AudioManager.sharedInstance.getAllAudioRecordingTags()
+        guard let tags = AudioManager.sharedInstance.getAllAudioRecordingTags() else { return }
         
-        if let tags = allTags {
-            for tag in tags {
-                let tagModel = TagModel(tag: tag, isTagSelected: false)
-                tagModelDataSource.append(tagModel)
-            }
+        for tag in tags {
+            let tagModel = TagModel(tag: tag, isTagSelected: false)
+            tagModelDataSource.append(tagModel)
         }
     }
     
@@ -86,15 +84,16 @@ class AudioRecordingsViewController: UIViewController {
 extension AudioRecordingsViewController: TagFilterDelegate {
 
     func didUpdateTagToFilter(by tags: [TagModel]) {
-        var selectedTags = [String]()
-        
-        for tag in tags {
-            if tag.isTagSelected {
-                selectedTags.append(tag.tag)
-            }
-        }
-        
-        loadAudioRecordings(with: selectedTags)
+//        var selectedTags = [String]()
+//
+//        for tag in tags {
+//            if tag.isTagSelected {
+//                selectedTags.append(tag.tag)
+//            }
+//        }
+//
+//        loadAudioRecordings(with: selectedTags)
+        recordingsTableView.reloadData()
     }
 
 }
@@ -250,10 +249,10 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 
                 if let tagName = tagName {
                     AudioManager.sharedInstance.setTag(for: currentRecording, tag: tagName)
-                    let tagModel = TagModel(tag: tagName, isTagSelected: false)
-                    if !self.tagModelDataSource.contains(tagModel) {
-                        self.tagModelDataSource.append(tagModel)
-                    }
+//                    let tagModel = TagModel(tag: tagName, isTagSelected: false)
+//                    if !self.tagModelDataSource.contains(tagModel) {
+//                        self.tagModelDataSource.append(tagModel)
+//                    }
                 }
                 
                 self.recordingsTableView.reloadRows(at: [indexPath], with: .automatic)
@@ -267,7 +266,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
                 AudioManager.sharedInstance.removeTag(for: currentRecording)
                 self.recordingsTableView.reloadRows(at: [indexPath], with: .automatic)
-                self.removeTags(tags: tags)
+//                self.removeTags(tags: tags)
                 self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             }
             
