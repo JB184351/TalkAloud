@@ -250,10 +250,10 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 
                 if let tagName = tagName {
                     AudioManager.sharedInstance.setTag(for: currentRecording, tag: tagName)
-//                    let tagModel = TagModel(tag: tagName, isTagSelected: false)
-//                    if !self.tagModelDataSource.contains(tagModel) {
-//                        self.tagModelDataSource.append(tagModel)
-//                    }
+                    let tagModel = TagModel(tag: tagName, isTagSelected: false)
+                    if !self.tagModelDataSource.contains(tagModel) {
+                        self.tagModelDataSource.append(tagModel)
+                    }
                 }
                 
                 self.recordingsTableView.reloadRows(at: [indexPath], with: .automatic)
@@ -267,7 +267,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
                 AudioManager.sharedInstance.removeTag(for: currentRecording)
                 self.recordingsTableView.reloadRows(at: [indexPath], with: .automatic)
-//                self.removeTags(tags: tags)
+                self.removeTags(tags: tags)
                 self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             }
             
