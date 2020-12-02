@@ -93,6 +93,7 @@ extension AudioRecordingsViewController: TagFilterDelegate {
 //        }
 //
 //        loadAudioRecordings(with: selectedTags)
+        tagModelDataSource = tags
         recordingsTableView.reloadData()
     }
 
