@@ -92,7 +92,12 @@ extension AudioRecordingsViewController: TagFilterDelegate {
 //            }
 //        }
 //
-//        loadAudioRecordings(with: selectedTags)
+//        if selectedTags.isEmpty {
+//            loadAudioRecordings(with: nil)
+//        } else {
+//            loadAudioRecordings(with: selectedTags)
+//        }
+        
         tagModelDataSource = tags
         recordingsTableView.reloadData()
     }
@@ -195,8 +200,8 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
                 AudioManager.sharedInstance.removeAudioRecording(with: currentRecording)
                 self.audioRecordings.remove(at: indexPath.row)
-                self.recordingsTableView.deleteRows(at: [indexPath], with: .automatic)
                 self.removeTags(tags: tags)
+                self.recordingsTableView.deleteRows(at: [indexPath], with: .automatic)
                 self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             })
             
@@ -265,9 +270,9 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             }
             
             let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
-                AudioManager.sharedInstance.removeTag(for: currentRecording)
-                self.recordingsTableView.reloadRows(at: [indexPath], with: .automatic)
+                 AudioManager.sharedInstance.removeTag(for: currentRecording)
                 self.removeTags(tags: tags)
+                self.recordingsTableView.reloadRows(at: [indexPath], with: .automatic)
                 self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             }
             
