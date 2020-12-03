@@ -134,6 +134,7 @@ class AudioManager {
     //==================================================
     
     public func setTag(for selectedRecording: AudioRecording, tag: String) {
+        
         CoreDataManager.sharedInstance.updateAudioRecordingTag(with: selectedRecording, with: tag)
     }
     
