@@ -84,19 +84,19 @@ class AudioRecordingsViewController: UIViewController {
 extension AudioRecordingsViewController: TagFilterDelegate {
 
     func didUpdateTagToFilter(by tags: [TagModel]) {
-//        var selectedTags = [String]()
-//
-//        for tag in tags {
-//            if tag.isTagSelected {
-//                selectedTags.append(tag.tag)
-//            }
-//        }
-//
-//        if selectedTags.isEmpty {
-//            loadAudioRecordings(with: nil)
-//        } else {
-//            loadAudioRecordings(with: selectedTags)
-//        }
+        var selectedTags = [String]()
+
+        for tag in tags {
+            if tag.isTagSelected {
+                selectedTags.append(tag.tag)
+            }
+        }
+
+        if selectedTags.isEmpty {
+            loadAudioRecordings(with: nil)
+        } else {
+            loadAudioRecordings(with: selectedTags)
+        }
         
         tagModelDataSource = tags
         recordingsTableView.reloadData()
