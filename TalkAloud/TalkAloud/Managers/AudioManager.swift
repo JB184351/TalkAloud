@@ -142,21 +142,50 @@ class AudioManager {
         CoreDataManager.sharedInstance.removeAudioRecordingTag(for: selectedRecording)
     }
     
-    public func getAllAudioRecordingTags() -> [String]? {
-        var allTags = [String]()
-        
+    public func getTags(for selectedRecording: AudioRecording) -> [String] {
+        guard let tags = selectedRecording.tags else { return [] }
+        return tags
+    }
+    
+    public func getAllAudioRecordingTags() -> [TagModel]? {
         guard let audioRecordings = loadAllRecordings() else { return nil }
+        
+        var allTags = [TagModel]()
         
         for audioRecording in audioRecordings {
             if let tags = audioRecording.tags {
                 for tag in tags {
-                    allTags.append(tag)
+                    let tagModel = TagModel(tag: tag, isTagSelected: false)
+                    if !allTags.contains(tagModel) {
+                        allTags.append(tagModel)
+                    }
                 }
             }
         }
-        allUniqueTags = allTags.unique
+    
+        return allTags
+    }
+    
+    public func addATag(tagModel: TagModel, tagModels: [TagModel]) -> [TagModel] {
+        var tagModelDataSource = tagModels
         
-        return allUniqueTags.sorted()
+        if !tagModelDataSource.contains(tagModel) {
+            tagModelDataSource.append(tagModel)
+        }
+        
+        return tagModelDataSource
+    }
+    
+    public func removeTags(tags: [String], tagModels: [TagModel]) -> [TagModel] {
+        var tagModelDataSource = tagModels
+        
+        for tag in tags {
+            if let index = tagModelDataSource.firstIndex(where: { $0.tag == tag }) {
+                tagModelDataSource.remove(at: index)
+            }
+        }
+        
+        return tagModelDataSource
     }
     
     //==================================================

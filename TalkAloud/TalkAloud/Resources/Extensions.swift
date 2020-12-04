@@ -17,14 +17,6 @@ extension Array where Element: Comparable {
     
 }
 
-extension Array where Element : Hashable {
-    
-    var unique: [Element] {
-        return Array(Set(self))
-    }
-    
-}
-
 extension Int {
     
     func secondsToMinutes() -> String {

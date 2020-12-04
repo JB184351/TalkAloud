@@ -284,7 +284,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zCb-wm-4On"/>
-                        <color key="backgroundColor" systemColor="labelColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="c7b-zN-M92" firstAttribute="leading" secondItem="zCb-wm-4On" secondAttribute="leading" constant="16" id="BlA-wX-4u0"/>
@@ -434,9 +434,6 @@
         <image name="goforward.15" catalog="system" width="121" height="128"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="recordbutton" width="100" height="100"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
