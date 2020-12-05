@@ -14,8 +14,11 @@ protocol TagFilterDelegate: class {
 
 class TagCell: UITableViewCell {
 
+    //==================================================
+    // MARK: - Properties
+    //==================================================
+    
     @IBOutlet var collectionView: UICollectionView!
-    private var selectedTags = [String]()
     private var tagsDataSource = [TagModel]()
     weak var delegate: TagFilterDelegate?
     
@@ -25,7 +28,7 @@ class TagCell: UITableViewCell {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         
-        self.collectionView.register(UINib(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "tagCollectionViewCell")
+        self.collectionView.register(UINib(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TagCollectionViewCell")
     }
     
     //==================================================
@@ -37,7 +40,6 @@ class TagCell: UITableViewCell {
         self.collectionView.reloadData()
     }
     
-    
 }
 
 //==================================================
@@ -45,6 +47,7 @@ class TagCell: UITableViewCell {
 //==================================================
 
 extension TagCell: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tagsDataSource.count
     }
@@ -52,7 +55,7 @@ extension TagCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let tagModel = tagsDataSource[indexPath.row]
         
-        let tagModelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCollectionViewCell", for: indexPath) as! TagCollectionViewCell
+        let tagModelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCollectionViewCell", for: indexPath) as! TagCollectionViewCell
         tagModelCell.setup(with: tagModel)
         return tagModelCell
     }
@@ -74,5 +77,6 @@ extension TagCell: UICollectionViewDelegate {
         delegate?.didUpdateTagToFilter(by: tagsDataSource)
         
         self.collectionView.reloadData()
+        
     }
 }

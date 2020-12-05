@@ -24,6 +24,7 @@ class AudioManager {
     
     private var audioRecording: AudioRecording?
     private var audioRecordings: [AudioRecording] = []
+    private var tagModels: [TagModel] = []
     private var filteredAudioRecordings: [AudioRecording] = []
     private var allUniqueTags: [String] = []
     private var didNewRecording = false
@@ -34,7 +35,7 @@ class AudioManager {
     // MARK: - AudioRecording Creation
     //==================================================
     
-    public func loadAudioRecordings(with tags: [String]?) -> [AudioRecording]? {
+    public func loadAudioRecordings(with tags: [String]? = nil) -> [AudioRecording]? {
         guard let tags = tags else { return loadAllRecordings()!}
         
         return filteredAudioRecordings(with: tags)!
@@ -134,7 +135,6 @@ class AudioManager {
     //==================================================
     
     public func setTag(for selectedRecording: AudioRecording, tag: String) {
-        
         CoreDataManager.sharedInstance.updateAudioRecordingTag(with: selectedRecording, with: tag)
     }
     
@@ -150,42 +150,36 @@ class AudioManager {
     public func getAllAudioRecordingTags() -> [TagModel]? {
         guard let audioRecordings = loadAllRecordings() else { return nil }
         
-        var allTags = [TagModel]()
-        
         for audioRecording in audioRecordings {
             if let tags = audioRecording.tags {
                 for tag in tags {
                     let tagModel = TagModel(tag: tag, isTagSelected: false)
-                    if !allTags.contains(tagModel) {
-                        allTags.append(tagModel)
+                    if !self.tagModels.contains(tagModel) {
+                        self.tagModels.append(tagModel)
                     }
                 }
             }
         }
     
-        return allTags
+        return self.tagModels
     }
     
-    public func addATag(tagModel: TagModel, tagModels: [TagModel]) -> [TagModel] {
-        var tagModelDataSource = tagModels
-        
-        if !tagModelDataSource.contains(tagModel) {
-            tagModelDataSource.append(tagModel)
+    public func addTag(tagModel: TagModel) -> [TagModel] {
+        if !self.tagModels.contains(tagModel) {
+            self.tagModels.append(tagModel)
         }
         
-        return tagModelDataSource
+        return self.tagModels
     }
     
-    public func removeTags(tags: [String], tagModels: [TagModel]) -> [TagModel] {
-        var tagModelDataSource = tagModels
-        
+    public func removeTags(tags: [String]) -> [TagModel] {
         for tag in tags {
-            if let index = tagModelDataSource.firstIndex(where: { $0.tag == tag }) {
-                tagModelDataSource.remove(at: index)
+            if let index = self.tagModels.firstIndex(where: { $0.tag == tag }) {
+                self.tagModels.remove(at: index)
             }
         }
         
-        return tagModelDataSource
+        return self.tagModels
     }
     
     //==================================================

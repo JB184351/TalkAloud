@@ -10,7 +10,15 @@ import UIKit
 
 class TagCollectionViewCell: UICollectionViewCell {
     
+    //==================================================
+    // MARK: - Properties
+    //==================================================
+    
     @IBOutlet var tagLabel: UILabel!
+    
+    //==================================================
+    // MARK: - Methods
+    //==================================================
     
     public func setup(with model: TagModel) {
         tagLabel.text = model.tag
@@ -20,5 +28,6 @@ class TagCollectionViewCell: UICollectionViewCell {
         } else {
             self.backgroundColor = .black
         }
+        
     }
 }
