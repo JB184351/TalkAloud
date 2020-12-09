@@ -29,16 +29,12 @@ class AudioRecordingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: nil)!
-        self.getAllTags()
         recordingsTableView.reloadData()
     }
     
     //==================================================
     // MARK: - Private Methods
     //==================================================
-    private func getAllTags() {
-        guard let tagModels = AudioManager.sharedInstance.getAllAudioRecordingTags() else { return }
-    }
     
     private func loadAudioRecordings(with tagModel: [TagModel]?) {
         audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: tagModel)!
@@ -167,7 +163,6 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 self.audioRecordings.remove(at: indexPath.row)
                 AudioManager.sharedInstance.removeTags(tags: currentRecordingTags)
                 self.recordingsTableView.deleteRows(at: [indexPath], with: .none)
-                self.getAllTags()
                 self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
             })
             
@@ -237,7 +232,6 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 AudioManager.sharedInstance.removeTags(tags: currentRecordingTags)
                 AudioManager.sharedInstance.removeTag(for: currentRecording)
                 self.recordingsTableView.reloadRows(at: [indexPath], with: .none)
-                self.getAllTags()
                 self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
             }
             
