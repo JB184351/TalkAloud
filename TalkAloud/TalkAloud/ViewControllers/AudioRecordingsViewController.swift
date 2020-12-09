@@ -15,7 +15,6 @@ class AudioRecordingsViewController: UIViewController {
     //==================================================
     
     private var audioRecordings = [AudioRecording]()
-    private var tagModelDataSource = [TagModel]()
     @IBOutlet private var recordingsTableView: UITableView!
     
     //==================================================
@@ -39,12 +38,10 @@ class AudioRecordingsViewController: UIViewController {
     //==================================================
     private func getAllTags() {
         guard let tagModels = AudioManager.sharedInstance.getAllAudioRecordingTags() else { return }
-        tagModelDataSource = tagModels
     }
     
-    
-    private func loadAudioRecordings(with tags: [String]?) {
-        audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: tags)!
+    private func loadAudioRecordings(with tagModel: [TagModel]?) {
+        audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: tagModel)!
         recordingsTableView.reloadData()
     }
     
@@ -63,23 +60,9 @@ class AudioRecordingsViewController: UIViewController {
 
 extension AudioRecordingsViewController: TagFilterDelegate {
     
-    func didUpdateTagToFilter(by tags: [TagModel]) {
-        var selectedTags = [String]()
-        
-        for tag in tags {
-            if tag.isTagSelected {
-                selectedTags.append(tag.tag)
-            }
-        }
-        
-        if selectedTags.isEmpty {
-            loadAudioRecordings(with: nil)
-        } else {
-            loadAudioRecordings(with: selectedTags)
-        }
-        
-        tagModelDataSource = tags
-        recordingsTableView.reloadData()
+    func didUpdateTagToFilter(with tag: TagModel) {
+        AudioManager.sharedInstance.updateTagModel(with: tag)
+        loadAudioRecordings(with: AudioManager.sharedInstance.getAllAudioRecordingTags())
     }
     
 }
@@ -121,10 +104,12 @@ extension AudioRecordingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let tagCell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath) as! TagCell
-            tagCell.setup(with: tagModelDataSource)
-            tagCell.delegate = self
-            return tagCell
+            if let tagModelDataSource = AudioManager.sharedInstance.getAllAudioRecordingTags() {
+                let tagCell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath) as! TagCell
+                tagCell.setup(with: tagModelDataSource)
+                tagCell.delegate = self
+                return tagCell
+            }
         }
         
         var currentAudio: AudioRecording
@@ -180,7 +165,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
                 AudioManager.sharedInstance.removeAudioRecording(with: currentRecording)
                 self.audioRecordings.remove(at: indexPath.row)
-                self.tagModelDataSource = AudioManager.sharedInstance.removeTags(tags: currentRecordingTags)
+                AudioManager.sharedInstance.removeTags(tags: currentRecordingTags)
                 self.recordingsTableView.deleteRows(at: [indexPath], with: .none)
                 self.getAllTags()
                 self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
@@ -237,7 +222,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 if let tagName = tagName {
                     AudioManager.sharedInstance.setTag(for: currentRecording, tag: tagName)
                     let tagModel = TagModel(tag: tagName, isTagSelected: false)
-                    self.tagModelDataSource = AudioManager.sharedInstance.addTag(tagModel: tagModel)
+                    AudioManager.sharedInstance.addTag(tagModel: tagModel)
                 }
                 
                 self.recordingsTableView.reloadRows(at: [indexPath], with: .none)
@@ -249,7 +234,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             }
             
             let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
-                self.tagModelDataSource = AudioManager.sharedInstance.removeTags(tags: currentRecordingTags)
+                AudioManager.sharedInstance.removeTags(tags: currentRecordingTags)
                 AudioManager.sharedInstance.removeTag(for: currentRecording)
                 self.recordingsTableView.reloadRows(at: [indexPath], with: .none)
                 self.getAllTags()

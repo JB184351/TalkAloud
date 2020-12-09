@@ -24,7 +24,7 @@ class AudioManager {
     
     private var audioRecording: AudioRecording?
     private var audioRecordings: [AudioRecording] = []
-    private var tagModels: [TagModel] = []
+    private var tagModelDataSource: [TagModel] = []
     private var filteredAudioRecordings: [AudioRecording] = []
     private var allUniqueTags: [String] = []
     private var didNewRecording = false
@@ -35,9 +35,8 @@ class AudioManager {
     // MARK: - AudioRecording Creation
     //==================================================
     
-    public func loadAudioRecordings(with tags: [String]? = nil) -> [AudioRecording]? {
-        guard let tags = tags else { return loadAllRecordings()!}
-        
+    public func loadAudioRecordings(with tags: [TagModel]? = nil) -> [AudioRecording]? {
+        guard let tags = tags else { return loadAllRecordings() }
         return filteredAudioRecordings(with: tags)!
     }
     
@@ -154,32 +153,37 @@ class AudioManager {
             if let tags = audioRecording.tags {
                 for tag in tags {
                     let tagModel = TagModel(tag: tag, isTagSelected: false)
-                    if !self.tagModels.contains(tagModel) {
-                        self.tagModels.append(tagModel)
+                    if !self.tagModelDataSource.contains(tagModel) {
+                        self.tagModelDataSource.append(tagModel)
                     }
                 }
             }
         }
     
-        return self.tagModels
+        return self.tagModelDataSource
     }
     
-    public func addTag(tagModel: TagModel) -> [TagModel] {
-        if !self.tagModels.contains(tagModel) {
-            self.tagModels.append(tagModel)
-        }
-        
-        return self.tagModels
-    }
-    
-    public func removeTags(tags: [String]) -> [TagModel] {
-        for tag in tags {
-            if let index = self.tagModels.firstIndex(where: { $0.tag == tag }) {
-                self.tagModels.remove(at: index)
+    public func updateTagModel(with selectedTag: TagModel) {
+        for i in 0..<tagModelDataSource.count {
+            if tagModelDataSource[i] == selectedTag {
+                tagModelDataSource[i].isTagSelected = !selectedTag.isTagSelected
+                break
             }
         }
-        
-        return self.tagModels
+    }
+    
+    public func addTag(tagModel: TagModel) {
+        if !self.tagModelDataSource.contains(tagModel) {
+            self.tagModelDataSource.append(tagModel)
+        }
+    }
+    
+    public func removeTags(tags: [String]) {
+        for tag in tags {
+            if let index = self.tagModelDataSource.firstIndex(where: { $0.tag == tag }) {
+                self.tagModelDataSource.remove(at: index)
+            }
+        }
     }
     
     //==================================================
@@ -244,25 +248,15 @@ class AudioManager {
         return audioRecordings
     }
     
-    private func filteredAudioRecordings(with tags: [String]?) -> [AudioRecording]? {
+    private func filteredAudioRecordings(with tags: [TagModel]?) -> [AudioRecording]? {
         guard let tags = tags else { return nil }
         
         filteredAudioRecordings.removeAll()
         
-        if tags.count == 1 {
-            for audioRecording in audioRecordings {
-                if let audioRecordingsTags = audioRecording.tags {
-                    for tag in tags {
-                        if audioRecordingsTags.contains(tag) {
-                            filteredAudioRecordings.append(audioRecording)
-                        }
-                    }
-                }
-            }
-        } else {
-            for audioRecording in audioRecordings {
-                if let audioRecordingTags = audioRecording.tags {
-                    if audioRecordingTags.containsSameElements(as: tags) {
+        for audioRecording in audioRecordings {
+            for tag in tags {
+                if audioRecording.tags!.contains(tag.tag) {
+                    if !filteredAudioRecordings.contains(audioRecording) {
                         filteredAudioRecordings.append(audioRecording)
                     }
                 }

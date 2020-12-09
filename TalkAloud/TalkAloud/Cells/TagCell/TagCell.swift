@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TagFilterDelegate: class {
-    func didUpdateTagToFilter(by tags: [TagModel])
+    func didUpdateTagToFilter(with tag: TagModel)
 }
 
 class TagCell: UITableViewCell {
@@ -69,14 +69,7 @@ extension TagCell: UICollectionViewDataSource {
 extension TagCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var selectedTag = tagsDataSource[indexPath.row]
-        selectedTag.isTagSelected = !selectedTag.isTagSelected
-        
-        tagsDataSource[indexPath.row] = selectedTag
-        
-        delegate?.didUpdateTagToFilter(by: tagsDataSource)
-        
-        self.collectionView.reloadData()
-        
+        let selectedTag = tagsDataSource[indexPath.row]
+        delegate?.didUpdateTagToFilter(with: selectedTag)
     }
 }
