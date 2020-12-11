@@ -50,13 +50,13 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="New Recording" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCu-i9-Ns7">
                                         <rect key="frame" x="30" y="0.0" width="177.66666666666666" height="32.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYU-yj-P5v" userLabel="durationLabel">
                                         <rect key="frame" x="0.0" y="32.33333333333335" width="237.66666666666666" height="107.66666666666669"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="90"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -81,7 +81,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eEJ-gf-e5V"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="pj6-wU-H8F" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="4XN-LH-DL3"/>
                             <constraint firstItem="pj6-wU-H8F" firstAttribute="top" secondItem="S3p-RH-3Lg" secondAttribute="bottom" constant="103" id="AQc-3N-vtS"/>
@@ -284,7 +284,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zCb-wm-4On"/>
-                        <color key="backgroundColor" systemColor="labelColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="c7b-zN-M92" firstAttribute="leading" secondItem="zCb-wm-4On" secondAttribute="leading" constant="16" id="BlA-wX-4u0"/>
@@ -370,7 +370,7 @@
             </objects>
             <point key="canvasLocation" x="1852" y="1225"/>
         </scene>
-        <!--Audio Recordings View Controller-->
+        <!--Recordings-->
         <scene sceneID="1u4-t9-piJ">
             <objects>
                 <viewController id="3jk-mm-Ij7" customClass="AudioRecordingsViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
@@ -392,13 +392,8 @@
                             <constraint firstItem="9YN-jF-K8p" firstAttribute="bottom" secondItem="MDY-0G-fGV" secondAttribute="bottom" id="p39-ng-8xf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="d5E-om-kN7">
+                    <navigationItem key="navigationItem" title="Recordings" id="d5E-om-kN7">
                         <barButtonItem key="backBarButtonItem" title=" " id="hpZ-K5-fta"/>
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="tray" catalog="system" id="VFh-VD-IGc">
-                            <connections>
-                                <action selector="tappedLeftButton:" destination="3jk-mm-Ij7" id="pO0-1T-Bv1"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="recordingsTableView" destination="9YN-jF-K8p" id="m7c-kb-zf6"/>
@@ -439,10 +434,6 @@
         <image name="goforward.15" catalog="system" width="121" height="128"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="recordbutton" width="100" height="100"/>
-        <image name="tray" catalog="system" width="128" height="88"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
