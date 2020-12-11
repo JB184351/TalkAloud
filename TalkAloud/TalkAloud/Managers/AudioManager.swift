@@ -26,7 +26,6 @@ class AudioManager {
     private var audioRecordings: [AudioRecording] = []
     private var tagModelDataSource: [TagModel] = []
     private var filteredAudioRecordings: [AudioRecording] = []
-    private var allUniqueTags: [String] = []
     private var didNewRecording = false
     
     private init() {}
@@ -147,19 +146,17 @@ class AudioManager {
     }
     
     public func getAllAudioRecordingTags() -> [TagModel]? {
-        guard let audioRecordings = loadAllRecordings() else { return nil }
-        
         for audioRecording in audioRecordings {
             if let tags = audioRecording.tags {
                 for tag in tags {
-                    let tagModel = TagModel(tag: tag, isTagSelected: false)
-                    if !self.tagModelDataSource.contains(tagModel) {
+                    let tagModel = TagModel(tag: tag)
+                    if !self.tagModelDataSource.contains(where: { $0.tag == tagModel.tag }) {
                         self.tagModelDataSource.append(tagModel)
                     }
                 }
             }
         }
-    
+        
         return self.tagModelDataSource
     }
     
@@ -249,18 +246,34 @@ class AudioManager {
     }
     
     private func filteredAudioRecordings(with tags: [TagModel]?) -> [AudioRecording]? {
-        guard let tags = tags else { return nil }
+        guard let tags = tags else { return audioRecordings }
+        
+        let selectedTags = tags.filter({ $0.isTagSelected == true }).map({ $0.tag })
         
         filteredAudioRecordings.removeAll()
         
-        for audioRecording in audioRecordings {
-            for tag in tags {
-                if audioRecording.tags!.contains(tag.tag) {
-                    if !filteredAudioRecordings.contains(audioRecording) {
+        if selectedTags.count == 1 {
+            for audioRecording in audioRecordings {
+                if let audioRecordingTags = audioRecording.tags {
+                    for tag in selectedTags {
+                        if audioRecordingTags.contains(tag) {
+                            filteredAudioRecordings.append(audioRecording)
+                        }
+                    }
+                }
+            }
+        } else {
+            for audioRecording in audioRecordings {
+                if let audioRecordingTags = audioRecording.tags {
+                    if audioRecordingTags.containsSameElements(as: selectedTags) {
                         filteredAudioRecordings.append(audioRecording)
                     }
                 }
             }
+        }
+        
+        if filteredAudioRecordings.isEmpty {
+            return audioRecordings
         }
         
         return filteredAudioRecordings

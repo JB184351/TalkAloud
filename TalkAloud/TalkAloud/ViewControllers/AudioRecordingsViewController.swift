@@ -100,12 +100,10 @@ extension AudioRecordingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            if let tagModelDataSource = AudioManager.sharedInstance.getAllAudioRecordingTags() {
-                let tagCell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath) as! TagCell
-                tagCell.setup(with: tagModelDataSource)
-                tagCell.delegate = self
-                return tagCell
-            }
+            let tagCell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath) as! TagCell
+            tagCell.updateTagCells()
+            tagCell.delegate = self
+            return tagCell
         }
         
         var currentAudio: AudioRecording
