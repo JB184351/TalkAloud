@@ -86,6 +86,8 @@ class MoreOptionsViewController: UIViewController {
         
         editAlertController.addAction(renameFileAction)
         editAlertController.addAction(cancelRenameAction)
+        
+        editAlertController.view.tintColor = .white
         editAlertController.overrideUserInterfaceStyle = .dark
         
         present(editAlertController, animated: true)
@@ -111,6 +113,7 @@ class MoreOptionsViewController: UIViewController {
         deleteAlertController.addAction(deleteAlertAction)
         deleteAlertController.addAction(cancelDeleteAction)
         
+        deleteAlertController.view.tintColor = .white
         deleteAlertController.overrideUserInterfaceStyle = .dark
         
         self.present(deleteAlertController, animated: true)
@@ -141,6 +144,7 @@ class MoreOptionsViewController: UIViewController {
         tagAlertController.addAction(removeTagAction)
         tagAlertController.addAction(cancelTagAction)
         
+        tagAlertController.view.tintColor = .white
         tagAlertController.overrideUserInterfaceStyle = .dark
             
         self.present(tagAlertController, animated: true)

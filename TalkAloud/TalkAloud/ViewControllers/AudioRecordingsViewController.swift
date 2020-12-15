@@ -75,7 +75,7 @@ extension AudioRecordingsViewController: AudioRecordingCellDelegate {
         
         audioRecordingOptionViewControler.currentlySelectedRecording = audioRecordings[recordingsTableView.indexPath(for: cell)!.row]
         
-        self.navigationController?.pushViewController(audioRecordingOptionViewControler, animated: true)
+        self.navigationController?.present(audioRecordingOptionViewControler, animated: true)
     }
     
 }
@@ -170,6 +170,8 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             
             deleteAlertController.addAction(deleteAlertAction)
             deleteAlertController.addAction(cancelDeleteAction)
+            
+            deleteAlertController.view.tintColor = .white
             deleteAlertController.overrideUserInterfaceStyle = .dark
             
             self.present(deleteAlertController, animated: true)
@@ -203,6 +205,8 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             
             editAlertController.addAction(renameFileAction)
             editAlertController.addAction(cancelEditAction)
+            
+            editAlertController.view.tintColor = .white
             editAlertController.overrideUserInterfaceStyle = .dark
             
             self.present(editAlertController, animated: true)
@@ -240,6 +244,8 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             tagAlertController.addAction(addTagAction)
             tagAlertController.addAction(removeTagAction)
             tagAlertController.addAction(cancelTagAction)
+            
+            tagAlertController.view.tintColor = .white
             tagAlertController.overrideUserInterfaceStyle = .dark
             
             self.present(tagAlertController, animated: true)
