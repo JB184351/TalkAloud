@@ -81,29 +81,44 @@ class MoreOptionsViewController: UIViewController {
                 }
             }
         }
+        
+        let cancelRenameAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
         editAlertController.addAction(renameFileAction)
+        editAlertController.addAction(cancelRenameAction)
+        editAlertController.overrideUserInterfaceStyle = .dark
+        
         present(editAlertController, animated: true)
     }
     
     private func shareAction() {
         let audioRecordingItem = [currentlySelectedRecording?.url]
         let ac = UIActivityViewController(activityItems: audioRecordingItem as [Any], applicationActivities: nil)
+        ac.overrideUserInterfaceStyle = .dark
         present(ac, animated: true)
     }
     
     private func deleteAction() {
+        guard let currentRecordingTags = self.currentlySelectedRecording?.tags else { return }
+        
         let deleteAlertController = UIAlertController(title: "Are you sure you want to delete?", message: "You won't be able to recover this file", preferredStyle: .alert)
         let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
             AudioManager.sharedInstance.removeAudioRecording(with: self.currentlySelectedRecording!)
+            AudioManager.sharedInstance.removeTags(tags: currentRecordingTags)
         })
         let cancelDeleteAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         deleteAlertController.addAction(deleteAlertAction)
         deleteAlertController.addAction(cancelDeleteAction)
+        
+        deleteAlertController.overrideUserInterfaceStyle = .dark
+        
         self.present(deleteAlertController, animated: true)
     }
     
     private func editTagAction() {
+        guard let currentRecordingTags = self.currentlySelectedRecording?.tags else { return }
+        
         let tagAlertController = UIAlertController(title: "Edit Tag", message: nil, preferredStyle: .alert)
         tagAlertController.addTextField()
         
@@ -119,12 +134,15 @@ class MoreOptionsViewController: UIViewController {
         
         let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
             AudioManager.sharedInstance.removeTag(for: self.currentlySelectedRecording!)
+            AudioManager.sharedInstance.removeTags(tags: currentRecordingTags)
         }
         
         tagAlertController.addAction(addTagAction)
         tagAlertController.addAction(removeTagAction)
         tagAlertController.addAction(cancelTagAction)
-
+        
+        tagAlertController.overrideUserInterfaceStyle = .dark
+            
         self.present(tagAlertController, animated: true)
     }
     

@@ -96,7 +96,12 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     }
     
     @IBAction private func moreButtonAction(_ sender: Any) {
-        print("Tapped More Button")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
+        
+        audioRecordingOptionViewControler.currentlySelectedRecording = currentAudioRecording
+        
+        self.navigationController?.pushViewController(audioRecordingOptionViewControler, animated: true)
     }
     
     private func initializeTimer() {

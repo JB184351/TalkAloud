@@ -170,6 +170,8 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             
             deleteAlertController.addAction(deleteAlertAction)
             deleteAlertController.addAction(cancelDeleteAction)
+            deleteAlertController.overrideUserInterfaceStyle = .dark
+            
             self.present(deleteAlertController, animated: true)
         }
         
@@ -201,6 +203,8 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             
             editAlertController.addAction(renameFileAction)
             editAlertController.addAction(cancelEditAction)
+            editAlertController.overrideUserInterfaceStyle = .dark
+            
             self.present(editAlertController, animated: true)
             
         }
@@ -236,6 +240,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             tagAlertController.addAction(addTagAction)
             tagAlertController.addAction(removeTagAction)
             tagAlertController.addAction(cancelTagAction)
+            tagAlertController.overrideUserInterfaceStyle = .dark
             
             self.present(tagAlertController, animated: true)
         }
