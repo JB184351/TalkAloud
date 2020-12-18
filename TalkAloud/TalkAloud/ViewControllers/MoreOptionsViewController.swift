@@ -36,6 +36,11 @@ class MoreOptionsViewController: UIViewController {
         createMoreOptionModelObjects()
     }
     
+    @IBAction func doneButtonAction(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
+    
     //==================================================
     // MARK: - Private Methods
     //==================================================
