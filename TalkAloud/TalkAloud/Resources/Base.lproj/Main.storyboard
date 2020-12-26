@@ -58,23 +58,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="S3p-RH-3Lg" userLabel="durationStackView">
-                                <rect key="frame" x="69.999999999999986" y="144" width="237.66666666666663" height="182"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="New Recording" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCu-i9-Ns7">
-                                        <rect key="frame" x="30" y="0.0" width="177.66666666666666" height="42"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYU-yj-P5v" userLabel="durationLabel">
-                                        <rect key="frame" x="0.0" y="42" width="237.66666666666666" height="140"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="90"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="New Recording" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCu-i9-Ns7">
+                                <rect key="frame" x="8" y="74" width="359" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="8rM-Ay-cvB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYU-yj-P5v" userLabel="durationLabel">
+                                <rect key="frame" x="8" y="112" width="359" height="107.66666666666669"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="250" constant="105" id="qng-UF-54Z"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="90"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pj6-wU-H8F" userLabel="visualizerView" customClass="AudioPlayerVisualizerView" customModule="TalkAloud" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="411" width="375" height="130"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
@@ -97,16 +98,19 @@
                         <viewLayoutGuide key="safeArea" id="eEJ-gf-e5V"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="S3p-RH-3Lg" firstAttribute="leading" secondItem="eEJ-gf-e5V" secondAttribute="leading" constant="70" id="4Hf-bu-D4B"/>
                             <constraint firstItem="pj6-wU-H8F" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="4XN-LH-DL3"/>
-                            <constraint firstItem="S3p-RH-3Lg" firstAttribute="top" secondItem="eEJ-gf-e5V" secondAttribute="top" constant="100" id="6sB-CT-0BV"/>
-                            <constraint firstItem="pj6-wU-H8F" firstAttribute="top" secondItem="S3p-RH-3Lg" secondAttribute="bottom" constant="85" id="Hul-Wb-jbS"/>
+                            <constraint firstItem="eEJ-gf-e5V" firstAttribute="trailing" secondItem="eYU-yj-P5v" secondAttribute="trailing" constant="8" id="4jt-bc-iVj"/>
                             <constraint firstItem="u5S-8I-WId" firstAttribute="top" secondItem="pj6-wU-H8F" secondAttribute="bottom" constant="70" id="Lse-yG-xhQ"/>
                             <constraint firstItem="pj6-wU-H8F" firstAttribute="trailing" secondItem="eEJ-gf-e5V" secondAttribute="trailing" id="TVX-Xo-m48"/>
                             <constraint firstItem="pj6-wU-H8F" firstAttribute="leading" secondItem="eEJ-gf-e5V" secondAttribute="leading" id="Twm-ax-iXZ"/>
-                            <constraint firstItem="eEJ-gf-e5V" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="S3p-RH-3Lg" secondAttribute="trailing" constant="70" id="fIb-la-hxW"/>
+                            <constraint firstItem="QCu-i9-Ns7" firstAttribute="top" secondItem="eEJ-gf-e5V" secondAttribute="top" constant="30" id="Xlr-3g-2YX"/>
                             <constraint firstItem="u5S-8I-WId" firstAttribute="centerX" secondItem="wzs-6Q-Nho" secondAttribute="centerX" id="gh5-9o-kQ5"/>
                             <constraint firstItem="eEJ-gf-e5V" firstAttribute="bottom" secondItem="u5S-8I-WId" secondAttribute="bottom" constant="18" id="nnN-3o-7HX"/>
+                            <constraint firstItem="eYU-yj-P5v" firstAttribute="top" secondItem="QCu-i9-Ns7" secondAttribute="bottom" constant="8" id="o9i-gp-xxl"/>
+                            <constraint firstItem="QCu-i9-Ns7" firstAttribute="leading" secondItem="eEJ-gf-e5V" secondAttribute="leading" constant="8" id="rLq-Mt-QQ6"/>
+                            <constraint firstItem="eYU-yj-P5v" firstAttribute="leading" secondItem="eEJ-gf-e5V" secondAttribute="leading" constant="8" id="s5T-Se-Jb0"/>
+                            <constraint firstItem="eEJ-gf-e5V" firstAttribute="trailing" secondItem="QCu-i9-Ns7" secondAttribute="trailing" constant="8" id="trv-SE-0P4"/>
+                            <constraint firstItem="pj6-wU-H8F" firstAttribute="top" relation="greaterThanOrEqual" secondItem="eYU-yj-P5v" secondAttribute="bottom" constant="10" id="yYv-bQ-NrC"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Record" image="circle.fill" catalog="system" id="R3K-vd-95U"/>
