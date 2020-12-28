@@ -146,8 +146,6 @@ extension AudioRecordingsViewController: UITableViewDelegate {
         return true
     }
     
-    
-    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let currentRecording = audioRecordings[indexPath.row]
         

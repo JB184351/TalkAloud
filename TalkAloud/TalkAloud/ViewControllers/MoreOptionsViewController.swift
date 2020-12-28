@@ -68,6 +68,11 @@ class MoreOptionsViewController: UIViewController {
         moreOptions.append(delete)
     }
     
+    @IBAction func doneActionButton(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
+    
     private func renameAction() {
         let editAlertController = UIAlertController(title: "Change name", message: nil, preferredStyle: .alert)
         editAlertController.addTextField()

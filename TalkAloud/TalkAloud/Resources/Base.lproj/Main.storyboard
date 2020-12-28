@@ -29,6 +29,9 @@
                                 <state key="normal" title="Done">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="doneActionButton:" destination="dFV-Ae-xmb" eventType="touchUpInside" id="bod-iQ-4sb"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7Ee-Bx-ega"/>

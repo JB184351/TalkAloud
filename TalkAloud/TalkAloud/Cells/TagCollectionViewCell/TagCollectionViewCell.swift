@@ -26,7 +26,7 @@ class TagCollectionViewCell: UICollectionViewCell {
         if model.isTagSelected {
             self.backgroundColor = .red
         } else {
-            self.backgroundColor = .black
+            self.backgroundColor = .darkGray
         }
         
     }
