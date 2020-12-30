@@ -68,9 +68,6 @@ class MoreOptionsViewController: UIViewController {
         moreOptions.append(delete)
     }
     
-    @IBAction func doneActionButton(_ sender: Any) {
-        self.dismiss(animated: true)
-    }
     
     
     private func renameAction() {
