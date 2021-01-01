@@ -18,6 +18,8 @@
 		3040B2632564C07A00E1371A /* TagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3040B2622564C07A00E1371A /* TagModel.swift */; };
 		3040B2672564C15F00E1371A /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3040B2652564C15F00E1371A /* TagCell.swift */; };
 		3040B2682564C15F00E1371A /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3040B2662564C15F00E1371A /* TagCell.xib */; };
+		3059E03D259FAC44004807B6 /* MoreOptionsPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3059E03C259FAC44004807B6 /* MoreOptionsPresentationManager.swift */; };
+		3059E040259FB237004807B6 /* MoreOptionsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3059E03F259FB237004807B6 /* MoreOptionsPresentationController.swift */; };
 		305EF77C240D53DF00CF53A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305EF77B240D53DF00CF53A0 /* AppDelegate.swift */; };
 		305EF77E240D53DF00CF53A0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305EF77D240D53DF00CF53A0 /* SceneDelegate.swift */; };
 		305EF783240D53DF00CF53A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 305EF781240D53DF00CF53A0 /* Main.storyboard */; };
@@ -50,6 +52,8 @@
 		3040B2622564C07A00E1371A /* TagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagModel.swift; sourceTree = "<group>"; };
 		3040B2652564C15F00E1371A /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		3040B2662564C15F00E1371A /* TagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
+		3059E03C259FAC44004807B6 /* MoreOptionsPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoreOptionsPresentationManager.swift; path = TalkAloud/ViewControllers/MoreOptionsPresentationManager.swift; sourceTree = SOURCE_ROOT; };
+		3059E03F259FB237004807B6 /* MoreOptionsPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoreOptionsPresentationController.swift; path = TalkAloud/ViewControllers/MoreOptionsPresentationController.swift; sourceTree = SOURCE_ROOT; };
 		305EF778240D53DF00CF53A0 /* TalkAloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TalkAloud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		305EF77B240D53DF00CF53A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		305EF77D240D53DF00CF53A0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +108,15 @@
 			path = TagCell;
 			sourceTree = "<group>";
 		};
+		3059E039259FA7A0004807B6 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				3059E03F259FB237004807B6 /* MoreOptionsPresentationController.swift */,
+				3059E03C259FAC44004807B6 /* MoreOptionsPresentationManager.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
 		305EF76F240D53DF00CF53A0 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +143,7 @@
 				30F4115E24ACC2D200EA4EF6 /* AudioEngine */,
 				30F4115D24ACC2B100EA4EF6 /* Managers */,
 				301B143E244A80D3007C3050 /* Model */,
+				3059E039259FA7A0004807B6 /* Presentation */,
 				307F71E824492CF0004AE308 /* ViewControllers */,
 				30F4115F24ACC2F400EA4EF6 /* Views */,
 			);
@@ -318,6 +332,7 @@
 				3035ABAE24F195E600095BAF /* MoreOptionsViewController.swift in Sources */,
 				307F71E724492CAB004AE308 /* AudioRecordingsViewController.swift in Sources */,
 				30DEEABB249A59AC002BAF73 /* AudioRecording.swift in Sources */,
+				3059E040259FB237004807B6 /* MoreOptionsPresentationController.swift in Sources */,
 				3035ABA824F1943A00095BAF /* MoreOptionsModel.swift in Sources */,
 				30A1C9C624A5808500AB0C59 /* CoreDataManager.swift in Sources */,
 				3040B2632564C07A00E1371A /* TagModel.swift in Sources */,
@@ -331,6 +346,7 @@
 				305EF77E240D53DF00CF53A0 /* SceneDelegate.swift in Sources */,
 				305EF786240D53DF00CF53A0 /* TalkAloud.xcdatamodeld in Sources */,
 				30DBE24824798E08003716B3 /* AudioPlayerVisualizerView.swift in Sources */,
+				3059E03D259FAC44004807B6 /* MoreOptionsPresentationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

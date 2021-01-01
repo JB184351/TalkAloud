@@ -18,6 +18,11 @@ class AudioRecordingsViewController: UIViewController {
     @IBOutlet private var recordingsTableView: UITableView!
     
     //==================================================
+    // MARK: - Public Properties
+    //==================================================
+    lazy var moreOptionsTransitioningDelegate = MoreOptionsPresentationManager()
+    
+    //==================================================
     // MARK: - LifeCycle Methods
     //==================================================
     
@@ -74,6 +79,9 @@ extension AudioRecordingsViewController: AudioRecordingCellDelegate {
         let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
         
         audioRecordingOptionViewControler.currentlySelectedRecording = audioRecordings[recordingsTableView.indexPath(for: cell)!.row]
+        
+        audioRecordingOptionViewControler.transitioningDelegate = moreOptionsTransitioningDelegate
+        audioRecordingOptionViewControler.modalPresentationStyle = .custom
         
         self.navigationController?.present(audioRecordingOptionViewControler, animated: true)
     }
