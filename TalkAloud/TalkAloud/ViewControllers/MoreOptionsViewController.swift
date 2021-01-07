@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol MoreOptionsDelegate: class {
+    func didDelete(recording: AudioRecording?)
+}
+
 class MoreOptionsViewController: UIViewController {
     
     //==================================================
@@ -20,9 +24,9 @@ class MoreOptionsViewController: UIViewController {
     // MARK: - Private Properties
     //==================================================
     
-    // Virgil: IBOutlets aren't private; you can make them tho
     @IBOutlet private var tableView: UITableView!
     private var moreOptions = [MoreOptionsModel]()
+    weak var delegate: MoreOptionsDelegate?
         
     //==================================================
     // MARK: - Lifecycle Methods
@@ -112,13 +116,13 @@ class MoreOptionsViewController: UIViewController {
     }
     
     private func deleteAction() {
-        guard let currentRecordingTags = self.currentlySelectedRecording?.tags else { return }
-        
         let deleteAlertController = UIAlertController(title: "Are you sure you want to delete?", message: "You won't be able to recover this file", preferredStyle: .alert)
         let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
-            AudioManager.sharedInstance.removeAudioRecording(with: self.currentlySelectedRecording!)
-            AudioManager.sharedInstance.removeTags(tags: currentRecordingTags)
+            self.dismiss(animated: true, completion: {
+                self.delegate?.didDelete(recording: self.currentlySelectedRecording)
+            })
         })
+        
         let cancelDeleteAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         deleteAlertController.addAction(deleteAlertAction)

@@ -311,7 +311,7 @@
         <!--Recordings-->
         <scene sceneID="1u4-t9-piJ">
             <objects>
-                <viewController id="3jk-mm-Ij7" customClass="AudioRecordingsViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RecordingsViewController" id="3jk-mm-Ij7" customClass="AudioRecordingsViewController" customModule="TalkAloud" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Aj-Me-tL8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

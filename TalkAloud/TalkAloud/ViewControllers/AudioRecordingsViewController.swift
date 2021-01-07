@@ -15,12 +15,8 @@ class AudioRecordingsViewController: UIViewController {
     //==================================================
     
     private var audioRecordings = [AudioRecording]()
+    private lazy var moreOptionsTransitioningDelegate = MoreOptionsPresentationManager()
     @IBOutlet private var recordingsTableView: UITableView!
-    
-    //==================================================
-    // MARK: - Public Properties
-    //==================================================
-    lazy var moreOptionsTransitioningDelegate = MoreOptionsPresentationManager()
     
     //==================================================
     // MARK: - LifeCycle Methods
@@ -69,6 +65,23 @@ extension AudioRecordingsViewController: TagFilterDelegate {
 }
 
 //==================================================
+// MARK: - MoreOptions Delegate
+//==================================================
+
+extension AudioRecordingsViewController: MoreOptionsDelegate {
+    func didDelete(recording: AudioRecording?) {
+        guard let tags = recording?.tags else { return }
+        
+        AudioManager.sharedInstance.removeAudioRecording(with: recording!)
+        AudioManager.sharedInstance.removeTags(tags: tags)
+        
+        audioRecordings = AudioManager.sharedInstance.loadAudioRecordings()!
+        self.recordingsTableView.reloadData()
+    }
+    
+}
+
+//==================================================
 // MARK: - AudioRecordingCell Delegate
 //==================================================
 
@@ -76,14 +89,16 @@ extension AudioRecordingsViewController: AudioRecordingCellDelegate {
     
     func didTappedMoreButton(for cell: AudioRecordingCell) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
+        let moreOptionsViewController = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
         
-        audioRecordingOptionViewControler.currentlySelectedRecording = audioRecordings[recordingsTableView.indexPath(for: cell)!.row]
+        moreOptionsViewController.delegate = self
         
-        audioRecordingOptionViewControler.transitioningDelegate = moreOptionsTransitioningDelegate
-        audioRecordingOptionViewControler.modalPresentationStyle = .custom
+        moreOptionsViewController.currentlySelectedRecording = audioRecordings[recordingsTableView.indexPath(for: cell)!.row]
         
-        self.navigationController?.present(audioRecordingOptionViewControler, animated: true)
+        moreOptionsViewController.transitioningDelegate = moreOptionsTransitioningDelegate
+        moreOptionsViewController.modalPresentationStyle = .custom
+        
+        self.navigationController?.present(moreOptionsViewController, animated: true)
     }
     
 }

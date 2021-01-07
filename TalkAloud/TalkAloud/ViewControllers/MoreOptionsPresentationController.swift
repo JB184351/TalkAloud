@@ -63,7 +63,7 @@ class MoreOptionsPresentationController: UIPresentationController {
         var frame: CGRect = .zero
         
         frame.size = size(forChildContentContainer: presentedViewController, withParentContainerSize: containerView!.bounds.size)
-        frame.origin.y = containerView!.frame.height * (1.0/3.0)
+        frame.origin.y = containerView!.frame.height * (1.0/1.5)
         
         return frame
     }

@@ -24,6 +24,7 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     @IBOutlet private var goBackFifteenSecondsButton: UIButton!
     @IBOutlet private var playButton: UIButton!
     @IBOutlet private var goForwardFifteenSecondsButton: UIButton!
+    private lazy var moreOptionsTransitioningDelegate = MoreOptionsPresentationManager()
     private var progressTimer: Timer?
     private var visualizerTimer: Timer?
     private var audioRecordingName: String?
@@ -97,11 +98,15 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     
     @IBAction private func moreButtonAction(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
+        let moreOptionsViewController = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
         
-        audioRecordingOptionViewControler.currentlySelectedRecording = currentAudioRecording
+        moreOptionsViewController.currentlySelectedRecording = currentAudioRecording
+        moreOptionsViewController.delegate = self
         
-        self.navigationController?.pushViewController(audioRecordingOptionViewControler, animated: true)
+        moreOptionsViewController.transitioningDelegate = moreOptionsTransitioningDelegate
+        moreOptionsViewController.modalPresentationStyle = .custom
+        
+        self.navigationController?.present(moreOptionsViewController, animated: true)
     }
     
     private func initializeTimer() {
@@ -217,3 +222,20 @@ extension PlayerViewController: AudioSliderDelegate {
     }
     
 }
+
+//==================================================
+// MARK: - MoreOptions Delegate
+//==================================================
+
+extension PlayerViewController: MoreOptionsDelegate {
+    func didDelete(recording: AudioRecording?) {
+        guard let tags = recording?.tags else { return }
+        
+        AudioManager.sharedInstance.removeAudioRecording(with: recording!)
+        AudioManager.sharedInstance.removeTags(tags: tags)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+}
+
+
