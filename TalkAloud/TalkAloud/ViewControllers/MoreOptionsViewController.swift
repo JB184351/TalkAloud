@@ -19,6 +19,7 @@ class MoreOptionsViewController: UIViewController {
     //==================================================
     
     public var currentlySelectedRecording: AudioRecording?
+    public weak var delegate: MoreOptionsDelegate?
     
     //==================================================
     // MARK: - Private Properties
@@ -26,7 +27,6 @@ class MoreOptionsViewController: UIViewController {
     
     @IBOutlet private var tableView: UITableView!
     private var moreOptions = [MoreOptionsModel]()
-    weak var delegate: MoreOptionsDelegate?
         
     //==================================================
     // MARK: - Lifecycle Methods
