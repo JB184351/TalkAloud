@@ -9,7 +9,11 @@
 import UIKit
 
 protocol MoreOptionsDelegate: class {
-    func didDelete(recording: AudioRecording?)
+    func didDelete(selectedRecording: AudioRecording?)
+    // Add update methods here so an audioRecording can receive updates for tags and filename
+    func didAddTag(for selectedRecording: AudioRecording?)
+    func didRemoveTags(for selectedRecording: AudioRecording?)
+    func didUpdateFileName(for selectedRecording: AudioRecording)
 }
 
 class MoreOptionsViewController: UIViewController {
@@ -87,7 +91,7 @@ class MoreOptionsViewController: UIViewController {
             
             if let newFileName = newFileName {
                 let errorMessage = AudioManager.sharedInstance.renameFile(with: self.currentlySelectedRecording!, newFileName: newFileName)
-                
+                self.delegate?.didUpdateFileName(for: self.currentlySelectedRecording!)
                 if errorMessage != nil {
                     let ac = UIAlertController(title: "Same File Name Exists Already!", message: errorMessage?.localizedDescription, preferredStyle: .alert)
                     let doneAction = UIAlertAction(title: "Done", style: .default)
@@ -119,7 +123,7 @@ class MoreOptionsViewController: UIViewController {
         let deleteAlertController = UIAlertController(title: "Are you sure you want to delete?", message: "You won't be able to recover this file", preferredStyle: .alert)
         let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
             self.dismiss(animated: true, completion: {
-                self.delegate?.didDelete(recording: self.currentlySelectedRecording)
+                self.delegate?.didDelete(selectedRecording: self.currentlySelectedRecording)
             })
         })
         
@@ -145,6 +149,7 @@ class MoreOptionsViewController: UIViewController {
             
             if let tagName = tagName {
                 AudioManager.sharedInstance.setTag(for: self.currentlySelectedRecording!, tag: tagName)
+                self.delegate?.didAddTag(for: self.currentlySelectedRecording)
             }
         }
         
@@ -152,7 +157,8 @@ class MoreOptionsViewController: UIViewController {
         
         let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
             AudioManager.sharedInstance.removeTag(for: self.currentlySelectedRecording!)
-            AudioManager.sharedInstance.removeTags(tags: currentRecordingTags)
+            AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: currentRecordingTags)
+            self.delegate?.didRemoveTags(for: self.currentlySelectedRecording!)
         }
         
         tagAlertController.addAction(addTagAction)

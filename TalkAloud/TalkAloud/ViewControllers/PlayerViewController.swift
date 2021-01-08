@@ -228,12 +228,28 @@ extension PlayerViewController: AudioSliderDelegate {
 //==================================================
 
 extension PlayerViewController: MoreOptionsDelegate {
-    func didDelete(recording: AudioRecording?) {
+    
+    func didDelete(selectedRecording recording: AudioRecording?) {
         guard let tags = recording?.tags else { return }
         
         AudioManager.sharedInstance.removeAudioRecording(with: recording!)
-        AudioManager.sharedInstance.removeTags(tags: tags)
+        AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: tags)
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func didAddTag(for selectedRecording: AudioRecording?) {
+        print("Added tag to recording")
+    }
+    
+    func didRemoveTags(for selectedRecording: AudioRecording?) {
+        guard let tags = selectedRecording?.tags else { return }
+        
+        AudioManager.sharedInstance.removeTag(for: selectedRecording!)
+        AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: tags)
+    }
+    
+    func didUpdateFileName(for selectedRecording: AudioRecording) {
+        audioRecordingNameLabel.text = selectedRecording.fileName
     }
     
 }
