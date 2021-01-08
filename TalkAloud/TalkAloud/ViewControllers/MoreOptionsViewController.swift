@@ -10,7 +10,6 @@ import UIKit
 
 protocol MoreOptionsDelegate: class {
     func didDelete(selectedRecording: AudioRecording?)
-    // Add update methods here so an audioRecording can receive updates for tags and filename
     func didAddTag(for selectedRecording: AudioRecording?)
     func didRemoveTags(for selectedRecording: AudioRecording?)
     func didUpdateFileName(for selectedRecording: AudioRecording)
