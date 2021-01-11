@@ -8,6 +8,13 @@
 
 import UIKit
 
+protocol MoreOptionsDelegate: class {
+    func didDelete(selectedRecording: AudioRecording?)
+    func didAddTag(for selectedRecording: AudioRecording?)
+    func didRemoveTags(for selectedRecording: AudioRecording?)
+    func didUpdateFileName(for selectedRecording: AudioRecording)
+}
+
 class MoreOptionsViewController: UIViewController {
     
     //==================================================
@@ -15,12 +22,12 @@ class MoreOptionsViewController: UIViewController {
     //==================================================
     
     public var currentlySelectedRecording: AudioRecording?
+    public weak var delegate: MoreOptionsDelegate?
     
     //==================================================
     // MARK: - Private Properties
     //==================================================
     
-    // Virgil: IBOutlets aren't private; you can make them tho
     @IBOutlet private var tableView: UITableView!
     private var moreOptions = [MoreOptionsModel]()
         
@@ -35,6 +42,15 @@ class MoreOptionsViewController: UIViewController {
         tableView.register(UINib(nibName: "MoreOptionsCell", bundle: nil), forCellReuseIdentifier: "MoreOptionsCell")
         createMoreOptionModelObjects()
     }
+    
+    //==================================================
+    // MARK: - Actions
+    //==================================================
+    
+    @IBAction func doneButtonAction(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
     
     //==================================================
     // MARK: - Private Methods
@@ -63,6 +79,8 @@ class MoreOptionsViewController: UIViewController {
         moreOptions.append(delete)
     }
     
+    
+    
     private func renameAction() {
         let editAlertController = UIAlertController(title: "Change name", message: nil, preferredStyle: .alert)
         editAlertController.addTextField()
@@ -72,7 +90,7 @@ class MoreOptionsViewController: UIViewController {
             
             if let newFileName = newFileName {
                 let errorMessage = AudioManager.sharedInstance.renameFile(with: self.currentlySelectedRecording!, newFileName: newFileName)
-                
+                self.delegate?.didUpdateFileName(for: self.currentlySelectedRecording!)
                 if errorMessage != nil {
                     let ac = UIAlertController(title: "Same File Name Exists Already!", message: errorMessage?.localizedDescription, preferredStyle: .alert)
                     let doneAction = UIAlertAction(title: "Done", style: .default)
@@ -81,29 +99,47 @@ class MoreOptionsViewController: UIViewController {
                 }
             }
         }
+        
+        let cancelRenameAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
         editAlertController.addAction(renameFileAction)
+        editAlertController.addAction(cancelRenameAction)
+        
+        editAlertController.view.tintColor = .white
+        editAlertController.overrideUserInterfaceStyle = .dark
+        
         present(editAlertController, animated: true)
     }
     
     private func shareAction() {
         let audioRecordingItem = [currentlySelectedRecording?.url]
         let ac = UIActivityViewController(activityItems: audioRecordingItem as [Any], applicationActivities: nil)
+        ac.overrideUserInterfaceStyle = .dark
         present(ac, animated: true)
     }
     
     private func deleteAction() {
         let deleteAlertController = UIAlertController(title: "Are you sure you want to delete?", message: "You won't be able to recover this file", preferredStyle: .alert)
         let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
-            AudioManager.sharedInstance.removeAudioRecording(with: self.currentlySelectedRecording!)
+            self.dismiss(animated: true, completion: {
+                self.delegate?.didDelete(selectedRecording: self.currentlySelectedRecording)
+            })
         })
+        
         let cancelDeleteAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         deleteAlertController.addAction(deleteAlertAction)
         deleteAlertController.addAction(cancelDeleteAction)
+        
+        deleteAlertController.view.tintColor = .white
+        deleteAlertController.overrideUserInterfaceStyle = .dark
+        
         self.present(deleteAlertController, animated: true)
     }
     
     private func editTagAction() {
+        guard let currentRecordingTags = self.currentlySelectedRecording?.tags else { return }
+        
         let tagAlertController = UIAlertController(title: "Edit Tag", message: nil, preferredStyle: .alert)
         tagAlertController.addTextField()
         
@@ -112,6 +148,7 @@ class MoreOptionsViewController: UIViewController {
             
             if let tagName = tagName {
                 AudioManager.sharedInstance.setTag(for: self.currentlySelectedRecording!, tag: tagName)
+                self.delegate?.didAddTag(for: self.currentlySelectedRecording)
             }
         }
         
@@ -119,12 +156,17 @@ class MoreOptionsViewController: UIViewController {
         
         let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
             AudioManager.sharedInstance.removeTag(for: self.currentlySelectedRecording!)
+            AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: currentRecordingTags)
+            self.delegate?.didRemoveTags(for: self.currentlySelectedRecording!)
         }
         
         tagAlertController.addAction(addTagAction)
         tagAlertController.addAction(removeTagAction)
         tagAlertController.addAction(cancelTagAction)
-
+        
+        tagAlertController.view.tintColor = .white
+        tagAlertController.overrideUserInterfaceStyle = .dark
+            
         self.present(tagAlertController, animated: true)
     }
     

@@ -15,6 +15,7 @@ class AudioRecordingsViewController: UIViewController {
     //==================================================
     
     private var audioRecordings = [AudioRecording]()
+    private lazy var moreOptionsTransitioningDelegate = MoreOptionsPresentationManager()
     @IBOutlet private var recordingsTableView: UITableView!
     
     //==================================================
@@ -64,6 +65,41 @@ extension AudioRecordingsViewController: TagFilterDelegate {
 }
 
 //==================================================
+// MARK: - MoreOptions Delegate
+//==================================================
+
+extension AudioRecordingsViewController: MoreOptionsDelegate {
+    
+    func didDelete(selectedRecording: AudioRecording?) {
+        guard let tags = selectedRecording?.tags else { return }
+        
+        AudioManager.sharedInstance.removeAudioRecording(with: selectedRecording!)
+        AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: tags)
+        
+        audioRecordings = AudioManager.sharedInstance.loadAudioRecordings()!
+        self.recordingsTableView.reloadData()
+    }
+    
+    func didAddTag(for selectedRecording: AudioRecording?) {
+        self.recordingsTableView.reloadData()
+    }
+    
+    func didRemoveTags(for recording: AudioRecording?) {
+        guard let currentRecordingTags = recording?.tags else { return }
+        
+        AudioManager.sharedInstance.removeTag(for: recording!)
+        AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: currentRecordingTags)
+        
+        self.recordingsTableView.reloadData()
+    }
+    
+    func didUpdateFileName(for selectedRecording: AudioRecording) {
+        self.recordingsTableView.reloadData()
+    }
+    
+}
+
+//==================================================
 // MARK: - AudioRecordingCell Delegate
 //==================================================
 
@@ -71,11 +107,16 @@ extension AudioRecordingsViewController: AudioRecordingCellDelegate {
     
     func didTappedMoreButton(for cell: AudioRecordingCell) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let audioRecordingOptionViewControler = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
+        let moreOptionsViewController = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
         
-        audioRecordingOptionViewControler.currentlySelectedRecording = audioRecordings[recordingsTableView.indexPath(for: cell)!.row]
+        moreOptionsViewController.delegate = self
         
-        self.navigationController?.pushViewController(audioRecordingOptionViewControler, animated: true)
+        moreOptionsViewController.currentlySelectedRecording = audioRecordings[recordingsTableView.indexPath(for: cell)!.row]
+        
+        moreOptionsViewController.transitioningDelegate = moreOptionsTransitioningDelegate
+        moreOptionsViewController.modalPresentationStyle = .custom
+        
+        self.navigationController?.present(moreOptionsViewController, animated: true)
     }
     
 }
@@ -146,8 +187,6 @@ extension AudioRecordingsViewController: UITableViewDelegate {
         return true
     }
     
-    
-    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let currentRecording = audioRecordings[indexPath.row]
         
@@ -159,7 +198,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
                 AudioManager.sharedInstance.removeAudioRecording(with: currentRecording)
                 self.audioRecordings.remove(at: indexPath.row)
-                AudioManager.sharedInstance.removeTags(tags: currentRecordingTags)
+                AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: currentRecordingTags)
                 self.recordingsTableView.deleteRows(at: [indexPath], with: .none)
                 self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
             })
@@ -170,6 +209,10 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             
             deleteAlertController.addAction(deleteAlertAction)
             deleteAlertController.addAction(cancelDeleteAction)
+            
+            deleteAlertController.view.tintColor = .white
+            deleteAlertController.overrideUserInterfaceStyle = .dark
+            
             self.present(deleteAlertController, animated: true)
         }
         
@@ -201,6 +244,10 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             
             editAlertController.addAction(renameFileAction)
             editAlertController.addAction(cancelEditAction)
+            
+            editAlertController.view.tintColor = .white
+            editAlertController.overrideUserInterfaceStyle = .dark
+            
             self.present(editAlertController, animated: true)
             
         }
@@ -227,7 +274,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             }
             
             let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
-                AudioManager.sharedInstance.removeTags(tags: currentRecordingTags)
+                AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: currentRecordingTags)
                 AudioManager.sharedInstance.removeTag(for: currentRecording)
                 self.recordingsTableView.reloadRows(at: [indexPath], with: .none)
                 self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
@@ -236,6 +283,9 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             tagAlertController.addAction(addTagAction)
             tagAlertController.addAction(removeTagAction)
             tagAlertController.addAction(cancelTagAction)
+            
+            tagAlertController.view.tintColor = .white
+            tagAlertController.overrideUserInterfaceStyle = .dark
             
             self.present(tagAlertController, animated: true)
         }

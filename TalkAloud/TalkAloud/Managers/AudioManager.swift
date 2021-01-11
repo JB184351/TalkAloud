@@ -175,7 +175,7 @@ class AudioManager {
         }
     }
     
-    public func removeTags(tags: [String]) {
+    public func removeTagsFromTagModelDataSource(tags: [String]) {
         for tag in tags {
             if let index = self.tagModelDataSource.firstIndex(where: { $0.tag == tag }) {
                 self.tagModelDataSource.remove(at: index)

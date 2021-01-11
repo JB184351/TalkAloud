@@ -24,6 +24,7 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     @IBOutlet private var goBackFifteenSecondsButton: UIButton!
     @IBOutlet private var playButton: UIButton!
     @IBOutlet private var goForwardFifteenSecondsButton: UIButton!
+    private lazy var moreOptionsTransitioningDelegate = MoreOptionsPresentationManager()
     private var progressTimer: Timer?
     private var visualizerTimer: Timer?
     private var audioRecordingName: String?
@@ -96,7 +97,16 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     }
     
     @IBAction private func moreButtonAction(_ sender: Any) {
-        print("Tapped More Button")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let moreOptionsViewController = storyboard.instantiateViewController(identifier: "AudioRecodrdingOptionsViewController") as! MoreOptionsViewController
+        
+        moreOptionsViewController.currentlySelectedRecording = currentAudioRecording
+        moreOptionsViewController.delegate = self
+        
+        moreOptionsViewController.transitioningDelegate = moreOptionsTransitioningDelegate
+        moreOptionsViewController.modalPresentationStyle = .custom
+        
+        self.navigationController?.present(moreOptionsViewController, animated: true)
     }
     
     private func initializeTimer() {
@@ -212,3 +222,36 @@ extension PlayerViewController: AudioSliderDelegate {
     }
     
 }
+
+//==================================================
+// MARK: - MoreOptions Delegate
+//==================================================
+
+extension PlayerViewController: MoreOptionsDelegate {
+    
+    func didDelete(selectedRecording recording: AudioRecording?) {
+        guard let tags = recording?.tags else { return }
+        
+        AudioManager.sharedInstance.removeAudioRecording(with: recording!)
+        AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: tags)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func didAddTag(for selectedRecording: AudioRecording?) {
+        print("Added tag to recording")
+    }
+    
+    func didRemoveTags(for selectedRecording: AudioRecording?) {
+        guard let tags = selectedRecording?.tags else { return }
+        
+        AudioManager.sharedInstance.removeTag(for: selectedRecording!)
+        AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: tags)
+    }
+    
+    func didUpdateFileName(for selectedRecording: AudioRecording) {
+        audioRecordingNameLabel.text = selectedRecording.fileName
+    }
+    
+}
+
+
