@@ -63,3 +63,15 @@ extension Int {
     
 }
 
+extension String {
+    
+    var removeFileExtension: String {
+        
+        if self.hasSuffix(".m4a") {
+            return (self as NSString).deletingPathExtension
+        }
+        
+        return self
+    }
+}
+
