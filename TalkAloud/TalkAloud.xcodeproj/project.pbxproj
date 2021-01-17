@@ -16,8 +16,6 @@
 		3035ABAC24F1949500095BAF /* MoreOptionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3035ABAA24F1949500095BAF /* MoreOptionsCell.xib */; };
 		3035ABAE24F195E600095BAF /* MoreOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3035ABAD24F195E600095BAF /* MoreOptionsViewController.swift */; };
 		3040B2632564C07A00E1371A /* TagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3040B2622564C07A00E1371A /* TagModel.swift */; };
-		3040B2672564C15F00E1371A /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3040B2652564C15F00E1371A /* TagCell.swift */; };
-		3040B2682564C15F00E1371A /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3040B2662564C15F00E1371A /* TagCell.xib */; };
 		3059E03D259FAC44004807B6 /* MoreOptionsPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3059E03C259FAC44004807B6 /* MoreOptionsPresentationManager.swift */; };
 		3059E040259FB237004807B6 /* MoreOptionsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3059E03F259FB237004807B6 /* MoreOptionsPresentationController.swift */; };
 		305EF77C240D53DF00CF53A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305EF77B240D53DF00CF53A0 /* AppDelegate.swift */; };
@@ -30,8 +28,6 @@
 		3077105525B3798500CD3B36 /* TagCollectionViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3077105325B3798500CD3B36 /* TagCollectionViewTableViewCell.xib */; };
 		307F71E724492CAB004AE308 /* AudioRecordingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F71E624492CAB004AE308 /* AudioRecordingsViewController.swift */; };
 		3090198024DA3DDD007999CB /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3090197F24DA3DDD007999CB /* PlayerViewController.swift */; };
-		3096CA1E2564B7DE0048FD0F /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3096CA1C2564B7DE0048FD0F /* TagCollectionViewCell.swift */; };
-		3096CA1F2564B7DE0048FD0F /* TagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3096CA1D2564B7DE0048FD0F /* TagCollectionViewCell.xib */; };
 		30A1C9C624A5808500AB0C59 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A1C9C524A5808500AB0C59 /* CoreDataManager.swift */; };
 		30ADB21325B38788009FA4DB /* NewTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ADB21125B38788009FA4DB /* NewTagCollectionViewCell.swift */; };
 		30ADB21425B38788009FA4DB /* NewTagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30ADB21225B38788009FA4DB /* NewTagCollectionViewCell.xib */; };
@@ -54,8 +50,6 @@
 		3035ABAA24F1949500095BAF /* MoreOptionsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MoreOptionsCell.xib; path = TalkAloud/Cells/MoreOptionsCell/MoreOptionsCell.xib; sourceTree = SOURCE_ROOT; };
 		3035ABAD24F195E600095BAF /* MoreOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreOptionsViewController.swift; sourceTree = "<group>"; };
 		3040B2622564C07A00E1371A /* TagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagModel.swift; sourceTree = "<group>"; };
-		3040B2652564C15F00E1371A /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
-		3040B2662564C15F00E1371A /* TagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
 		3059E03C259FAC44004807B6 /* MoreOptionsPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoreOptionsPresentationManager.swift; path = TalkAloud/ViewControllers/MoreOptionsPresentationManager.swift; sourceTree = SOURCE_ROOT; };
 		3059E03F259FB237004807B6 /* MoreOptionsPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoreOptionsPresentationController.swift; path = TalkAloud/ViewControllers/MoreOptionsPresentationController.swift; sourceTree = SOURCE_ROOT; };
 		305EF778240D53DF00CF53A0 /* TalkAloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TalkAloud.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,8 +64,6 @@
 		3077105325B3798500CD3B36 /* TagCollectionViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCollectionViewTableViewCell.xib; sourceTree = "<group>"; };
 		307F71E624492CAB004AE308 /* AudioRecordingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordingsViewController.swift; sourceTree = "<group>"; };
 		3090197F24DA3DDD007999CB /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
-		3096CA1C2564B7DE0048FD0F /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
-		3096CA1D2564B7DE0048FD0F /* TagCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCollectionViewCell.xib; sourceTree = "<group>"; };
 		30A1C9C524A5808500AB0C59 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		30ADB21125B38788009FA4DB /* NewTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		30ADB21225B38788009FA4DB /* NewTagCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewTagCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -105,15 +97,6 @@
 				305EF784240D53DF00CF53A0 /* TalkAloud.xcdatamodeld */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		3040B26A2564C16700E1371A /* TagCell */ = {
-			isa = PBXGroup;
-			children = (
-				3040B2652564C15F00E1371A /* TagCell.swift */,
-				3040B2662564C15F00E1371A /* TagCell.xib */,
-			);
-			path = TagCell;
 			sourceTree = "<group>";
 		};
 		3059E039259FA7A0004807B6 /* Presentation */ = {
@@ -192,15 +175,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		3096CA212564B7EC0048FD0F /* TagCollectionViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				3096CA1C2564B7DE0048FD0F /* TagCollectionViewCell.swift */,
-				3096CA1D2564B7DE0048FD0F /* TagCollectionViewCell.xib */,
-			);
-			path = TagCollectionViewCell;
-			sourceTree = "<group>";
-		};
 		30ADB21625B38799009FA4DB /* NewTagCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,8 +191,6 @@
 				3077105725B3799100CD3B36 /* NewTagCollectionViewTableViewCell */,
 				C5C24DF425542AFD0060916B /* AudioRecordingCell */,
 				C5C24DF625542B520060916B /* MoreOptionsCell */,
-				3040B26A2564C16700E1371A /* TagCell */,
-				3096CA212564B7EC0048FD0F /* TagCollectionViewCell */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -338,8 +310,6 @@
 				305EF78B240D53E000CF53A0 /* LaunchScreen.storyboard in Resources */,
 				3035ABAC24F1949500095BAF /* MoreOptionsCell.xib in Resources */,
 				305EF788240D53E000CF53A0 /* Assets.xcassets in Resources */,
-				3096CA1F2564B7DE0048FD0F /* TagCollectionViewCell.xib in Resources */,
-				3040B2682564C15F00E1371A /* TagCell.xib in Resources */,
 				3077105525B3798500CD3B36 /* TagCollectionViewTableViewCell.xib in Resources */,
 				30B0459624AD5864007D7568 /* AudioRecordingCell.xib in Resources */,
 				305EF783240D53DF00CF53A0 /* Main.storyboard in Resources */,
@@ -357,7 +327,6 @@
 				3018126524114A76001999EA /* AudioEngineState.swift in Sources */,
 				30ADB21325B38788009FA4DB /* NewTagCollectionViewCell.swift in Sources */,
 				300EBDBE2444AD610069EF00 /* AudioManager.swift in Sources */,
-				3096CA1E2564B7DE0048FD0F /* TagCollectionViewCell.swift in Sources */,
 				30DDC1A6250D347100E606C8 /* SettingsViewController.swift in Sources */,
 				305EF77C240D53DF00CF53A0 /* AppDelegate.swift in Sources */,
 				3035ABAE24F195E600095BAF /* MoreOptionsViewController.swift in Sources */,
@@ -371,7 +340,6 @@
 				3003546B24D8D2BF00774738 /* RecordingViewController.swift in Sources */,
 				30F4116124ACC3A200EA4EF6 /* AudioSlider.swift in Sources */,
 				30B0459524AD5864007D7568 /* AudioRecordingCell.swift in Sources */,
-				3040B2672564C15F00E1371A /* TagCell.swift in Sources */,
 				30FA0839241095CB008743E8 /* AudioEngine.swift in Sources */,
 				30233A9F24C27B88002E0CE0 /* Extensions.swift in Sources */,
 				3035ABAB24F1949500095BAF /* MoreOptionsCell.swift in Sources */,
