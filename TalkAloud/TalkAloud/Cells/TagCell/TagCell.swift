@@ -8,9 +8,7 @@
 
 import UIKit
 
-protocol TagFilterDelegate: class {
-    func didUpdateTagToFilter(with tag: TagModel)
-}
+
 
 class TagCell: UITableViewCell {
 
@@ -19,7 +17,7 @@ class TagCell: UITableViewCell {
     //==================================================
     
     @IBOutlet var collectionView: UICollectionView!
-    weak var delegate: TagFilterDelegate?
+//    weak var delegate: TagFilterDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -71,6 +69,6 @@ extension TagCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let tagsDataSource = AudioManager.sharedInstance.getAllAudioRecordingTags() else { return }
         let selectedTag = tagsDataSource[indexPath.row]
-        delegate?.didUpdateTagToFilter(with: selectedTag)
+//        delegate?.didUpdateTagToFilter(with: selectedTag)
     }
 }

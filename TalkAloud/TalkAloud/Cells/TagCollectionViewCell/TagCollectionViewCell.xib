@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,26 +18,43 @@
                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV0-MB-27R">
-                        <rect key="frame" x="4" y="15" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t2q-9t-dTC" userLabel="roundedContainerView">
+                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV0-MB-27R">
+                                <rect key="frame" x="4" y="14" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="aV0-MB-27R" secondAttribute="bottom" constant="15" id="0DC-Dt-2gr"/>
+                            <constraint firstAttribute="trailing" secondItem="aV0-MB-27R" secondAttribute="trailing" constant="4" id="8Af-7N-nIk"/>
+                            <constraint firstItem="aV0-MB-27R" firstAttribute="leading" secondItem="t2q-9t-dTC" secondAttribute="leading" constant="4" id="jbg-JP-b5O"/>
+                            <constraint firstItem="aV0-MB-27R" firstAttribute="top" secondItem="t2q-9t-dTC" secondAttribute="top" constant="14" id="vPU-9b-TrQ"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="aV0-MB-27R" secondAttribute="bottom" constant="14" id="Mxv-cn-B9C"/>
-                <constraint firstAttribute="trailing" secondItem="aV0-MB-27R" secondAttribute="trailing" constant="4" id="Xif-R7-k9F"/>
-                <constraint firstItem="aV0-MB-27R" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="YfJ-Tu-Di0"/>
-                <constraint firstItem="aV0-MB-27R" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="wTi-3V-sut"/>
+                <constraint firstAttribute="bottom" secondItem="t2q-9t-dTC" secondAttribute="bottom" id="5Hl-c9-Mmu"/>
+                <constraint firstItem="t2q-9t-dTC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="HtL-1S-WOx"/>
+                <constraint firstItem="t2q-9t-dTC" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="K8x-Wa-nJz"/>
+                <constraint firstAttribute="trailing" secondItem="t2q-9t-dTC" secondAttribute="trailing" id="Zfo-JB-4aT"/>
             </constraints>
             <connections>
+                <outlet property="roundedContainerView" destination="t2q-9t-dTC" id="iDL-0e-vv4"/>
                 <outlet property="tagLabel" destination="aV0-MB-27R" id="VdD-Lz-RxZ"/>
             </connections>
             <point key="canvasLocation" x="-226.08695652173915" y="103.79464285714285"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

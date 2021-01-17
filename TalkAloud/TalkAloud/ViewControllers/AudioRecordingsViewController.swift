@@ -47,6 +47,7 @@ class AudioRecordingsViewController: UIViewController {
         recordingsTableView.delegate = self
         recordingsTableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")
         recordingsTableView.register(UINib(nibName: "TagCell", bundle: nil), forCellReuseIdentifier: "TagCell")
+        recordingsTableView.register(UINib(nibName: "TagCollectionViewTableViewCell", bundle: nil), forCellReuseIdentifier: "NewTagCell")
     }
     
 }
@@ -141,7 +142,7 @@ extension AudioRecordingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let tagCell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath) as! TagCell
+            let tagCell = tableView.dequeueReusableCell(withIdentifier: "NewTagCell", for: indexPath) as! TagCollectionViewTableViewCell
             tagCell.updateTagCells()
             tagCell.delegate = self
             return tagCell

@@ -15,10 +15,16 @@ class TagCollectionViewCell: UICollectionViewCell {
     //==================================================
     
     @IBOutlet var tagLabel: UILabel!
+    @IBOutlet var roundedContainerView: UIView!
     
     //==================================================
     // MARK: - Methods
     //==================================================
+    
+    override func awakeFromNib() {
+        roundedContainerView.backgroundColor = .blue
+        roundedContainerView.addRoundedCorners(withBorder: false, andCornerRadius: 25.0)
+    }
     
     public func setup(with model: TagModel) {
         tagLabel.text = model.tag
