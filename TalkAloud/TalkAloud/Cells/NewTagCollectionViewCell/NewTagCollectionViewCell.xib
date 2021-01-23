@@ -11,27 +11,27 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="newCollectionViewCell" id="gTV-IL-0wX" customClass="NewTagCollectionViewCell" customModule="TalkAloud" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="191" height="64"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="191" height="64"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOs-6N-XKz">
-                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="191" height="64"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fWw-AB-VIJ">
-                                <rect key="frame" x="4" y="0.0" width="42" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="191" height="64"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="fWw-AB-VIJ" firstAttribute="leading" relation="lessThanOrEqual" secondItem="lOs-6N-XKz" secondAttribute="leading" constant="4" id="39N-1j-KOc"/>
-                            <constraint firstItem="fWw-AB-VIJ" firstAttribute="top" secondItem="lOs-6N-XKz" secondAttribute="top" id="aK3-gr-600"/>
-                            <constraint firstAttribute="bottom" secondItem="fWw-AB-VIJ" secondAttribute="bottom" id="eM4-yq-150"/>
-                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="fWw-AB-VIJ" secondAttribute="trailing" constant="4" id="tkE-EX-l0c"/>
+                            <constraint firstItem="fWw-AB-VIJ" firstAttribute="top" secondItem="lOs-6N-XKz" secondAttribute="top" id="OmT-D2-eMF"/>
+                            <constraint firstAttribute="trailing" secondItem="fWw-AB-VIJ" secondAttribute="trailing" id="Xim-iV-QN7"/>
+                            <constraint firstItem="fWw-AB-VIJ" firstAttribute="leading" secondItem="lOs-6N-XKz" secondAttribute="leading" id="rGd-Zg-xtR"/>
+                            <constraint firstAttribute="bottom" secondItem="fWw-AB-VIJ" secondAttribute="bottom" id="ujZ-jJ-YTI"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -43,11 +43,12 @@
                 <constraint firstItem="lOs-6N-XKz" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="OqK-OH-1lN"/>
                 <constraint firstAttribute="bottom" secondItem="lOs-6N-XKz" secondAttribute="bottom" id="yeJ-ae-CMe"/>
             </constraints>
+            <size key="customSize" width="191" height="64"/>
             <connections>
                 <outlet property="roundedCotainerView" destination="lOs-6N-XKz" id="Lh7-hY-eCB"/>
                 <outlet property="tagLabel" destination="fWw-AB-VIJ" id="eUz-aM-ipN"/>
             </connections>
-            <point key="canvasLocation" x="-91" y="106"/>
+            <point key="canvasLocation" x="-351.44927536231887" y="77.678571428571431"/>
         </collectionViewCell>
     </objects>
 </document>

@@ -21,6 +21,7 @@ class NewTagCollectionViewCell: UICollectionViewCell {
     
     public func setup(with model: TagModel) {
         tagLabel.text = model.tag
+        roundedCotainerView.sizeThatFits(model.tag.size(withAttributes: nil))
         
         if model.isTagSelected {
             self.roundedCotainerView.backgroundColor = .red
