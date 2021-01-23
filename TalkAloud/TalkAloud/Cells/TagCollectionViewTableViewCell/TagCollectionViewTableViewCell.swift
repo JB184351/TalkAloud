@@ -47,7 +47,6 @@ extension TagCollectionViewTableViewCell: UICollectionViewDataSource {
         return tagModelCell
     }
     
-    
 }
 
 extension TagCollectionViewTableViewCell: UICollectionViewDelegate {
@@ -62,10 +61,10 @@ extension TagCollectionViewTableViewCell: UICollectionViewDelegate {
 extension TagCollectionViewTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let tagDataSource = AudioManager.sharedInstance.getAllAudioRecordingTags() else { return CGSize() }
-        
         let tag = tagDataSource[indexPath.row].tag
         
         return CGSize(width: tag.size(withAttributes: nil).width + 75, height: 25.0)
     }
+    
 }
 

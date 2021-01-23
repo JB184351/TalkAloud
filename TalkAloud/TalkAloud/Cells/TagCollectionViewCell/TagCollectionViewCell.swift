@@ -28,7 +28,5 @@ class TagCollectionViewCell: UICollectionViewCell {
         } else {
             self.roundedCotainerView.backgroundColor = .darkGray
         }
-        
     }
-
 }
