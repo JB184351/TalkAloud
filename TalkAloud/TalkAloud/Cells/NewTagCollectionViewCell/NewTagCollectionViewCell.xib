@@ -20,18 +20,18 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOs-6N-XKz">
                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fWw-AB-VIJ">
-                                <rect key="frame" x="4" y="15" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fWw-AB-VIJ">
+                                <rect key="frame" x="4" y="0.0" width="42" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="fWw-AB-VIJ" firstAttribute="leading" secondItem="lOs-6N-XKz" secondAttribute="leading" constant="4" id="39N-1j-KOc"/>
-                            <constraint firstItem="fWw-AB-VIJ" firstAttribute="top" secondItem="lOs-6N-XKz" secondAttribute="top" constant="15" id="aK3-gr-600"/>
-                            <constraint firstAttribute="bottom" secondItem="fWw-AB-VIJ" secondAttribute="bottom" constant="14" id="eM4-yq-150"/>
-                            <constraint firstAttribute="trailing" secondItem="fWw-AB-VIJ" secondAttribute="trailing" constant="4" id="tkE-EX-l0c"/>
+                            <constraint firstItem="fWw-AB-VIJ" firstAttribute="leading" relation="lessThanOrEqual" secondItem="lOs-6N-XKz" secondAttribute="leading" constant="4" id="39N-1j-KOc"/>
+                            <constraint firstItem="fWw-AB-VIJ" firstAttribute="top" secondItem="lOs-6N-XKz" secondAttribute="top" id="aK3-gr-600"/>
+                            <constraint firstAttribute="bottom" secondItem="fWw-AB-VIJ" secondAttribute="bottom" id="eM4-yq-150"/>
+                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="fWw-AB-VIJ" secondAttribute="trailing" constant="4" id="tkE-EX-l0c"/>
                         </constraints>
                     </view>
                 </subviews>

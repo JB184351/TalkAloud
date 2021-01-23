@@ -56,4 +56,20 @@ extension TagCollectionViewTableViewCell: UICollectionViewDelegate {
         let selectedTag = tagsDataSource[indexPath.row]
         delegate?.didUpdateTagToFilter(with: selectedTag)
     }
+    
+}
+
+extension TagCollectionViewTableViewCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let tagDataSource = AudioManager.sharedInstance.getAllAudioRecordingTags() else { return CGSize() }
+        
+        let tagCharacterCount = tagDataSource[indexPath.row].tag.count
+        
+        switch tagCharacterCount {
+        case 1...6:
+            return CGSize(width: 75.0, height: 25.0)
+        default:
+            return CGSize(width: 150.0, height: 25.0)
+        }
+    }
 }
