@@ -23,7 +23,7 @@ class TagCollectionViewTableViewCell: UITableViewCell {
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        self.collectionView.register(UINib(nibName: "NewTagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "newCollectionViewCell")
+        self.collectionView.register(UINib(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "newCollectionViewCell")
     }
     
     public func updateTagCells() {
@@ -42,7 +42,7 @@ extension TagCollectionViewTableViewCell: UICollectionViewDataSource {
         guard let tagsDataSource = AudioManager.sharedInstance.getAllAudioRecordingTags() else { return UICollectionViewCell() }
         
         let tagModel = tagsDataSource[indexPath.row]
-        let tagModelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "newCollectionViewCell", for: indexPath) as! NewTagCollectionViewCell
+        let tagModelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "newCollectionViewCell", for: indexPath) as! TagCollectionViewCell
         tagModelCell.setup(with: tagModel)
         return tagModelCell
     }

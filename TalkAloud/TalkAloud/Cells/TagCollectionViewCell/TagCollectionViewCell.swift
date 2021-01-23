@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewTagCollectionViewCell: UICollectionViewCell {
+class TagCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var roundedCotainerView: UIView!
     @IBOutlet var tagLabel: UILabel!
@@ -24,7 +24,7 @@ class NewTagCollectionViewCell: UICollectionViewCell {
         roundedCotainerView.sizeThatFits(model.tag.size(withAttributes: nil))
         
         if model.isTagSelected {
-            self.roundedCotainerView.backgroundColor = .red
+            self.roundedCotainerView.backgroundColor = .gray
         } else {
             self.roundedCotainerView.backgroundColor = .darkGray
         }
