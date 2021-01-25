@@ -1,9 +1,9 @@
 //
-//  TagCell.swift
+//  TagCollectionViewTableViewCell.swift
 //  TalkAloud
 //
-//  Created by Justin Bengtson on 11/17/20.
-//  Copyright © 2020 Justin Bengtson. All rights reserved.
+//  Created by Justin Bengtson on 1/16/21.
+//  Copyright © 2021 Justin Bengtson. All rights reserved.
 //
 
 import UIKit
@@ -12,27 +12,19 @@ protocol TagFilterDelegate: class {
     func didUpdateTagToFilter(with tag: TagModel)
 }
 
-class TagCell: UITableViewCell {
-
-    //==================================================
-    // MARK: - Properties
-    //==================================================
+class TagCollectionViewTableViewCell: UITableViewCell {
     
     @IBOutlet var collectionView: UICollectionView!
     weak var delegate: TagFilterDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
-        self.collectionView.dataSource = self
-        self.collectionView.delegate = self
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
         
         self.collectionView.register(UINib(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TagCollectionViewCell")
     }
-    
-    //==================================================
-    // MARK: - Collection View Data Source
-    //==================================================
     
     public func updateTagCells() {
         self.collectionView.reloadData()
@@ -40,12 +32,7 @@ class TagCell: UITableViewCell {
     
 }
 
-//==================================================
-// MARK: - Collection View Data Source
-//==================================================
-
-extension TagCell: UICollectionViewDataSource {
-    
+extension TagCollectionViewTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let tagsDataSource =  AudioManager.sharedInstance.getAllAudioRecordingTags() else { return 0 }
         return tagsDataSource.count
@@ -62,15 +49,22 @@ extension TagCell: UICollectionViewDataSource {
     
 }
 
-//==================================================
-// MARK: - Collection View Data Source
-//==================================================
-
-extension TagCell: UICollectionViewDelegate {
-    
+extension TagCollectionViewTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let tagsDataSource = AudioManager.sharedInstance.getAllAudioRecordingTags() else { return }
         let selectedTag = tagsDataSource[indexPath.row]
         delegate?.didUpdateTagToFilter(with: selectedTag)
     }
+    
 }
+
+extension TagCollectionViewTableViewCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let tagDataSource = AudioManager.sharedInstance.getAllAudioRecordingTags() else { return CGSize() }
+        let tag = tagDataSource[indexPath.row].tag
+        
+        return CGSize(width: tag.size(withAttributes: nil).width + 75, height: 25.0)
+    }
+    
+}
+

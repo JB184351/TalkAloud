@@ -57,7 +57,7 @@ class AudioRecordingCell: UITableViewCell {
             }
         }
         
-        fileNameLabel?.text = cellFileName
+        fileNameLabel?.text = cellFileName.removeFileExtension
         durationLabel.text = AudioEngine.sharedInstance.getDuration(for: model.url).secondsToMinutes()
         
         if !allTags.isEmpty {

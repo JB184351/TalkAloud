@@ -63,3 +63,26 @@ extension Int {
     
 }
 
+extension String {
+    
+    var removeFileExtension: String {
+        
+        if self.hasSuffix(".m4a") {
+            return (self as NSString).deletingPathExtension
+        }
+        
+        return self
+    }
+}
+
+extension UIView {
+    
+    func addRoundedCorners(withBorder: Bool = true, andCornerRadius: CGFloat = 8.0) {
+        layer.cornerRadius = andCornerRadius
+        layer.masksToBounds = true
+        layer.borderWidth = withBorder ? 2.0 : 0.0
+        layer.borderColor = UIColor.white.withAlphaComponent(0.3).cgColor
+    }
+    
+}
+
