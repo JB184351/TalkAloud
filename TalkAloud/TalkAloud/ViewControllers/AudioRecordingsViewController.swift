@@ -30,7 +30,6 @@ class AudioRecordingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: nil)!
-//        recordingsTableView.rowHeight = 100
         recordingsTableView.reloadData()
     }
     
@@ -47,8 +46,7 @@ class AudioRecordingsViewController: UIViewController {
         recordingsTableView.dataSource = self
         recordingsTableView.delegate = self
         recordingsTableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")
-        recordingsTableView.register(UINib(nibName: "TagCell", bundle: nil), forCellReuseIdentifier: "TagCell")
-        recordingsTableView.register(UINib(nibName: "TagCollectionViewTableViewCell", bundle: nil), forCellReuseIdentifier: "NewTagCell")
+        recordingsTableView.register(UINib(nibName: "TagCollectionViewTableViewCell", bundle: nil), forCellReuseIdentifier: "TagCell")
     }
     
 }
@@ -143,7 +141,7 @@ extension AudioRecordingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let tagCell = tableView.dequeueReusableCell(withIdentifier: "NewTagCell", for: indexPath) as! TagCollectionViewTableViewCell
+            let tagCell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath) as! TagCollectionViewTableViewCell
             tagCell.updateTagCells()
             tagCell.delegate = self
             return tagCell
