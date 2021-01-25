@@ -26,7 +26,7 @@ class TagCollectionViewCell: UICollectionViewCell {
         if model.isTagSelected {
             self.roundedCotainerView.backgroundColor = .gray
         } else {
-            self.roundedCotainerView.backgroundColor = .darkGray
+            self.roundedCotainerView.backgroundColor = .black
         }
     }
 }

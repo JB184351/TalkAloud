@@ -341,11 +341,11 @@
             </objects>
             <point key="canvasLocation" x="1728.8" y="-862.3152709359606"/>
         </scene>
-        <!--Item-->
+        <!--Recordings-->
         <scene sceneID="5qR-gg-OQC">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2AD-7g-4Nv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="folder" catalog="system" id="xa2-Mq-xPs" userLabel="AudioFiles"/>
+                    <tabBarItem key="tabBarItem" title="Recordings" image="folder" catalog="system" id="xa2-Mq-xPs" userLabel="AudioFiles"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UY8-Q9-JOA">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
