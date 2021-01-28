@@ -128,23 +128,37 @@ extension AudioRecordingsViewController: AudioRecordingCellDelegate {
 extension AudioRecordingsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        if let tags = AudioManager.sharedInstance.getAllAudioRecordingTags() {
+            if tags.count > 0 {
+                return 2
+            }
+        }
+        
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
+        if let tags = AudioManager.sharedInstance.getAllAudioRecordingTags() {
+            if tags.count > 0 {
+                if section == 0 {
+                    return 1
+                }
+            }
         }
         
         return audioRecordings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let tagCell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath) as! TagCollectionViewTableViewCell
-            tagCell.updateTagCells()
-            tagCell.delegate = self
-            return tagCell
+        if let tags = AudioManager.sharedInstance.getAllAudioRecordingTags() {
+            if tags.count > 0 {
+                if indexPath.section == 0 {
+                    let tagCell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath) as! TagCollectionViewTableViewCell
+                    tagCell.updateTagCells()
+                    tagCell.delegate = self
+                    return tagCell
+                }
+            }
         }
         
         var currentAudio: AudioRecording
@@ -180,14 +194,20 @@ extension AudioRecordingsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == 0 {
-            return false
+        if let tags = AudioManager.sharedInstance.getAllAudioRecordingTags() {
+            if tags.count > 1 {
+                if indexPath.section == 0 {
+                    return false
+                }
+            }
         }
         
         return true
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let tags = AudioManager.sharedInstance.getAllAudioRecordingTags() else { return nil }
+        
         let currentRecording = audioRecordings[indexPath.row]
         
         let currentRecordingTags = AudioManager.sharedInstance.getTags(for: currentRecording)
@@ -265,8 +285,18 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                     AudioManager.sharedInstance.addTag(tagModel: tagModel)
                 }
                 
-                self.recordingsTableView.reloadRows(at: [indexPath], with: .none)
-                self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
+                
+                
+                if tags.count == 1 {
+                    if let tagCell = self.recordingsTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TagCollectionViewTableViewCell {
+                        tagCell.updateTagCells()
+                        tagCell.delegate = self
+                    }
+                    
+                    self.recordingsTableView.insertSections(IndexSet(integer: 0), with: .none)
+                    self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
+                }
+                
             }
             
             let cancelTagAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
@@ -276,8 +306,13 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
                 AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: currentRecordingTags)
                 AudioManager.sharedInstance.removeTag(for: currentRecording)
-                self.recordingsTableView.reloadRows(at: [indexPath], with: .none)
-                self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
+                
+                if tags.count >= 1 {
+                    self.recordingsTableView.reloadRows(at: [indexPath], with: .none)
+                    self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
+                } else {
+                    self.recordingsTableView.deleteSections([0], with: .none)
+                }
             }
             
             tagAlertController.addAction(addTagAction)
