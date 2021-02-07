@@ -160,6 +160,10 @@ class MoreOptionsViewController: UIViewController {
             self.delegate?.didRemoveTags(for: self.currentlySelectedRecording!)
         }
         
+        if currentRecordingTags.count < 1 {
+            removeTagAction.isEnabled = false
+        }
+        
         tagAlertController.addAction(addTagAction)
         tagAlertController.addAction(removeTagAction)
         tagAlertController.addAction(cancelTagAction)
