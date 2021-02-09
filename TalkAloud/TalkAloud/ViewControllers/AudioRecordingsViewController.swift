@@ -204,7 +204,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if let tags = AudioManager.sharedInstance.getAllAudioRecordingTags() {
-            if tags.count > 1 {
+            if tags.count > 0 {
                 if indexPath.section == 0 {
                     return false
                 }
@@ -233,7 +233,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 
                 guard let tagCount = AudioManager.sharedInstance.getAllAudioRecordingTags()?.count else { return }
                 
-                if tagCount >= 1 {
+                if tagCount > 0 {
                     self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
                 } else {
                     self.recordingsTableView.deleteSections(IndexSet(integer: 0), with: .none)
@@ -310,7 +310,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 self.recordingsTableView.reloadRows(at: [indexPath], with: .none)
                 
                 // Need condition here otherwise I'm always inserting a section which causes issues with reloading rows later
-                if previousTagCount < 1 && currentTagCount >= 1 {
+                if previousTagCount < 1 && currentTagCount > 0 {
                     self.recordingsTableView.insertSections(IndexSet(integer: 0), with: .none)
                 }
                 
@@ -328,7 +328,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 
                 guard let tagCount = AudioManager.sharedInstance.getAllAudioRecordingTags()?.count else { return }
                 
-                if tagCount >= 1 {
+                if tagCount > 0 {
                     self.recordingsTableView.beginUpdates()
                     self.recordingsTableView.reloadRows(at: [indexPath], with: .none)
                     self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
