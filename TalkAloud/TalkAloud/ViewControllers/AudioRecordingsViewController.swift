@@ -16,6 +16,7 @@ class AudioRecordingsViewController: UIViewController {
     
     private var audioRecordings = [AudioRecording]()
     private lazy var moreOptionsTransitioningDelegate = MoreOptionsPresentationManager()
+    private let emptyView = EmptyStateView(frame: CGRect.zero)
     @IBOutlet private var recordingsTableView: UITableView!
     
     //==================================================
@@ -30,6 +31,11 @@ class AudioRecordingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: nil)!
+        
+        if audioRecordings.isEmpty {
+            setupEmptyView()
+        }
+        
         recordingsTableView.reloadData()
     }
     
@@ -47,6 +53,11 @@ class AudioRecordingsViewController: UIViewController {
         recordingsTableView.delegate = self
         recordingsTableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")
         recordingsTableView.register(UINib(nibName: "TagCollectionViewTableViewCell", bundle: nil), forCellReuseIdentifier: "TagCell")
+    }
+    
+    private func setupEmptyView() {
+        emptyView.frame = view.bounds
+        view.addSubview(emptyView)
     }
     
 }

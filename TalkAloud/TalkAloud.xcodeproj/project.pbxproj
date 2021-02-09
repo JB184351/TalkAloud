@@ -28,6 +28,7 @@
 		3077105525B3798500CD3B36 /* TagCollectionViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3077105325B3798500CD3B36 /* TagCollectionViewTableViewCell.xib */; };
 		307F71E724492CAB004AE308 /* AudioRecordingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F71E624492CAB004AE308 /* AudioRecordingsViewController.swift */; };
 		3090198024DA3DDD007999CB /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3090197F24DA3DDD007999CB /* PlayerViewController.swift */; };
+		3096E86E25D221BC006E0740 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3096E86D25D221BC006E0740 /* EmptyStateView.swift */; };
 		30A1C9C624A5808500AB0C59 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A1C9C524A5808500AB0C59 /* CoreDataManager.swift */; };
 		30ADB21325B38788009FA4DB /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ADB21125B38788009FA4DB /* TagCollectionViewCell.swift */; };
 		30ADB21425B38788009FA4DB /* TagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30ADB21225B38788009FA4DB /* TagCollectionViewCell.xib */; };
@@ -64,6 +65,7 @@
 		3077105325B3798500CD3B36 /* TagCollectionViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCollectionViewTableViewCell.xib; sourceTree = "<group>"; };
 		307F71E624492CAB004AE308 /* AudioRecordingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordingsViewController.swift; sourceTree = "<group>"; };
 		3090197F24DA3DDD007999CB /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		3096E86D25D221BC006E0740 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmptyStateView.swift; path = TalkAloud/Views/EmptyStateView.swift; sourceTree = SOURCE_ROOT; };
 		30A1C9C524A5808500AB0C59 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		30ADB21125B38788009FA4DB /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		30ADB21225B38788009FA4DB /* TagCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		30F4115F24ACC2F400EA4EF6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3096E86D25D221BC006E0740 /* EmptyStateView.swift */,
 				30F4116024ACC3A200EA4EF6 /* AudioSlider.swift */,
 				30DBE24724798E08003716B3 /* AudioPlayerVisualizerView.swift */,
 			);
@@ -335,6 +338,7 @@
 				3059E040259FB237004807B6 /* MoreOptionsPresentationController.swift in Sources */,
 				3035ABA824F1943A00095BAF /* MoreOptionsModel.swift in Sources */,
 				3077105425B3798500CD3B36 /* TagCollectionViewTableViewCell.swift in Sources */,
+				3096E86E25D221BC006E0740 /* EmptyStateView.swift in Sources */,
 				30A1C9C624A5808500AB0C59 /* CoreDataManager.swift in Sources */,
 				3040B2632564C07A00E1371A /* TagModel.swift in Sources */,
 				3003546B24D8D2BF00774738 /* RecordingViewController.swift in Sources */,
