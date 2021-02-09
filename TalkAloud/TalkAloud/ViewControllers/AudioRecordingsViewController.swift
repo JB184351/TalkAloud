@@ -34,6 +34,8 @@ class AudioRecordingsViewController: UIViewController {
         
         if audioRecordings.isEmpty {
             setupEmptyView()
+        } else {
+            emptyView.isHidden = true
         }
         
         recordingsTableView.reloadData()
@@ -235,7 +237,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 
                 if tagCount > 0 {
                     self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
-                } else {
+                } else if previousTagCount > 0 {
                     self.recordingsTableView.deleteSections(IndexSet(integer: 0), with: .none)
                 }
                 
