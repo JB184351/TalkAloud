@@ -16,7 +16,12 @@ class AudioRecordingsViewController: UIViewController {
     
     private var audioRecordings = [AudioRecording]()
     private lazy var moreOptionsTransitioningDelegate = MoreOptionsPresentationManager()
-    private let emptyView = EmptyStateView(frame: CGRect.zero)
+    private var isEmptyTableView: Bool = true {
+        didSet {
+            updateTableView(isEmptyTableView: isEmptyTableView)
+        }
+    }
+    @IBOutlet private var emptyStateLabel: UILabel!
     @IBOutlet private var recordingsTableView: UITableView!
     
     //==================================================
@@ -31,13 +36,7 @@ class AudioRecordingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: nil)!
-        
-        if audioRecordings.isEmpty {
-            setupEmptyView()
-        } else {
-            emptyView.isHidden = true
-        }
-        
+        isEmptyTableView = audioRecordings.isEmpty
         recordingsTableView.reloadData()
     }
     
@@ -57,9 +56,14 @@ class AudioRecordingsViewController: UIViewController {
         recordingsTableView.register(UINib(nibName: "TagCollectionViewTableViewCell", bundle: nil), forCellReuseIdentifier: "TagCell")
     }
     
-    private func setupEmptyView() {
-        emptyView.frame = view.bounds
-        view.addSubview(emptyView)
+    private func updateTableView(isEmptyTableView: Bool) {
+        if isEmptyTableView {
+            self.recordingsTableView.separatorStyle = .none
+            emptyStateLabel.isHidden = false
+        } else {
+            self.recordingsTableView.separatorStyle = .singleLine
+            emptyStateLabel.isHidden = true
+        }
     }
     
 }
@@ -90,6 +94,7 @@ extension AudioRecordingsViewController: MoreOptionsDelegate {
         AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: tags)
         
         audioRecordings = AudioManager.sharedInstance.loadAudioRecordings()!
+        isEmptyTableView = audioRecordings.isEmpty
         self.recordingsTableView.reloadData()
     }
     
@@ -220,7 +225,6 @@ extension AudioRecordingsViewController: UITableViewDelegate {
         guard let previousTagCount = AudioManager.sharedInstance.getAllAudioRecordingTags()?.count else { return nil }
         
         let currentRecording = audioRecordings[indexPath.row]
-        
         let currentRecordingTags = AudioManager.sharedInstance.getTags(for: currentRecording)
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
@@ -240,7 +244,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 } else if previousTagCount > 0 {
                     self.recordingsTableView.deleteSections(IndexSet(integer: 0), with: .none)
                 }
-                
+                self.isEmptyTableView = self.audioRecordings.isEmpty
                 self.recordingsTableView.endUpdates()
             })
             
