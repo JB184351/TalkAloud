@@ -16,13 +16,8 @@ class AudioRecordingsViewController: UIViewController {
     
     private var audioRecordings: [AudioRecording] = [] {
         didSet {
-            if audioRecordings.isEmpty {
-                self.recordingsTableView.separatorStyle = .none
-                emptyStateLabel.isHidden = false
-            } else {
-                self.recordingsTableView.separatorStyle = .singleLine
-                emptyStateLabel.isHidden = true
-            }
+            audioRecordings.isEmpty ? (self.recordingsTableView.separatorStyle = .none) : (self.recordingsTableView.separatorStyle = .singleLine)
+            audioRecordings.isEmpty ? (emptyStateLabel.isHidden = false) : (emptyStateLabel.isHidden = true)
         }
     }
     private lazy var moreOptionsTransitioningDelegate = MoreOptionsPresentationManager()
