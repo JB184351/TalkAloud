@@ -14,13 +14,18 @@ class AudioRecordingsViewController: UIViewController {
     // MARK: - Private Properties
     //==================================================
     
-    private var audioRecordings = [AudioRecording]()
-    private lazy var moreOptionsTransitioningDelegate = MoreOptionsPresentationManager()
-    private var isEmptyTableView: Bool = true {
+    private var audioRecordings: [AudioRecording] = [] {
         didSet {
-            updateTableView(isEmptyTableView: isEmptyTableView)
+            if audioRecordings.isEmpty {
+                self.recordingsTableView.separatorStyle = .none
+                emptyStateLabel.isHidden = false
+            } else {
+                self.recordingsTableView.separatorStyle = .singleLine
+                emptyStateLabel.isHidden = true
+            }
         }
     }
+    private lazy var moreOptionsTransitioningDelegate = MoreOptionsPresentationManager()
     @IBOutlet private var emptyStateLabel: UILabel!
     @IBOutlet private var recordingsTableView: UITableView!
     
@@ -36,7 +41,6 @@ class AudioRecordingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: nil)!
-        isEmptyTableView = audioRecordings.isEmpty
         recordingsTableView.reloadData()
     }
     
@@ -54,16 +58,6 @@ class AudioRecordingsViewController: UIViewController {
         recordingsTableView.delegate = self
         recordingsTableView.register(UINib(nibName: "AudioRecordingCell", bundle: nil), forCellReuseIdentifier: "AudioRecordingCell")
         recordingsTableView.register(UINib(nibName: "TagCollectionViewTableViewCell", bundle: nil), forCellReuseIdentifier: "TagCell")
-    }
-    
-    private func updateTableView(isEmptyTableView: Bool) {
-        if isEmptyTableView {
-            self.recordingsTableView.separatorStyle = .none
-            emptyStateLabel.isHidden = false
-        } else {
-            self.recordingsTableView.separatorStyle = .singleLine
-            emptyStateLabel.isHidden = true
-        }
     }
     
 }
@@ -94,7 +88,6 @@ extension AudioRecordingsViewController: MoreOptionsDelegate {
         AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: tags)
         
         audioRecordings = AudioManager.sharedInstance.loadAudioRecordings()!
-        isEmptyTableView = audioRecordings.isEmpty
         self.recordingsTableView.reloadData()
     }
     
@@ -244,7 +237,7 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 } else if previousTagCount > 0 {
                     self.recordingsTableView.deleteSections(IndexSet(integer: 0), with: .none)
                 }
-                self.isEmptyTableView = self.audioRecordings.isEmpty
+                
                 self.recordingsTableView.endUpdates()
             })
             
