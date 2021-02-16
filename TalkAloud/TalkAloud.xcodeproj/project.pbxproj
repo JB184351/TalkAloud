@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -101,7 +101,6 @@
 				636D514BAE22E5BB41EA972B /* Pods-TalkAloud.debug.xcconfig */,
 				33589F45F5FAED79839BCAD3 /* Pods-TalkAloud.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -555,7 +554,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 636D514BAE22E5BB41EA972B /* Pods-TalkAloud.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H9AZCNDQS4;
 				INFOPLIST_FILE = TalkAloud/Info.plist;
@@ -575,7 +574,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 33589F45F5FAED79839BCAD3 /* Pods-TalkAloud.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H9AZCNDQS4;
 				INFOPLIST_FILE = TalkAloud/Info.plist;

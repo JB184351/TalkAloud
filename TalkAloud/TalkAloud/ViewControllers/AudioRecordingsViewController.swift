@@ -271,7 +271,6 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 
                 // This is needed so I can swipe on the same row again after completing this action
                 completionHandler(true)
-                
             }
             
             let cancelEditAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
