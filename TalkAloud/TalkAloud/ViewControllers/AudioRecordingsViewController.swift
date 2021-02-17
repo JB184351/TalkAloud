@@ -269,6 +269,8 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                     self.recordingsTableView.reloadRows(at: [indexPath], with: .automatic)
                 }
                 
+                // This is needed so I can swipe on the same row again after completing this action
+                completionHandler(true)
             }
             
             let cancelEditAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
@@ -310,6 +312,9 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 
                 self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
                 self.recordingsTableView.endUpdates()
+                
+                // This is needed so I can swipe on the same row again after completing this action
+                completionHandler(true)
             }
             
             let cancelTagAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
