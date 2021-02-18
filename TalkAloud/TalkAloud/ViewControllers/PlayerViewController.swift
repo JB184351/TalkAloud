@@ -249,7 +249,7 @@ extension PlayerViewController: MoreOptionsDelegate {
     }
     
     func didUpdateFileName(for selectedRecording: AudioRecording) {
-        audioRecordingNameLabel.text = selectedRecording.fileName
+        audioRecordingNameLabel.text = selectedRecording.fileName.removeFileExtension
     }
     
 }
