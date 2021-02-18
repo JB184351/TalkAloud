@@ -356,8 +356,8 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             self.present(tagAlertController, animated: true)
         }
         
-        editAction.backgroundColor = .blue
-        tagAction.backgroundColor = .systemTeal
+        editAction.backgroundColor = .cyan
+        tagAction.backgroundColor = .systemYellow
         
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction, tagAction])
         return configuration
