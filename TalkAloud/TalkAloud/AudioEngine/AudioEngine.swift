@@ -170,7 +170,7 @@ class AudioEngine: NSObject {
         do {
             try audioRecordingSession.setCategory(.playback, mode: .default, options: .allowBluetooth)
         } catch {
-            print("Wasn't able to setCategory to .playback")
+            print("Failed to setCategory to .playback")
         }
         
         audioRecorder?.stop()
