@@ -34,7 +34,6 @@ class AudioEngine: NSObject {
     
     private var audioRecorder: AVAudioRecorder?
     private var audioPlayer: AVAudioPlayer?
-    private var recordingSession: AVAudioSession?
     private let audioRecordingSession = AVAudioSession.sharedInstance()
     
     private override init() {}
@@ -142,30 +141,38 @@ class AudioEngine: NSObject {
         audioState = .playing
     }
     
-   public func play(withFileURL: URL) {
+    public func play(withFileURL: URL) {
         setupAudioPlayer(fileURL: withFileURL)
         audioPlayer?.play()
         audioPlayer?.isMeteringEnabled = true
         audioState = .playing
     }
     
-   public func skipFifteenSeconds() {
+    public func skipFifteenSeconds() {
         audioPlayer?.currentTime += 15
     }
     
-   public func rewindFifteenSeonds() {
+    public func rewindFifteenSeonds() {
         audioPlayer?.currentTime -= 15
     }
     
-   public func pause() {
+    public func pause() {
         audioPlayer?.pause()
         audioState = .paused
     }
     
-   public func stop() {
+    public func stop() {
         audioState = .stopped
         audioRecorder?.isMeteringEnabled = false
         audioPlayer?.isMeteringEnabled = false
+        
+        // This code is needed here so volume on playback is louder
+        do {
+            try audioRecordingSession.setCategory(.playback, mode: .default, options: .allowBluetooth)
+        } catch {
+            print("Failed to setCategory to .playback")
+        }
+        
         audioRecorder?.stop()
         audioPlayer?.stop()
     }
@@ -175,16 +182,16 @@ class AudioEngine: NSObject {
     //==================================================
     
     public func record() {
-         do {
-             try audioRecordingSession.setCategory(.playAndRecord, mode: .default)
-             try audioRecordingSession.setActive(true)
-             audioRecorder?.isMeteringEnabled = true
-         } catch {
-             print("Failed to record")
-         }
-         audioState = .recording
-         audioRecorder?.record()
-     }
+        do {
+            try audioRecordingSession.setCategory(.playAndRecord, mode: .default, options: .allowBluetooth)
+            try audioRecordingSession.setActive(true)
+            audioRecorder?.isMeteringEnabled = true
+        } catch {
+            print("Failed to record")
+        }
+        audioState = .recording
+        audioRecorder?.record()
+    }
     
 }
 
