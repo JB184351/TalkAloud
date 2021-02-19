@@ -262,7 +262,7 @@ class AudioManager {
                     }
                 }
             }
-        } else {
+        } else if selectedTags.count >= 2 {
             for audioRecording in audioRecordings {
                 if let audioRecordingTags = audioRecording.tags {
                     if audioRecordingTags.containsSameElements(as: selectedTags) {
@@ -270,9 +270,7 @@ class AudioManager {
                     }
                 }
             }
-        }
-        
-        if filteredAudioRecordings.isEmpty {
+        } else {
             return audioRecordings
         }
         
