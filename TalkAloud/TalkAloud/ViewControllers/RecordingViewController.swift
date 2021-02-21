@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class RecordingViewController: UIViewController {
     
@@ -19,6 +20,11 @@ class RecordingViewController: UIViewController {
     @IBOutlet private var recordButton: UIButton!
     private var progressTimer: Timer?
     private var visualizerTimer: Timer?
+    private var isGranted: Bool = false {
+        didSet {
+            handleMicrophonePermissions(isGranted: isGranted)
+        }
+    }
     
     //==================================================
     // MARK: - Life Cycle Methods
@@ -26,6 +32,7 @@ class RecordingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        AudioEngine.sharedInstance.microphonePermissionDelegate = self
         resetView()
     }
     
@@ -46,7 +53,7 @@ class RecordingViewController: UIViewController {
         case .stopped:
             guard let url = AudioManager.sharedInstance.createNewAudioRecording()?.url else { return }
             AudioEngine.sharedInstance.setupRecorder(fileURL: url)
-            AudioEngine.sharedInstance.record()
+            self.handleMicrophonePermissions(isGranted: self.isGranted)
             recordButton.setImage(UIImage(named: "stopbutton"), for: .normal)
             intializeRecordingTimer()
             displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
@@ -106,5 +113,39 @@ class RecordingViewController: UIViewController {
         audioRecordingVisualizer.isHidden = true
         recordButton.setImage(UIImage(named: "recordbutton"), for: .normal)
     }
+    
+    private func handleMicrophonePermissions(isGranted: Bool) {
+        isGranted ? AudioEngine.sharedInstance.record() : presentSettingsAlertController()
+    }
+    
+    private func presentSettingsAlertController() {
+        let settingsAlertController = UIAlertController (title: "Microphone Access Required", message: "Turn on microphone permissions in settings", preferredStyle: .alert)
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+            
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)")
+                })
+            }
+        }
+        settingsAlertController.addAction(settingsAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        settingsAlertController.addAction(cancelAction)
+        
+        present(settingsAlertController, animated: true, completion: nil)
+    }
+    
+}
+
+extension RecordingViewController: MicrophonePermissionStatusDelegate {
+    func didUpdateMicrophonePermissions(isGranted: Bool) {
+        self.isGranted = isGranted
+    }
+    
     
 }

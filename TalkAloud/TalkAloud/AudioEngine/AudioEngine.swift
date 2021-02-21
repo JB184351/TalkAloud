@@ -13,6 +13,10 @@ protocol AudioEngineStateChangeDelegate: class {
     func didUpdateAudioState(with audioState: AudioEngineState)
 }
 
+protocol MicrophonePermissionStatusDelegate: class {
+    func didUpdateMicrophonePermissions(isGranted: Bool)
+}
+
 // Class is responsible for Recording and Playing an AudioRecording
 class AudioEngine: NSObject {
     
@@ -21,10 +25,16 @@ class AudioEngine: NSObject {
     //==================================================
     
     weak var delegate: AudioEngineStateChangeDelegate?
+    weak var microphonePermissionDelegate: MicrophonePermissionStatusDelegate?
     static let sharedInstance = AudioEngine()
     public private(set) var audioState: AudioEngineState = .stopped {
         didSet {
             delegate?.didUpdateAudioState(with: audioState)
+        }
+    }
+    public private(set) var areRecordingPermissionsGranted: Bool = false {
+        didSet {
+            microphonePermissionDelegate?.didUpdateMicrophonePermissions(isGranted: handleMicrophonePermission())
         }
     }
     
@@ -185,6 +195,13 @@ class AudioEngine: NSObject {
         do {
             try audioRecordingSession.setCategory(.playAndRecord, mode: .default, options: .allowBluetooth)
             try audioRecordingSession.setActive(true)
+            
+            audioRecordingSession.requestRecordPermission { (isGranted) in
+                DispatchQueue.main.async {
+                    self.areRecordingPermissionsGranted = isGranted
+                }
+            }
+            
             audioRecorder?.isMeteringEnabled = true
         } catch {
             print("Failed to record")
@@ -193,6 +210,18 @@ class AudioEngine: NSObject {
         audioRecorder?.record()
     }
     
+    public func handleMicrophonePermission() -> Bool {
+        switch audioRecordingSession.recordPermission {
+        case .undetermined:
+            return false
+        case .denied:
+            return false
+        case .granted:
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 //==================================================
