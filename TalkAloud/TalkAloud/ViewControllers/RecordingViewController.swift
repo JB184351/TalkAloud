@@ -20,11 +20,7 @@ class RecordingViewController: UIViewController {
     @IBOutlet private var recordButton: UIButton!
     private var progressTimer: Timer?
     private var visualizerTimer: Timer?
-    private var isGranted: Bool = false {
-        didSet {
-            handleMicrophonePermissions(isGranted: isGranted)
-        }
-    }
+    private var isGranted: Bool = false
     
     //==================================================
     // MARK: - Life Cycle Methods
@@ -52,8 +48,8 @@ class RecordingViewController: UIViewController {
         switch audioState {
         case .stopped:
             guard let url = AudioManager.sharedInstance.createNewAudioRecording()?.url else { return }
-            AudioEngine.sharedInstance.setupRecorder(fileURL: url)
-            self.handleMicrophonePermissions(isGranted: self.isGranted)
+//            AudioEngine.sharedInstance.setupRecorder(fileURL: url)
+            self.handleMicrophonePermissions(isGranted: self.isGranted, url: url)
             recordButton.setImage(UIImage(named: "stopbutton"), for: .normal)
             intializeRecordingTimer()
             displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
@@ -114,8 +110,8 @@ class RecordingViewController: UIViewController {
         recordButton.setImage(UIImage(named: "recordbutton"), for: .normal)
     }
     
-    private func handleMicrophonePermissions(isGranted: Bool) {
-        isGranted ? AudioEngine.sharedInstance.record() : presentSettingsAlertController()
+    private func handleMicrophonePermissions(isGranted: Bool, url: URL) {
+        isGranted ? AudioEngine.sharedInstance.setupRecorder(fileURL: url) : presentSettingsAlertController()
     }
     
     private func presentSettingsAlertController() {
