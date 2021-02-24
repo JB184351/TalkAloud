@@ -45,24 +45,29 @@ class RecordingViewController: UIViewController {
     @IBAction func recordButtonAction(_ sender: Any) {
         let audioState = AudioEngine.sharedInstance.audioState
         
-        switch audioState {
-        case .stopped:
-            guard let url = AudioManager.sharedInstance.createNewAudioRecording()?.url else { return }
-//            AudioEngine.sharedInstance.setupRecorder(fileURL: url)
-            self.handleMicrophonePermissions(isGranted: self.isGranted, url: url)
-            recordButton.setImage(UIImage(named: "stopbutton"), for: .normal)
-            intializeRecordingTimer()
-            displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
-            audioRecordingVisualizer.active = true
-            audioRecordingVisualizer.isHidden = false
-        case .recording:
-            AudioEngine.sharedInstance.stop()
-            resetView()
-            visualizerTimer?.invalidate()
-        case .paused:
-            print("Paused should never be happening")
-        case .playing:
-            print("Should never get here")
+        AudioEngine.sharedInstance.promptForMicrophonePermissions()
+        
+        if !isGranted {
+            presentSettingsAlertController()
+        } else {
+            switch audioState {
+            case .stopped:
+                guard let url = AudioManager.sharedInstance.createNewAudioRecording()?.url else { return }
+                AudioEngine.sharedInstance.setupRecorder(fileURL: url)
+                recordButton.setImage(UIImage(named: "stopbutton"), for: .normal)
+                intializeRecordingTimer()
+                displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
+                audioRecordingVisualizer.active = true
+                audioRecordingVisualizer.isHidden = false
+            case .recording:
+                AudioEngine.sharedInstance.stop()
+                resetView()
+                visualizerTimer?.invalidate()
+            case .paused:
+                print("Paused should never be happening")
+            case .playing:
+                print("Should never get here")
+            }
         }
     }
     

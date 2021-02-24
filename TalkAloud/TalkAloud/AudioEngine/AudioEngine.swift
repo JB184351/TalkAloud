@@ -73,12 +73,6 @@ class AudioEngine: NSObject {
         let settings = [AVFormatIDKey: Int(kAudioFormatAppleLossless), AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
                         AVEncoderBitRateKey : 320000, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
         
-        audioRecordingSession.requestRecordPermission { (isGranted) in
-            DispatchQueue.main.async {
-                self.areRecordingPermissionsGranted = isGranted
-            }
-        }
-        
         do {
             audioRecorder = try AVAudioRecorder(url: fileURL, settings: settings)
         } catch {
@@ -197,19 +191,27 @@ class AudioEngine: NSObject {
     // MARK: - Record
     //==================================================
     
-//    public func record() {
-//        do {
-//            try audioRecordingSession.setCategory(.playAndRecord, mode: .default, options: .allowBluetooth)
-//            try audioRecordingSession.setActive(true)
-//            audioRecorder?.isMeteringEnabled = true
-//        } catch {
-//            print("Failed to record")
-//        }
-//        audioState = .recording
-//        audioRecorder?.record()
-//    }
+    public func record() {
+        do {
+            try audioRecordingSession.setCategory(.playAndRecord, mode: .default, options: .allowBluetooth)
+            try audioRecordingSession.setActive(true)
+            audioRecorder?.isMeteringEnabled = true
+        } catch {
+            print("Failed to record")
+        }
+        audioState = .recording
+        audioRecorder?.record()
+    }
     
-    public func handleMicrophonePermission() -> Bool {
+    public func promptForMicrophonePermissions() {
+        audioRecordingSession.requestRecordPermission { (isGranted) in
+            DispatchQueue.main.async {
+                self.areRecordingPermissionsGranted = isGranted
+            }
+        }
+    }
+    
+    private func handleMicrophonePermission() -> Bool {
         switch audioRecordingSession.recordPermission {
         case .undetermined:
             return false
