@@ -20,7 +20,6 @@ class RecordingViewController: UIViewController {
     @IBOutlet private var recordButton: UIButton!
     private var progressTimer: Timer?
     private var visualizerTimer: Timer?
-    private var isGranted: Bool = false
     
     //==================================================
     // MARK: - Life Cycle Methods
@@ -28,7 +27,6 @@ class RecordingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        AudioEngine.sharedInstance.microphonePermissionDelegate = self
         resetView()
     }
     
@@ -45,32 +43,36 @@ class RecordingViewController: UIViewController {
     @IBAction func recordButtonAction(_ sender: Any) {
         let audioState = AudioEngine.sharedInstance.audioState
         
-        AudioEngine.sharedInstance.promptForMicrophonePermissions()
+        //        AudioEngine.sharedInstance.promptForMicrophonePermissions()
         
-        if !isGranted {
-            presentSettingsAlertController()
-        } else {
-            switch audioState {
-            case .stopped:
-                guard let url = AudioManager.sharedInstance.createNewAudioRecording()?.url else { return }
-                AudioEngine.sharedInstance.setupRecorder(fileURL: url)
-                recordButton.setImage(UIImage(named: "stopbutton"), for: .normal)
-                intializeRecordingTimer()
-                displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
-                audioRecordingVisualizer.active = true
-                audioRecordingVisualizer.isHidden = false
-            case .recording:
-                AudioEngine.sharedInstance.stop()
-                resetView()
-                visualizerTimer?.invalidate()
-            case .paused:
-                print("Paused should never be happening")
-            case .playing:
-                print("Should never get here")
+        AVAudioSession.sharedInstance().requestRecordPermission { (isGranted) in
+            DispatchQueue.main.async {
+                if isGranted {
+                    switch audioState {
+                    case .stopped:
+                        guard let url = AudioManager.sharedInstance.createNewAudioRecording()?.url else { return }
+                        AudioEngine.sharedInstance.setupRecorder(fileURL: url)
+                        self.recordButton.setImage(UIImage(named: "stopbutton"), for: .normal)
+                        self.intializeRecordingTimer()
+                        self.displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
+                        self.audioRecordingVisualizer.active = true
+                        self.audioRecordingVisualizer.isHidden = false
+                    case .recording:
+                        AudioEngine.sharedInstance.stop()
+                        self.resetView()
+                        self.visualizerTimer?.invalidate()
+                    case .paused:
+                        print("Paused should never be happening")
+                    case .playing:
+                        print("Should never get here")
+                    }
+                } else {
+                    self.presentSettingsAlertController()
+                }
             }
         }
+        
     }
-    
     //==================================================
     // MARK: - Private Methods
     //==================================================
@@ -140,13 +142,5 @@ class RecordingViewController: UIViewController {
         
         present(settingsAlertController, animated: true, completion: nil)
     }
-    
-}
-
-extension RecordingViewController: MicrophonePermissionStatusDelegate {
-    func didUpdateMicrophonePermissions(isGranted: Bool) {
-        self.isGranted = isGranted
-    }
-    
     
 }
