@@ -42,9 +42,8 @@ class RecordingViewController: UIViewController {
     
     @IBAction func recordButtonAction(_ sender: Any) {
         let audioState = AudioEngine.sharedInstance.audioState
-        
-        //        AudioEngine.sharedInstance.promptForMicrophonePermissions()
-        
+    
+        // TODO: Encapsulate logic in AudioEngine
         AVAudioSession.sharedInstance().requestRecordPermission { (isGranted) in
             DispatchQueue.main.async {
                 if isGranted {
@@ -115,10 +114,6 @@ class RecordingViewController: UIViewController {
         audioRecordingVisualizer.waveforms.removeAll()
         audioRecordingVisualizer.isHidden = true
         recordButton.setImage(UIImage(named: "recordbutton"), for: .normal)
-    }
-    
-    private func handleMicrophonePermissions(isGranted: Bool, url: URL) {
-        isGranted ? AudioEngine.sharedInstance.setupRecorder(fileURL: url) : presentSettingsAlertController()
     }
     
     private func presentSettingsAlertController() {
