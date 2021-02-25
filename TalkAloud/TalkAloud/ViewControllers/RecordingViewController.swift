@@ -51,6 +51,7 @@ class RecordingViewController: UIViewController {
                     case .stopped:
                         guard let url = AudioManager.sharedInstance.createNewAudioRecording()?.url else { return }
                         AudioEngine.sharedInstance.setupRecorder(fileURL: url)
+                        AudioEngine.sharedInstance.record()
                         self.recordButton.setImage(UIImage(named: "stopbutton"), for: .normal)
                         self.intializeRecordingTimer()
                         self.displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
