@@ -204,6 +204,10 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
         }
     }
     
+    //==================================================
+    // MARK: - AudioState Delegate
+    //==================================================
+    
     public func didUpdateAudioState(with audioState: AudioEngineState) {
         updateUI(audioState: audioState)
     }

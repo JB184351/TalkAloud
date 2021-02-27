@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class RecordingViewController: UIViewController {
     
@@ -41,28 +42,37 @@ class RecordingViewController: UIViewController {
     
     @IBAction func recordButtonAction(_ sender: Any) {
         let audioState = AudioEngine.sharedInstance.audioState
-        
-        switch audioState {
-        case .stopped:
-            guard let url = AudioManager.sharedInstance.createNewAudioRecording()?.url else { return }
-            AudioEngine.sharedInstance.setupRecorder(fileURL: url)
-            AudioEngine.sharedInstance.record()
-            recordButton.setImage(UIImage(named: "stopbutton"), for: .normal)
-            intializeRecordingTimer()
-            displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
-            audioRecordingVisualizer.active = true
-            audioRecordingVisualizer.isHidden = false
-        case .recording:
-            AudioEngine.sharedInstance.stop()
-            resetView()
-            visualizerTimer?.invalidate()
-        case .paused:
-            print("Paused should never be happening")
-        case .playing:
-            print("Should never get here")
-        }
-    }
     
+        // TODO: Encapsulate logic in AudioEngine
+        AVAudioSession.sharedInstance().requestRecordPermission { (isGranted) in
+            DispatchQueue.main.async {
+                if isGranted {
+                    switch audioState {
+                    case .stopped:
+                        guard let url = AudioManager.sharedInstance.createNewAudioRecording()?.url else { return }
+                        AudioEngine.sharedInstance.setupRecorder(fileURL: url)
+                        AudioEngine.sharedInstance.record()
+                        self.recordButton.setImage(UIImage(named: "stopbutton"), for: .normal)
+                        self.intializeRecordingTimer()
+                        self.displayAudioVisualizer(audioState: AudioEngine.sharedInstance.audioState)
+                        self.audioRecordingVisualizer.active = true
+                        self.audioRecordingVisualizer.isHidden = false
+                    case .recording:
+                        AudioEngine.sharedInstance.stop()
+                        self.resetView()
+                        self.visualizerTimer?.invalidate()
+                    case .paused:
+                        print("Paused should never be happening")
+                    case .playing:
+                        print("Should never get here")
+                    }
+                } else {
+                    self.presentSettingsAlertController()
+                }
+            }
+        }
+        
+    }
     //==================================================
     // MARK: - Private Methods
     //==================================================
@@ -105,6 +115,28 @@ class RecordingViewController: UIViewController {
         audioRecordingVisualizer.waveforms.removeAll()
         audioRecordingVisualizer.isHidden = true
         recordButton.setImage(UIImage(named: "recordbutton"), for: .normal)
+    }
+    
+    private func presentSettingsAlertController() {
+        let settingsAlertController = UIAlertController (title: "Microphone Access Required", message: "Turn on microphone permissions in settings", preferredStyle: .alert)
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+            
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)")
+                })
+            }
+        }
+        settingsAlertController.addAction(settingsAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        settingsAlertController.addAction(cancelAction)
+        
+        present(settingsAlertController, animated: true, completion: nil)
     }
     
 }

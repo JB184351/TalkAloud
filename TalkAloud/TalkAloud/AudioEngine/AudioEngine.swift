@@ -192,7 +192,6 @@ class AudioEngine: NSObject {
         audioState = .recording
         audioRecorder?.record()
     }
-    
 }
 
 //==================================================
