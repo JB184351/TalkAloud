@@ -73,6 +73,10 @@ extension String {
         
         return self
     }
+    
+    var removeTrailingWhiteSpaces: String {
+        return self.trimmingCharacters(in: .whitespaces)
+    }
 }
 
 extension UIView {

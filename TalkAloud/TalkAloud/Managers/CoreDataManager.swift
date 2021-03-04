@@ -155,12 +155,14 @@ class CoreDataManager {
         let managedContext = appDelegate.persistentContainer.viewContext
         let changeRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AudioRecordingObject")
         
+        guard let selectedRecordingTags = selectedRecording.tags else { return }
+        
         do {
             let objects = try managedContext.fetch(changeRequest)
             
             for object in objects {
                 let audioRecording = AudioRecording(object: object as! NSManagedObject)
-                if selectedRecording == audioRecording {
+                if selectedRecording == audioRecording && !selectedRecordingTags.contains(tag) {
                     selectedRecording.setTag(tag: tag)
                     break
                 }

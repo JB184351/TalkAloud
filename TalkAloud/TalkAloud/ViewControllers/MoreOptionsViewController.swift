@@ -88,8 +88,15 @@ class MoreOptionsViewController: UIViewController {
         let renameFileAction = UIAlertAction(title: "Done", style: .default) { [unowned editAlertController] action in
             let newFileName = editAlertController.textFields?[0].text
             
-            if let newFileName = newFileName {
-                let errorMessage = AudioManager.sharedInstance.renameFile(with: self.currentlySelectedRecording!, newFileName: newFileName)
+            if let newFileName = newFileName?.removeTrailingWhiteSpaces {
+                var errorMessage: Error?
+                
+                if newFileName == "" || newFileName == " " {
+                    errorMessage = nil
+                } else {
+                    errorMessage = AudioManager.sharedInstance.renameFile(with: self.currentlySelectedRecording!, newFileName: newFileName)
+                }
+                
                 self.delegate?.didUpdateFileName(for: self.currentlySelectedRecording!)
                 if errorMessage != nil {
                     let ac = UIAlertController(title: "Same File Name Exists Already!", message: errorMessage?.localizedDescription, preferredStyle: .alert)
