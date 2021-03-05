@@ -194,7 +194,7 @@ class PlayerViewController: UIViewController, AudioEngineStateChangeDelegate {
     //==================================================
     
     public func play() {
-        if AudioEngine.sharedInstance.getCurrentAudioTime() > 0 {
+        if AudioEngine.sharedInstance.getCurrentAudioTime() >= 0 {
             AudioEngine.sharedInstance.play()
         } else if AudioEngine.sharedInstance.audioState == .stopped {
             AudioEngine.sharedInstance.play(withFileURL: currentAudioRecording!.url)
