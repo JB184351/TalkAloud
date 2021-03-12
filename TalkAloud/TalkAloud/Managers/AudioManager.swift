@@ -183,6 +183,14 @@ class AudioManager {
         }
     }
     
+    public func unSelectAllTags() {
+        for i in 0..<tagModelDataSource.count {
+            if tagModelDataSource[i].isTagSelected == true {
+                tagModelDataSource[i].isTagSelected = false
+            }
+        }
+    }
+    
     //==================================================
     // MARK: - Get/Set AudioRecording
     //==================================================

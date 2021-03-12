@@ -36,6 +36,7 @@ class AudioRecordingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: nil)!
+        AudioManager.sharedInstance.unSelectAllTags()
         recordingsTableView.reloadData()
     }
     
