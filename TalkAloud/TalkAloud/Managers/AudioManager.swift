@@ -25,6 +25,7 @@ class AudioManager {
     private var audioRecording: AudioRecording?
     private var audioRecordings: [AudioRecording] = []
     private var tagModelDataSource: [TagModel] = []
+    private var allSelectedTags: [TagModel] = []
     private var filteredAudioRecordings: [AudioRecording] = []
     private var didNewRecording = false
     
@@ -183,12 +184,52 @@ class AudioManager {
         }
     }
     
+    public func getAllSelectedTags() {
+        var numberOfRecordingsWithSameTag = 0
+        
+        for tagModel in tagModelDataSource {
+            for audioRecording in audioRecordings {
+                if let audioRecordingTags = audioRecording.tags {
+                    if audioRecordingTags.contains(tagModel.tag) && tagModel.isTagSelected {
+                        numberOfRecordingsWithSameTag += 1
+                
+                        if numberOfRecordingsWithSameTag > 1 {
+                            allSelectedTags.append(tagModel)
+                            numberOfRecordingsWithSameTag = 0
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     public func unSelectAllTags() {
         for i in 0..<tagModelDataSource.count {
             if tagModelDataSource[i].isTagSelected == true {
                 tagModelDataSource[i].isTagSelected = false
             }
         }
+    }
+    
+    public func addSelectedTagsToDataSource() {
+        for i in 0..<allSelectedTags.count {
+            if !tagModelDataSource.contains(allSelectedTags[i]) {
+                tagModelDataSource.append(allSelectedTags[i])
+            }
+        }
+        
+        allSelectedTags.removeAll()
+    }
+    
+    public func getAllTags() -> [TagModel] {
+        if tagModelDataSource.allSatisfy({ $0.isTagSelected == false }) {
+            if let tagModelDataSource = getAllAudioRecordingTags() {
+                self.tagModelDataSource = tagModelDataSource
+                return self.tagModelDataSource
+            }
+        }
+        
+        return tagModelDataSource
     }
     
     //==================================================
