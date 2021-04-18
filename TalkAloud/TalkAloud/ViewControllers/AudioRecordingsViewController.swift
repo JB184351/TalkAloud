@@ -135,32 +135,34 @@ extension AudioRecordingsViewController: AudioRecordingCellDelegate {
 extension AudioRecordingsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        let tags = AudioManager.sharedInstance.getAllTags()
-        
-        if tags.count > 0 {
-            return 2
+        if let tags = AudioManager.sharedInstance.getAllAudioRecordingTags() {
+            if tags.count > 0 {
+                return 2
+            }
         }
         
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let tags = AudioManager.sharedInstance.getAllTags()
-        if tags.count > 0 && section == 0 {
-            return 1
+        if let tags = AudioManager.sharedInstance.getAllAudioRecordingTags() {
+            if tags.count > 0 && section == 0 {
+                return 1
+            }
         }
         
         return audioRecordings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let tags = AudioManager.sharedInstance.getAllTags()
-        if tags.count > 0 {
-            if indexPath.section == 0 {
-                let tagCell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath) as! TagCollectionViewTableViewCell
-                tagCell.updateTagCells()
-                tagCell.delegate = self
-                return tagCell
+        if let tags = AudioManager.sharedInstance.getAllAudioRecordingTags() {
+            if tags.count > 0 {
+                if indexPath.section == 0 {
+                    let tagCell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath) as! TagCollectionViewTableViewCell
+                    tagCell.updateTagCells()
+                    tagCell.delegate = self
+                    return tagCell
+                }
             }
         }
         
@@ -218,16 +220,14 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             
             let deleteAlertController = UIAlertController(title: "Are you sure you want to delete?", message: "You won't be able to recover this file", preferredStyle: .alert)
             let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
-                AudioManager.sharedInstance.getAllSelectedTags()
-                AudioManager.sharedInstance.removeAudioRecording(with: currentRecording)
-                self.audioRecordings.remove(at: indexPath.row)
                 AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: currentRecordingTags)
+                AudioManager.sharedInstance.removeAudioRecording(with: currentRecording)
+                let selectedTagCount = AudioManager.sharedInstance.getAllSelectedTagCount()
+                self.audioRecordings.remove(at: indexPath.row)
                 self.recordingsTableView.beginUpdates()
                 self.recordingsTableView.deleteRows(at: [indexPath], with: .none)
                 
-                AudioManager.sharedInstance.addSelectedTagsToDataSource()
-                
-                let tagCount = AudioManager.sharedInstance.getAllTags().count
+                guard let tagCount = AudioManager.sharedInstance.getAllAudioRecordingTags()?.count else { return }
                 
                 if tagCount > 0 {
                     self.recordingsTableView.reloadSections(IndexSet(integer: 0), with: .none)
@@ -236,6 +236,11 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 }
                 
                 self.recordingsTableView.endUpdates()
+                
+                if selectedTagCount == 0 {
+                    self.loadAudioRecordings(with: nil)
+                }
+                
             })
             
             let cancelDeleteAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in

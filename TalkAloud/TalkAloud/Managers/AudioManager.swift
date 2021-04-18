@@ -177,30 +177,25 @@ class AudioManager {
     }
     
     public func removeTagsFromTagModelDataSource(tags: [String]) {
-        for tag in tags {
-            if let index = self.tagModelDataSource.firstIndex(where: { $0.tag == tag }) {
-                self.tagModelDataSource.remove(at: index)
-            }
-        }
-    }
-    
-    public func getAllSelectedTags() {
-        var numberOfRecordingsWithSameTag = 0
+        let allAudioRecordings = loadAllRecordings()!
+        var multipleRecordingsWithSameTagCount = 0
         
-        for tagModel in tagModelDataSource {
-            for audioRecording in audioRecordings {
-                if let audioRecordingTags = audioRecording.tags {
-                    if audioRecordingTags.contains(tagModel.tag) && tagModel.isTagSelected {
-                        numberOfRecordingsWithSameTag += 1
-                
-                        if numberOfRecordingsWithSameTag > 1 {
-                            allSelectedTags.append(tagModel)
-                            numberOfRecordingsWithSameTag = 0
-                        }
-                    }
+        for audioRecording in allAudioRecordings {
+            if let audioRecordingTags = audioRecording.tags {
+                if audioRecordingTags.containsSameElements(as: tags) {
+                    multipleRecordingsWithSameTagCount += 1
                 }
             }
         }
+        
+        if multipleRecordingsWithSameTagCount == 1 {
+           tagModelDataSource = tagModelDataSource.filter({ $0.isTagSelected == false })
+        }
+        
+    }
+    
+    func getAllSelectedTagCount() -> Int {
+        return tagModelDataSource.filter({ $0.isTagSelected == true }).map({ $0.tag }).count
     }
     
     public func unSelectAllTags() {
@@ -219,17 +214,6 @@ class AudioManager {
         }
         
         allSelectedTags.removeAll()
-    }
-    
-    public func getAllTags() -> [TagModel] {
-        if tagModelDataSource.allSatisfy({ $0.isTagSelected == false }) {
-            if let tagModelDataSource = getAllAudioRecordingTags() {
-                self.tagModelDataSource = tagModelDataSource
-                return self.tagModelDataSource
-            }
-        }
-        
-        return tagModelDataSource
     }
     
     //==================================================
