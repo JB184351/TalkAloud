@@ -188,8 +188,16 @@ class AudioManager {
             }
         }
         
-        if multipleRecordingsWithSameTagCount == 1 {
+        let isFiltered = tagModelDataSource.contains(where: { $0.isTagSelected })
+        
+        if multipleRecordingsWithSameTagCount == 1 && isFiltered {
            tagModelDataSource = tagModelDataSource.filter({ $0.isTagSelected == false })
+        } else if multipleRecordingsWithSameTagCount == 1 && !isFiltered {
+            for tag in tags {
+                if let index = tagModelDataSource.firstIndex(where: { $0.tag == tag }) {
+                    tagModelDataSource.remove(at: index)
+                }
+            }
         }
         
     }
