@@ -25,7 +25,6 @@ class AudioManager {
     private var audioRecording: AudioRecording?
     private var audioRecordings: [AudioRecording] = []
     private var tagModelDataSource: [TagModel] = []
-    private var allSelectedTags: [TagModel] = []
     private var filteredAudioRecordings: [AudioRecording] = []
     private var didNewRecording = false
     
@@ -202,8 +201,12 @@ class AudioManager {
         
     }
     
-    func getAllSelectedTagCount() -> Int {
+    public func getAllSelectedTagCount() -> Int {
         return tagModelDataSource.filter({ $0.isTagSelected == true }).map({ $0.tag }).count
+    }
+    
+    public func allSelectedTags() -> [TagModel]? {
+        return tagModelDataSource.filter({ $0.isTagSelected })
     }
     
     public func unSelectAllTags() {
@@ -212,16 +215,6 @@ class AudioManager {
                 tagModelDataSource[i].isTagSelected = false
             }
         }
-    }
-    
-    public func addSelectedTagsToDataSource() {
-        for i in 0..<allSelectedTags.count {
-            if !tagModelDataSource.contains(allSelectedTags[i]) {
-                tagModelDataSource.append(allSelectedTags[i])
-            }
-        }
-        
-        allSelectedTags.removeAll()
     }
     
     //==================================================

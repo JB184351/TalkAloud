@@ -162,9 +162,10 @@ class MoreOptionsViewController: UIViewController {
         let cancelTagAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
-            AudioManager.sharedInstance.removeTag(for: self.currentlySelectedRecording!)
-            AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: currentRecordingTags)
             self.delegate?.didRemoveTags(for: self.currentlySelectedRecording!)
+            // Added a dismiss here incase we are filtering
+            // makes it clear that a new recording should be selected
+            self.dismiss(animated: true)
         }
         
         if currentRecordingTags.count < 1 {

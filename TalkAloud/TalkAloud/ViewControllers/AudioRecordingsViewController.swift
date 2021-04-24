@@ -80,11 +80,16 @@ extension AudioRecordingsViewController: MoreOptionsDelegate {
     func didDelete(selectedRecording: AudioRecording?) {
         guard let tags = selectedRecording?.tags else { return }
         
-        AudioManager.sharedInstance.removeAudioRecording(with: selectedRecording!)
         AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: tags)
+        AudioManager.sharedInstance.removeAudioRecording(with: selectedRecording!)
         
-        audioRecordings = AudioManager.sharedInstance.loadAudioRecordings()!
-        self.recordingsTableView.reloadData()
+        let selectedTagCount = AudioManager.sharedInstance.getAllSelectedTagCount()
+        
+        if selectedTagCount >= 1 {
+            self.loadAudioRecordings(with: AudioManager.sharedInstance.allSelectedTags())
+        } else {
+            self.loadAudioRecordings(with: nil)
+        }
     }
     
     func didAddTag(for selectedRecording: AudioRecording?) {
@@ -94,10 +99,16 @@ extension AudioRecordingsViewController: MoreOptionsDelegate {
     func didRemoveTags(for recording: AudioRecording?) {
         guard let currentRecordingTags = recording?.tags else { return }
         
-        AudioManager.sharedInstance.removeTag(for: recording!)
         AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: currentRecordingTags)
+        AudioManager.sharedInstance.removeTag(for: recording!)
         
-        self.recordingsTableView.reloadData()
+        let selectedTagCount = AudioManager.sharedInstance.getAllSelectedTagCount()
+        
+        if selectedTagCount >= 1 {
+            self.loadAudioRecordings(with: AudioManager.sharedInstance.allSelectedTags())
+        } else {
+            self.loadAudioRecordings(with: nil)
+        }
     }
     
     func didUpdateFileName(for selectedRecording: AudioRecording) {
@@ -350,6 +361,14 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                     self.recordingsTableView.reloadRows(at: [indexPath], with: .none)
                     self.recordingsTableView.deleteSections(IndexSet(integer: 0), with: .none)
                     self.recordingsTableView.endUpdates()
+                }
+                
+                let selectedTagCount = AudioManager.sharedInstance.getAllSelectedTagCount()
+                
+                if selectedTagCount >= 1 {
+                    self.loadAudioRecordings(with: AudioManager.sharedInstance.allSelectedTags())
+                } else {
+                    self.loadAudioRecordings(with: nil)
                 }
                 
                 completionHandler(true)
