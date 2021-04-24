@@ -178,21 +178,21 @@ class AudioManager {
     
     public func removeTagsFromTagModelDataSource(tags: [String]) {
         let allAudioRecordings = loadAllRecordings()!
-        var multipleRecordingsWithSameTagCount = 0
+        var numberOfRecordingsWithSameTags = 0
         
         for audioRecording in allAudioRecordings {
             if let audioRecordingTags = audioRecording.tags {
                 if audioRecordingTags.containsSameElements(as: tags) {
-                    multipleRecordingsWithSameTagCount += 1
+                    numberOfRecordingsWithSameTags += 1
                 }
             }
         }
         
         let isFiltered = tagModelDataSource.contains(where: { $0.isTagSelected })
         
-        if multipleRecordingsWithSameTagCount == 1 && isFiltered {
+        if numberOfRecordingsWithSameTags == 1 && isFiltered {
            tagModelDataSource = tagModelDataSource.filter({ $0.isTagSelected == false })
-        } else if multipleRecordingsWithSameTagCount == 1 && !isFiltered {
+        } else if numberOfRecordingsWithSameTags == 1 && !isFiltered {
             for tag in tags {
                 if let index = tagModelDataSource.firstIndex(where: { $0.tag == tag }) {
                     tagModelDataSource.remove(at: index)
