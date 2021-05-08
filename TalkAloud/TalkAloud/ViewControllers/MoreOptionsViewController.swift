@@ -156,7 +156,6 @@ class MoreOptionsViewController: UIViewController {
             if tagName.isEmpty || tagName.containsOnlyWhiteSpaces {
                 self.editTagAction()
             }
-            
     
             if !tagName.isEmpty && !tagName.containsOnlyWhiteSpaces {
                 AudioManager.sharedInstance.setTag(for: self.currentlySelectedRecording!, tag: tagName)
