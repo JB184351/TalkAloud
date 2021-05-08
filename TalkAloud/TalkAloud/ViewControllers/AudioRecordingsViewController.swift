@@ -312,13 +312,13 @@ extension AudioRecordingsViewController: UITableViewDelegate {
         }
         
         let tagAction = UIContextualAction(style: .normal, title: "Tag") { (action, view, completionHandler) in
-            let tagAlertController = UIAlertController(title: "Edit Tag", message: nil, preferredStyle: .alert)
+            let tagAlertController = UIAlertController(title: "Edit Tag", message: "Blank tags will not be accepted", preferredStyle: .alert)
             tagAlertController.addTextField()
             
             let addTagAction = UIAlertAction(title: "Add", style: .default) { [unowned tagAlertController] action in
-                let tagName = tagAlertController.textFields?[0].text
+                guard let tagName = tagAlertController.textFields?[0].text?.removeTrailingWhiteSpaces else { return }
                 
-                if let tagName = tagName {
+                if !tagName.isEmpty && !tagName.containsOnlyWhiteSpaces {
                     AudioManager.sharedInstance.setTag(for: currentRecording, tag: tagName)
                     let tagModel = TagModel(tag: tagName, isTagSelected: false)
                     AudioManager.sharedInstance.addTag(tagModel: tagModel)

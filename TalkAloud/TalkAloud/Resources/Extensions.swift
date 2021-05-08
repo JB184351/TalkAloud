@@ -77,6 +77,16 @@ extension String {
     var removeTrailingWhiteSpaces: String {
         return self.trimmingCharacters(in: .whitespaces)
     }
+    
+    var containsOnlyWhiteSpaces: Bool {
+        for char in self {
+            if char != " " {
+                return false
+            }
+        }
+        
+        return true
+    }
 }
 
 extension UIView {

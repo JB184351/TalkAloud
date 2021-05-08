@@ -147,13 +147,18 @@ class MoreOptionsViewController: UIViewController {
     private func editTagAction() {
         guard let currentRecordingTags = self.currentlySelectedRecording?.tags else { return }
         
-        let tagAlertController = UIAlertController(title: "Edit Tag", message: nil, preferredStyle: .alert)
+        let tagAlertController = UIAlertController(title: "Edit Tag", message: "Blank tags will not be accepted", preferredStyle: .alert)
         tagAlertController.addTextField()
         
         let addTagAction = UIAlertAction(title: "Add", style: .default) { [unowned tagAlertController] action in
-            let tagName = tagAlertController.textFields?[0].text
+            guard let tagName = tagAlertController.textFields?[0].text?.removeTrailingWhiteSpaces else { return }
+    
+            if tagName.isEmpty || tagName.containsOnlyWhiteSpaces {
+                self.editTagAction()
+            }
             
-            if let tagName = tagName {
+    
+            if !tagName.isEmpty && !tagName.containsOnlyWhiteSpaces {
                 AudioManager.sharedInstance.setTag(for: self.currentlySelectedRecording!, tag: tagName)
                 self.delegate?.didAddTag(for: self.currentlySelectedRecording)
             }
