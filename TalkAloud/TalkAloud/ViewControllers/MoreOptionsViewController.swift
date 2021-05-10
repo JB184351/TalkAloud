@@ -88,8 +88,15 @@ class MoreOptionsViewController: UIViewController {
         let renameFileAction = UIAlertAction(title: "Done", style: .default) { [unowned editAlertController] action in
             let newFileName = editAlertController.textFields?[0].text
             
-            if let newFileName = newFileName {
-                let errorMessage = AudioManager.sharedInstance.renameFile(with: self.currentlySelectedRecording!, newFileName: newFileName)
+            if let newFileName = newFileName?.removeTrailingWhiteSpaces {
+                var errorMessage: Error?
+                
+                if newFileName == "" || newFileName == " " {
+                    errorMessage = nil
+                } else {
+                    errorMessage = AudioManager.sharedInstance.renameFile(with: self.currentlySelectedRecording!, newFileName: newFileName)
+                }
+                
                 self.delegate?.didUpdateFileName(for: self.currentlySelectedRecording!)
                 if errorMessage != nil {
                     let ac = UIAlertController(title: "Same File Name Exists Already!", message: errorMessage?.localizedDescription, preferredStyle: .alert)
@@ -140,13 +147,17 @@ class MoreOptionsViewController: UIViewController {
     private func editTagAction() {
         guard let currentRecordingTags = self.currentlySelectedRecording?.tags else { return }
         
-        let tagAlertController = UIAlertController(title: "Edit Tag", message: nil, preferredStyle: .alert)
+        let tagAlertController = UIAlertController(title: "Edit Tag", message: "Blank tags will not be accepted", preferredStyle: .alert)
         tagAlertController.addTextField()
         
         let addTagAction = UIAlertAction(title: "Add", style: .default) { [unowned tagAlertController] action in
-            let tagName = tagAlertController.textFields?[0].text
-            
-            if let tagName = tagName {
+            guard let tagName = tagAlertController.textFields?[0].text?.removeTrailingWhiteSpaces else { return }
+    
+            if tagName.isEmpty || tagName.containsOnlyWhiteSpaces {
+                self.editTagAction()
+            }
+    
+            if !tagName.isEmpty && !tagName.containsOnlyWhiteSpaces {
                 AudioManager.sharedInstance.setTag(for: self.currentlySelectedRecording!, tag: tagName)
                 self.delegate?.didAddTag(for: self.currentlySelectedRecording)
             }
@@ -155,9 +166,10 @@ class MoreOptionsViewController: UIViewController {
         let cancelTagAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         let removeTagAction = UIAlertAction(title: "Remove Tags", style: .destructive) { (UIAlertAction) in
-            AudioManager.sharedInstance.removeTag(for: self.currentlySelectedRecording!)
-            AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: currentRecordingTags)
             self.delegate?.didRemoveTags(for: self.currentlySelectedRecording!)
+            // Added a dismiss here incase we are filtering
+            // makes it clear that a new recording should be selected
+            self.dismiss(animated: true)
         }
         
         if currentRecordingTags.count < 1 {

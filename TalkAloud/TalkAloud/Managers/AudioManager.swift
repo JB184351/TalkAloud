@@ -176,9 +176,43 @@ class AudioManager {
     }
     
     public func removeTagsFromTagModelDataSource(tags: [String]) {
-        for tag in tags {
-            if let index = self.tagModelDataSource.firstIndex(where: { $0.tag == tag }) {
-                self.tagModelDataSource.remove(at: index)
+        let allAudioRecordings = loadAllRecordings()!
+        var numberOfRecordingsWithSameTags = 0
+        
+        for audioRecording in allAudioRecordings {
+            if let audioRecordingTags = audioRecording.tags {
+                if audioRecordingTags.containsSameElements(as: tags) {
+                    numberOfRecordingsWithSameTags += 1
+                }
+            }
+        }
+        
+        let isFiltered = tagModelDataSource.contains(where: { $0.isTagSelected })
+        
+        if numberOfRecordingsWithSameTags == 1 && isFiltered {
+           tagModelDataSource = tagModelDataSource.filter({ $0.isTagSelected == false })
+        } else if numberOfRecordingsWithSameTags == 1 && !isFiltered {
+            for tag in tags {
+                if let index = tagModelDataSource.firstIndex(where: { $0.tag == tag }) {
+                    tagModelDataSource.remove(at: index)
+                }
+            }
+        }
+        
+    }
+    
+    public func getAllSelectedTagCount() -> Int {
+        return tagModelDataSource.filter({ $0.isTagSelected == true }).map({ $0.tag }).count
+    }
+    
+    public func allSelectedTags() -> [TagModel]? {
+        return tagModelDataSource.filter({ $0.isTagSelected })
+    }
+    
+    public func unSelectAllTags() {
+        for i in 0..<tagModelDataSource.count {
+            if tagModelDataSource[i].isTagSelected == true {
+                tagModelDataSource[i].isTagSelected = false
             }
         }
     }

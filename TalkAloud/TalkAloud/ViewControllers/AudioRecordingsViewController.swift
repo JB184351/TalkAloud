@@ -36,6 +36,7 @@ class AudioRecordingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         audioRecordings = AudioManager.sharedInstance.loadAudioRecordings(with: nil)!
+        AudioManager.sharedInstance.unSelectAllTags()
         recordingsTableView.reloadData()
     }
     
@@ -79,11 +80,16 @@ extension AudioRecordingsViewController: MoreOptionsDelegate {
     func didDelete(selectedRecording: AudioRecording?) {
         guard let tags = selectedRecording?.tags else { return }
         
-        AudioManager.sharedInstance.removeAudioRecording(with: selectedRecording!)
         AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: tags)
+        AudioManager.sharedInstance.removeAudioRecording(with: selectedRecording!)
         
-        audioRecordings = AudioManager.sharedInstance.loadAudioRecordings()!
-        self.recordingsTableView.reloadData()
+        let selectedTagCount = AudioManager.sharedInstance.getAllSelectedTagCount()
+        
+        if selectedTagCount >= 1 {
+            self.loadAudioRecordings(with: AudioManager.sharedInstance.allSelectedTags())
+        } else {
+            self.loadAudioRecordings(with: nil)
+        }
     }
     
     func didAddTag(for selectedRecording: AudioRecording?) {
@@ -93,10 +99,16 @@ extension AudioRecordingsViewController: MoreOptionsDelegate {
     func didRemoveTags(for recording: AudioRecording?) {
         guard let currentRecordingTags = recording?.tags else { return }
         
-        AudioManager.sharedInstance.removeTag(for: recording!)
         AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: currentRecordingTags)
+        AudioManager.sharedInstance.removeTag(for: recording!)
         
-        self.recordingsTableView.reloadData()
+        let selectedTagCount = AudioManager.sharedInstance.getAllSelectedTagCount()
+        
+        if selectedTagCount >= 1 {
+            self.loadAudioRecordings(with: AudioManager.sharedInstance.allSelectedTags())
+        } else {
+            self.loadAudioRecordings(with: nil)
+        }
     }
     
     func didUpdateFileName(for selectedRecording: AudioRecording) {
@@ -219,9 +231,10 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             
             let deleteAlertController = UIAlertController(title: "Are you sure you want to delete?", message: "You won't be able to recover this file", preferredStyle: .alert)
             let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler:  { _ in
-                AudioManager.sharedInstance.removeAudioRecording(with: currentRecording)
-                self.audioRecordings.remove(at: indexPath.row)
                 AudioManager.sharedInstance.removeTagsFromTagModelDataSource(tags: currentRecordingTags)
+                AudioManager.sharedInstance.removeAudioRecording(with: currentRecording)
+                let selectedTagCount = AudioManager.sharedInstance.getAllSelectedTagCount()
+                self.audioRecordings.remove(at: indexPath.row)
                 self.recordingsTableView.beginUpdates()
                 self.recordingsTableView.deleteRows(at: [indexPath], with: .none)
                 
@@ -234,6 +247,11 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                 }
                 
                 self.recordingsTableView.endUpdates()
+                
+                if selectedTagCount == 0 {
+                    self.loadAudioRecordings(with: nil)
+                }
+                
             })
             
             let cancelDeleteAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
@@ -256,8 +274,14 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             let renameFileAction = UIAlertAction(title: "Done", style: .default) { [unowned editAlertController] action in
                 let newFileName = editAlertController.textFields?[0].text
                 
-                if let newFileName = newFileName {
-                    let errorMessage = AudioManager.sharedInstance.renameFile(with: currentRecording, newFileName: newFileName)
+                if let newFileName = newFileName?.removeTrailingWhiteSpaces {
+                    var errorMessage: Error?
+                    
+                    if newFileName == "" || newFileName == " " {
+                        errorMessage = nil
+                    } else {
+                        errorMessage = AudioManager.sharedInstance.renameFile(with: currentRecording, newFileName: newFileName)
+                    }
                     
                     if errorMessage != nil {
                         let ac = UIAlertController(title: "Same File Name Exists Already!", message: errorMessage?.localizedDescription, preferredStyle: .alert)
@@ -288,13 +312,13 @@ extension AudioRecordingsViewController: UITableViewDelegate {
         }
         
         let tagAction = UIContextualAction(style: .normal, title: "Tag") { (action, view, completionHandler) in
-            let tagAlertController = UIAlertController(title: "Edit Tag", message: nil, preferredStyle: .alert)
+            let tagAlertController = UIAlertController(title: "Edit Tag", message: "Blank tags will not be accepted", preferredStyle: .alert)
             tagAlertController.addTextField()
             
             let addTagAction = UIAlertAction(title: "Add", style: .default) { [unowned tagAlertController] action in
-                let tagName = tagAlertController.textFields?[0].text
+                guard let tagName = tagAlertController.textFields?[0].text?.removeTrailingWhiteSpaces else { return }
                 
-                if let tagName = tagName {
+                if !tagName.isEmpty && !tagName.containsOnlyWhiteSpaces {
                     AudioManager.sharedInstance.setTag(for: currentRecording, tag: tagName)
                     let tagModel = TagModel(tag: tagName, isTagSelected: false)
                     AudioManager.sharedInstance.addTag(tagModel: tagModel)
@@ -338,6 +362,16 @@ extension AudioRecordingsViewController: UITableViewDelegate {
                     self.recordingsTableView.deleteSections(IndexSet(integer: 0), with: .none)
                     self.recordingsTableView.endUpdates()
                 }
+                
+                let selectedTagCount = AudioManager.sharedInstance.getAllSelectedTagCount()
+                
+                if selectedTagCount >= 1 {
+                    self.loadAudioRecordings(with: AudioManager.sharedInstance.allSelectedTags())
+                } else {
+                    self.loadAudioRecordings(with: nil)
+                }
+                
+                completionHandler(true)
             }
             
             // Came across a use case where a user could mistap the removeTag button
@@ -356,8 +390,8 @@ extension AudioRecordingsViewController: UITableViewDelegate {
             self.present(tagAlertController, animated: true)
         }
         
-        editAction.backgroundColor = .cyan
-        tagAction.backgroundColor = .systemYellow
+        editAction.backgroundColor = .systemBlue
+        tagAction.backgroundColor = .orange
         
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction, tagAction])
         return configuration
